@@ -7,19 +7,18 @@
 *.jar
 *.war
 *.ear
+!/Java/lib/javadesigner.jar
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
 # Modelio Files
-/project.conf
-/.runtime
-/data/.config
-/data/localmodel
-/data/**/.index
-!/lib/javadesigner.jar
+/UML/project.conf
+/UML/.runtime
+/UML/data/.config
+/UML/data/localmodel
+/UML/data/**/.index
 
 # compile files
-/bin/
-/src/bombinsa.xml
-
+/Java/bin/
+/Java/src/bombinsa.xml
