@@ -12,6 +12,7 @@
 hs_err_pid*
 
 # Modelio Files
+/project.conf
 /.runtime
 /data/.config
 /data/localmodel
