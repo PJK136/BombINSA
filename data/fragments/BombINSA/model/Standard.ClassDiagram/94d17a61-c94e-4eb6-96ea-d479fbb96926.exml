@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Controllers" version="4">
+  <OBJECT>
+    <ID name="Controllers" mc="Standard.ClassDiagram" uid="94d17a61-c94e-4eb6-96ea-d479fbb96926"/>
+    <PID name="game" mc="Standard.Package" uid="8dc6cc71-fad5-4b27-9d9c-f44a7baed172"/>
+    <ATTRIBUTES>
+      <ATT name="UiDataVersion">119</ATT>
+      <ATT name="UiData"><![CDATA[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]]></ATT>
+      <ATT name="Name"><![CDATA[Controllers]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <LINK relation="Represented">
+        <ID name="Controller" mc="Standard.Class" uid="794db354-1a0b-4b63-9087-5353187a5919"/>
+        <REFOBJ>
+          <ID name="Controller" mc="Standard.Operation" uid="49a9b3a3-aace-4724-9916-7d0763f52797"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="move" mc="Standard.Operation" uid="54fdc83d-eeb6-431b-bfd2-c43ed4e95fe1"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="plantBomb" mc="Standard.Operation" uid="55ab3986-4268-475f-b335-c2ac9a9ff690"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="direction" mc="Standard.Attribute" uid="6decc51f-7b91-435b-a23e-f5e854f1454d"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="planting" mc="Standard.Attribute" uid="cd7b303a-4323-46dd-8f0d-81eb15b7689c"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="update" mc="Standard.Operation" uid="3507e829-eed4-4009-935c-79f085780be3"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="setDirection" mc="Standard.Operation" uid="41fc6ec8-f9c0-4314-ab40-fbdc056b87e1"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="getDirection" mc="Standard.Operation" uid="c3a2ff01-466b-42fa-8b41-351612bdfe2b"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="setPlanting" mc="Standard.Operation" uid="e4b62381-e337-4e48-b863-af6500540599"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="isPlanting" mc="Standard.Operation" uid="9d25d602-42db-4e12-9866-ed66cff5670e"/>
+        </REFOBJ>
+        <ID name="Player" mc="Standard.Class" uid="e3bd57e8-28ae-4908-9d47-82594d4a19d1"/>
+        <REFOBJ>
+          <ID name="setBombCount" mc="Standard.Operation" uid="8d81f238-f36b-4991-a16a-5713a0a257a6"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="update" mc="Standard.Operation" uid="b64251c2-4eff-4e14-b39f-f2a84fb565d7"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="getPlayerAbilities" mc="Standard.Operation" uid="85eaf0ff-81d8-4a07-b3c5-0c2b9d7166ab"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="bombCount" mc="Standard.Attribute" uid="4d6b8aa5-64b2-482a-a26b-81c5d7f43e04"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="getBombMax" mc="Standard.Operation" uid="b563d913-16b9-4190-9ca9-949cf0653621"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="lives" mc="Standard.Attribute" uid="7b2bdcd5-8ffe-4abc-9f50-9ad12d6a7516"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="setFire" mc="Standard.Operation" uid="4d1bfd0d-2352-434a-a684-c109a64015ae"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="setPlayerAbilities" mc="Standard.Operation" uid="0d02f311-709c-4d22-85b1-751eb43c10d8"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="fire" mc="Standard.Attribute" uid="48101627-07b0-4b99-a298-5f675134063b"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="bombMax" mc="Standard.Attribute" uid="4bc1c5a3-05fe-4f89-a66a-71b8f5749575"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="setBombMax" mc="Standard.Operation" uid="b0ba51e0-29f8-43f8-9aae-24533bc22708"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="getFire" mc="Standard.Operation" uid="a7bbc482-8b4c-4694-95d9-4d8d5fec2430"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="playerAbilities" mc="Standard.Attribute" uid="b73bb282-e407-4494-9961-76ff9873c811"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="getLives" mc="Standard.Operation" uid="cf5215ad-6268-42d1-9a65-cc326ec0deb9"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="setLives" mc="Standard.Operation" uid="7c905bf0-9c37-42c5-9c6e-22157c4759d1"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="getBombCount" mc="Standard.Operation" uid="138a7aef-a11c-44d3-bf7b-721594c73f4d"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="" mc="Standard.AssociationEnd" uid="c91a2f2b-8797-477f-8ce8-02992fb8b462"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="player" mc="Standard.AssociationEnd" uid="4f01695c-8624-467e-8504-59563b0552e0"/>
+        </REFOBJ>
+      </LINK>
+      <COMP relation="Descriptor">
+        <OBJECT>
+          <ID name="" mc="Infrastructure.Note" uid="4c6c2fd5-6336-4e94-ad1c-14fb32b81153"/>
+          <ATTRIBUTES>
+            <ATT name="Content"></ATT>
+            <ATT name="MimeType"></ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Model">
+              <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

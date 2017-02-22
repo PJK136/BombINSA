@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="BombINSA" version="4">
+  <OBJECT>
+    <ID name="BombINSA" mc="Infrastructure.DiagramSet" uid="92025087-e7ce-4b01-a1c4-7b7e888abe2a"/>
+    <PID name="BombINSA" mc="Standard.Project" uid="6c776050-3588-4fd1-a908-53c020116f06"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[BombINSA]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Sub">
+        <COMPID name="Auto Diagrams" mc="Infrastructure.DiagramSet" uid="11e58c55-57dc-494c-8903-a7c37cf82163"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
