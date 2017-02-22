@@ -15,6 +15,7 @@ hs_err_pid*
 /.runtime
 /data/.config
 /data/localmodel
+/data/**/.index
 !/lib/javadesigner.jar
 
 # compile files
