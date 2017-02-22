@@ -12,4 +12,11 @@
 hs_err_pid*
 
 # Modelio Files
-.runtime
+/.runtime
+
+# compile files
+/bin/
+/data/.config
+/data/localmodel
+/src/bombinsa.xml
+
