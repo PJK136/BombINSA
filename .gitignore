@@ -13,10 +13,11 @@ hs_err_pid*
 
 # Modelio Files
 /.runtime
+/data/.config
+/data/localmodel
+!/lib/javadesigner.jar
 
 # compile files
 /bin/
-/data/.config
-/data/localmodel
 /src/bombinsa.xml
 
