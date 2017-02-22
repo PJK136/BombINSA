@@ -14,7 +14,7 @@
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="OwnedBehavior">
-        <COMPID name="Update cycle" mc="Standard.CommunicationInteraction" uid="9678a078-b0d0-476d-bb97-ef4334034954"/>
+        <COMPID name="Update World" mc="Standard.Activity" uid="7bb643fa-cf61-4fa1-bcfd-04472b9ed8fb"/>
       </COMP>
       <COMP relation="OwnedElement">
         <COMPID name="Entity" mc="Standard.Class" uid="c2a5ec32-8fb5-4eea-beff-33ee327f4352"/>
