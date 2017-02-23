@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Player" version="4">
   <OBJECT>
-    <ID name="Player" mc="Standard.Class" uid="e3bd57e8-28ae-4908-9d47-82594d4a19d1"/>
+    <ID name="Player" mc="Standard.Class" uid="7d9743df-c7cd-4679-9771-fa22b1be441d"/>
     <PID name="game" mc="Standard.Package" uid="8dc6cc71-fad5-4b27-9d9c-f44a7baed172"/>
     <ATTRIBUTES>
       <ATT name="IsActive">false</ATT>
@@ -17,7 +17,7 @@
     <DEPENDENCIES>
       <COMP relation="OwnedOperation">
         <OBJECT>
-          <ID name="getLives" mc="Standard.Operation" uid="cf5215ad-6268-42d1-9a65-cc326ec0deb9"/>
+          <ID name="getLives" mc="Standard.Operation" uid="007b7078-5eba-4ff5-a413-43e779f00b19"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -31,7 +31,7 @@
           <DEPENDENCIES>
             <COMP relation="Return">
               <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="2e7d361f-3b3d-408c-97be-ee9224e747d5"/>
+                <ID name="" mc="Standard.Parameter" uid="1c3269c9-14dc-44a6-970d-0599f934d4bf"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -58,7 +58,7 @@
             </LINK>
             <COMP relation="DependsOnDependency">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Dependency" uid="19b3cad9-8519-464f-b7a7-70d49f8e02b6"/>
+                <ID name="" mc="Infrastructure.Dependency" uid="074f6b21-48a1-4698-bda6-b0aed02c7415"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -66,7 +66,7 @@
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="lives" mc="Standard.Attribute" uid="7b2bdcd5-8ffe-4abc-9f50-9ad12d6a7516"/>
+                      <ID name="lives" mc="Standard.Attribute" uid="c10c97b4-7ea2-4021-aff7-4c0b87aac71b"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -77,7 +77,7 @@
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="ddea2a14-3932-4617-b7b3-4c16337ac13c"/>
+                <ID name="" mc="Infrastructure.Note" uid="4681c12d-22be-4526-9c3e-3f3d4f241505"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
                   <ATT name="MimeType"></ATT>
@@ -91,7 +91,7 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="6d5fcbcb-72a6-478f-93e8-1172a72bff7d"/>
+                <ID name="" mc="Infrastructure.Note" uid="9eb1fa29-e6a4-4bda-a042-c5b1e57901a1"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.lives;]]></ATT>
                   <ATT name="MimeType"></ATT>
@@ -108,7 +108,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="setLives" mc="Standard.Operation" uid="7c905bf0-9c37-42c5-9c6e-22157c4759d1"/>
+          <ID name="setLives" mc="Standard.Operation" uid="c5f1c15a-e638-4096-9f19-f77708761f51"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -122,7 +122,7 @@
           <DEPENDENCIES>
             <COMP relation="IO">
               <OBJECT>
-                <ID name="value" mc="Standard.Parameter" uid="1a0a187f-cdac-4941-bf10-0ae3533d7403"/>
+                <ID name="value" mc="Standard.Parameter" uid="6c01477f-dd3b-446b-bd60-867211b354c0"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -149,7 +149,7 @@
             </LINK>
             <COMP relation="DependsOnDependency">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Dependency" uid="8d6a8df0-4343-41ab-83ff-f3bd4f66411b"/>
+                <ID name="" mc="Infrastructure.Dependency" uid="397b70e8-bceb-4a9e-b056-c13438df8281"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -157,7 +157,7 @@
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="lives" mc="Standard.Attribute" uid="7b2bdcd5-8ffe-4abc-9f50-9ad12d6a7516"/>
+                      <ID name="lives" mc="Standard.Attribute" uid="c10c97b4-7ea2-4021-aff7-4c0b87aac71b"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -168,7 +168,7 @@
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="1b833da0-732c-48b3-bba2-5b5f499c1b63"/>
+                <ID name="" mc="Infrastructure.Note" uid="e6f910cc-0b8b-4313-ab76-6e5229a76e72"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
 this.lives = value;]]></ATT>
@@ -186,7 +186,7 @@ this.lives = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="getBombCount" mc="Standard.Operation" uid="138a7aef-a11c-44d3-bf7b-721594c73f4d"/>
+          <ID name="getBombCount" mc="Standard.Operation" uid="31123492-c96a-4af6-a1df-d35617285e33"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -200,7 +200,7 @@ this.lives = value;]]></ATT>
           <DEPENDENCIES>
             <COMP relation="Return">
               <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="255630d5-6ae4-464c-84a0-eb2b364653e9"/>
+                <ID name="" mc="Standard.Parameter" uid="e4c96a17-06ec-472c-990f-31ca2972f462"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -227,7 +227,7 @@ this.lives = value;]]></ATT>
             </LINK>
             <COMP relation="DependsOnDependency">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Dependency" uid="5c1b5a85-4ff8-4ca1-ac9c-3646b8375472"/>
+                <ID name="" mc="Infrastructure.Dependency" uid="8f2206ba-029b-4d7f-beb7-e76505047452"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -235,7 +235,7 @@ this.lives = value;]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="bombCount" mc="Standard.Attribute" uid="4d6b8aa5-64b2-482a-a26b-81c5d7f43e04"/>
+                      <ID name="bombCount" mc="Standard.Attribute" uid="42154f7e-37fd-4c85-b8bf-440560e7ccdf"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -246,7 +246,7 @@ this.lives = value;]]></ATT>
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="08622eae-c99c-41b8-9892-859d8dbcc28d"/>
+                <ID name="" mc="Infrastructure.Note" uid="d5b4dd86-340c-47de-af5e-e773c459cffd"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
                   <ATT name="MimeType"></ATT>
@@ -260,7 +260,7 @@ this.lives = value;]]></ATT>
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="cd546b3f-c279-458c-94a7-58b90745f50f"/>
+                <ID name="" mc="Infrastructure.Note" uid="9edca0a7-8d23-4e48-aa83-95b9e6ca483f"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.bombCount;]]></ATT>
                   <ATT name="MimeType"></ATT>
@@ -277,7 +277,7 @@ this.lives = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="setBombCount" mc="Standard.Operation" uid="8d81f238-f36b-4991-a16a-5713a0a257a6"/>
+          <ID name="setBombCount" mc="Standard.Operation" uid="778d6e7d-a16e-44d4-824d-f4ad18670c31"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -291,7 +291,7 @@ this.lives = value;]]></ATT>
           <DEPENDENCIES>
             <COMP relation="IO">
               <OBJECT>
-                <ID name="value" mc="Standard.Parameter" uid="2b03cf45-a4e9-4b81-a8c2-c311d49c0b2b"/>
+                <ID name="value" mc="Standard.Parameter" uid="dae56263-fd83-4ab3-a4ef-b2eece1be8d7"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -318,7 +318,7 @@ this.lives = value;]]></ATT>
             </LINK>
             <COMP relation="DependsOnDependency">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Dependency" uid="e82221ba-ad65-4ef6-bd08-7128e13c0d76"/>
+                <ID name="" mc="Infrastructure.Dependency" uid="648e3320-481b-43eb-bb56-119033745008"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -326,7 +326,7 @@ this.lives = value;]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="bombCount" mc="Standard.Attribute" uid="4d6b8aa5-64b2-482a-a26b-81c5d7f43e04"/>
+                      <ID name="bombCount" mc="Standard.Attribute" uid="42154f7e-37fd-4c85-b8bf-440560e7ccdf"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -337,7 +337,7 @@ this.lives = value;]]></ATT>
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="d0a65a6c-7fd5-4127-b4b6-9263c78b7452"/>
+                <ID name="" mc="Infrastructure.Note" uid="350b5f03-a216-4813-bfa3-eee24ade78c6"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
 this.bombCount = value;]]></ATT>
@@ -355,7 +355,7 @@ this.bombCount = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="getBombMax" mc="Standard.Operation" uid="b563d913-16b9-4190-9ca9-949cf0653621"/>
+          <ID name="getBombMax" mc="Standard.Operation" uid="38aca366-45f0-4745-934b-576af97cd356"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -369,7 +369,7 @@ this.bombCount = value;]]></ATT>
           <DEPENDENCIES>
             <COMP relation="Return">
               <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="910c0f03-4bf6-4248-8c82-7753f505a52f"/>
+                <ID name="" mc="Standard.Parameter" uid="ba23bc1b-7e9a-4614-a70a-82aed4edb697"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -396,7 +396,7 @@ this.bombCount = value;]]></ATT>
             </LINK>
             <COMP relation="DependsOnDependency">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Dependency" uid="15bfbc55-3513-497f-a454-4d75eb066c94"/>
+                <ID name="" mc="Infrastructure.Dependency" uid="232c96c3-aeff-46cc-b051-0400a14ae5fd"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -404,7 +404,7 @@ this.bombCount = value;]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="bombMax" mc="Standard.Attribute" uid="4bc1c5a3-05fe-4f89-a66a-71b8f5749575"/>
+                      <ID name="bombMax" mc="Standard.Attribute" uid="b8822ff6-0716-4acf-844b-19ea1d23faa0"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -415,7 +415,7 @@ this.bombCount = value;]]></ATT>
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="d899b897-a78f-4d7b-ba19-15448ff96934"/>
+                <ID name="" mc="Infrastructure.Note" uid="7198440e-f4a1-41a5-bf7f-f14e769dd3db"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
                   <ATT name="MimeType"></ATT>
@@ -429,7 +429,7 @@ this.bombCount = value;]]></ATT>
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="d72a5aa0-84f7-4f60-a685-ab79339ea470"/>
+                <ID name="" mc="Infrastructure.Note" uid="c2b3fb26-8a1e-4210-a693-254cf2d66f21"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.bombMax;]]></ATT>
                   <ATT name="MimeType"></ATT>
@@ -446,7 +446,7 @@ this.bombCount = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="setBombMax" mc="Standard.Operation" uid="b0ba51e0-29f8-43f8-9aae-24533bc22708"/>
+          <ID name="setBombMax" mc="Standard.Operation" uid="c3b45755-91c1-4670-b1a9-c988acb88d59"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -460,7 +460,7 @@ this.bombCount = value;]]></ATT>
           <DEPENDENCIES>
             <COMP relation="IO">
               <OBJECT>
-                <ID name="value" mc="Standard.Parameter" uid="bbb253b9-9170-419e-b9f5-8840e5df5eb3"/>
+                <ID name="value" mc="Standard.Parameter" uid="9528c870-a5a1-4738-a64b-98d619d74b0e"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -487,7 +487,7 @@ this.bombCount = value;]]></ATT>
             </LINK>
             <COMP relation="DependsOnDependency">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Dependency" uid="8438b79a-5b65-4592-b64c-dfdfa04cee08"/>
+                <ID name="" mc="Infrastructure.Dependency" uid="8e605373-6829-4589-bd88-e6d6f16fc660"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -495,7 +495,7 @@ this.bombCount = value;]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="bombMax" mc="Standard.Attribute" uid="4bc1c5a3-05fe-4f89-a66a-71b8f5749575"/>
+                      <ID name="bombMax" mc="Standard.Attribute" uid="b8822ff6-0716-4acf-844b-19ea1d23faa0"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -506,7 +506,7 @@ this.bombCount = value;]]></ATT>
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="825d904b-c9b4-48ee-9c52-6fad745817a2"/>
+                <ID name="" mc="Infrastructure.Note" uid="819ef6c2-ccf1-46c8-bb93-882e5c53d072"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
 this.bombMax = value;]]></ATT>
@@ -524,7 +524,7 @@ this.bombMax = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="getFire" mc="Standard.Operation" uid="a7bbc482-8b4c-4694-95d9-4d8d5fec2430"/>
+          <ID name="getFire" mc="Standard.Operation" uid="869e644a-c1c8-4013-937b-a11e9ac05ada"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -538,7 +538,7 @@ this.bombMax = value;]]></ATT>
           <DEPENDENCIES>
             <COMP relation="Return">
               <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="73199b08-f2dd-4593-9be3-826bf550db42"/>
+                <ID name="" mc="Standard.Parameter" uid="faf02b81-ab18-4fe9-b5d0-464a477f62ca"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -565,7 +565,7 @@ this.bombMax = value;]]></ATT>
             </LINK>
             <COMP relation="DependsOnDependency">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Dependency" uid="2d52b124-d1c7-44f0-922c-53366b1f90c8"/>
+                <ID name="" mc="Infrastructure.Dependency" uid="05d8e0dd-43c9-4e6b-8d92-79d79c72f801"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -573,7 +573,7 @@ this.bombMax = value;]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="fire" mc="Standard.Attribute" uid="48101627-07b0-4b99-a298-5f675134063b"/>
+                      <ID name="fire" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -584,7 +584,7 @@ this.bombMax = value;]]></ATT>
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="cfb8dc18-4b91-4c74-bcb4-d2e06169ea04"/>
+                <ID name="" mc="Infrastructure.Note" uid="09629ed1-e4d0-446a-ab53-cdff97eff443"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
                   <ATT name="MimeType"></ATT>
@@ -598,7 +598,7 @@ this.bombMax = value;]]></ATT>
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="b6cbfd06-e9c2-49a6-b286-38e490fc923f"/>
+                <ID name="" mc="Infrastructure.Note" uid="c0216503-81b8-465f-816d-a7d14dff0a90"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.fire;]]></ATT>
                   <ATT name="MimeType"></ATT>
@@ -615,7 +615,7 @@ this.bombMax = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="setFire" mc="Standard.Operation" uid="4d1bfd0d-2352-434a-a684-c109a64015ae"/>
+          <ID name="setFire" mc="Standard.Operation" uid="14a39b3e-b3ae-42e4-8757-4b67b7d510f6"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -629,7 +629,7 @@ this.bombMax = value;]]></ATT>
           <DEPENDENCIES>
             <COMP relation="IO">
               <OBJECT>
-                <ID name="value" mc="Standard.Parameter" uid="26835f81-7f1d-46f5-af19-07f70910ee50"/>
+                <ID name="value" mc="Standard.Parameter" uid="f4241912-0acf-41f4-b4ce-ed14f12a0b5f"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -656,7 +656,7 @@ this.bombMax = value;]]></ATT>
             </LINK>
             <COMP relation="DependsOnDependency">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Dependency" uid="cb75b125-2cb8-408b-aa23-0d224717141c"/>
+                <ID name="" mc="Infrastructure.Dependency" uid="55afebc7-52f3-4baf-893e-fd9211a64319"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -664,7 +664,7 @@ this.bombMax = value;]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="fire" mc="Standard.Attribute" uid="48101627-07b0-4b99-a298-5f675134063b"/>
+                      <ID name="fire" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -675,7 +675,7 @@ this.bombMax = value;]]></ATT>
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="8054cb39-49c9-4c1b-82e5-b2d40119d621"/>
+                <ID name="" mc="Infrastructure.Note" uid="a6720513-30e8-43d6-892e-2a0c6a53b61a"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
 this.fire = value;]]></ATT>
@@ -693,7 +693,7 @@ this.fire = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="getPlayerAbilities" mc="Standard.Operation" uid="85eaf0ff-81d8-4a07-b3c5-0c2b9d7166ab"/>
+          <ID name="getPlayerAbilites" mc="Standard.Operation" uid="671682b3-f854-4f65-8616-a0dee38409f6"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -701,16 +701,16 @@ this.fire = value;]]></ATT>
             <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[getPlayerAbilities]]></ATT>
+            <ATT name="Name"><![CDATA[getPlayerAbilites]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <COMP relation="Return">
               <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="26203f16-e437-40aa-a951-ab7bd45741a1"/>
+                <ID name="" mc="Standard.Parameter" uid="eef10e1a-60da-4e93-8283-210302978bae"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
                   <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
                   <ATT name="TypeConstraint"></ATT>
                   <ATT name="DefaultValue"></ATT>
@@ -728,7 +728,7 @@ this.fire = value;]]></ATT>
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="f498d8e5-b6e5-4374-9041-b4c48385fb6f"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="ce9f1649-68dd-4059-b990-f92c40cdeae8"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -736,7 +736,7 @@ this.fire = value;]]></ATT>
                       <DEPENDENCIES>
                         <COMP relation="Actual">
                           <OBJECT>
-                            <ID name="" mc="Infrastructure.TagParameter" uid="5a3c9ecf-43d1-4145-b41b-0d3a860abd72"/>
+                            <ID name="" mc="Infrastructure.TagParameter" uid="f02d78a7-bf15-4992-b4aa-efdf3f480cf1"/>
                             <ATTRIBUTES>
                               <ATT name="Value"><![CDATA[Array]]></ATT>
                               <ATT name="status">1970354901745664</ATT>
@@ -758,7 +758,7 @@ this.fire = value;]]></ATT>
             </LINK>
             <COMP relation="DependsOnDependency">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Dependency" uid="66f4382c-5219-4da1-9994-191e515ea4a5"/>
+                <ID name="" mc="Infrastructure.Dependency" uid="86b48268-4014-4b20-b107-90b6e3417394"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -766,7 +766,7 @@ this.fire = value;]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="playerAbilities" mc="Standard.Attribute" uid="b73bb282-e407-4494-9961-76ff9873c811"/>
+                      <ID name="playerAbilites" mc="Standard.Attribute" uid="d3e49717-5f5c-49c0-b87a-e6ed29629386"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -777,7 +777,7 @@ this.fire = value;]]></ATT>
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="56828598-0b2f-4645-89f0-a43e1bb00ea5"/>
+                <ID name="" mc="Infrastructure.Note" uid="e71b3dce-0738-40fa-9b45-dee2a9302b55"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
                   <ATT name="MimeType"></ATT>
@@ -791,9 +791,9 @@ this.fire = value;]]></ATT>
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="7a2c9efc-db3e-406e-9078-385ca0337f6d"/>
+                <ID name="" mc="Infrastructure.Note" uid="f5c36a0f-ea03-4988-9b2e-e73c6c3f0587"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[return this.playerAbilities;]]></ATT>
+                  <ATT name="Content"><![CDATA[return this.playerAbilites;]]></ATT>
                   <ATT name="MimeType"></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -808,7 +808,7 @@ this.fire = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="setPlayerAbilities" mc="Standard.Operation" uid="0d02f311-709c-4d22-85b1-751eb43c10d8"/>
+          <ID name="setPlayerAbilites" mc="Standard.Operation" uid="2559d9b8-e592-4923-928b-ebc444992c5c"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -816,16 +816,16 @@ this.fire = value;]]></ATT>
             <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[setPlayerAbilities]]></ATT>
+            <ATT name="Name"><![CDATA[setPlayerAbilites]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <COMP relation="IO">
               <OBJECT>
-                <ID name="value" mc="Standard.Parameter" uid="96a63a31-8499-4322-88ee-0a43bc461714"/>
+                <ID name="value" mc="Standard.Parameter" uid="b2773a57-98cf-4ab7-bd11-a7a28805d59f"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
                   <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
                   <ATT name="TypeConstraint"></ATT>
                   <ATT name="DefaultValue"></ATT>
@@ -843,7 +843,7 @@ this.fire = value;]]></ATT>
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="11465ebf-ff9d-4c78-9823-ca7bcc2588fd"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="7b83f7e7-4979-4d9f-b8f3-c12451c5c85e"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -851,7 +851,7 @@ this.fire = value;]]></ATT>
                       <DEPENDENCIES>
                         <COMP relation="Actual">
                           <OBJECT>
-                            <ID name="" mc="Infrastructure.TagParameter" uid="5c09a635-5ee5-40c9-9bfc-119a25829ec6"/>
+                            <ID name="" mc="Infrastructure.TagParameter" uid="72e14f51-feab-4a9b-b476-3374e8f28f56"/>
                             <ATTRIBUTES>
                               <ATT name="Value"><![CDATA[Array]]></ATT>
                               <ATT name="status">1970354901745664</ATT>
@@ -873,7 +873,7 @@ this.fire = value;]]></ATT>
             </LINK>
             <COMP relation="DependsOnDependency">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Dependency" uid="726d82bb-8cc9-4626-907b-7b1d87079ee8"/>
+                <ID name="" mc="Infrastructure.Dependency" uid="036121b6-a0e7-4448-b0e1-c6b36a0c4ac7"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -881,7 +881,7 @@ this.fire = value;]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="playerAbilities" mc="Standard.Attribute" uid="b73bb282-e407-4494-9961-76ff9873c811"/>
+                      <ID name="playerAbilites" mc="Standard.Attribute" uid="d3e49717-5f5c-49c0-b87a-e6ed29629386"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -892,10 +892,10 @@ this.fire = value;]]></ATT>
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="6ef2e1c3-36ba-417f-8375-693fd7ab2609"/>
+                <ID name="" mc="Infrastructure.Note" uid="5a06c52d-397d-4987-8295-edc912a83143"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
-this.playerAbilities = value;]]></ATT>
+this.playerAbilites = value;]]></ATT>
                   <ATT name="MimeType"></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -910,7 +910,176 @@ this.playerAbilities = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="update" mc="Standard.Operation" uid="b64251c2-4eff-4e14-b39f-f2a84fb565d7"/>
+          <ID name="getInvulnerability" mc="Standard.Operation" uid="1c7621e2-784f-4508-933f-55ea6bea5b83"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[getInvulnerability]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Return">
+              <OBJECT>
+                <ID name="" mc="Standard.Parameter" uid="3f3188fb-7ff3-4bc7-a281-496d28f24069"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaGetter" mc="Infrastructure.Stereotype" uid="01ec25e8-0000-00f0-0000-000000000000"/>
+            </LINK>
+            <COMP relation="DependsOnDependency">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Dependency" uid="c501b704-4477-44ed-850b-f51d3f019d4d"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="DependsOn">
+                    <REFOBJ>
+                      <ID name="invulnerability" mc="Standard.Attribute" uid="efe71f6e-6ac1-4f9a-bb96-98975b970b23"/>
+                    </REFOBJ>
+                  </LINK>
+                  <LINK relation="Extension">
+                    <FOREIGNID name="JavaGetter" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-012b-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="f05483fa-8d20-4af0-9a03-14c0c8b1c880"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="8b702856-9a5d-4df3-be52-bd8207a37215"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return this.invulnerability;]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="setInvulnerability" mc="Standard.Operation" uid="3322d7de-cc32-48aa-8dde-e19bf6d5ba0c"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[setInvulnerability]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="value" mc="Standard.Parameter" uid="2a5ac5b5-182b-418d-9426-7373cb820627"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[value]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaSetter" mc="Infrastructure.Stereotype" uid="01ec25e8-0000-00f5-0000-000000000000"/>
+            </LINK>
+            <COMP relation="DependsOnDependency">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Dependency" uid="e9f11255-e9d6-4d79-aa28-469c231f44a0"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="DependsOn">
+                    <REFOBJ>
+                      <ID name="invulnerability" mc="Standard.Attribute" uid="efe71f6e-6ac1-4f9a-bb96-98975b970b23"/>
+                    </REFOBJ>
+                  </LINK>
+                  <LINK relation="Extension">
+                    <FOREIGNID name="JavaSetter" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0130-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="feb67565-3cca-4a45-97b7-427f18020cd7"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
+this.invulnerability = value;]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="update" mc="Standard.Operation" uid="83716caf-4650-4a93-b6e4-a9f241a25c9c"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -929,10 +1098,179 @@ this.playerAbilities = value;]]></ATT>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
+        <OBJECT>
+          <ID name="getController" mc="Standard.Operation" uid="d24ca8af-7294-4611-bab0-5541345d4258"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[getController]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Return">
+              <OBJECT>
+                <ID name="" mc="Standard.Parameter" uid="25769b08-69b8-4492-8fe5-0681c40a8d45"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <ID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaGetter" mc="Infrastructure.Stereotype" uid="01ec25e8-0000-00f0-0000-000000000000"/>
+            </LINK>
+            <COMP relation="DependsOnDependency">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Dependency" uid="ddd068be-c93e-4461-835b-3e0ac1fa2cb4"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="DependsOn">
+                    <REFOBJ>
+                      <ID name="controller" mc="Standard.AssociationEnd" uid="2f129ce7-ac16-42b5-85cb-d57015645a67"/>
+                    </REFOBJ>
+                  </LINK>
+                  <LINK relation="Extension">
+                    <FOREIGNID name="JavaGetter" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-012b-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="9932e56f-05f8-4adb-a5f9-2249e45d4b9b"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="885c237c-2f5d-44f9-a495-4502f971ce9b"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return this.controller;]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="setController" mc="Standard.Operation" uid="79de1afe-e6c2-4c96-ae54-f3d57da135dc"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[setController]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="value" mc="Standard.Parameter" uid="58ee6dda-cd06-430f-a236-0182ca5d6a7e"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[value]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <ID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaSetter" mc="Infrastructure.Stereotype" uid="01ec25e8-0000-00f5-0000-000000000000"/>
+            </LINK>
+            <COMP relation="DependsOnDependency">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Dependency" uid="f443fd80-715a-45ab-8af6-5278a1fc3328"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="DependsOn">
+                    <REFOBJ>
+                      <ID name="controller" mc="Standard.AssociationEnd" uid="2f129ce7-ac16-42b5-85cb-d57015645a67"/>
+                    </REFOBJ>
+                  </LINK>
+                  <LINK relation="Extension">
+                    <FOREIGNID name="JavaSetter" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0130-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="7eef6ff5-518a-4741-bd63-6f641dae3787"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
+this.controller = value;]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
       </COMP>
       <COMP relation="OwnedAttribute">
         <OBJECT>
-          <ID name="lives" mc="Standard.Attribute" uid="7b2bdcd5-8ffe-4abc-9f50-9ad12d6a7516"/>
+          <ID name="lives" mc="Standard.Attribute" uid="c10c97b4-7ea2-4021-aff7-4c0b87aac71b"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -953,26 +1291,10 @@ this.playerAbilities = value;]]></ATT>
             <LINK relation="Type">
               <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
             </LINK>
-            <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="509c7ff9-ecdb-4246-9045-584c385f8015"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[<Enter note text here>]]></ATT>
-                  <ATT name="MimeType"></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="bombCount" mc="Standard.Attribute" uid="4d6b8aa5-64b2-482a-a26b-81c5d7f43e04"/>
+          <ID name="bombCount" mc="Standard.Attribute" uid="42154f7e-37fd-4c85-b8bf-440560e7ccdf"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -996,7 +1318,7 @@ this.playerAbilities = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="bombMax" mc="Standard.Attribute" uid="4bc1c5a3-05fe-4f89-a66a-71b8f5749575"/>
+          <ID name="bombMax" mc="Standard.Attribute" uid="b8822ff6-0716-4acf-844b-19ea1d23faa0"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -1020,7 +1342,7 @@ this.playerAbilities = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="fire" mc="Standard.Attribute" uid="48101627-07b0-4b99-a298-5f675134063b"/>
+          <ID name="fire" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -1044,7 +1366,7 @@ this.playerAbilities = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="playerAbilities" mc="Standard.Attribute" uid="b73bb282-e407-4494-9961-76ff9873c811"/>
+          <ID name="playerAbilites" mc="Standard.Attribute" uid="d3e49717-5f5c-49c0-b87a-e6ed29629386"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -1053,60 +1375,111 @@ this.playerAbilities = value;]]></ATT>
             <ATT name="IsDerived">false</ATT>
             <ATT name="IsOrdered">false</ATT>
             <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMin"></ATT>
             <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
             <ATT name="Visibility">Protected</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[playerAbilities]]></ATT>
+            <ATT name="Name"><![CDATA[playerAbilites]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Type">
               <FOREIGNID name="boolean" mc="Standard.DataType" uid="00000004-0000-0005-0000-000000000000"/>
             </LINK>
-            <COMP relation="Tag">
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="invulnerability" mc="Standard.Attribute" uid="efe71f6e-6ac1-4f9a-bb96-98975b970b23"/>
+          <ATTRIBUTES>
+            <ATT name="TypeConstraint"></ATT>
+            <ATT name="Value"></ATT>
+            <ATT name="TargetIsClass">false</ATT>
+            <ATT name="Changeable">ReadWrite</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Protected</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[invulnerability]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Type">
+              <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedEnd">
+        <OBJECT>
+          <ID name="controller" mc="Standard.AssociationEnd" uid="2f129ce7-ac16-42b5-85cb-d57015645a67"/>
+          <ATTRIBUTES>
+            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="IsChangeable">true</ATT>
+            <ATT name="Changeable">ReadWrite</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Protected</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[controller]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
+            </LINK>
+            <COMP relation="Opposite">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ceadca14-9a7b-4e9f-b468-a09bba3dc844"/>
+                <ID name="" mc="Standard.AssociationEnd" uid="bcdf68cd-860d-43c6-9164-a9abc315aa3b"/>
                 <ATTRIBUTES>
+                  <ATT name="Aggregation">KindIsAssociation</ATT>
+                  <ATT name="IsChangeable">true</ATT>
+                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="IsDerived">false</ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="IsClass">false</ATT>
+                  <ATT name="IsAbstract">false</ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
-                  <COMP relation="Actual">
+                  <COMP relation="Opposite">
+                    <COMPID name="controller" mc="Standard.AssociationEnd" uid="2f129ce7-ac16-42b5-85cb-d57015645a67"/>
+                  </COMP>
+                  <COMP relation="Association">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TagParameter" uid="eb1035c2-5855-40f7-8807-5d865ec02f7b"/>
+                      <ID name="" mc="Standard.Association" uid="cf5b6edb-2610-4c17-be04-e1e654760b8e"/>
                       <ATTRIBUTES>
-                        <ATT name="Value"><![CDATA[Array]]></ATT>
+                        <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
                       </ATTRIBUTES>
                       <DEPENDENCIES></DEPENDENCIES>
                     </OBJECT>
                   </COMP>
-                  <LINK relation="Definition">
-                    <FOREIGNID name="type" mc="Infrastructure.TagType" uid="00000000-0000-3765-0000-000000000000"/>
-                  </LINK>
                 </DEPENDENCIES>
               </OBJECT>
-              <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="9ce22ca6-8a18-418c-b581-a5dd65d26291"/>
-                <ATTRIBUTES>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Definition">
-                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
+            </COMP>
+            <COMP relation="Association">
+              <COMPID name="" mc="Standard.Association" uid="cf5b6edb-2610-4c17-be04-e1e654760b8e"/>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>
       </COMP>
       <COMP relation="Parent">
         <OBJECT>
-          <ID name="Generalization" mc="Standard.Generalization" uid="bc405ec8-03e8-4e1d-a3a4-7a5837e59254"/>
+          <ID name="Generalization" mc="Standard.Generalization" uid="9c27fa26-6b6f-4ed5-89b4-333f89ac2019"/>
           <ATTRIBUTES>
             <ATT name="Discriminator"></ATT>
             <ATT name="Name"><![CDATA[Generalization]]></ATT>
@@ -1122,22 +1495,6 @@ this.playerAbilities = value;]]></ATT>
       <LINK relation="Extension">
         <FOREIGNID name="JavaClass" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0258-0000-000000000000"/>
       </LINK>
-      <COMP relation="DependsOnDependency">
-        <OBJECT>
-          <ID name="" mc="Standard.Usage" uid="68f92a92-3851-4448-b8d3-ee2569c256da"/>
-          <ATTRIBUTES>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="DependsOn">
-              <REFOBJ>
-                <ID name="plantBomb" mc="Standard.Operation" uid="ae05a042-fdb6-46ba-830b-02fa363392ba"/>
-              </REFOBJ>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-      </COMP>
     </DEPENDENCIES>
   </OBJECT>
 </EXT>

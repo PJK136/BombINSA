@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="WorldServer" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Server" version="4">
   <OBJECT>
-    <ID name="WorldServer" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
+    <ID name="Server" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
     <PID name="game" mc="Standard.Package" uid="8dc6cc71-fad5-4b27-9d9c-f44a7baed172"/>
     <ATTRIBUTES>
       <ATT name="IsActive">false</ATT>
@@ -11,13 +11,13 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[WorldServer]]></ATT>
+      <ATT name="Name"><![CDATA[Server]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="Parent">
         <OBJECT>
-          <ID name="Generalization" mc="Standard.Generalization" uid="49bf0b8f-84ce-4037-9545-d10b13476d54"/>
+          <ID name="Generalization" mc="Standard.Generalization" uid="dd421492-13c4-4540-b4e1-074fdfc61d73"/>
           <ATTRIBUTES>
             <ATT name="Discriminator"></ATT>
             <ATT name="Name"><![CDATA[Generalization]]></ATT>
@@ -25,7 +25,7 @@
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="SuperType">
-              <ID name="World" mc="Standard.Class" uid="e1a6de2f-aa96-47de-99e8-3e7cc01deb8e"/>
+              <ID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

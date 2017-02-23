@@ -21,37 +21,7 @@
           <DEPENDENCIES>
             <COMP relation="Outgoing">
               <OBJECT>
-                <ID name="ControlFlow" mc="Standard.ControlFlow" uid="45944f01-5288-42ad-81b6-45ccd827f792"/>
-                <ATTRIBUTES>
-                  <ATT name="Guard"></ATT>
-                  <ATT name="Weight"><![CDATA[1]]></ATT>
-                  <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Target">
-                    <REFOBJ>
-                      <ID name="Update Controllers" mc="Standard.OpaqueAction" uid="68d0b07a-6660-4e20-9dda-635cb161ff11"/>
-                    </REFOBJ>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="Update Controllers" mc="Standard.OpaqueAction" uid="68d0b07a-6660-4e20-9dda-635cb161ff11"/>
-          <ATTRIBUTES>
-            <ATT name="Body"></ATT>
-            <ATT name="IsMultipleInstance">false</ATT>
-            <ATT name="IsCompensation">false</ATT>
-            <ATT name="Name"><![CDATA[Update Controllers]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <COMP relation="Outgoing">
-              <OBJECT>
-                <ID name="ControlFlow" mc="Standard.ControlFlow" uid="3ea94a85-5bfd-4409-aec0-5aa323b6e69f"/>
+                <ID name="ControlFlow" mc="Standard.ControlFlow" uid="54a8a5f1-6c10-478c-9bb8-9aab0c4e2915"/>
                 <ATTRIBUTES>
                   <ATT name="Guard"></ATT>
                   <ATT name="Weight"><![CDATA[1]]></ATT>

@@ -14,8 +14,6 @@
         <ID name="game" mc="Standard.Package" uid="8dc6cc71-fad5-4b27-9d9c-f44a7baed172"/>
         <ID name="gui" mc="Standard.Package" uid="f1a826f4-0b4b-4916-b152-d8d718b01d93"/>
         <ID name="Entity" mc="Standard.Class" uid="c2a5ec32-8fb5-4eea-beff-33ee327f4352"/>
-        <ID name="Bomb" mc="Standard.Class" uid="3aaea1b2-78f7-442c-962a-a6539bf9fa5c"/>
-        <ID name="Player" mc="Standard.Class" uid="e3bd57e8-28ae-4908-9d47-82594d4a19d1"/>
         <REFOBJ>
           <ID name="getY" mc="Standard.Operation" uid="9c402d71-f604-49ca-ac91-079aa3515974"/>
         </REFOBJ>
@@ -35,43 +33,10 @@
           <ID name="getX" mc="Standard.Operation" uid="5620cd2d-8826-4d40-a754-9ac568123a25"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="setBombCount" mc="Standard.Operation" uid="8d81f238-f36b-4991-a16a-5713a0a257a6"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="update" mc="Standard.Operation" uid="b64251c2-4eff-4e14-b39f-f2a84fb565d7"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="getPlayerAbilities" mc="Standard.Operation" uid="85eaf0ff-81d8-4a07-b3c5-0c2b9d7166ab"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="setFire" mc="Standard.Operation" uid="4f9982c9-132e-448d-b7e1-4c465cbdacdf"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="bombCount" mc="Standard.Attribute" uid="4d6b8aa5-64b2-482a-a26b-81c5d7f43e04"/>
-        </REFOBJ>
-        <REFOBJ>
           <ID name="setDirection" mc="Standard.Operation" uid="2ef03dc6-2d6e-422a-ba30-d39cdbf70d9d"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="setTimeRemaining" mc="Standard.Operation" uid="1f122c1e-da68-4f14-a845-baf6dc80d778"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="getBombMax" mc="Standard.Operation" uid="b563d913-16b9-4190-9ca9-949cf0653621"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="lives" mc="Standard.Attribute" uid="7b2bdcd5-8ffe-4abc-9f50-9ad12d6a7516"/>
-        </REFOBJ>
-        <REFOBJ>
           <ID name="update" mc="Standard.Operation" uid="a2924691-b5ff-4b3e-9a94-659f2e120988"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="setFire" mc="Standard.Operation" uid="4d1bfd0d-2352-434a-a684-c109a64015ae"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="setPlayerAbilities" mc="Standard.Operation" uid="0d02f311-709c-4d22-85b1-751eb43c10d8"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="fire" mc="Standard.Attribute" uid="48101627-07b0-4b99-a298-5f675134063b"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="getSpeed" mc="Standard.Operation" uid="002e3653-fdf9-4157-9a2b-ffcf9d5fc685"/>
@@ -80,46 +45,10 @@
           <ID name="setSpeed" mc="Standard.Operation" uid="00edac08-fa82-4b44-aa6f-c993f59649f3"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="bombMax" mc="Standard.Attribute" uid="4bc1c5a3-05fe-4f89-a66a-71b8f5749575"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="getTimeRemaining" mc="Standard.Operation" uid="b0fcfe7f-9444-4e96-98dd-bf74962da4ad"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="getFire" mc="Standard.Operation" uid="eb2d2878-0d9e-40a2-b659-a35ad6afbdc1"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="setBombMax" mc="Standard.Operation" uid="b0ba51e0-29f8-43f8-9aae-24533bc22708"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="timeRemaining" mc="Standard.Attribute" uid="16b02478-a389-4582-8e37-31931b9fc244"/>
-        </REFOBJ>
-        <REFOBJ>
           <ID name="speed" mc="Standard.Attribute" uid="46bbc37c-9300-456a-87b3-a7774a36e395"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="getFire" mc="Standard.Operation" uid="a7bbc482-8b4c-4694-95d9-4d8d5fec2430"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="fire" mc="Standard.Attribute" uid="3237e045-5754-40c1-a209-bb26f9d6d69d"/>
-        </REFOBJ>
-        <REFOBJ>
           <ID name="getDirection" mc="Standard.Operation" uid="b37c2cf9-7059-4677-bd3a-15fe9a906e34"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="playerAbilities" mc="Standard.Attribute" uid="b73bb282-e407-4494-9961-76ff9873c811"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="getLives" mc="Standard.Operation" uid="cf5215ad-6268-42d1-9a65-cc326ec0deb9"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="update" mc="Standard.Operation" uid="e24f4fde-5845-41b9-b9c6-1c3bc72073fd"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="setLives" mc="Standard.Operation" uid="7c905bf0-9c37-42c5-9c6e-22157c4759d1"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="getBombCount" mc="Standard.Operation" uid="138a7aef-a11c-44d3-bf7b-721594c73f4d"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="direction" mc="Standard.Attribute" uid="da6922c1-5f11-4728-90b0-fccc76eb2bd2"/>
