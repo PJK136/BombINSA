@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Update Entities diagram" version="4">
+  <OBJECT>
+    <ID name="Update Entities diagram" mc="Standard.ActivityDiagram" uid="ec3351d2-78d5-483c-bd12-a7334cc15a86"/>
+    <PID name="Update World" mc="Standard.Activity" uid="7bb643fa-cf61-4fa1-bcfd-04472b9ed8fb"/>
+    <ATTRIBUTES>
+      <ATT name="IsVertical">false</ATT>
+      <ATT name="UiDataVersion">742</ATT>
+      <ATT name="UiData"><![CDATA[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]]></ATT>
+      <ATT name="Name"><![CDATA[Update Entities diagram]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <LINK relation="Represented">
+        <REFOBJ>
+          <ID name="Initial Node1" mc="Standard.InitialNode" uid="0726f63f-59c2-4d23-a914-ee3244b86431"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="Call update()" mc="Standard.OpaqueAction" uid="15fe839e-3db3-46b1-a50e-acdb4dfa1680"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="Decision-Merge1" mc="Standard.DecisionMergeNode" uid="cc0eaa16-02ca-4b0e-b40b-09c2776c27db"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="ControlFlow" mc="Standard.ControlFlow" uid="235afa6f-52d6-4339-b31a-62dc45e5e874"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="Remove entity from the list" mc="Standard.OpaqueAction" uid="f3f1254f-0357-430b-8c3f-18c2ffbafc24"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="ControlFlow" mc="Standard.ControlFlow" uid="51d260a2-f0a9-4df2-89c8-ce710089eb94"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="Update entities" mc="Standard.LoopNode" uid="07cbf17d-3707-46ca-8fc0-58849ceb95e0"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="ControlFlow" mc="Standard.ControlFlow" uid="6c7ee74b-2d74-4123-909d-f8376d30523c"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="Activity Final Node1" mc="Standard.ActivityFinalNode" uid="2eb861f1-5489-452a-b53c-e058d2c9d1e0"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="ControlFlow" mc="Standard.ControlFlow" uid="4d0fb898-0dfc-4df2-8db2-e664a3ad5b4c"/>
+        </REFOBJ>
+      </LINK>
+      <COMP relation="Descriptor">
+        <OBJECT>
+          <ID name="" mc="Infrastructure.Note" uid="368ca306-f716-4545-83be-e8fd5894bdf6"/>
+          <ATTRIBUTES>
+            <ATT name="Content"></ATT>
+            <ATT name="MimeType"></ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Model">
+              <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
