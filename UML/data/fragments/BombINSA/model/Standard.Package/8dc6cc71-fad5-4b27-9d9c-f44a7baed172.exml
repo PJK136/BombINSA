@@ -101,6 +101,14 @@
           <DEPENDENCIES>
             <COMP relation="Value">
               <OBJECT>
+                <ID name="Random" mc="Standard.EnumerationLiteral" uid="995f1770-4119-495c-94fd-fae120e565a6"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Random]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
                 <ID name="MoreBomb" mc="Standard.EnumerationLiteral" uid="0e8d45bd-b3b8-4ee8-aab1-a62288908845"/>
                 <ATTRIBUTES>
                   <ATT name="Name"><![CDATA[MoreBomb]]></ATT>
@@ -278,20 +286,19 @@
         <COMPID name="Server" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
         <COMPID name="Client" mc="Standard.Class" uid="b8264f8e-49d1-4a58-ad20-06ceafdee906"/>
         <COMPID name="WorldView" mc="Standard.Interface" uid="ef002ca0-7638-4d64-9860-1c30b5e5c688"/>
-        <COMPID name="WorldPlay" mc="Standard.Interface" uid="2e150a8b-30c7-4576-b0f1-c2866d94f1f4"/>
         <COMPID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
         <COMPID name="Player" mc="Standard.Class" uid="7d9743df-c7cd-4679-9771-fa22b1be441d"/>
         <COMPID name="Bomb" mc="Standard.Class" uid="4399d714-75ab-40bb-b694-6207782f55ce"/>
-        <COMPID name="WorldGame" mc="Standard.Interface" uid="6f7277a1-9c8a-438c-8ce7-12784fc98a4a"/>
         <COMPID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
-        <COMPID name="WorldServer" mc="Standard.Interface" uid="2f24b8e3-c483-4b03-8087-a956c1150cba"/>
+        <COMPID name="Map" mc="Standard.Class" uid="828d0eae-528b-43df-a33e-799c03f4c5af"/>
+        <COMPID name="MapView" mc="Standard.Interface" uid="27201ab7-2fd3-4c35-abb3-37155f6d5822"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
       </LINK>
       <COMP relation="Product">
         <COMPID name="Entities" mc="Standard.ClassDiagram" uid="c263abe4-a53e-494b-a7a6-394ec2c590f5"/>
-        <COMPID name="Tiles" mc="Standard.ClassDiagram" uid="4cd8e388-0303-4f68-a428-8bb0deb2734e"/>
+        <COMPID name="Map" mc="Standard.ClassDiagram" uid="4cd8e388-0303-4f68-a428-8bb0deb2734e"/>
         <COMPID name="World" mc="Standard.ClassDiagram" uid="de5aad9c-6812-4745-8d24-32351175b181"/>
         <COMPID name="Controllers" mc="Standard.ClassDiagram" uid="94d17a61-c94e-4eb6-96ea-d479fbb96926"/>
       </COMP>

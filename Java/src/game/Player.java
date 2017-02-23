@@ -2,84 +2,114 @@ package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("e3bd57e8-28ae-4908-9d47-82594d4a19d1")
+@objid ("7d9743df-c7cd-4679-9771-fa22b1be441d")
 public class Player extends Entity {
-    @objid ("7b2bdcd5-8ffe-4abc-9f50-9ad12d6a7516")
-    protected int lives;
+    @objid ("c10c97b4-7ea2-4021-aff7-4c0b87aac71b")
+     int lives;
 
-    @objid ("4d6b8aa5-64b2-482a-a26b-81c5d7f43e04")
-    protected int bombCount;
+    @objid ("42154f7e-37fd-4c85-b8bf-440560e7ccdf")
+     int bombCount;
 
-    @objid ("4bc1c5a3-05fe-4f89-a66a-71b8f5749575")
-    protected int bombMax;
+    @objid ("b8822ff6-0716-4acf-844b-19ea1d23faa0")
+     int bombMax;
 
-    @objid ("48101627-07b0-4b99-a298-5f675134063b")
-    protected int fire;
+    @objid ("0ec9b326-319f-4b00-8ebb-c02b47dc166f")
+     int fire;
 
-    @objid ("b73bb282-e407-4494-9961-76ff9873c811")
-    protected boolean[] playerAbilities;
+    @objid ("d3e49717-5f5c-49c0-b87a-e6ed29629386")
+     boolean[] playerAbilites;
 
-    @objid ("cf5215ad-6268-42d1-9a65-cc326ec0deb9")
-    int getLives() {
+    @objid ("efe71f6e-6ac1-4f9a-bb96-98975b970b23")
+     int invulnerability;
+
+    @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
+    protected Controller controller;
+
+    @objid ("007b7078-5eba-4ff5-a413-43e779f00b19")
+    public int getLives() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.lives;
     }
 
-    @objid ("7c905bf0-9c37-42c5-9c6e-22157c4759d1")
+    @objid ("c5f1c15a-e638-4096-9f19-f77708761f51")
     void setLives(int value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.lives = value;
     }
 
-    @objid ("138a7aef-a11c-44d3-bf7b-721594c73f4d")
-    int getBombCount() {
+    @objid ("31123492-c96a-4af6-a1df-d35617285e33")
+    public int getBombCount() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.bombCount;
     }
 
-    @objid ("8d81f238-f36b-4991-a16a-5713a0a257a6")
+    @objid ("778d6e7d-a16e-44d4-824d-f4ad18670c31")
     void setBombCount(int value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.bombCount = value;
     }
 
-    @objid ("b563d913-16b9-4190-9ca9-949cf0653621")
-    int getBombMax() {
+    @objid ("38aca366-45f0-4745-934b-576af97cd356")
+    public int getBombMax() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.bombMax;
     }
 
-    @objid ("b0ba51e0-29f8-43f8-9aae-24533bc22708")
+    @objid ("c3b45755-91c1-4670-b1a9-c988acb88d59")
     void setBombMax(int value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.bombMax = value;
     }
 
-    @objid ("a7bbc482-8b4c-4694-95d9-4d8d5fec2430")
-    int getFire() {
+    @objid ("869e644a-c1c8-4013-937b-a11e9ac05ada")
+    public int getFire() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.fire;
     }
 
-    @objid ("4d1bfd0d-2352-434a-a684-c109a64015ae")
+    @objid ("14a39b3e-b3ae-42e4-8757-4b67b7d510f6")
     void setFire(int value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.fire = value;
     }
 
-    @objid ("85eaf0ff-81d8-4a07-b3c5-0c2b9d7166ab")
-    boolean[] getPlayerAbilities() {
+    @objid ("671682b3-f854-4f65-8616-a0dee38409f6")
+    public boolean[] getPlayerAbilites() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.playerAbilities;
+        return this.playerAbilites;
     }
 
-    @objid ("0d02f311-709c-4d22-85b1-751eb43c10d8")
-    void setPlayerAbilities(boolean[] value) {
+    @objid ("2559d9b8-e592-4923-928b-ebc444992c5c")
+    void setPlayerAbilites(boolean[] value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.playerAbilities = value;
+        this.playerAbilites = value;
     }
 
-    @objid ("b64251c2-4eff-4e14-b39f-f2a84fb565d7")
+    @objid ("1c7621e2-784f-4508-933f-55ea6bea5b83")
+    public int getInvulnerability() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.invulnerability;
+    }
+
+    @objid ("3322d7de-cc32-48aa-8dde-e19bf6d5ba0c")
+    void setInvulnerability(int value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.invulnerability = value;
+    }
+
+    @objid ("d24ca8af-7294-4611-bab0-5541345d4258")
+    public Controller getController() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.controller;
+    }
+
+    @objid ("79de1afe-e6c2-4c96-ae54-f3d57da135dc")
+    void setController(Controller value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.controller = value;
+    }
+
+    @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
     }
 

@@ -22,7 +22,7 @@
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[getLives]]></ATT>
@@ -191,7 +191,7 @@ this.lives = value;]]></ATT>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[getBombCount]]></ATT>
@@ -360,7 +360,7 @@ this.bombCount = value;]]></ATT>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[getBombMax]]></ATT>
@@ -529,7 +529,7 @@ this.bombMax = value;]]></ATT>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[getFire]]></ATT>
@@ -698,7 +698,7 @@ this.fire = value;]]></ATT>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[getPlayerAbilites]]></ATT>
@@ -728,7 +728,7 @@ this.fire = value;]]></ATT>
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="ce9f1649-68dd-4059-b990-f92c40cdeae8"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="df2a7a98-c9cc-48cf-8e5c-4fc858620511"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -736,7 +736,7 @@ this.fire = value;]]></ATT>
                       <DEPENDENCIES>
                         <COMP relation="Actual">
                           <OBJECT>
-                            <ID name="" mc="Infrastructure.TagParameter" uid="f02d78a7-bf15-4992-b4aa-efdf3f480cf1"/>
+                            <ID name="" mc="Infrastructure.TagParameter" uid="089ebb19-58e8-49a9-95ec-c48f5b47f6ab"/>
                             <ATTRIBUTES>
                               <ATT name="Value"><![CDATA[Array]]></ATT>
                               <ATT name="status">1970354901745664</ATT>
@@ -843,7 +843,7 @@ this.fire = value;]]></ATT>
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="7b83f7e7-4979-4d9f-b8f3-c12451c5c85e"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="23e8e6a1-4d2d-4169-b0a8-ab8d11505191"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -851,7 +851,7 @@ this.fire = value;]]></ATT>
                       <DEPENDENCIES>
                         <COMP relation="Actual">
                           <OBJECT>
-                            <ID name="" mc="Infrastructure.TagParameter" uid="72e14f51-feab-4a9b-b476-3374e8f28f56"/>
+                            <ID name="" mc="Infrastructure.TagParameter" uid="a038478e-25dc-4e25-9ea3-7032d24de1c6"/>
                             <ATTRIBUTES>
                               <ATT name="Value"><![CDATA[Array]]></ATT>
                               <ATT name="status">1970354901745664</ATT>
@@ -915,7 +915,7 @@ this.playerAbilites = value;]]></ATT>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[getInvulnerability]]></ATT>
@@ -1079,32 +1079,12 @@ this.invulnerability = value;]]></ATT>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="update" mc="Standard.Operation" uid="83716caf-4650-4a93-b6e4-a9f241a25c9c"/>
-          <ATTRIBUTES>
-            <ATT name="Concurrency">false</ATT>
-            <ATT name="Final">false</ATT>
-            <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[update]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Redefines">
-              <REFOBJ>
-                <ID name="update" mc="Standard.Operation" uid="a2924691-b5ff-4b3e-9a94-659f2e120988"/>
-              </REFOBJ>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
           <ID name="getController" mc="Standard.Operation" uid="d24ca8af-7294-4611-bab0-5541345d4258"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[getController]]></ATT>
@@ -1267,6 +1247,26 @@ this.controller = value;]]></ATT>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>
+        <OBJECT>
+          <ID name="update" mc="Standard.Operation" uid="83716caf-4650-4a93-b6e4-a9f241a25c9c"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[update]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Redefines">
+              <REFOBJ>
+                <ID name="update" mc="Standard.Operation" uid="a2924691-b5ff-4b3e-9a94-659f2e120988"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
       </COMP>
       <COMP relation="OwnedAttribute">
         <OBJECT>
@@ -1281,7 +1281,7 @@ this.controller = value;]]></ATT>
             <ATT name="IsUnique">false</ATT>
             <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Protected</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[lives]]></ATT>
@@ -1305,7 +1305,7 @@ this.controller = value;]]></ATT>
             <ATT name="IsUnique">false</ATT>
             <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Protected</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[bombCount]]></ATT>
@@ -1329,7 +1329,7 @@ this.controller = value;]]></ATT>
             <ATT name="IsUnique">false</ATT>
             <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Protected</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[bombMax]]></ATT>
@@ -1353,7 +1353,7 @@ this.controller = value;]]></ATT>
             <ATT name="IsUnique">false</ATT>
             <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Protected</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[fire]]></ATT>
@@ -1377,7 +1377,7 @@ this.controller = value;]]></ATT>
             <ATT name="IsUnique">false</ATT>
             <ATT name="MultiplicityMin"></ATT>
             <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
-            <ATT name="Visibility">Protected</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[playerAbilites]]></ATT>
@@ -1401,7 +1401,7 @@ this.controller = value;]]></ATT>
             <ATT name="IsUnique">false</ATT>
             <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Protected</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[invulnerability]]></ATT>

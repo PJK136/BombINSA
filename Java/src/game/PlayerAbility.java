@@ -7,6 +7,5 @@ public enum PlayerAbility {
     MoreSpeed,
     LessSpeed,
     Shield,
-    Kick,
-    Max;
+    Kick;
 }

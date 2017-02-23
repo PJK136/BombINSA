@@ -4,39 +4,40 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("c2a5ec32-8fb5-4eea-beff-33ee327f4352")
 public abstract class Entity {
+    @objid ("5ce64a3c-e0c0-4de4-b322-183a2e6a4c25")
+     boolean toRemove;
+
     @objid ("f1ebcc19-f0b0-48a1-b6d3-cc22527239dd")
-    protected double x;
+     double x;
 
     @objid ("adab154c-5601-468f-8356-4b51060cd90f")
-    protected double y;
+     double y;
 
     @objid ("da6922c1-5f11-4728-90b0-fccc76eb2bd2")
-    protected Direction direction = Direction.Up;
+     Direction direction = Direction.Up;
 
     @objid ("46bbc37c-9300-456a-87b3-a7774a36e395")
-    protected double speed = 0.;
+     double speed = 0.;
 
-    @objid ("f8e7fb7e-7b51-4d47-ba08-13ad43d772da")
-    protected World world;
+    @objid ("83945ddf-99e1-4a55-8f7c-5f7a2c89a534")
+     World world;
 
     @objid ("2482ca74-f651-4b89-8f4e-b25e74535a33")
     Entity(World world, double x, double y) {
     }
 
-    @objid ("9c402d71-f604-49ca-ac91-079aa3515974")
-    double getY() {
+    @objid ("012ef32d-c8e8-44f7-9f8f-11c1d0092657")
+    boolean isToRemove() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.y;
+        return this.toRemove;
     }
 
-    @objid ("08e29169-aac4-43a6-9bc5-02f2282fe480")
-    void setY(double value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.y = value;
+    @objid ("cfa08ee4-954e-4656-a19b-46273c6d37e7")
+    void remove() {
     }
 
     @objid ("5620cd2d-8826-4d40-a754-9ac568123a25")
-    double getX() {
+    public double getX() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.x;
     }
@@ -47,8 +48,20 @@ public abstract class Entity {
         this.x = value;
     }
 
+    @objid ("9c402d71-f604-49ca-ac91-079aa3515974")
+    public double getY() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.y;
+    }
+
+    @objid ("08e29169-aac4-43a6-9bc5-02f2282fe480")
+    void setY(double value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.y = value;
+    }
+
     @objid ("002e3653-fdf9-4157-9a2b-ffcf9d5fc685")
-    double getSpeed() {
+    public double getSpeed() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.speed;
     }
@@ -60,7 +73,7 @@ public abstract class Entity {
     }
 
     @objid ("b37c2cf9-7059-4677-bd3a-15fe9a906e34")
-    Direction getDirection() {
+    public Direction getDirection() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.direction;
     }

@@ -8,7 +8,7 @@ public class Bonus extends Tile {
     protected BonusType bonusType;
 
     @objid ("6823a6b7-ebf3-44cf-8890-65bc440392e2")
-    BonusType getBonusType() {
+    public BonusType getBonusType() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.bonusType;
     }

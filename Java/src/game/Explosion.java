@@ -8,7 +8,7 @@ public class Explosion extends Tile {
     protected int timeRemaining;
 
     @objid ("a0f2cff1-fab0-4f53-b3e0-2666e4eb5b0b")
-    int getTimeRemaining() {
+    public int getTimeRemaining() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.timeRemaining;
     }

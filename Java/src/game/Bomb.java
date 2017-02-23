@@ -2,40 +2,43 @@ package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid ("3aaea1b2-78f7-442c-962a-a6539bf9fa5c")
+@objid ("4399d714-75ab-40bb-b694-6207782f55ce")
 public class Bomb extends Entity {
-    @objid ("16b02478-a389-4582-8e37-31931b9fc244")
-    protected int timeRemaining;
-
-    @objid ("3237e045-5754-40c1-a209-bb26f9d6d69d")
+    @objid ("7cf845bf-dacd-4f1f-9c63-46ad9d0e478b")
     protected int fire;
 
-    @objid ("b0fcfe7f-9444-4e96-98dd-bf74962da4ad")
-    int getTimeRemaining() {
+    @objid ("57ad54f8-e371-4980-8fcc-383afd09c461")
+    protected int timeRemaining;
+
+    @objid ("d663f27d-b4de-411a-b687-8ae5d439ab48")
+    protected Player owner;
+
+    @objid ("af854c36-bd42-4e95-bfb6-98d2b4864671")
+    public int getFire() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.fire;
+    }
+
+    @objid ("4f8c6754-27ec-4d70-8fa4-df7fd74b49fe")
+    void setFire(int value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.fire = value;
+    }
+
+    @objid ("46c24a88-c0e7-42af-aa08-f2217f450044")
+    public int getTimeRemaining() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.timeRemaining;
     }
 
-    @objid ("1f122c1e-da68-4f14-a845-baf6dc80d778")
+    @objid ("8568627a-17f2-49d3-a8e6-c690ecf21ab1")
     void setTimeRemaining(int value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.timeRemaining = value;
     }
 
-    @objid ("e24f4fde-5845-41b9-b9c6-1c3bc72073fd")
+    @objid ("ce00607d-3c72-45ea-b3e1-5a3ac0315b22")
     void update() {
-    }
-
-    @objid ("eb2d2878-0d9e-40a2-b659-a35ad6afbdc1")
-    int getFire() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.fire;
-    }
-
-    @objid ("4f9982c9-132e-448d-b7e1-4c465cbdacdf")
-    void setFire(int value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.fire = value;
     }
 
 }
