@@ -532,7 +532,7 @@ this.timeRemaining = value;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="8b9e98ef-01f8-4bf6-8802-f591da7e3508"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="164f9b17-4909-4da7-be2f-02ccf24ed2cd"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -570,7 +570,7 @@ this.timeRemaining = value;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="33b3416b-d006-4362-97db-7b42f52596db"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="07351537-6feb-426d-a07c-edd79540e80e"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -647,7 +647,7 @@ this.timeRemaining = value;
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="66524a9e-d7b1-45be-a593-3c548bab5a9e"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="f267a401-ac01-4e24-94fa-8f422ccf531a"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

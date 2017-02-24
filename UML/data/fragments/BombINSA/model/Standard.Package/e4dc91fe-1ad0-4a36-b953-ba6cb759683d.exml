@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="java" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="javax" version="4">
   <OBJECT>
-    <ID name="java" mc="Standard.Package" uid="b8671fc4-2932-4878-bc27-fc92ceff49a8"/>
+    <ID name="javax" mc="Standard.Package" uid="e4dc91fe-1ad0-4a36-b953-ba6cb759683d"/>
     <PID name="bombinsa" mc="Standard.Package" uid="f5c20d4f-dcd1-49d0-9df2-ccb6493172e1"/>
     <ATTRIBUTES>
       <ATT name="IsInstantiable">false</ATT>
@@ -9,20 +9,19 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[java]]></ATT>
+      <ATT name="Name"><![CDATA[javax]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="OwnedElement">
-        <COMPID name="util" mc="Standard.Package" uid="a80ff1bd-dc72-42d3-b920-a072861e5a98"/>
-        <COMPID name="awt" mc="Standard.Package" uid="083882f5-4c3f-4ff0-933c-c3ef5d20a941"/>
+        <COMPID name="swing" mc="Standard.Package" uid="517291a5-f1b9-4f99-a8e9-f6b776c5af8b"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
       </LINK>
       <COMP relation="Tag">
         <OBJECT>
-          <ID name="" mc="Infrastructure.TaggedValue" uid="511c8679-7908-46f6-a1a2-4411fa01e035"/>
+          <ID name="" mc="Infrastructure.TaggedValue" uid="ff44ab5b-9cbc-4fb6-84f7-57a2d0992c80"/>
           <ATTRIBUTES>
             <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>

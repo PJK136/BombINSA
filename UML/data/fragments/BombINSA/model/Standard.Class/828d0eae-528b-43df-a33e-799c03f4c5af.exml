@@ -1298,7 +1298,7 @@ this.tileSize = value;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="1de03f8a-3a1d-4796-b0e3-6eb3d4ef2fe5"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="15be5b8e-f61e-43db-842f-11af678ce7a3"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

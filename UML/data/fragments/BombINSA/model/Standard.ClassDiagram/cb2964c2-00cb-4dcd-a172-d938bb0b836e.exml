@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Game" version="4">
+  <OBJECT>
+    <ID name="Game" mc="Standard.ClassDiagram" uid="cb2964c2-00cb-4dcd-a172-d938bb0b836e"/>
+    <PID name="gui" mc="Standard.Package" uid="f1a826f4-0b4b-4916-b152-d8d718b01d93"/>
+    <ATTRIBUTES>
+      <ATT name="UiDataVersion">72</ATT>
+      <ATT name="UiData"><![CDATA[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]]></ATT>
+      <ATT name="Name"><![CDATA[Game]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <LINK relation="Represented">
+        <ID name="GameViewer" mc="Standard.Class" uid="932712f7-e00f-431a-abd5-e4322b7407bd"/>
+        <ID name="WorldView" mc="Standard.Interface" uid="ef002ca0-7638-4d64-9860-1c30b5e5c688"/>
+        <REFOBJ>
+          <ID name="getTimeRemaining" mc="Standard.Operation" uid="39ec082e-e21c-4225-b905-acf6c47cbd9b"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="getEntities" mc="Standard.Operation" uid="32dcdef1-5a7a-4722-92ad-5d4d0aa3f197"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="getMap" mc="Standard.Operation" uid="b3701478-0bf1-402b-98bd-a71cb1065097"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="getFPS" mc="Standard.Operation" uid="d528a200-b69a-4233-8cd3-96e4aed92199"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="world" mc="Standard.AssociationEnd" uid="12584c94-a9fc-48b1-bdf6-42c3345b8404"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="" mc="Standard.AssociationEnd" uid="fc8433e4-ef06-463d-9910-8a604fcb283c"/>
+        </REFOBJ>
+        <ID name="GamePanel" mc="Standard.Class" uid="edc89ef6-b498-483e-875c-befa52d629f4"/>
+        <REFOBJ>
+          <ID name="" mc="Standard.AssociationEnd" uid="91b5e122-4553-41ee-8a61-91e88ac79774"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="gameViewer" mc="Standard.AssociationEnd" uid="1630e521-8ea4-48df-9278-b85be1fba591"/>
+        </REFOBJ>
+        <ID name="JPanel" mc="Standard.Class" uid="9be21c0f-6720-4a1f-9a40-fc8da70e98cc"/>
+        <REFOBJ>
+          <ID name="" mc="Standard.Generalization" uid="8d0b7607-86d7-4879-88ab-2c481b8d399b"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="" mc="Standard.Generalization" uid="b6c647b3-a23a-4757-9c8f-24615db64fa2"/>
+        </REFOBJ>
+        <REFOBJ>
+          <ID name="GameViewer" mc="Standard.Operation" uid="e8b05c80-1463-4060-8ffd-82157c92adb5"/>
+        </REFOBJ>
+      </LINK>
+      <COMP relation="Descriptor">
+        <OBJECT>
+          <ID name="" mc="Infrastructure.Note" uid="b282ba2e-fd6a-47e4-b826-b9398de31b78"/>
+          <ATTRIBUTES>
+            <ATT name="Content"></ATT>
+            <ATT name="MimeType"></ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Model">
+              <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

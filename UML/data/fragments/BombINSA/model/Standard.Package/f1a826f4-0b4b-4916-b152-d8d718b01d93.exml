@@ -13,9 +13,21 @@
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="MainWindow" mc="Standard.Class" uid="580889f0-8e1d-4a59-9bfb-00c967a10ffd"/>
+        <COMPID name="Menu" mc="Standard.Class" uid="e22186a6-1bcc-48ec-a2ac-a88a3eb90491"/>
+        <COMPID name="GameViewer" mc="Standard.Class" uid="932712f7-e00f-431a-abd5-e4322b7407bd"/>
+        <COMPID name="GamePanel" mc="Standard.Class" uid="edc89ef6-b498-483e-875c-befa52d629f4"/>
+      </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
       </LINK>
+      <COMP relation="Product">
+        <COMPID name="MainWindow" mc="Standard.ClassDiagram" uid="f743d317-0bec-4a63-b468-81cbbca05b15"/>
+        <COMPID name="Menu" mc="Standard.ClassDiagram" uid="be761b78-5e29-4ee0-94cf-68a5605f03ed"/>
+        <COMPID name="Creator" mc="Standard.ClassDiagram" uid="cb75ddae-7231-4a91-b48e-86a7e731450a"/>
+        <COMPID name="Game" mc="Standard.ClassDiagram" uid="cb2964c2-00cb-4dcd-a172-d938bb0b836e"/>
+      </COMP>
     </DEPENDENCIES>
   </OBJECT>
 </EXT>

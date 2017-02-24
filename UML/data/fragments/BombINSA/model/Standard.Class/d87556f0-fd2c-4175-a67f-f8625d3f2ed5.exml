@@ -40,7 +40,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="024378f4-9945-4ed9-97e4-7d3c0333e0c1"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="83603d4c-bb49-45aa-8977-b194111ae3a2"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -78,7 +78,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7778e9c0-6d28-488d-a2c3-05d056619abd"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="b345de57-501c-4828-bfe4-a88e465e4a3e"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
