@@ -166,7 +166,7 @@
                 <ID name="" mc="Infrastructure.Note" uid="44a3d128-553f-4e70-a54e-1c49e37fbd82"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -180,7 +180,7 @@
                 <ID name="" mc="Infrastructure.Note" uid="c59bf810-6a32-488b-af39-f025d84ac50b"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.toRemove;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -271,7 +271,7 @@
                 <ID name="" mc="Infrastructure.Note" uid="220bc669-5f87-4556-8a77-59e7c34fab20"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -285,7 +285,7 @@
                 <ID name="" mc="Infrastructure.Note" uid="6e22edd7-58fd-43e2-b134-20b7381c5436"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.x;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -362,8 +362,9 @@
                 <ID name="" mc="Infrastructure.Note" uid="c467ec86-4b2b-4583-98d5-b4067550681b"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
-this.x = value;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+this.x = value;
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -440,7 +441,7 @@ this.x = value;]]></ATT>
                 <ID name="" mc="Infrastructure.Note" uid="78a38494-5d2a-40f6-a8c1-88e027cb546a"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -454,7 +455,7 @@ this.x = value;]]></ATT>
                 <ID name="" mc="Infrastructure.Note" uid="8fc8eebd-c155-4e64-bc28-94b26e255833"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.y;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -531,8 +532,9 @@ this.x = value;]]></ATT>
                 <ID name="" mc="Infrastructure.Note" uid="9d5b19af-d052-466e-8222-5b173f552609"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
-this.y = value;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+this.y = value;
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -609,7 +611,7 @@ this.y = value;]]></ATT>
                 <ID name="" mc="Infrastructure.Note" uid="2cec190f-18ca-4f19-b060-bd52562cc66f"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -623,7 +625,7 @@ this.y = value;]]></ATT>
                 <ID name="" mc="Infrastructure.Note" uid="ef07911d-ea57-4f73-a482-afba401c2b40"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.speed;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -700,8 +702,9 @@ this.y = value;]]></ATT>
                 <ID name="" mc="Infrastructure.Note" uid="72a88ee2-2439-4d0c-9c9a-2d28d2ab2883"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
-this.speed = value;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+this.speed = value;
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -780,7 +783,7 @@ this.speed = value;]]></ATT>
                 <ID name="" mc="Infrastructure.Note" uid="88bcbebc-8f41-46ea-8507-49e85b86d889"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -794,7 +797,7 @@ this.speed = value;]]></ATT>
                 <ID name="" mc="Infrastructure.Note" uid="5b6b763b-ce7b-41cc-88de-c44ef0660bc0"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.direction;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -873,8 +876,9 @@ this.speed = value;]]></ATT>
                 <ID name="" mc="Infrastructure.Note" uid="b45786c1-2e7f-4035-b031-373640a2209b"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
-this.direction = value;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+this.direction = value;
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -920,7 +924,7 @@ this.direction = value;]]></ATT>
                 <ID name="" mc="Infrastructure.Note" uid="6a12eb09-b010-465b-9c5d-a81cfdfd294e"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Implémenter ici le déplacement et la gestion des collisions de l'entité.]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -957,6 +961,20 @@ this.direction = value;]]></ATT>
             <LINK relation="Type">
               <FOREIGNID name="boolean" mc="Standard.DataType" uid="00000004-0000-0005-0000-000000000000"/>
             </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="3921cc9b-b648-4770-9af2-b1a87432eb14"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -981,6 +999,20 @@ this.direction = value;]]></ATT>
             <LINK relation="Type">
               <FOREIGNID name="double" mc="Standard.DataType" uid="00000004-0000-0010-0000-000000000000"/>
             </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="4b97c84b-368e-4529-b5a6-30eb99000bdb"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="23c4b6e1-c3ec-40c2-ba95-ad3340e07903"/>
@@ -1021,6 +1053,20 @@ this.direction = value;]]></ATT>
             <LINK relation="Type">
               <FOREIGNID name="double" mc="Standard.DataType" uid="00000004-0000-0010-0000-000000000000"/>
             </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="78b4dbdc-2590-4dc0-a3ae-3a9123810686"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -1131,11 +1177,65 @@ this.direction = value;]]></ATT>
                       <DEPENDENCIES></DEPENDENCIES>
                     </OBJECT>
                   </COMP>
+                  <COMP relation="Tag">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="7aa0e20f-2060-4843-aeb7-796907993875"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <COMP relation="Actual">
+                          <OBJECT>
+                            <ID name="" mc="Infrastructure.TagParameter" uid="0808dd26-cd29-4f67-9d3a-3143f9fb70c0"/>
+                            <ATTRIBUTES>
+                              <ATT name="Value"><![CDATA[List]]></ATT>
+                              <ATT name="status">1970354901745664</ATT>
+                            </ATTRIBUTES>
+                            <DEPENDENCIES></DEPENDENCIES>
+                          </OBJECT>
+                        </COMP>
+                        <LINK relation="Definition">
+                          <FOREIGNID name="type" mc="Infrastructure.TagType" uid="00000000-0000-3766-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="2bb4eaba-ef15-47eb-bdce-6be84e52f7bc"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[new ArrayList<Entity> ()]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="JavaInitValue" mc="Infrastructure.NoteType" uid="00380080-0000-0994-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
             <COMP relation="Association">
               <COMPID name="" mc="Standard.Association" uid="6917ca86-cab3-428c-92f8-870dd6d53bbd"/>
+            </COMP>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="5716341d-074f-47e3-a7ae-9eb2dc4a7d92"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>

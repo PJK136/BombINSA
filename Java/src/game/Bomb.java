@@ -5,13 +5,17 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("4399d714-75ab-40bb-b694-6207782f55ce")
 public class Bomb extends Entity {
     @objid ("7cf845bf-dacd-4f1f-9c63-46ad9d0e478b")
-    protected int fire;
+     int fire;
 
     @objid ("57ad54f8-e371-4980-8fcc-383afd09c461")
-    protected int timeRemaining;
+     int timeRemaining;
 
     @objid ("d663f27d-b4de-411a-b687-8ae5d439ab48")
     protected Player owner;
+
+    @objid ("f9841259-647d-4cd7-9bb7-f10aea5a4794")
+    public Bomb(double x, double y, int fire, int duration, Player owner) {
+    }
 
     @objid ("af854c36-bd42-4e95-bfb6-98d2b4864671")
     public int getFire() {

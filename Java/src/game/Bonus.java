@@ -5,7 +5,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("e0899fb2-43c0-4905-a390-6c536094eade")
 public class Bonus extends Tile {
     @objid ("3e29d10d-6372-4dd9-bd6f-32bbedb5490d")
-    protected BonusType bonusType;
+     BonusType bonusType;
+
+    @objid ("ef5a626b-54a8-41e3-833e-b15b09f2c6ba")
+    public Bonus(BonusType type) {
+    }
 
     @objid ("6823a6b7-ebf3-44cf-8890-65bc440392e2")
     public BonusType getBonusType() {

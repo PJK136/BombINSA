@@ -16,6 +16,7 @@
       <COMP relation="OwnedElement">
         <COMPID name="game" mc="Standard.Package" uid="8dc6cc71-fad5-4b27-9d9c-f44a7baed172"/>
         <COMPID name="gui" mc="Standard.Package" uid="f1a826f4-0b4b-4916-b152-d8d718b01d93"/>
+        <COMPID name="java" mc="Standard.Package" uid="b8671fc4-2932-4878-bc27-fc92ceff49a8"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

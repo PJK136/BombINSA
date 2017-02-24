@@ -7,10 +7,17 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("0a4b4bbc-6c10-4d09-9d5f-ebe94f0193bd")
 public class Tile {
     @objid ("e3c50532-1270-4fc6-9609-abbe4a39d444")
-    protected TileType type;
+     TileType type;
 
     @objid ("2f216b30-27c8-4022-ad19-dbd71146cfd8")
     protected List<Entity> entities = new ArrayList<Entity> ();
+
+    @objid ("f4911fdc-1c7c-45f9-80e8-3af86c75d6bb")
+     Map map;
+
+    @objid ("b497b402-67fb-4336-827a-4cc61d5fbec1")
+    public Tile(TileType type) {
+    }
 
     @objid ("387e8faa-5c7a-4e45-a991-70ce30b58c6f")
     public TileType getType() {

@@ -636,7 +636,26 @@
             <ATT name="Name"><![CDATA[Set speed to 0]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
-          <DEPENDENCIES></DEPENDENCIES>
+          <DEPENDENCIES>
+            <COMP relation="Outgoing">
+              <OBJECT>
+                <ID name="ControlFlow" mc="Standard.ControlFlow" uid="1ba7ac5f-1e7c-4c66-bf42-d84d0d550ba4"/>
+                <ATTRIBUTES>
+                  <ATT name="Guard"></ATT>
+                  <ATT name="Weight"><![CDATA[1]]></ATT>
+                  <ATT name="Name"><![CDATA[ControlFlow]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Target">
+                    <REFOBJ>
+                      <ID name="Activity Final Node9" mc="Standard.ActivityFinalNode" uid="7e216551-9db2-4b7f-a7a8-f6ef27146e4b"/>
+                    </REFOBJ>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
           <ID name="Move according to the direction until the center of the tile" mc="Standard.OpaqueAction" uid="cdd2fe32-d531-49cf-9920-134056edf609"/>
@@ -1006,12 +1025,12 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="Decrease one life and add invulnerability or set toRemove if 0 lives" mc="Standard.OpaqueAction" uid="4e4273ec-03b9-4597-b6de-cea4af296da8"/>
+          <ID name="Decrease one life if hasn't shield and add invulnerability or set toRemove if 0 lives" mc="Standard.OpaqueAction" uid="4e4273ec-03b9-4597-b6de-cea4af296da8"/>
           <ATTRIBUTES>
             <ATT name="Body"></ATT>
             <ATT name="IsMultipleInstance">false</ATT>
             <ATT name="IsCompensation">false</ATT>
-            <ATT name="Name"><![CDATA[Decrease one life and add invulnerability or set toRemove if 0 lives]]></ATT>
+            <ATT name="Name"><![CDATA[Decrease one life if hasn't shield and add invulnerability or set toRemove if 0 lives]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -1056,7 +1075,7 @@
                 <DEPENDENCIES>
                   <LINK relation="Target">
                     <REFOBJ>
-                      <ID name="Decrease one life and add invulnerability or set toRemove if 0 lives" mc="Standard.OpaqueAction" uid="4e4273ec-03b9-4597-b6de-cea4af296da8"/>
+                      <ID name="Decrease one life if hasn't shield and add invulnerability or set toRemove if 0 lives" mc="Standard.OpaqueAction" uid="4e4273ec-03b9-4597-b6de-cea4af296da8"/>
                     </REFOBJ>
                   </LINK>
                 </DEPENDENCIES>
@@ -1295,7 +1314,7 @@
                 <DEPENDENCIES>
                   <LINK relation="Target">
                     <REFOBJ>
-                      <ID name="Set toRemove" mc="Standard.OpaqueAction" uid="4f157fa9-08bd-4623-ad48-c3fe03a516ad"/>
+                      <ID name="Set toRemove and increase bombCount to owner" mc="Standard.OpaqueAction" uid="4f157fa9-08bd-4623-ad48-c3fe03a516ad"/>
                     </REFOBJ>
                   </LINK>
                 </DEPENDENCIES>
@@ -1304,12 +1323,12 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="Set toRemove" mc="Standard.OpaqueAction" uid="4f157fa9-08bd-4623-ad48-c3fe03a516ad"/>
+          <ID name="Set toRemove and increase bombCount to owner" mc="Standard.OpaqueAction" uid="4f157fa9-08bd-4623-ad48-c3fe03a516ad"/>
           <ATTRIBUTES>
             <ATT name="Body"></ATT>
             <ATT name="IsMultipleInstance">false</ATT>
             <ATT name="IsCompensation">false</ATT>
-            <ATT name="Name"><![CDATA[Set toRemove]]></ATT>
+            <ATT name="Name"><![CDATA[Set toRemove and increase bombCount to owner]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -1345,6 +1364,14 @@
           <ID name="Activity Final Node8" mc="Standard.ActivityFinalNode" uid="c09d89a7-96b8-4c6f-8af0-e7399d54be2f"/>
           <ATTRIBUTES>
             <ATT name="Name"><![CDATA[Activity Final Node8]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="Activity Final Node9" mc="Standard.ActivityFinalNode" uid="7e216551-9db2-4b7f-a7a8-f6ef27146e4b"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[Activity Final Node9]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES></DEPENDENCIES>

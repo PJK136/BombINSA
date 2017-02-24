@@ -10,7 +10,11 @@ public class Map implements MapView {
     protected int tileSize;
 
     @objid ("cc22a393-49b0-4bbb-9a9b-435c2804b924")
-    protected List<Tile> tiles = new ArrayList<Tile> ();
+     List<Tile> tiles = new ArrayList<Tile> ();
+
+    @objid ("207bd3eb-53bc-4cf3-96e2-f4df05fd2714")
+    public Map(int columns, int rows, String tileSize) {
+    }
 
     @objid ("48cfdc63-3e7d-49fd-9aa2-20e0e732aea2")
     public int getTileSize() {
@@ -56,10 +60,6 @@ public class Map implements MapView {
 
     @objid ("af2aa240-e83a-4b08-9641-56c0dfe48630")
     public void setArrowDirection(Direction direction, double x, double y) {
-    }
-
-    @objid ("436f4565-82f9-449f-9e09-7280be5fb916")
-    void setExplosion(double x, double y, int explosionTime) {
     }
 
     @objid ("c15e0882-3eff-4467-ac1f-4152e69db4f1")

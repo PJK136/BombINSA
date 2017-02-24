@@ -5,7 +5,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("7c0be07f-9851-49c1-9084-d21acfdf1a57")
 public class Arrow extends Tile {
     @objid ("e9081624-7d7d-411c-9fae-43e3570502a5")
-    protected Direction direction;
+     Direction direction;
+
+    @objid ("3ffd6d9c-5051-4269-9ead-1aa727152d09")
+    public Arrow(Direction direction) {
+    }
 
     @objid ("626cbd74-5143-4b0e-9b2e-40d5e7c8c616")
     public Direction getDirection() {

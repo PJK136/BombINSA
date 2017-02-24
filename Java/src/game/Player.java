@@ -25,6 +25,14 @@ public class Player extends Entity {
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
     protected Controller controller;
 
+    @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
+    public Player(double x, double y, Controller controller, int lives, int bombMax, int fire, int invulnerability) {
+    }
+
+    @objid ("d8c3c2ca-78cd-4d35-8d4a-df8c6f1cbe55")
+    public boolean isAlive() {
+    }
+
     @objid ("007b7078-5eba-4ff5-a413-43e779f00b19")
     public int getLives() {
         // Automatically generated method. Please delete this comment before entering specific code.

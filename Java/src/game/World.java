@@ -7,10 +7,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("4e38e511-34e5-49ff-aa51-e135ece3c5eb")
 public abstract class World implements WorldView {
     @objid ("85c96d62-8a34-4a32-b45b-ae1b9c9d4112")
-    public String FPS;
+     int FPS;
 
     @objid ("0a994301-baff-4943-8fc9-5e40b755921d")
-    public String timeRemaining;
+     int timeRemaining;
 
     @objid ("cdff29e5-a4b9-4b5a-865a-838fddcdb57d")
      Map map;
@@ -35,27 +35,21 @@ public abstract class World implements WorldView {
     }
 
     @objid ("7f0207e3-fb26-4a93-8d10-c12f9c0735f1")
-    void plantBomb(double x, double y, int fire) {
-    }
+    abstract void plantBomb(double x, double y, int fire);
 
     @objid ("9c563a21-9aa5-4a46-9bc7-944623f9796c")
-    void plantBomb(Player player) {
-    }
+    abstract void plantBomb(Player player);
 
     @objid ("df2bc239-ca9f-42a9-b92a-6255de4d5c86")
-    void createExplosion(double x, double y, int fire) {
-    }
+    abstract void createExplosion(double x, double y, int fire);
 
     @objid ("15006b09-55e2-4635-b9b7-f4cee5978c5d")
-    void pickUpBonus(double x, double y) {
-    }
+    abstract void pickUpBonus(double x, double y);
 
     @objid ("d65622a5-0611-42cd-87a7-975a15931e59")
-    public void newPlayer(Controller controller) {
-    }
+    public abstract void newPlayer(Controller controller);
 
     @objid ("30c7a359-b727-428f-8ef4-493db313017c")
-    public void update() {
-    }
+    public abstract void update();
 
 }
