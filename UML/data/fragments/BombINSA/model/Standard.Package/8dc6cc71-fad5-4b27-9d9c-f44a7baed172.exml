@@ -231,6 +231,16 @@
           </DEPENDENCIES>
         </OBJECT>
         <COMPID name="Explosion" mc="Standard.Class" uid="6f5b53c8-2117-4a0a-b672-90af08afc55f"/>
+        <COMPID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
+        <COMPID name="Server" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
+        <COMPID name="Client" mc="Standard.Class" uid="b8264f8e-49d1-4a58-ad20-06ceafdee906"/>
+        <COMPID name="WorldView" mc="Standard.Interface" uid="ef002ca0-7638-4d64-9860-1c30b5e5c688"/>
+        <COMPID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
+        <COMPID name="Player" mc="Standard.Class" uid="7d9743df-c7cd-4679-9771-fa22b1be441d"/>
+        <COMPID name="Bomb" mc="Standard.Class" uid="4399d714-75ab-40bb-b694-6207782f55ce"/>
+        <COMPID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
+        <COMPID name="Map" mc="Standard.Class" uid="828d0eae-528b-43df-a33e-799c03f4c5af"/>
+        <COMPID name="MapView" mc="Standard.Interface" uid="27201ab7-2fd3-4c35-abb3-37155f6d5822"/>
         <OBJECT>
           <ID name="PlayerAbility" mc="Standard.Enumeration" uid="85a85bd4-b37a-40cc-88cc-753b9029276e"/>
           <ATTRIBUTES>
@@ -282,16 +292,6 @@
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
-        <COMPID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
-        <COMPID name="Server" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
-        <COMPID name="Client" mc="Standard.Class" uid="b8264f8e-49d1-4a58-ad20-06ceafdee906"/>
-        <COMPID name="WorldView" mc="Standard.Interface" uid="ef002ca0-7638-4d64-9860-1c30b5e5c688"/>
-        <COMPID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
-        <COMPID name="Player" mc="Standard.Class" uid="7d9743df-c7cd-4679-9771-fa22b1be441d"/>
-        <COMPID name="Bomb" mc="Standard.Class" uid="4399d714-75ab-40bb-b694-6207782f55ce"/>
-        <COMPID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
-        <COMPID name="Map" mc="Standard.Class" uid="828d0eae-528b-43df-a33e-799c03f4c5af"/>
-        <COMPID name="MapView" mc="Standard.Interface" uid="27201ab7-2fd3-4c35-abb3-37155f6d5822"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

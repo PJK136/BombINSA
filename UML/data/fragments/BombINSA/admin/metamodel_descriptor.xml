@@ -2,23 +2,6 @@
 <metamodel format="1" MetamodelDescriptor.format="1">
   <fragment name="Analyst" version="0.0.00" provider="Fake" providerVersion="" fake="true">
     <metaclasses>
-      <metaclass name="AnalystContainer" version="0.0.00" fake="true">
-        <parent fragment="modelio.kernel" name="SmObject"/>
-        <attribute name="Name" type="java.lang.String"></attribute>
-      </metaclass>
-      <metaclass name="AnalystElement" version="0.0.00" fake="true">
-        <parent fragment="modelio.kernel" name="SmObject"/>
-        <attribute name="Name" type="java.lang.String"></attribute>
-        <attribute name="Version" type="java.lang.String"></attribute>
-      </metaclass>
-      <metaclass name="AnalystItem" version="0.0.00" fake="true">
-        <parent fragment="Infrastructure" name="ModelElement"/>
-        <attribute name="Name" type="java.lang.String"></attribute>
-        <attribute name="Definition" type="java.lang.String"></attribute>
-        <dependency name="AnalystProperties" min="0" max="-1" navigate="true">
-          <target fragment="modelio.kernel" name="SmObject"/>
-        </dependency>
-      </metaclass>
       <metaclass name="AnalystProject" version="0.0.00" cmsNode="true" fake="true">
         <parent fragment="Infrastructure" name="AbstractProject"/>
         <attribute name="Name" type="java.lang.String"></attribute>
@@ -41,6 +24,23 @@
           <target fragment="modelio.kernel" name="SmObject"/>
         </dependency>
         <dependency name="TestRoot" min="0" max="-1" navigate="true">
+          <target fragment="modelio.kernel" name="SmObject"/>
+        </dependency>
+      </metaclass>
+      <metaclass name="AnalystContainer" version="0.0.00" fake="true">
+        <parent fragment="modelio.kernel" name="SmObject"/>
+        <attribute name="Name" type="java.lang.String"></attribute>
+      </metaclass>
+      <metaclass name="AnalystElement" version="0.0.00" fake="true">
+        <parent fragment="modelio.kernel" name="SmObject"/>
+        <attribute name="Name" type="java.lang.String"></attribute>
+        <attribute name="Version" type="java.lang.String"></attribute>
+      </metaclass>
+      <metaclass name="AnalystItem" version="0.0.00" fake="true">
+        <parent fragment="Infrastructure" name="ModelElement"/>
+        <attribute name="Name" type="java.lang.String"></attribute>
+        <attribute name="Definition" type="java.lang.String"></attribute>
+        <dependency name="AnalystProperties" min="0" max="-1" navigate="true">
           <target fragment="modelio.kernel" name="SmObject"/>
         </dependency>
       </metaclass>
