@@ -26,18 +26,6 @@ public class Explosion extends Tile {
         this.timeRemaining = value;
     }
 
-    @objid ("d83e2389-32e6-4729-aced-b974702f7054")
-    Tile getNextTile() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.nextTile;
-    }
-
-    @objid ("0f817559-e418-4b37-82bf-381cc1ac3f27")
-    void setNextTile(Tile value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.nextTile = value;
-    }
-
     @objid ("d601fae6-e003-4465-a524-487f251e6f88")
     void update() {
     }
