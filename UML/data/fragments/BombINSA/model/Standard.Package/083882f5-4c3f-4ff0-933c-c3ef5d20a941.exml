@@ -20,6 +20,10 @@
         <COMPID name="BorderLayout" mc="Standard.Class" uid="33014544-dd9f-4f11-9f9e-11c6ad86e75b"/>
         <COMPID name="Dimension" mc="Standard.Class" uid="7eea4489-7db7-419d-9072-234c64023487"/>
         <COMPID name="event" mc="Standard.Package" uid="4a5e9424-4f31-4776-a6c3-c9b0d563831a"/>
+        <COMPID name="Graphics2D" mc="Standard.Class" uid="2cdc7e3b-5411-477e-8ced-943b0feb8efa"/>
+        <COMPID name="image" mc="Standard.Package" uid="61212704-1715-4647-9804-bab321fc81e1"/>
+        <COMPID name="Color" mc="Standard.Class" uid="0b016977-cf9a-4c75-8fec-2e78fc50d5fa"/>
+        <COMPID name="Graphics" mc="Standard.Class" uid="d0704cb2-c61b-4585-af29-5999831ef650"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

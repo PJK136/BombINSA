@@ -48,10 +48,10 @@ add(lblBombinsa);
 add(Box.createVerticalStrut(40));
 
 btnLocal = addButton("Local");
-btnMultijoueur = addButton("Multijoueur");
+btnNetwork = addButton("Réseau");
 btnSandbox = addButton("Sandbox");
-btnCreateur = addButton("Créateur de carte");
-btnQuitter = addButton("Quitter");
+btnCreator = addButton("Créateur de carte");
+btnQuit = addButton("Quitter");
 
 add(Box.createVerticalGlue());
 ]]></ATT>
@@ -223,7 +223,7 @@ add(Box.createVerticalStrut(20));
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="76075c43-9d14-48e7-89de-ac8ac19f98c8"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[if (event.getSource() == btnQuitter) {
+                  <ATT name="Content"><![CDATA[if (event.getSource() == btnQuit) {
     System.exit(0);
 }
 ]]></ATT>
@@ -303,7 +303,7 @@ add(Box.createVerticalStrut(20));
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="e8813f17-7970-4dc0-94f5-b79db6b8db5d"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1c01e817-b593-43dc-a8c1-fab706ecb536"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -318,7 +318,7 @@ add(Box.createVerticalStrut(20));
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="btnMultijoueur" mc="Standard.AssociationEnd" uid="76d13c2f-6d3a-424a-8142-c2979822d6d4"/>
+          <ID name="btnNetwork" mc="Standard.AssociationEnd" uid="76d13c2f-6d3a-424a-8142-c2979822d6d4"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -331,7 +331,7 @@ add(Box.createVerticalStrut(20));
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[btnMultijoueur]]></ATT>
+            <ATT name="Name"><![CDATA[btnNetwork]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -358,7 +358,7 @@ add(Box.createVerticalStrut(20));
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="btnMultijoueur" mc="Standard.AssociationEnd" uid="76d13c2f-6d3a-424a-8142-c2979822d6d4"/>
+                    <COMPID name="btnNetwork" mc="Standard.AssociationEnd" uid="76d13c2f-6d3a-424a-8142-c2979822d6d4"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
@@ -378,7 +378,7 @@ add(Box.createVerticalStrut(20));
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7dd08f96-f524-4dbe-8722-53966283be5a"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="b25e6a5b-cc92-4419-864f-f489e165d33b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -453,7 +453,7 @@ add(Box.createVerticalStrut(20));
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="31621b67-4a27-4d26-980a-f2cb4456dd2d"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="c0703df5-60ec-4ac3-b0fe-a5495911be86"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -468,7 +468,7 @@ add(Box.createVerticalStrut(20));
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="btnCreateur" mc="Standard.AssociationEnd" uid="a8f404a7-a099-4fdc-b955-5012e1502ee4"/>
+          <ID name="btnCreator" mc="Standard.AssociationEnd" uid="a8f404a7-a099-4fdc-b955-5012e1502ee4"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -481,7 +481,7 @@ add(Box.createVerticalStrut(20));
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[btnCreateur]]></ATT>
+            <ATT name="Name"><![CDATA[btnCreator]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -508,7 +508,7 @@ add(Box.createVerticalStrut(20));
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="btnCreateur" mc="Standard.AssociationEnd" uid="a8f404a7-a099-4fdc-b955-5012e1502ee4"/>
+                    <COMPID name="btnCreator" mc="Standard.AssociationEnd" uid="a8f404a7-a099-4fdc-b955-5012e1502ee4"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
@@ -528,7 +528,7 @@ add(Box.createVerticalStrut(20));
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="0817a889-f679-40bb-bbe3-8bf5b7bf31e3"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="db108937-cc72-474b-b9ae-cef247668d3c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -543,7 +543,7 @@ add(Box.createVerticalStrut(20));
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="btnQuitter" mc="Standard.AssociationEnd" uid="954b1ba0-6aed-4f56-a7c5-e04330ffdfdf"/>
+          <ID name="btnQuit" mc="Standard.AssociationEnd" uid="954b1ba0-6aed-4f56-a7c5-e04330ffdfdf"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -556,7 +556,7 @@ add(Box.createVerticalStrut(20));
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[btnQuitter]]></ATT>
+            <ATT name="Name"><![CDATA[btnQuit]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -583,7 +583,7 @@ add(Box.createVerticalStrut(20));
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="btnQuitter" mc="Standard.AssociationEnd" uid="954b1ba0-6aed-4f56-a7c5-e04330ffdfdf"/>
+                    <COMPID name="btnQuit" mc="Standard.AssociationEnd" uid="954b1ba0-6aed-4f56-a7c5-e04330ffdfdf"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
@@ -603,7 +603,7 @@ add(Box.createVerticalStrut(20));
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a59841c9-94d4-45c2-8162-1cddb9e97d8e"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="aa46b60f-af2e-42e9-a3af-a1d4298ead75"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

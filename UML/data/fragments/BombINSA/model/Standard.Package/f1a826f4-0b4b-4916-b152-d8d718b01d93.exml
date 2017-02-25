@@ -18,6 +18,59 @@
         <COMPID name="Menu" mc="Standard.Class" uid="e22186a6-1bcc-48ec-a2ac-a88a3eb90491"/>
         <COMPID name="GameViewer" mc="Standard.Class" uid="932712f7-e00f-431a-abd5-e4322b7407bd"/>
         <COMPID name="GamePanel" mc="Standard.Class" uid="edc89ef6-b498-483e-875c-befa52d629f4"/>
+        <COMPID name="GameSettings" mc="Standard.Class" uid="8b53145e-40f1-4120-b590-417a35a7feb5"/>
+        <OBJECT>
+          <ID name="GameType" mc="Standard.Enumeration" uid="f5a7d15e-110e-4488-a6f6-af5012d84a04"/>
+          <ATTRIBUTES>
+            <ATT name="IsElementary">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">false</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[GameType]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Value">
+              <OBJECT>
+                <ID name="Local" mc="Standard.EnumerationLiteral" uid="8c6f6c1c-9e45-4e83-8f2d-a66127d7a0c7"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Local]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Server" mc="Standard.EnumerationLiteral" uid="9478f035-d005-4ba9-bb99-d51f02ccc67b"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Server]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Client" mc="Standard.EnumerationLiteral" uid="63cef5e0-d76e-427b-946f-f857633ee486"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Client]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Sandbox" mc="Standard.EnumerationLiteral" uid="0721164d-4dd5-4c6b-8021-338c255fc5b4"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Sandbox]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaEnumeration" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0262-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <COMPID name="ControlSettings" mc="Standard.Class" uid="a9e520e6-c602-4e73-9fe6-390ff4f5fabb"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
@@ -27,6 +80,7 @@
         <COMPID name="Menu" mc="Standard.ClassDiagram" uid="be761b78-5e29-4ee0-94cf-68a5605f03ed"/>
         <COMPID name="Creator" mc="Standard.ClassDiagram" uid="cb75ddae-7231-4a91-b48e-86a7e731450a"/>
         <COMPID name="Game" mc="Standard.ClassDiagram" uid="cb2964c2-00cb-4dcd-a172-d938bb0b836e"/>
+        <COMPID name="Settings" mc="Standard.ClassDiagram" uid="248b78bc-262f-44eb-83cd-676417230003"/>
       </COMP>
     </DEPENDENCIES>
   </OBJECT>

@@ -17,7 +17,7 @@
     <DEPENDENCIES>
       <COMP relation="OwnedOperation">
         <OBJECT>
-          <ID name="getFPS" mc="Standard.Operation" uid="9aa33376-6f71-4b5f-a0af-9fcba7c1a5cd"/>
+          <ID name="getFps" mc="Standard.Operation" uid="9aa33376-6f71-4b5f-a0af-9fcba7c1a5cd"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -25,13 +25,37 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[getFPS]]></ATT>
+            <ATT name="Name"><![CDATA[getFps]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
+            <COMP relation="Return">
+              <OBJECT>
+                <ID name="" mc="Standard.Parameter" uid="4dcc7f65-91e5-4f55-b1fc-a9dce35098d8"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">Out</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
             <LINK relation="Redefines">
               <REFOBJ>
-                <ID name="getFPS" mc="Standard.Operation" uid="d528a200-b69a-4233-8cd3-96e4aed92199"/>
+                <ID name="getFps" mc="Standard.Operation" uid="d528a200-b69a-4233-8cd3-96e4aed92199"/>
               </REFOBJ>
             </LINK>
           </DEPENDENCIES>
@@ -514,7 +538,7 @@
       </COMP>
       <COMP relation="OwnedAttribute">
         <OBJECT>
-          <ID name="FPS" mc="Standard.Attribute" uid="85c96d62-8a34-4a32-b45b-ae1b9c9d4112"/>
+          <ID name="fps" mc="Standard.Attribute" uid="85c96d62-8a34-4a32-b45b-ae1b9c9d4112"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -528,7 +552,7 @@
             <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[FPS]]></ATT>
+            <ATT name="Name"><![CDATA[fps]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
