@@ -7,57 +7,56 @@ import javax.swing.JLabel;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import java.awt.Dimension;
 
 @objid ("e22186a6-1bcc-48ec-a2ac-a88a3eb90491")
-public class Menu extends JPanel {
+public class Menu extends JPanel implements ActionListener {
+	private JButton btnLocal;
+	private JButton btnMultijoueur;
+	private JButton btnSandbox;
+	private JButton btnCreateur;
+	private JButton btnQuitter;
+	
+	private JButton addButton(String text) {
+		JButton button = new JButton(text);
+		button.setAlignmentX(Component.CENTER_ALIGNMENT);
+		button.setMaximumSize(new Dimension(160, button.getMaximumSize().height));
+		button.addActionListener(this);
+		add(button);
+		Component verticalStrut = Box.createVerticalStrut(20);
+		add(Box.createVerticalStrut(20));
+		return button;
+	}
+	
 	public Menu() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		Component verticalGlue = Box.createVerticalGlue();
-		add(verticalGlue);
+		add(Box.createVerticalGlue());
 		
 		JLabel lblBombinsa = new JLabel("BombINSA");
-		add(lblBombinsa);
 		lblBombinsa.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblBombinsa.setFont(new Font("Dialog", Font.BOLD, 48));
+		lblBombinsa.setFont(new Font("Dialog", Font.BOLD, 72));
+		add(lblBombinsa);
+
+		add(Box.createVerticalStrut(40));
 		
-		Component verticalStrut = Box.createVerticalStrut(20);
-		add(verticalStrut);
-		
-		JButton btnLocal = new JButton("Local");
-		add(btnLocal);
-		btnLocal.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		Component verticalStrut_1 = Box.createVerticalStrut(20);
-		add(verticalStrut_1);
-		
-		JButton btnMultijoueur = new JButton("Multijoueur");
-		btnMultijoueur.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(btnMultijoueur);
-		
-		Component verticalStrut_2 = Box.createVerticalStrut(20);
-		add(verticalStrut_2);
-		
-		JButton btnSandbox = new JButton("Sandbox");
-		btnSandbox.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(btnSandbox);
-		
-		Component verticalStrut_3 = Box.createVerticalStrut(20);
-		add(verticalStrut_3);
-		
-		JButton btnOptions = new JButton("Options");
-		btnOptions.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(btnOptions);
-		
-		Component verticalStrut_4 = Box.createVerticalStrut(20);
-		add(verticalStrut_4);
-		
-		JButton btnQuitter = new JButton("Quitter");
-		btnQuitter.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(btnQuitter);
-		
-		Component verticalGlue_1 = Box.createVerticalGlue();
-		add(verticalGlue_1);
+		btnLocal = addButton("Local");
+		btnMultijoueur = addButton("Multijoueur");
+		btnSandbox = addButton("Sandbox");
+		btnCreateur = addButton("Créateur de carte");
+		btnQuitter = addButton("Quitter");
+
+		add(Box.createVerticalGlue());
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		if (event.getSource() == btnQuitter) {
+			System.exit(0);
+		}
 	}
 }

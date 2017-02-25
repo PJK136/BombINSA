@@ -20,6 +20,8 @@ public class MainWindow {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		/* Crée et affiche window dans l'Event Dispatch Thread (EDT)
+		 * car toute modification de la fenêtre doit se faire seulement depuis l'EDT */
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -44,20 +46,9 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setSize(640, 480);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		Component horizontalGlue = Box.createHorizontalGlue();
-		frame.getContentPane().add(horizontalGlue, BorderLayout.WEST);
-		
-		Component horizontalGlue_1 = Box.createHorizontalGlue();
-		frame.getContentPane().add(horizontalGlue_1, BorderLayout.EAST);
-		
-		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		
-		JButton btnNewButton = new JButton("New button");
-		panel.add(btnNewButton);
+
 		frame.setContentPane(new Menu());
 	}
 
