@@ -95,7 +95,9 @@
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="79f83e1f-e69e-4dfc-bc36-4fe8005b5a62"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[EventQueue.invokeLater(new Runnable() {
+                  <ATT name="Content"><![CDATA[/* Crée et affiche window dans l'Event Dispatch Thread (EDT)
+ * car toute modification de la fenêtre doit se faire seulement depuis l'EDT */
+EventQueue.invokeLater(new Runnable() {
     public void run() {
         try {
             MainWindow window = new MainWindow();
@@ -199,20 +201,9 @@
                 <ID name="" mc="Infrastructure.Note" uid="f30a6af9-6d12-4d80-9cf2-9ff14b6536dc"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[frame = new JFrame();
-frame.setBounds(100, 100, 450, 300);
+frame.setSize(640, 480);
 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-Component horizontalGlue = Box.createHorizontalGlue();
-frame.getContentPane().add(horizontalGlue, BorderLayout.WEST);
-
-Component horizontalGlue_1 = Box.createHorizontalGlue();
-frame.getContentPane().add(horizontalGlue_1, BorderLayout.EAST);
-
-JPanel panel = new JPanel();
-frame.getContentPane().add(panel, BorderLayout.CENTER);
-
-JButton btnNewButton = new JButton("New button");
-panel.add(btnNewButton);
 frame.setContentPane(new Menu());
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
@@ -291,7 +282,7 @@ frame.setContentPane(new Menu());
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="772bd14b-b234-4095-8369-60493f97a1ae"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="15e6580a-381a-40a2-af49-1f4787a873f3"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
