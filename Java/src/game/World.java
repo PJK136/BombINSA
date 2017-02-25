@@ -7,7 +7,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("4e38e511-34e5-49ff-aa51-e135ece3c5eb")
 public abstract class World implements WorldView {
     @objid ("85c96d62-8a34-4a32-b45b-ae1b9c9d4112")
-     int FPS;
+     int fps;
 
     @objid ("0a994301-baff-4943-8fc9-5e40b755921d")
      int timeRemaining;
@@ -19,7 +19,7 @@ public abstract class World implements WorldView {
      List<Entity> entities = new ArrayList<Entity> ();
 
     @objid ("9aa33376-6f71-4b5f-a0af-9fcba7c1a5cd")
-    public void getFPS() {
+    public int getFps() {
     }
 
     @objid ("181a1f7d-91b0-4a1e-8a77-235ba0c5dd0c")

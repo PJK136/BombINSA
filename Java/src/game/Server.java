@@ -5,11 +5,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Server extends World {
     @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
-    public Server(String mapFilename, int tileSize, int FPS, int duration) {
+    public Server(String mapFilename, int tileSize, int fps, int duration) {
     }
 
     @objid ("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
-    public void setFPS(int fps) {
+    public void setFps(int fps) {
     }
 
     @objid ("77769968-3eb5-4133-880a-e74cedee78ae")

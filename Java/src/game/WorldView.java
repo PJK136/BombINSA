@@ -6,7 +6,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("ef002ca0-7638-4d64-9860-1c30b5e5c688")
 public interface WorldView {
     @objid ("d528a200-b69a-4233-8cd3-96e4aed92199")
-    void getFPS();
+    int getFps();
 
     @objid ("39ec082e-e21c-4225-b905-acf6c47cbd9b")
     int getTimeRemaining();

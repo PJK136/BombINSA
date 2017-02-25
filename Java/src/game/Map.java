@@ -7,7 +7,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("828d0eae-528b-43df-a33e-799c03f4c5af")
 public class Map implements MapView {
     @objid ("07880cea-125c-44c4-b8e2-fa231ec26a91")
-    protected int tileSize;
+     int tileSize;
 
     @objid ("cc22a393-49b0-4bbb-9a9b-435c2804b924")
      List<Tile> tiles = new ArrayList<Tile> ();
