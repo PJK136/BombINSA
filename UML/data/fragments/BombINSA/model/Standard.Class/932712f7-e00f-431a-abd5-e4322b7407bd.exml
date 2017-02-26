@@ -35,21 +35,21 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="setWorldImage" mc="Standard.Operation" uid="18e3e04f-dec2-45e2-a3f5-dbabb34447b4"/>
+          <ID name="drawWorld" mc="Standard.Operation" uid="18e3e04f-dec2-45e2-a3f5-dbabb34447b4"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[setWorldImage]]></ATT>
+            <ATT name="Name"><![CDATA[drawWorld]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <COMP relation="IO">
               <OBJECT>
-                <ID name="world" mc="Standard.Parameter" uid="707623c8-8c5b-4534-a195-67e222dabc92"/>
+                <ID name="worldView" mc="Standard.Parameter" uid="6d1017a1-b3ae-4514-8d66-d6dc7e937777"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -61,21 +61,27 @@
                   <ATT name="IsException">false</ATT>
                   <ATT name="IsStream">false</ATT>
                   <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[world]]></ATT>
+                  <ATT name="Name"><![CDATA[worldView]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <ID name="BufferedImage" mc="Standard.Class" uid="5a1cac41-5558-44aa-a0ec-dd20a35e4ff1"/>
+                    <ID name="WorldView" mc="Standard.Interface" uid="ef002ca0-7638-4d64-9860-1c30b5e5c688"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="3cf60c63-1427-4066-bf98-cd1e007a1aa7"/>
+                <ID name="" mc="Infrastructure.Note" uid="a3c945de-1a7b-48d4-bd0b-8208e39f246c"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[this.world = world;]]></ATT>
+                  <ATT name="Content"><![CDATA[MapView map = worldView.getMap();
+BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB); //ARGB ?
+Graphics2D g = newWorld.createGraphics();
+//Faire le rendu
+world = newWorld;
+repaint();
+]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -225,7 +231,7 @@ g.drawImage(world, 0, 0, this);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="09291218-0e22-4459-94e4-272bfcfb44b3"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="891bba2d-ab6b-4a00-8245-4486c62683df"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -279,6 +285,19 @@ g.drawImage(world, 0, 0, this);
           <DEPENDENCIES>
             <LINK relation="ImportedElement">
               <ID name="Graphics2D" mc="Standard.Class" uid="2cdc7e3b-5411-477e-8ced-943b0feb8efa"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.ElementImport" uid="81883a4e-11b4-4c86-b454-f0ea1085d363"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="ImportedElement">
+              <ID name="MapView" mc="Standard.Interface" uid="27201ab7-2fd3-4c35-abb3-37155f6d5822"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

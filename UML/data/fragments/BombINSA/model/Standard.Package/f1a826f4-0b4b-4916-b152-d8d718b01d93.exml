@@ -24,7 +24,7 @@
           <ATTRIBUTES>
             <ATT name="IsElementary">true</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="IsLeaf">false</ATT>
+            <ATT name="IsLeaf">true</ATT>
             <ATT name="IsRoot">false</ATT>
             <ATT name="Visibility">Public</ATT>
             <ATT name="Name"><![CDATA[GameType]]></ATT>
@@ -71,6 +71,66 @@
           </DEPENDENCIES>
         </OBJECT>
         <COMPID name="ControlSettings" mc="Standard.Class" uid="a9e520e6-c602-4e73-9fe6-390ff4f5fabb"/>
+        <COMPID name="GameWorker" mc="Standard.Class" uid="0352607c-7ee6-4aa1-839f-fc6a174af9fd"/>
+        <OBJECT>
+          <ID name="GameState" mc="Standard.Enumeration" uid="272af0d0-1009-4ee1-b1a1-c3037d20e7fe"/>
+          <ATTRIBUTES>
+            <ATT name="IsElementary">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">true</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[GameState]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Value">
+              <OBJECT>
+                <ID name="Init" mc="Standard.EnumerationLiteral" uid="a0d06b1c-b67e-4c18-8333-5da3762392b3"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Init]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Playing" mc="Standard.EnumerationLiteral" uid="c90c80ba-d3be-42b1-86c5-0febcb356a22"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Playing]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="SuddenDeath" mc="Standard.EnumerationLiteral" uid="af99ff32-fbad-47da-b111-4f39f8ae3382"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[SuddenDeath]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="EndRound" mc="Standard.EnumerationLiteral" uid="f88e99bd-ecbe-460e-9415-e989b9646ed3"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[EndRound]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="End" mc="Standard.EnumerationLiteral" uid="4912362a-fcab-4186-b7d9-ec5a590ff7d3"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[End]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaEnumeration" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0262-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

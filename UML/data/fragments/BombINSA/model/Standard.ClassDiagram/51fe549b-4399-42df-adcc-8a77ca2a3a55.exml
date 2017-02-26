@@ -247,7 +247,7 @@
           <ID name="update" mc="Standard.Operation" uid="30c7a359-b727-428f-8ef4-493db313017c"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="FPS" mc="Standard.Attribute" uid="85c96d62-8a34-4a32-b45b-ae1b9c9d4112"/>
+          <ID name="fps" mc="Standard.Attribute" uid="85c96d62-8a34-4a32-b45b-ae1b9c9d4112"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="pickUpBonus" mc="Standard.Operation" uid="15006b09-55e2-4635-b9b7-f4cee5978c5d"/>
@@ -259,7 +259,7 @@
           <ID name="timeRemaining" mc="Standard.Attribute" uid="0a994301-baff-4943-8fc9-5e40b755921d"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="getFPS" mc="Standard.Operation" uid="9aa33376-6f71-4b5f-a0af-9fcba7c1a5cd"/>
+          <ID name="getFps" mc="Standard.Operation" uid="9aa33376-6f71-4b5f-a0af-9fcba7c1a5cd"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="getTimeRemaining" mc="Standard.Operation" uid="181a1f7d-91b0-4a1e-8a77-235ba0c5dd0c"/>
@@ -269,7 +269,7 @@
           <ID name="pickUpBonus" mc="Standard.Operation" uid="1883d42c-f691-41ab-acc6-c37fc049f80c"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="setFPS" mc="Standard.Operation" uid="2aa100c7-ebde-4cd8-840f-24b2f13f54cd"/>
+          <ID name="setFps" mc="Standard.Operation" uid="2aa100c7-ebde-4cd8-840f-24b2f13f54cd"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="Server" mc="Standard.Operation" uid="560005cd-1e82-4dc8-8a17-39d3577463ae"/>
@@ -384,7 +384,7 @@
           <ID name="getEntities" mc="Standard.Operation" uid="32dcdef1-5a7a-4722-92ad-5d4d0aa3f197"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="getFPS" mc="Standard.Operation" uid="d528a200-b69a-4233-8cd3-96e4aed92199"/>
+          <ID name="getFps" mc="Standard.Operation" uid="d528a200-b69a-4233-8cd3-96e4aed92199"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="getTimeRemaining" mc="Standard.Operation" uid="39ec082e-e21c-4225-b905-acf6c47cbd9b"/>

@@ -317,6 +317,11 @@
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
+            <LINK relation="Redefines">
+              <REFOBJ>
+                <ID name="newPlayer" mc="Standard.Operation" uid="d65622a5-0611-42cd-87a7-975a15931e59"/>
+              </REFOBJ>
+            </LINK>
             <COMP relation="Descriptor">
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="065845a9-af20-45a4-b00a-535a1fdf51eb"/>

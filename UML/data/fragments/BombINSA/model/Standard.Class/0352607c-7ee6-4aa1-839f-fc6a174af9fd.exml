@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Menu" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="GameWorker" version="4">
   <OBJECT>
-    <ID name="Menu" mc="Standard.Class" uid="e22186a6-1bcc-48ec-a2ac-a88a3eb90491"/>
+    <ID name="GameWorker" mc="Standard.Class" uid="0352607c-7ee6-4aa1-839f-fc6a174af9fd"/>
     <PID name="gui" mc="Standard.Package" uid="f1a826f4-0b4b-4916-b152-d8d718b01d93"/>
     <ATTRIBUTES>
       <ATT name="IsActive">false</ATT>
@@ -11,13 +11,13 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[Menu]]></ATT>
+      <ATT name="Name"><![CDATA[GameWorker]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="OwnedOperation">
         <OBJECT>
-          <ID name="Menu" mc="Standard.Operation" uid="a31a2175-f166-434f-b6fd-96a25b344584"/>
+          <ID name="GameWorker" mc="Standard.Operation" uid="5510e2b1-78a5-4452-a177-88e5ac8f1590"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -25,35 +25,66 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[Menu]]></ATT>
+            <ATT name="Name"><![CDATA[GameWorker]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="settings" mc="Standard.Parameter" uid="54f757bd-541a-4d8d-8a4d-bf31574b7f90"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[settings]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <ID name="GameSettings" mc="Standard.Class" uid="8b53145e-40f1-4120-b590-417a35a7feb5"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="viewer" mc="Standard.Parameter" uid="a2745c14-31c9-43fe-a012-8cc4483f768f"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[viewer]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <ID name="GameViewer" mc="Standard.Class" uid="932712f7-e00f-431a-abd5-e4322b7407bd"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
             <LINK relation="Extension">
               <FOREIGNID name="create" mc="Infrastructure.Stereotype" uid="00700680-0000-0204-0000-000000000000"/>
             </LINK>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="ba8e5ffd-e63c-49f4-a3d7-2e97d4893a87"/>
+                <ID name="" mc="Infrastructure.Note" uid="7604a762-d31f-4d2d-bb47-ae6f84b70471"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-add(Box.createVerticalGlue());
-
-JLabel lblBombinsa = new JLabel("BombINSA");
-lblBombinsa.setAlignmentX(Component.CENTER_ALIGNMENT);
-lblBombinsa.setFont(new Font("Dialog", Font.BOLD, 72));
-add(lblBombinsa);
-
-add(Box.createVerticalStrut(40));
-
-btnLocal = addButton("Local");
-btnNetwork = addButton("Réseau");
-btnSandbox = addButton("Sandbox");
-btnCreator = addButton("Créateur de carte");
-btnQuit = addButton("Quitter");
-
-add(Box.createVerticalGlue());
+                  <ATT name="Content"><![CDATA[this.state = GameState.Init;
+this.settings = settings;
+this.viewer = viewer;
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
@@ -69,45 +100,35 @@ add(Box.createVerticalGlue());
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="addButton" mc="Standard.Operation" uid="07a869f1-82e5-45c3-9ad9-a445c4aa7dde"/>
+          <ID name="doInBackground" mc="Standard.Operation" uid="57911ebe-31d3-4df2-b871-111cf25912bf"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Private</ATT>
+            <ATT name="Visibility">Protected</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[addButton]]></ATT>
+            <ATT name="Name"><![CDATA[doInBackground]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
-            <COMP relation="IO">
+            <COMP relation="Thrown">
               <OBJECT>
-                <ID name="text" mc="Standard.Parameter" uid="9939216c-5dda-46f7-bc56-57906b1e23c3"/>
+                <ID name="" mc="Standard.RaisedException" uid="0f9a61df-1dda-41ce-8c96-226961331929"/>
                 <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[text]]></ATT>
+                  <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
+                  <LINK relation="ThrownType">
+                    <ID name="Exception" mc="Standard.Class" uid="8bb6acb6-67ce-44e7-9937-96b418611b57"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
             <COMP relation="Return">
               <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="e5f474bc-9cf0-4403-9913-3796e3858cb8"/>
+                <ID name="" mc="Standard.Parameter" uid="9e28a092-f43f-48c8-bbad-bca2f0adc067"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -124,90 +145,28 @@ add(Box.createVerticalGlue());
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Type">
-                    <ID name="JButton" mc="Standard.Class" uid="2a016c9e-c53c-48e1-b8b1-496035a3aadf"/>
+                    <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
                   </LINK>
+                  <COMP relation="Tag">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="9be91667-74e2-4c53-b053-4d4b818c556d"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Definition">
+                          <FOREIGNID name="JavaWrapper" mc="Infrastructure.TagType" uid="007c081c-0000-272a-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="fdb7e129-a32b-4104-b03d-15cb71e7f79d"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[return button;]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="69a49a69-ba2f-418e-8f70-bc053b4aa29d"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[JButton button = new JButton(text);
-button.setAlignmentX(Component.CENTER_ALIGNMENT);
-button.setMaximumSize(new Dimension(160, button.getMaximumSize().height));
-button.addActionListener(this);
-add(button);
-Component verticalStrut = Box.createVerticalStrut(20);
-add(Box.createVerticalStrut(20));
-]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="actionPerformed" mc="Standard.Operation" uid="8346e6ce-7734-4a0c-a6b2-83edb22b96c5"/>
-          <ATTRIBUTES>
-            <ATT name="Concurrency">false</ATT>
-            <ATT name="Final">false</ATT>
-            <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Public</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[actionPerformed]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <COMP relation="IO">
-              <OBJECT>
-                <ID name="event" mc="Standard.Parameter" uid="b8125010-1258-4d9a-a548-996c8240c7a4"/>
-                <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[event]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <ID name="ActionEvent" mc="Standard.Class" uid="67f98ab1-a118-4cbf-b41f-addfcf24eb61"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="bcdb927d-0595-4ea9-8c1b-f3a65f6607ad"/>
+                <ID name="" mc="Infrastructure.Note" uid="9f064c2b-e142-445f-9bac-d451403aaf63"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[@Override]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
@@ -221,10 +180,133 @@ add(Box.createVerticalStrut(20));
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="76075c43-9d14-48e7-89de-ac8ac19f98c8"/>
+                <ID name="" mc="Infrastructure.Note" uid="db47bca6-c1c9-4129-a6c5-19fcd9c06953"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[if (event.getSource() == btnQuit) {
-    System.exit(0);
+                  <ATT name="Content"><![CDATA[return null;]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="59940ba4-3e7f-43be-8270-3253c168c082"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[for (int round = 0; round < settings.roundCount; round++)
+{
+    createWorld();
+    setGameState(GameState.Playing);
+    while (world.getPlayerCount() > 0)
+    {
+        world.update();
+        if (world.getTimeRemaining() == 0)
+            setGameState(GameState.SuddenDeath);
+        viewer.drawWorld(world);
+    }
+    setGameState(GameState.EndRound);
+}
+setGameState(GameState.End);
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="createWorld" mc="Standard.Operation" uid="b5e7e42e-c73b-4130-bed6-7aa32aa55eb3"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[createWorld]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="40c738e9-c958-4f8a-b30f-eac41bf3dd5c"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[setGameState(GameState.Init);
+if (settings.gameType.equals(GameType.Local)) {
+    world = new Server(settings.mapName+".map", settings.tileSize, settings.fps, settings.duration);
+    //Ajout des joueurs etc.
+}
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="setGameState" mc="Standard.Operation" uid="df3a5c13-59cb-491e-811a-ea1af7e23cda"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[setGameState]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="state" mc="Standard.Parameter" uid="149bab1f-8e26-468b-9182-f194cb6f1df0"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[state]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <REFOBJ>
+                      <ID name="GameState" mc="Standard.Enumeration" uid="272af0d0-1009-4ee1-b1a1-c3037d20e7fe"/>
+                    </REFOBJ>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="032a6487-d562-4520-892d-962906365ebe"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[if (!this.state.equals(state)) {
+    GameState oldState = this.state;
+    this.state = state;
+    firePropertyChange(GameState.class.getName(), oldState, state);
 }
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
@@ -241,9 +323,51 @@ add(Box.createVerticalStrut(20));
           </DEPENDENCIES>
         </OBJECT>
       </COMP>
+      <COMP relation="OwnedAttribute">
+        <OBJECT>
+          <ID name="state" mc="Standard.Attribute" uid="48d2d522-c922-4b51-80ca-ea2a20a4e237"/>
+          <ATTRIBUTES>
+            <ATT name="TypeConstraint"></ATT>
+            <ATT name="Value"></ATT>
+            <ATT name="TargetIsClass">false</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[state]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Type">
+              <REFOBJ>
+                <ID name="GameState" mc="Standard.Enumeration" uid="272af0d0-1009-4ee1-b1a1-c3037d20e7fe"/>
+              </REFOBJ>
+            </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="e680e4c1-08f7-4965-9b21-0e6028c235aa"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
       <COMP relation="OwnedEnd">
         <OBJECT>
-          <ID name="btnLocal" mc="Standard.AssociationEnd" uid="b2c4e4e8-bfe6-429e-a138-b575a0165129"/>
+          <ID name="world" mc="Standard.AssociationEnd" uid="f996874c-1764-42a2-867d-851bf61a9f40"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -256,16 +380,16 @@ add(Box.createVerticalStrut(20));
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[btnLocal]]></ATT>
+            <ATT name="Name"><![CDATA[world]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Target">
-              <ID name="JButton" mc="Standard.Class" uid="2a016c9e-c53c-48e1-b8b1-496035a3aadf"/>
+              <ID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
             </LINK>
             <COMP relation="Opposite">
               <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="fdafe282-ba63-40dd-9316-745a18ab1d0b"/>
+                <ID name="" mc="Standard.AssociationEnd" uid="61575d50-60e4-4fd2-9786-7b0c90f14c44"/>
                 <ATTRIBUTES>
                   <ATT name="Aggregation">KindIsAssociation</ATT>
                   <ATT name="IsChangeable">true</ATT>
@@ -283,11 +407,11 @@ add(Box.createVerticalStrut(20));
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="btnLocal" mc="Standard.AssociationEnd" uid="b2c4e4e8-bfe6-429e-a138-b575a0165129"/>
+                    <COMPID name="world" mc="Standard.AssociationEnd" uid="f996874c-1764-42a2-867d-851bf61a9f40"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="96fa2f95-87ef-487a-bff0-b13dca0d7c2d"/>
+                      <ID name="" mc="Standard.Association" uid="3ef3ed20-3102-4bc8-9ec8-bab9de13f926"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -299,11 +423,11 @@ add(Box.createVerticalStrut(20));
               </OBJECT>
             </COMP>
             <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="96fa2f95-87ef-487a-bff0-b13dca0d7c2d"/>
+              <COMPID name="" mc="Standard.Association" uid="3ef3ed20-3102-4bc8-9ec8-bab9de13f926"/>
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ac36f3aa-ef7d-4cbe-8106-4667c3114dd7"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="aceb454f-98ad-4bbb-a07d-83926980e7dd"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -318,7 +442,7 @@ add(Box.createVerticalStrut(20));
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="btnNetwork" mc="Standard.AssociationEnd" uid="76d13c2f-6d3a-424a-8142-c2979822d6d4"/>
+          <ID name="settings" mc="Standard.AssociationEnd" uid="e6c9ac41-77db-49aa-b718-1530b3eebbcd"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -331,16 +455,16 @@ add(Box.createVerticalStrut(20));
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[btnNetwork]]></ATT>
+            <ATT name="Name"><![CDATA[settings]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Target">
-              <ID name="JButton" mc="Standard.Class" uid="2a016c9e-c53c-48e1-b8b1-496035a3aadf"/>
+              <ID name="GameSettings" mc="Standard.Class" uid="8b53145e-40f1-4120-b590-417a35a7feb5"/>
             </LINK>
             <COMP relation="Opposite">
               <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="ef104506-fa4a-47dd-ae0d-270192301f97"/>
+                <ID name="" mc="Standard.AssociationEnd" uid="052df3c5-703a-42b3-b5ed-b70bc581f82e"/>
                 <ATTRIBUTES>
                   <ATT name="Aggregation">KindIsAssociation</ATT>
                   <ATT name="IsChangeable">true</ATT>
@@ -358,11 +482,11 @@ add(Box.createVerticalStrut(20));
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="btnNetwork" mc="Standard.AssociationEnd" uid="76d13c2f-6d3a-424a-8142-c2979822d6d4"/>
+                    <COMPID name="settings" mc="Standard.AssociationEnd" uid="e6c9ac41-77db-49aa-b718-1530b3eebbcd"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="d1d030a3-ab41-4d7c-8c86-9c5b6203b8e9"/>
+                      <ID name="" mc="Standard.Association" uid="1394e912-9da2-4498-8c79-093902fd3152"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -374,11 +498,11 @@ add(Box.createVerticalStrut(20));
               </OBJECT>
             </COMP>
             <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="d1d030a3-ab41-4d7c-8c86-9c5b6203b8e9"/>
+              <COMPID name="" mc="Standard.Association" uid="1394e912-9da2-4498-8c79-093902fd3152"/>
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="6c88b14d-d9d2-4def-8030-cd2b51045bab"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="fa1f7995-3677-45b0-bb8e-0503ee4ff6c9"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -393,7 +517,7 @@ add(Box.createVerticalStrut(20));
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="btnSandbox" mc="Standard.AssociationEnd" uid="c002cb95-7e3b-4f7d-802c-adc8b88d5146"/>
+          <ID name="viewer" mc="Standard.AssociationEnd" uid="0c0b3418-de2f-49f0-91d2-008a02cea763"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -406,16 +530,16 @@ add(Box.createVerticalStrut(20));
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[btnSandbox]]></ATT>
+            <ATT name="Name"><![CDATA[viewer]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Target">
-              <ID name="JButton" mc="Standard.Class" uid="2a016c9e-c53c-48e1-b8b1-496035a3aadf"/>
+              <ID name="GameViewer" mc="Standard.Class" uid="932712f7-e00f-431a-abd5-e4322b7407bd"/>
             </LINK>
             <COMP relation="Opposite">
               <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="d897d048-32c4-4216-ace1-ea2d1689850b"/>
+                <ID name="" mc="Standard.AssociationEnd" uid="f00578ad-f388-4342-8220-23499bbe818b"/>
                 <ATTRIBUTES>
                   <ATT name="Aggregation">KindIsAssociation</ATT>
                   <ATT name="IsChangeable">true</ATT>
@@ -433,11 +557,11 @@ add(Box.createVerticalStrut(20));
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <COMP relation="Opposite">
-                    <COMPID name="btnSandbox" mc="Standard.AssociationEnd" uid="c002cb95-7e3b-4f7d-802c-adc8b88d5146"/>
+                    <COMPID name="viewer" mc="Standard.AssociationEnd" uid="0c0b3418-de2f-49f0-91d2-008a02cea763"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="fcad9875-ea4d-43d1-8cee-f1d9931be08e"/>
+                      <ID name="" mc="Standard.Association" uid="ceb0f84e-2bec-4a85-8165-77ba228e36de"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -449,161 +573,11 @@ add(Box.createVerticalStrut(20));
               </OBJECT>
             </COMP>
             <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="fcad9875-ea4d-43d1-8cee-f1d9931be08e"/>
+              <COMPID name="" mc="Standard.Association" uid="ceb0f84e-2bec-4a85-8165-77ba228e36de"/>
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="643da93c-9e84-478d-888c-271516554abe"/>
-                <ATTRIBUTES>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Definition">
-                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="btnCreator" mc="Standard.AssociationEnd" uid="a8f404a7-a099-4fdc-b955-5012e1502ee4"/>
-          <ATTRIBUTES>
-            <ATT name="Aggregation">KindIsAssociation</ATT>
-            <ATT name="IsChangeable">true</ATT>
-            <ATT name="Changeable">AccesNone</ATT>
-            <ATT name="IsDerived">false</ATT>
-            <ATT name="IsOrdered">false</ATT>
-            <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[btnCreator]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Target">
-              <ID name="JButton" mc="Standard.Class" uid="2a016c9e-c53c-48e1-b8b1-496035a3aadf"/>
-            </LINK>
-            <COMP relation="Opposite">
-              <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="bd163e21-5c5a-4716-8883-46dd307f8585"/>
-                <ATTRIBUTES>
-                  <ATT name="Aggregation">KindIsAssociation</ATT>
-                  <ATT name="IsChangeable">true</ATT>
-                  <ATT name="Changeable">ReadWrite</ATT>
-                  <ATT name="IsDerived">false</ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="Visibility">Public</ATT>
-                  <ATT name="IsClass">false</ATT>
-                  <ATT name="IsAbstract">false</ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <COMP relation="Opposite">
-                    <COMPID name="btnCreator" mc="Standard.AssociationEnd" uid="a8f404a7-a099-4fdc-b955-5012e1502ee4"/>
-                  </COMP>
-                  <COMP relation="Association">
-                    <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="87c9c79e-19de-4160-b876-424c11120b12"/>
-                      <ATTRIBUTES>
-                        <ATT name="Name"></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES></DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="87c9c79e-19de-4160-b876-424c11120b12"/>
-            </COMP>
-            <COMP relation="Tag">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="60ad75fc-7076-4f75-ae8c-67003eb5f04c"/>
-                <ATTRIBUTES>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Definition">
-                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="btnQuit" mc="Standard.AssociationEnd" uid="954b1ba0-6aed-4f56-a7c5-e04330ffdfdf"/>
-          <ATTRIBUTES>
-            <ATT name="Aggregation">KindIsAssociation</ATT>
-            <ATT name="IsChangeable">true</ATT>
-            <ATT name="Changeable">AccesNone</ATT>
-            <ATT name="IsDerived">false</ATT>
-            <ATT name="IsOrdered">false</ATT>
-            <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[btnQuit]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Target">
-              <ID name="JButton" mc="Standard.Class" uid="2a016c9e-c53c-48e1-b8b1-496035a3aadf"/>
-            </LINK>
-            <COMP relation="Opposite">
-              <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="0eb0e306-479a-4ae2-b198-8d2931328394"/>
-                <ATTRIBUTES>
-                  <ATT name="Aggregation">KindIsAssociation</ATT>
-                  <ATT name="IsChangeable">true</ATT>
-                  <ATT name="Changeable">ReadWrite</ATT>
-                  <ATT name="IsDerived">false</ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="Visibility">Public</ATT>
-                  <ATT name="IsClass">false</ATT>
-                  <ATT name="IsAbstract">false</ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <COMP relation="Opposite">
-                    <COMPID name="btnQuit" mc="Standard.AssociationEnd" uid="954b1ba0-6aed-4f56-a7c5-e04330ffdfdf"/>
-                  </COMP>
-                  <COMP relation="Association">
-                    <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="e6b07211-aa42-4b4d-9f53-a4c0cad71d1c"/>
-                      <ATTRIBUTES>
-                        <ATT name="Name"></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES></DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="e6b07211-aa42-4b4d-9f53-a4c0cad71d1c"/>
-            </COMP>
-            <COMP relation="Tag">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="8ae3ff90-2d89-4403-b22a-b2f5e8fd8d20"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="5a4deff5-04dc-426b-a6d4-689c236daac9"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -620,7 +594,7 @@ add(Box.createVerticalStrut(20));
       </COMP>
       <COMP relation="Parent">
         <OBJECT>
-          <ID name="" mc="Standard.Generalization" uid="566f807e-a7b7-4252-bfe7-d50d857a30ee"/>
+          <ID name="" mc="Standard.Generalization" uid="4e6bdff0-b026-4279-b92b-fa8d1fb1591c"/>
           <ATTRIBUTES>
             <ATT name="Discriminator"></ATT>
             <ATT name="Name"></ATT>
@@ -628,28 +602,46 @@ add(Box.createVerticalStrut(20));
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="SuperType">
-              <ID name="JPanel" mc="Standard.Class" uid="9be21c0f-6720-4a1f-9a40-fc8da70e98cc"/>
+              <ID name="SwingWorker" mc="Standard.Class" uid="488d8703-f412-4273-9bee-1e6202ae121d"/>
             </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-      </COMP>
-      <COMP relation="Realized">
-        <OBJECT>
-          <ID name="" mc="Standard.InterfaceRealization" uid="9346d58e-a406-438a-9d38-839eff25bbf5"/>
-          <ATTRIBUTES>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Implemented">
-              <ID name="ActionListener" mc="Standard.Interface" uid="2343375c-9fef-4349-adb1-a176b107acaa"/>
-            </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1356eefe-d181-4b9c-920e-88e98f616159"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Actual">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.TagParameter" uid="38095f34-e749-4731-b919-e6a115f037d9"/>
+                      <ATTRIBUTES>
+                        <ATT name="Value"><![CDATA[Integer]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.TagParameter" uid="89dc9296-c850-4c54-b3dd-1aaaaa86811b"/>
+                      <ATTRIBUTES>
+                        <ATT name="Value"><![CDATA[Integer]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaBind" mc="Infrastructure.TagType" uid="00d007fc-0001-baee-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
           </DEPENDENCIES>
         </OBJECT>
       </COMP>
       <COMP relation="OwnedImport">
         <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="1fc9d625-16bd-4cca-8900-0a388d4d633d"/>
+          <ID name="" mc="Standard.ElementImport" uid="9ce7646e-57d4-4f48-ab70-6f47d8e5f467"/>
           <ATTRIBUTES>
             <ATT name="Visibility">Private</ATT>
             <ATT name="Name"></ATT>
@@ -657,72 +649,7 @@ add(Box.createVerticalStrut(20));
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="ImportedElement">
-              <ID name="BoxLayout" mc="Standard.Class" uid="c8c17e0e-e098-4f02-a56d-0f985667f59c"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="00c717f0-cf50-4b3b-aad6-0fcb95769a4d"/>
-          <ATTRIBUTES>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="ImportedElement">
-              <ID name="JLabel" mc="Standard.Class" uid="9a1b7d92-6e45-4715-94d7-2d83e6b3ec0d"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="cfb86dfa-916e-41a4-85a4-e6a877d154eb"/>
-          <ATTRIBUTES>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="ImportedElement">
-              <ID name="Component" mc="Standard.Class" uid="8477651f-164d-4ede-a7cd-296985ba68c9"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="71e2032c-891c-4d07-9423-16d91eb43cf7"/>
-          <ATTRIBUTES>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="ImportedElement">
-              <ID name="Box" mc="Standard.Class" uid="8b696f09-6374-494c-a63f-582eb4e296f5"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="13d8a264-8664-4e8b-b470-b4dc390c0141"/>
-          <ATTRIBUTES>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="ImportedElement">
-              <ID name="Font" mc="Standard.Class" uid="f77c3743-48be-473c-aa2f-1ebd28b6fbae"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="ad0f526c-67a3-4e4a-9e66-8d287f68bb9d"/>
-          <ATTRIBUTES>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="ImportedElement">
-              <ID name="Dimension" mc="Standard.Class" uid="7eea4489-7db7-419d-9072-234c64023487"/>
+              <ID name="Server" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

@@ -20,6 +20,7 @@
         <COMPID name="JButton" mc="Standard.Class" uid="2a016c9e-c53c-48e1-b8b1-496035a3aadf"/>
         <COMPID name="Box" mc="Standard.Class" uid="8b696f09-6374-494c-a63f-582eb4e296f5"/>
         <COMPID name="BoxLayout" mc="Standard.Class" uid="c8c17e0e-e098-4f02-a56d-0f985667f59c"/>
+        <COMPID name="SwingWorker" mc="Standard.Class" uid="488d8703-f412-4273-9bee-1e6202ae121d"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

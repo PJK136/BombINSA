@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import game.MapView;
+import game.WorldView;
 
 @objid ("932712f7-e00f-431a-abd5-e4322b7407bd")
 public class GameViewer extends JPanel {
@@ -17,8 +19,13 @@ public class GameViewer extends JPanel {
     }
 
     @objid ("18e3e04f-dec2-45e2-a3f5-dbabb34447b4")
-    void setWorldImage(BufferedImage world) {
-        this.world = world;
+    public void drawWorld(WorldView worldView) {
+        MapView map = worldView.getMap();
+        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB); //ARGB ?
+        Graphics2D g = newWorld.createGraphics();
+        //Faire le rendu
+        world = newWorld;
+        repaint();
     }
 
     @objid ("8a85e92f-ba76-4ae7-8d93-ab5ea648949a")

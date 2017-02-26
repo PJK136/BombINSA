@@ -79,20 +79,6 @@
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="acdf5426-2777-4e58-a675-7e416dbf89d1"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Launch the application.]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="79f83e1f-e69e-4dfc-bc36-4fe8005b5a62"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[/* Crée et affiche window dans l'Event Dispatch Thread (EDT)
@@ -139,20 +125,6 @@ EventQueue.invokeLater(new Runnable() {
             </LINK>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="d5cf8d77-fb05-4309-be9f-eb5433ec9e5c"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Create the application.]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="a31d7d72-3dfc-46d8-80bd-c56bf76b809a"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[initialize();]]></ATT>
@@ -183,20 +155,6 @@ EventQueue.invokeLater(new Runnable() {
           </ATTRIBUTES>
           <DEPENDENCIES>
             <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="2aa8075b-bef4-4c1f-b7ba-adca630532bd"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Initialize the contents of the frame.]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="f30a6af9-6d12-4d80-9cf2-9ff14b6536dc"/>
                 <ATTRIBUTES>
@@ -349,7 +307,7 @@ frame.setContentPane(new GamePanel());
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="1e50ba47-f23f-48e4-b212-f918c499736c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="28db5618-9f42-4f80-aaa7-f0f4fb5ed766"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

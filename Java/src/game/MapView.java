@@ -22,4 +22,10 @@ public interface MapView {
     @objid ("0048caaf-5a58-438a-8b3b-1a2a4c41cdec")
     Direction getArrowDirection(String x, String y);
 
+    @objid ("f9e27f3e-5590-406d-8e1c-c2283d78b1c0")
+    int getWidth();
+
+    @objid ("5d4ce44b-0b1b-467b-a4d4-a9c59b922f08")
+    int getHeight();
+
 }

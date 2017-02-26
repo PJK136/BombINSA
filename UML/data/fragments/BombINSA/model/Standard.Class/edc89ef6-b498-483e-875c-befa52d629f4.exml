@@ -138,7 +138,7 @@ add(gameViewer, BorderLayout.CENTER);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="f12ffc5b-5ec8-435d-92a6-1c636aa4a572"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="8da8893a-35b2-4448-be60-a44ad471ce01"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

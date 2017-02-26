@@ -17,4 +17,7 @@ public interface WorldView {
     @objid ("b3701478-0bf1-402b-98bd-a71cb1065097")
     MapView getMap();
 
+    @objid ("bc99ac64-6430-4211-82c1-72ea90aac841")
+    int getPlayerCount();
+
 }

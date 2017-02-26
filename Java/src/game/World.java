@@ -34,6 +34,10 @@ public abstract class World implements WorldView {
     public MapView getMap() {
     }
 
+    @objid ("cb863fac-e1bd-4a91-aa76-95e63ad3fc08")
+    public int getPlayerCount() {
+    }
+
     @objid ("7f0207e3-fb26-4a93-8d10-c12f9c0735f1")
     abstract void plantBomb(double x, double y, int fire);
 

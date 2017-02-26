@@ -13,7 +13,7 @@ public class GameSettings {
     public String mapName;
 
     @objid ("3358695a-0d2b-4e4c-ac1b-71c6800c0fe6")
-    public String tileSize;
+    public int tileSize;
 
     @objid ("518dcb54-de5e-4a36-8b59-228bfd65feb9")
     public int fps;

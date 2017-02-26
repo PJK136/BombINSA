@@ -262,7 +262,7 @@ this.bonusType = value;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="5c11f362-4c00-47e8-9012-eb9fca169b30"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="78bd7d01-d2d8-4bcd-80c0-979a8ca87e61"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
