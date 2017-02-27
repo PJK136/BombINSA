@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Bonus" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="BonusTile" version="4">
   <OBJECT>
-    <ID name="Bonus" mc="Standard.Class" uid="e0899fb2-43c0-4905-a390-6c536094eade"/>
+    <ID name="BonusTile" mc="Standard.Class" uid="e0899fb2-43c0-4905-a390-6c536094eade"/>
     <PID name="game" mc="Standard.Package" uid="8dc6cc71-fad5-4b27-9d9c-f44a7baed172"/>
     <ATTRIBUTES>
       <ATT name="IsActive">false</ATT>
@@ -11,7 +11,7 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[Bonus]]></ATT>
+      <ATT name="Name"><![CDATA[BonusTile]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
@@ -234,6 +234,26 @@ this.bonusType = value;
             </COMP>
           </DEPENDENCIES>
         </OBJECT>
+        <OBJECT>
+          <ID name="postExplosion" mc="Standard.Operation" uid="c5183470-d76f-4e5e-9d39-c2b0e4c4eb53"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[postExplosion]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Redefines">
+              <REFOBJ>
+                <ID name="postExplosion" mc="Standard.Operation" uid="847c1e18-ba21-46a3-9c9a-af2ebb645805"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
       </COMP>
       <COMP relation="OwnedAttribute">
         <OBJECT>
@@ -287,7 +307,7 @@ this.bonusType = value;
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="SuperType">
-              <ID name="Tile" mc="Standard.Class" uid="0a4b4bbc-6c10-4d09-9d5f-ebe94f0193bd"/>
+              <ID name="ExplodableTile" mc="Standard.Class" uid="760b79e9-bc69-4190-a3ce-f08660795ed5"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

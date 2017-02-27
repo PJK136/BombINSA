@@ -8,6 +8,9 @@ public interface WorldView {
     @objid ("d528a200-b69a-4233-8cd3-96e4aed92199")
     int getFps();
 
+    @objid ("cf7e69c5-28c5-4ca4-a08c-b3e954fe409a")
+    int getDuration();
+
     @objid ("39ec082e-e21c-4225-b905-acf6c47cbd9b")
     int getTimeRemaining();
 

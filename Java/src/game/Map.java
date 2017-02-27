@@ -12,8 +12,19 @@ public class Map implements MapView {
     @objid ("cc22a393-49b0-4bbb-9a9b-435c2804b924")
      List<Tile> tiles = new ArrayList<Tile> ();
 
+    @objid ("01eb7be5-4c79-4697-b0b8-0c701c3ff114")
+     List<GridCoordinates> spawningLocations = new ArrayList<GridCoordinates> ();
+
     @objid ("207bd3eb-53bc-4cf3-96e2-f4df05fd2714")
     public Map(int columns, int rows, String tileSize) {
+    }
+
+    @objid ("b23f3caa-604b-4104-bb57-0dd034b39302")
+    public int getWidth() {
+    }
+
+    @objid ("59f30df4-4a7a-40d0-84f6-2dd01811ef45")
+    public int getHeight() {
     }
 
     @objid ("48cfdc63-3e7d-49fd-9aa2-20e0e732aea2")
@@ -28,6 +39,10 @@ public class Map implements MapView {
     public boolean isCollidableBy(Entity entity, double x, double y) {
     }
 
+    @objid ("2d3a7680-da99-4351-813b-efa9981cf8ea")
+    public boolean isExploding(double x, double y) {
+    }
+
     @objid ("8591210d-fb9c-463e-b84f-c0fa935ec9c0")
     public TileType getTileType(double x, double y) {
     }
@@ -37,7 +52,11 @@ public class Map implements MapView {
     }
 
     @objid ("5cbfa265-5ee9-4a71-afc5-0d371f6efe4e")
-    public Direction getArrowDirection(String x, String y) {
+    public Direction getArrowDirection(double x, double y) {
+    }
+
+    @objid ("d303d2cc-982c-4eb4-bb9f-9cead2bfc564")
+    public List<GridCoordinates> getSpawningLocations() {
     }
 
     @objid ("7f54516a-ad04-4987-b239-f3408e868759")
@@ -60,6 +79,14 @@ public class Map implements MapView {
 
     @objid ("af2aa240-e83a-4b08-9641-56c0dfe48630")
     public void setArrowDirection(Direction direction, double x, double y) {
+    }
+
+    @objid ("3197c6a7-683c-41b2-8d78-dc1d8b6b0f8a")
+    void setExplosion(int duration, double x, double y) {
+    }
+
+    @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
+    void setBonusType(BonusType type, double x, double y) {
     }
 
     @objid ("c15e0882-3eff-4467-ac1f-4152e69db4f1")

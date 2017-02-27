@@ -185,7 +185,7 @@
         <REFOBJ>
           <ID name="addEntity" mc="Standard.Operation" uid="547b782f-b41e-4098-bd4a-5de3c5f1b0dd"/>
         </REFOBJ>
-        <ID name="Bonus" mc="Standard.Class" uid="e0899fb2-43c0-4905-a390-6c536094eade"/>
+        <ID name="BonusTile" mc="Standard.Class" uid="e0899fb2-43c0-4905-a390-6c536094eade"/>
         <REFOBJ>
           <ID name="bonusType" mc="Standard.Attribute" uid="3e29d10d-6372-4dd9-bd6f-32bbedb5490d"/>
         </REFOBJ>
@@ -198,7 +198,7 @@
         <REFOBJ>
           <ID name="getBonusType" mc="Standard.Operation" uid="6823a6b7-ebf3-44cf-8890-65bc440392e2"/>
         </REFOBJ>
-        <ID name="Arrow" mc="Standard.Class" uid="7c0be07f-9851-49c1-9084-d21acfdf1a57"/>
+        <ID name="ArrowTile" mc="Standard.Class" uid="7c0be07f-9851-49c1-9084-d21acfdf1a57"/>
         <REFOBJ>
           <ID name="direction" mc="Standard.Attribute" uid="e9081624-7d7d-411c-9fae-43e3570502a5"/>
         </REFOBJ>
@@ -211,21 +211,14 @@
         <REFOBJ>
           <ID name="Arrow" mc="Standard.Operation" uid="3ffd6d9c-5051-4269-9ead-1aa727152d09"/>
         </REFOBJ>
-        <ID name="Explosion" mc="Standard.Class" uid="6f5b53c8-2117-4a0a-b672-90af08afc55f"/>
         <REFOBJ>
-          <ID name="timeRemaining" mc="Standard.Attribute" uid="7ffae68f-5714-4e34-91d3-598f263115eb"/>
+          <ID name="explosionTimeRemaining" mc="Standard.Attribute" uid="7ffae68f-5714-4e34-91d3-598f263115eb"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="update" mc="Standard.Operation" uid="d601fae6-e003-4465-a524-487f251e6f88"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="Explosion" mc="Standard.Operation" uid="c37f246c-1b88-4875-918c-5891b910ac10"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="setTimeRemaining" mc="Standard.Operation" uid="063162a4-f7f1-4461-b355-894f79597731"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="getTimeRemaining" mc="Standard.Operation" uid="a0f2cff1-fab0-4f53-b3e0-2666e4eb5b0b"/>
+          <ID name="getExplosionTimeRemaining" mc="Standard.Operation" uid="a0f2cff1-fab0-4f53-b3e0-2666e4eb5b0b"/>
         </REFOBJ>
         <ID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
         <REFOBJ>

@@ -12,14 +12,24 @@ public abstract class World implements WorldView {
     @objid ("0a994301-baff-4943-8fc9-5e40b755921d")
      int timeRemaining;
 
+    @objid ("ed497149-29e3-423f-aa53-4d59e7f2d0a9")
+     int duration;
+
     @objid ("cdff29e5-a4b9-4b5a-865a-838fddcdb57d")
      Map map;
 
     @objid ("ea256a0b-ce0d-4498-ac24-bd5ea8fb8825")
      List<Entity> entities = new ArrayList<Entity> ();
 
+    @objid ("20f367fb-bcb4-4389-912c-a406baff8d4e")
+    public List<Controller> controllers = new ArrayList<Controller> ();
+
     @objid ("9aa33376-6f71-4b5f-a0af-9fcba7c1a5cd")
     public int getFps() {
+    }
+
+    @objid ("74f79401-b120-4eaf-81b7-d8ddf36eae60")
+    public int getDuration() {
     }
 
     @objid ("181a1f7d-91b0-4a1e-8a77-235ba0c5dd0c")
@@ -55,5 +65,8 @@ public abstract class World implements WorldView {
 
     @objid ("30c7a359-b727-428f-8ef4-493db313017c")
     public abstract void update();
+
+    @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
+    public abstract void restart();
 
 }

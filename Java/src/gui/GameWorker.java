@@ -19,13 +19,6 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     @objid ("0c0b3418-de2f-49f0-91d2-008a02cea763")
     private GameViewer viewer;
 
-    @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
-    public GameWorker(GameSettings settings, GameViewer viewer) {
-        this.state = GameState.Init;
-        this.settings = settings;
-        this.viewer = viewer;
-    }
-
     @objid ("57911ebe-31d3-4df2-b871-111cf25912bf")
     @Override
     protected Integer doInBackground() throws Exception {
@@ -62,6 +55,13 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
             this.state = state;
             firePropertyChange(GameState.class.getName(), oldState, state);
         }
+    }
+
+    @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
+    public GameWorker(GameSettings settings, GameViewer viewer) {
+        this.state = GameState.Init;
+        this.settings = settings;
+        this.viewer = viewer;
     }
 
 }

@@ -12,6 +12,10 @@ public class Server extends World {
     public void setFps(int fps) {
     }
 
+    @objid ("3b2131f9-67d7-42dd-b764-55a156072456")
+    public void setDuration(int duration) {
+    }
+
     @objid ("77769968-3eb5-4133-880a-e74cedee78ae")
     public void setTimeRemaining(int time) {
     }
@@ -32,6 +36,10 @@ public class Server extends World {
 
     @objid ("15f9ba61-54f9-4783-8bd0-923098e480d7")
     public void update() {
+    }
+
+    @objid ("a193a9c9-e032-4940-953b-5923c9da849e")
+    public void restart() {
     }
 
     @objid ("b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e")

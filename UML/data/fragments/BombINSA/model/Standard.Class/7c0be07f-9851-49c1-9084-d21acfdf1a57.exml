@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Arrow" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ArrowTile" version="4">
   <OBJECT>
-    <ID name="Arrow" mc="Standard.Class" uid="7c0be07f-9851-49c1-9084-d21acfdf1a57"/>
+    <ID name="ArrowTile" mc="Standard.Class" uid="7c0be07f-9851-49c1-9084-d21acfdf1a57"/>
     <PID name="game" mc="Standard.Package" uid="8dc6cc71-fad5-4b27-9d9c-f44a7baed172"/>
     <ATTRIBUTES>
       <ATT name="IsActive">false</ATT>
@@ -11,7 +11,7 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[Arrow]]></ATT>
+      <ATT name="Name"><![CDATA[ArrowTile]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
@@ -287,7 +287,7 @@ this.direction = value;
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="SuperType">
-              <ID name="Tile" mc="Standard.Class" uid="0a4b4bbc-6c10-4d09-9d5f-ebe94f0193bd"/>
+              <ID name="ExplodableTile" mc="Standard.Class" uid="760b79e9-bc69-4190-a3ce-f08660795ed5"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
