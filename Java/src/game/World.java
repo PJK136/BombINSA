@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -26,26 +27,32 @@ public abstract class World implements WorldView {
 
     @objid ("9aa33376-6f71-4b5f-a0af-9fcba7c1a5cd")
     public int getFps() {
+    	return fps;
     }
 
     @objid ("74f79401-b120-4eaf-81b7-d8ddf36eae60")
     public int getDuration() {
+    	return duration;
     }
 
     @objid ("181a1f7d-91b0-4a1e-8a77-235ba0c5dd0c")
     public int getTimeRemaining() {
+    	return timeRemaining;
     }
 
     @objid ("83167709-dc8e-456e-b787-b9a4ed0d8113")
     public List<Entity> getEntities() {
+    	return Collections.unmodifiableList(entities);
     }
 
     @objid ("8696ef92-01cf-4263-80c5-6bcf172924d8")
     public MapView getMap() {
+    	return map;		//TODO : make unchangeable
     }
 
     @objid ("cb863fac-e1bd-4a91-aa76-95e63ad3fc08")
     public int getPlayerCount() {
+    	return controllers.size();
     }
 
     @objid ("7f0207e3-fb26-4a93-8d10-c12f9c0735f1")
