@@ -25,7 +25,6 @@ public class ArrowTile extends Tile {
 
     @objid ("d94a5ee2-e6d7-40dd-b30c-3259db5fbaf0")
     void setDirection(Direction value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
         this.direction = value;
     }
 
