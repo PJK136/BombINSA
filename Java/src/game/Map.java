@@ -1,7 +1,10 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid("828d0eae-528b-43df-a33e-799c03f4c5af")
@@ -28,12 +31,8 @@ public class Map implements MapView {
 
     @objid("59f30df4-4a7a-40d0-84f6-2dd01811ef45")
     public int getHeight() {
-        if (tiles.length > 0) {
-            return (tiles[0].length) * (tileSize);
-        } else {
-            throw new RuntimeException("Terrain de taille ZERO !!!");
-        }
-    }//faite
+        return (tiles[0].length) * (tileSize);
+    }
 
     @objid("48cfdc63-3e7d-49fd-9aa2-20e0e732aea2")
     public int getTileSize() {
@@ -87,7 +86,8 @@ public class Map implements MapView {
 
     @objid("d303d2cc-982c-4eb4-bb9f-9cead2bfc564")
     public List<GridCoordinates> getSpawningLocations() {
-    }//TODO
+        return Collections.unmodifiableList(spawningLocations);
+    }//faite
 
     @objid("7f54516a-ad04-4987-b239-f3408e868759")
     public void setTileSize(int value) {
@@ -96,7 +96,34 @@ public class Map implements MapView {
 
     @objid("81317f24-599b-4128-9480-5c1f6c0859f2")
     public void loadMap(String map) {
-    }//TODO
+        Scanner sc = new Scanner(map);
+        int columns = sc.nextInt();
+        int lines = sc.nextInt();
+        
+        tiles = new Tile[columns][lines];
+        
+        int spawningLocationsCount = sc.nextInt();
+        spawningLocations = new ArrayList<GridCoordinates>(spawningLocationsCount);
+        for (int i = 0; i < spawningLocationsCount; i++)
+            spawningLocations.add(new GridCoordinates(sc.nextInt(), sc.nextInt()));
+        
+        TileType[] types = TileType.values();
+        Direction[] directions = Direction.values();
+        
+        GridCoordinates grid = new GridCoordinates();
+        
+        for (grid.x = 0; grid.x < columns; grid.x++) {
+            for (grid.y = 0; grid.y < lines; grid.y++) {
+                TileType type = types[sc.nextInt()];
+                setTileType(type, grid);
+                
+                if (type == TileType.Arrow)
+                    ((ArrowTile)tiles[grid.x][grid.y]).setDirection(directions[sc.nextInt()]);
+            }
+        }
+        
+        sc.close();
+    }
 
     @objid("8960c7a3-87e7-4b1b-8f9a-1858808c9349")
     public String saveMap() {
