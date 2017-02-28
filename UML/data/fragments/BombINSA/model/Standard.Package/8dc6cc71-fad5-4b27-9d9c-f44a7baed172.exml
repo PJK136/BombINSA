@@ -291,8 +291,9 @@
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
-        <COMPID name="ExplodableTile" mc="Standard.Class" uid="760b79e9-bc69-4190-a3ce-f08660795ed5"/>
         <COMPID name="BreakableTile" mc="Standard.Class" uid="96719cc7-626b-4b48-9f90-aeab79c12c54"/>
+        <COMPID name="EmptyTile" mc="Standard.Class" uid="2ee20b8d-0ca1-45dc-9c2f-d6f9a8dae45c"/>
+        <COMPID name="UnbreakableTile" mc="Standard.Class" uid="448c0a60-8029-4a03-b5df-bb399dc51ac3"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

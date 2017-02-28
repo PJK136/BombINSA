@@ -217,7 +217,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="isCollidableBy" mc="Standard.Operation" uid="530a81b2-8f93-4453-bff3-ab4a31d9de02"/>
+          <ID name="isCollidable" mc="Standard.Operation" uid="530a81b2-8f93-4453-bff3-ab4a31d9de02"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -225,7 +225,7 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[isCollidableBy]]></ATT>
+            <ATT name="Name"><![CDATA[isCollidable]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>

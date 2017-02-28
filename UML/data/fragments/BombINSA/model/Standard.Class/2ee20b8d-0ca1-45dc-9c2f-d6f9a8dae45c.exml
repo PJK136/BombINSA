@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="BreakableTile" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="EmptyTile" version="4">
   <OBJECT>
-    <ID name="BreakableTile" mc="Standard.Class" uid="96719cc7-626b-4b48-9f90-aeab79c12c54"/>
+    <ID name="EmptyTile" mc="Standard.Class" uid="2ee20b8d-0ca1-45dc-9c2f-d6f9a8dae45c"/>
     <PID name="game" mc="Standard.Package" uid="8dc6cc71-fad5-4b27-9d9c-f44a7baed172"/>
     <ATTRIBUTES>
       <ATT name="IsActive">false</ATT>
@@ -11,13 +11,13 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[BreakableTile]]></ATT>
+      <ATT name="Name"><![CDATA[EmptyTile]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="OwnedOperation">
         <OBJECT>
-          <ID name="getType" mc="Standard.Operation" uid="b437dbbe-08da-431d-a157-4f630122bbfa"/>
+          <ID name="getType" mc="Standard.Operation" uid="1e514f2f-2677-4b09-90c5-7770342f7a45"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -31,7 +31,7 @@
           <DEPENDENCIES>
             <COMP relation="Return">
               <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="8ba7eef3-0534-4ab3-a507-b42bd1fa5177"/>
+                <ID name="p1" mc="Standard.Parameter" uid="fab69d60-4dde-4c60-8d80-2ceb8657e3b9"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -43,7 +43,7 @@
                   <ATT name="IsException">false</ATT>
                   <ATT name="IsStream">false</ATT>
                   <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"></ATT>
+                  <ATT name="Name"><![CDATA[p1]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
@@ -60,28 +60,12 @@
                 <ID name="getType" mc="Standard.Operation" uid="eba8c794-3248-484e-8fdd-ec19b08a5c19"/>
               </REFOBJ>
             </LINK>
-            <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="94dd15ae-166c-44e2-9b6f-520ef63b36d1"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[@Override]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="000c0b48-0000-3aa1-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
           </DEPENDENCIES>
         </OBJECT>
       </COMP>
       <COMP relation="Parent">
         <OBJECT>
-          <ID name="Generalization" mc="Standard.Generalization" uid="55693c6a-ffdb-4ccf-a757-f5516ff381cc"/>
+          <ID name="Generalization" mc="Standard.Generalization" uid="567b8fc4-7c7a-41f7-8f59-21237a993833"/>
           <ATTRIBUTES>
             <ATT name="Discriminator"></ATT>
             <ATT name="Name"><![CDATA[Generalization]]></ATT>

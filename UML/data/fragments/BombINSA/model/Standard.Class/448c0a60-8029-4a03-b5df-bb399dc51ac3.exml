@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="BreakableTile" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="UnbreakableTile" version="4">
   <OBJECT>
-    <ID name="BreakableTile" mc="Standard.Class" uid="96719cc7-626b-4b48-9f90-aeab79c12c54"/>
+    <ID name="UnbreakableTile" mc="Standard.Class" uid="448c0a60-8029-4a03-b5df-bb399dc51ac3"/>
     <PID name="game" mc="Standard.Package" uid="8dc6cc71-fad5-4b27-9d9c-f44a7baed172"/>
     <ATTRIBUTES>
       <ATT name="IsActive">false</ATT>
@@ -11,13 +11,13 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[BreakableTile]]></ATT>
+      <ATT name="Name"><![CDATA[UnbreakableTile]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="OwnedOperation">
         <OBJECT>
-          <ID name="getType" mc="Standard.Operation" uid="b437dbbe-08da-431d-a157-4f630122bbfa"/>
+          <ID name="getType" mc="Standard.Operation" uid="ab038780-15fe-4b06-9a5f-a46daa173c09"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -31,7 +31,7 @@
           <DEPENDENCIES>
             <COMP relation="Return">
               <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="8ba7eef3-0534-4ab3-a507-b42bd1fa5177"/>
+                <ID name="" mc="Standard.Parameter" uid="fb200ea0-b677-4662-b0c9-fa6b778300ca"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -62,7 +62,7 @@
             </LINK>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="94dd15ae-166c-44e2-9b6f-520ef63b36d1"/>
+                <ID name="" mc="Infrastructure.Note" uid="81934ede-7380-499d-9bc4-1a19af3a9ff7"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[@Override]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
@@ -81,7 +81,7 @@
       </COMP>
       <COMP relation="Parent">
         <OBJECT>
-          <ID name="Generalization" mc="Standard.Generalization" uid="55693c6a-ffdb-4ccf-a757-f5516ff381cc"/>
+          <ID name="Generalization" mc="Standard.Generalization" uid="e4054da6-df0b-4132-9308-9be20ac29a1a"/>
           <ATTRIBUTES>
             <ATT name="Discriminator"></ATT>
             <ATT name="Name"><![CDATA[Generalization]]></ATT>

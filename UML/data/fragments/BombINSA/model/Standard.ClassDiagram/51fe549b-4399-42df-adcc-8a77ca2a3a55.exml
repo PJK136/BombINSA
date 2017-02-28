@@ -140,13 +140,13 @@
           <ID name="getTimeRemaining" mc="Standard.Operation" uid="46c24a88-c0e7-42af-aa08-f2217f450044"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="fire" mc="Standard.Attribute" uid="7cf845bf-dacd-4f1f-9c63-46ad9d0e478b"/>
+          <ID name="range" mc="Standard.Attribute" uid="7cf845bf-dacd-4f1f-9c63-46ad9d0e478b"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="timeRemaining" mc="Standard.Attribute" uid="57ad54f8-e371-4980-8fcc-383afd09c461"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="getFire" mc="Standard.Operation" uid="af854c36-bd42-4e95-bfb6-98d2b4864671"/>
+          <ID name="getRange" mc="Standard.Operation" uid="af854c36-bd42-4e95-bfb6-98d2b4864671"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="Bomb" mc="Standard.Operation" uid="f9841259-647d-4cd7-9bb7-f10aea5a4794"/>
@@ -158,12 +158,9 @@
           <ID name="setTimeRemaining" mc="Standard.Operation" uid="8568627a-17f2-49d3-a8e6-c690ecf21ab1"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="setFire" mc="Standard.Operation" uid="4f8c6754-27ec-4d70-8fa4-df7fd74b49fe"/>
+          <ID name="setRange" mc="Standard.Operation" uid="4f8c6754-27ec-4d70-8fa4-df7fd74b49fe"/>
         </REFOBJ>
         <ID name="Tile" mc="Standard.Class" uid="0a4b4bbc-6c10-4d09-9d5f-ebe94f0193bd"/>
-        <REFOBJ>
-          <ID name="getType" mc="Standard.Operation" uid="387e8faa-5c7a-4e45-a991-70ce30b58c6f"/>
-        </REFOBJ>
         <REFOBJ>
           <ID name="update" mc="Standard.Operation" uid="56948d0a-9630-4a04-8e0a-25aafbb43b4d"/>
         </REFOBJ>
@@ -171,16 +168,7 @@
           <ID name="setEntities" mc="Standard.Operation" uid="43353fe2-84e4-465e-90e2-a96befea38d6"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="type" mc="Standard.Attribute" uid="e3c50532-1270-4fc6-9609-abbe4a39d444"/>
-        </REFOBJ>
-        <REFOBJ>
           <ID name="getEntities" mc="Standard.Operation" uid="2b2f5efa-8de9-4ab7-932c-ca4af3ebd86f"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="setType" mc="Standard.Operation" uid="90821bed-67e2-4780-899a-8e22ae5de4a5"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="Tile" mc="Standard.Operation" uid="b497b402-67fb-4336-827a-4cc61d5fbec1"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="addEntity" mc="Standard.Operation" uid="547b782f-b41e-4098-bd4a-5de3c5f1b0dd"/>
@@ -193,7 +181,7 @@
           <ID name="setBonusType" mc="Standard.Operation" uid="1277cdc7-164d-41c6-a297-9ad372607823"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="Bonus" mc="Standard.Operation" uid="ef5a626b-54a8-41e3-833e-b15b09f2c6ba"/>
+          <ID name="BonusTile" mc="Standard.Operation" uid="ef5a626b-54a8-41e3-833e-b15b09f2c6ba"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="getBonusType" mc="Standard.Operation" uid="6823a6b7-ebf3-44cf-8890-65bc440392e2"/>
@@ -209,13 +197,10 @@
           <ID name="setDirection" mc="Standard.Operation" uid="d94a5ee2-e6d7-40dd-b30c-3259db5fbaf0"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="Arrow" mc="Standard.Operation" uid="3ffd6d9c-5051-4269-9ead-1aa727152d09"/>
+          <ID name="ArrowTile" mc="Standard.Operation" uid="3ffd6d9c-5051-4269-9ead-1aa727152d09"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="explosionTimeRemaining" mc="Standard.Attribute" uid="7ffae68f-5714-4e34-91d3-598f263115eb"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="update" mc="Standard.Operation" uid="d601fae6-e003-4465-a524-487f251e6f88"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="getExplosionTimeRemaining" mc="Standard.Operation" uid="a0f2cff1-fab0-4f53-b3e0-2666e4eb5b0b"/>
@@ -412,7 +397,7 @@
           <ID name="toGridCoordinates" mc="Standard.Operation" uid="f966b298-131f-4a66-b7f3-23dee860247f"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="isCollidableBy" mc="Standard.Operation" uid="530a81b2-8f93-4453-bff3-ab4a31d9de02"/>
+          <ID name="isCollidable" mc="Standard.Operation" uid="530a81b2-8f93-4453-bff3-ab4a31d9de02"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="getBonusType" mc="Standard.Operation" uid="8d579098-48e5-4fc5-9e18-32c991448739"/>
@@ -461,7 +446,7 @@
           <ID name="Map" mc="Standard.Operation" uid="207bd3eb-53bc-4cf3-96e2-f4df05fd2714"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="isCollidableBy" mc="Standard.Operation" uid="1731df9e-c870-4d85-8b30-64347ac9b64e"/>
+          <ID name="isCollidable" mc="Standard.Operation" uid="1731df9e-c870-4d85-8b30-64347ac9b64e"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="setTileSize" mc="Standard.Operation" uid="7f54516a-ad04-4987-b239-f3408e868759"/>

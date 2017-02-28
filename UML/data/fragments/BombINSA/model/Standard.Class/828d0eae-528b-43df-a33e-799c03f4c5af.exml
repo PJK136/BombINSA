@@ -325,7 +325,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="isCollidableBy" mc="Standard.Operation" uid="1731df9e-c870-4d85-8b30-64347ac9b64e"/>
+          <ID name="isCollidable" mc="Standard.Operation" uid="1731df9e-c870-4d85-8b30-64347ac9b64e"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -333,13 +333,13 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[isCollidableBy]]></ATT>
+            <ATT name="Name"><![CDATA[isCollidable]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <COMP relation="IO">
               <OBJECT>
-                <ID name="entity" mc="Standard.Parameter" uid="a848d727-b846-45e2-af84-5e14858494d8"/>
+                <ID name="entity" mc="Standard.Parameter" uid="b7126bee-c13b-415d-9028-c58da3234e22"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -361,7 +361,7 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="x" mc="Standard.Parameter" uid="b7126bee-c13b-415d-9028-c58da3234e22"/>
+                <ID name="x" mc="Standard.Parameter" uid="7702b3d8-5fcc-477e-b010-4542fe2a6f78"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -383,7 +383,7 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="y" mc="Standard.Parameter" uid="7702b3d8-5fcc-477e-b010-4542fe2a6f78"/>
+                <ID name="y" mc="Standard.Parameter" uid="813c2220-d7a5-4e45-b0cd-7f824ad8650c"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -431,7 +431,7 @@
             </COMP>
             <LINK relation="Redefines">
               <REFOBJ>
-                <ID name="isCollidableBy" mc="Standard.Operation" uid="530a81b2-8f93-4453-bff3-ab4a31d9de02"/>
+                <ID name="isCollidable" mc="Standard.Operation" uid="530a81b2-8f93-4453-bff3-ab4a31d9de02"/>
               </REFOBJ>
             </LINK>
           </DEPENDENCIES>
