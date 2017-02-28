@@ -36,5 +36,10 @@ public class BonusTile extends Tile {
     public boolean isCollidable() {
         return false;
     }
+    
+    public Tile explode(int duration){
+        explosionTimeRemaining = duration;
+        return new EmptyTile();
+    }
 
 }

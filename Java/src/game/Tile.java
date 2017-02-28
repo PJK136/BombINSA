@@ -23,23 +23,25 @@ public abstract class Tile {
 
     @objid ("afce3c9f-2a7e-43fa-b8fe-9183c2e26f63")
     public boolean isExploding() {
+        if(explosionTimeRemaining!=0){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @objid ("a0f2cff1-fab0-4f53-b3e0-2666e4eb5b0b")
     public int getExplosionTimeRemaining() {
-        // Automatically generated method. Please delete this comment before entering specific code.
         return this.explosionTimeRemaining;
     }
 
     @objid ("2b2f5efa-8de9-4ab7-932c-ca4af3ebd86f")
     public List<Entity> getEntities() {
-        // Automatically generated method. Please delete this comment before entering specific code.
         return this.entities;
     }
 
     @objid ("43353fe2-84e4-465e-90e2-a96befea38d6")
     void setEntities(List<Entity> value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
         this.entities = value;
     }
 
@@ -49,10 +51,13 @@ public abstract class Tile {
 
     @objid ("9f2c3dd7-e9e3-46b8-82e0-23ea933b9eda")
     Tile explode(int duration) {
+        explosionTimeRemaining = duration;
+        return this;
     }
 
     @objid ("547b782f-b41e-4098-bd4a-5de3c5f1b0dd")
     void addEntity(Entity entity) {
-    }//TODO
+        entities.add(entity);
+    }
 
 }
