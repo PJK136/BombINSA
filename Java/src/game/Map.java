@@ -16,9 +16,8 @@ public class Map implements MapView {
     List<GridCoordinates> spawningLocations = new ArrayList<GridCoordinates>();
 
     @objid("207bd3eb-53bc-4cf3-96e2-f4df05fd2714")
-    public Map(int columns, int rows, int tileSize) {
+    public Map(int tileSize) {
         this.tileSize = tileSize;
-        tiles = new Tile[columns][rows];
         // TODO voir quoi faire de l'attribut spawningLocations
     }
 

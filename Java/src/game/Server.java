@@ -1,12 +1,19 @@
 package game;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Server extends World {
     @objid("560005cd-1e82-4dc8-8a17-39d3577463ae")
     public Server(String mapFilename, int tileSize, int fps, int duration) {
-
+        map = new Map(tileSize);
+        map.loadMap(mapFilename);
+        setFps(fps);
+        setDuration(duration);
     }
 
     @objid("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
@@ -43,6 +50,15 @@ public class Server extends World {
 
     @objid("4164c416-9e5c-461f-a7dc-1758c0f94d36")
     public void loadMap(String filename) {
+        String mapContent = new String();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                mapContent = mapContent + line;
+            }
+        } catch (IOException x) {
+            System.err.format("IOException: %s%n", x);
+        }
     }
 
     @objid("3201955a-ab70-48b8-b676-a53ca4da06a7")
