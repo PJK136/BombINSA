@@ -54,6 +54,16 @@ public abstract class World implements WorldView {
     public int getPlayerCount() {
     	return controllers.size();
     }
+    
+    public int getPlayerAliveCount(){
+        int sum = 0;
+        for(Entity entity : entities){
+            if(entity instanceof Player){
+                sum ++;
+            }       
+        }
+        return sum;
+    }
 
     @objid ("7f0207e3-fb26-4a93-8d10-c12f9c0735f1")
     abstract void plantBomb(double x, double y, int range);

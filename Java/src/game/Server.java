@@ -11,7 +11,7 @@ public class Server extends World {
 
     @objid("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
     public void setFps(int fps) {
-        if (fps < 0) {
+        if (fps <= 0) {
             throw new RuntimeException("fps not positive");
         } else {
             this.fps = fps;
