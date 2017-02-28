@@ -1,17 +1,18 @@
 package game;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.InputMismatchException;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Server extends World {
     @objid("560005cd-1e82-4dc8-8a17-39d3577463ae")
-    public Server(String mapFilename, int tileSize, int fps, int duration) {
+    public Server(String mapFilename, int tileSize, int fps, int duration) throws Exception {
         map = new Map(tileSize);
-        map.loadMap(mapFilename);
+        loadMap(mapFilename);
         setFps(fps);
         setDuration(duration);
     }
@@ -49,18 +50,8 @@ public class Server extends World {
     }
 
     @objid("4164c416-9e5c-461f-a7dc-1758c0f94d36")
-    public void loadMap(String filename) {
-        String mapContent = new String();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                mapContent = mapContent + line;
-            }
-        } catch (IOException x) {
-            //TODO : exception à gérer
-            System.err.format("IOException: %s%n", x);
-        }
-        map.loadMap(mapContent);
+    public void loadMap(String filename) throws Exception {
+        map.loadMap(new String(Files.readAllBytes(Paths.get(filename))));
     }
     
 

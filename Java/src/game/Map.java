@@ -26,6 +26,17 @@ public class Map implements MapView {
         this.spawningLocations = new ArrayList<GridCoordinates>();
     }
 
+    public Map(int columns, int rows, int tileSize) {
+        this(tileSize);
+        tiles = new Tile[columns][rows];
+        GridCoordinates gc = new GridCoordinates();
+        for (gc.x = 0; gc.x < getColumnCount(); gc.x++) {
+            for (gc.y = 0; gc.y < getRowCount(); gc.y++) {
+                setTileType(TileType.Empty, gc);
+            }
+        }
+    }
+
     public int getColumnCount() {
         return tiles.length;
     }
@@ -98,6 +109,16 @@ public class Map implements MapView {
     public List<GridCoordinates> getSpawningLocations() {
         return Collections.unmodifiableList(spawningLocations);
     }//faite
+    
+    public void addSpawningLocation(GridCoordinates gc) {
+        if (gc.x < 0 || gc.x >= getColumnCount() || gc.y < 0 || gc.y >= getRowCount())
+            throw new RuntimeException("Coordonées du lieu de spawn invalides");
+        spawningLocations.add(gc);
+    }
+    
+    public void removeSpawningLocation(GridCoordinates gc) {
+        spawningLocations.remove(gc);
+    }
 
     @objid("7f54516a-ad04-4987-b239-f3408e868759")
     public void setTileSize(int value) {
