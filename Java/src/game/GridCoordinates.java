@@ -9,5 +9,11 @@ public class GridCoordinates {
 
     @objid ("5c19ee5b-e41a-4e47-ba69-4b6eecbd8209")
     public int y;
+    
+    public GridCoordinates(int x, int y){
+        this.x = x;
+        this.y = y;
+        
+    }
 
 }

@@ -7,6 +7,10 @@ public class ArrowTile extends Tile {
     @objid("e9081624-7d7d-411c-9fae-43e3570502a5")
     Direction direction;
 
+    public ArrowTile() {
+        direction = Direction.Up;
+    }
+    
     @objid("3ffd6d9c-5051-4269-9ead-1aa727152d09")
     public ArrowTile(Direction direction) {
         this.direction = direction;
