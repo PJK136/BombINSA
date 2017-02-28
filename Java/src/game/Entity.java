@@ -33,12 +33,12 @@ public abstract class Entity {
 
     @objid ("012ef32d-c8e8-44f7-9f8f-11c1d0092657")
     boolean isToRemove() {
-        // Automatically generated method. Please delete this comment before entering specific code.
         return this.toRemove;
     }
 
     @objid ("cfa08ee4-954e-4656-a19b-46273c6d37e7")
     void remove() {
+        this.toRemove = true;
     }
 
     @objid ("5620cd2d-8826-4d40-a754-9ac568123a25")
