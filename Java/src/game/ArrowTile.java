@@ -9,16 +9,17 @@ public class ArrowTile extends Tile {
 
     @objid ("3ffd6d9c-5051-4269-9ead-1aa727152d09")
     public ArrowTile(Direction direction) {
+    	this.direction = direction;
     }
 
     @objid ("b485a2c1-70f6-4414-94d3-9a06cf720033")
     @Override
     public TileType getType() {
+    	return TileType.Arrow;
     }
 
     @objid ("626cbd74-5143-4b0e-9b2e-40d5e7c8c616")
     public Direction getDirection() {
-        // Automatically generated method. Please delete this comment before entering specific code.
         return this.direction;
     }
 
