@@ -3,17 +3,27 @@ package game;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Server extends World {
+    
+    final int START_LIVES = 3;
+    final int START_BOMB_MAX = 1;
+    final int START_RANGE = 1;
+    final int START_INVULNERABITY_SEC = 1;
+    int playerSpawnNumber;
+        
     @objid("560005cd-1e82-4dc8-8a17-39d3577463ae")
     public Server(String mapFilename, int tileSize, int fps, int duration) {
         map = new Map(tileSize);
         map.loadMap(mapFilename);
         setFps(fps);
         setDuration(duration);
+        playerSpawnNumber = 0;
     }
 
     @objid("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
@@ -67,7 +77,11 @@ public class Server extends World {
     @objid("3201955a-ab70-48b8-b676-a53ca4da06a7")
     @Override
     public void newPlayer(Controller controller) {
-        // TODO Auto-generated method stub
+        int count = playerSpawnNumber;
+        while(count > map.spawningLocations.size()){
+            count -= map.spawningLocations.size();
+        }
+        new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_SEC*fps);
     }
 
     @objid("15f9ba61-54f9-4783-8bd0-923098e480d7")
