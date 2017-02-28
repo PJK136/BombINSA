@@ -147,7 +147,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="getFire" mc="Standard.Operation" uid="af854c36-bd42-4e95-bfb6-98d2b4864671"/>
+          <ID name="getRange" mc="Standard.Operation" uid="af854c36-bd42-4e95-bfb6-98d2b4864671"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -155,7 +155,7 @@
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[getFire]]></ATT>
+            <ATT name="Name"><![CDATA[getRange]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -196,7 +196,7 @@
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="fire" mc="Standard.Attribute" uid="7cf845bf-dacd-4f1f-9c63-46ad9d0e478b"/>
+                      <ID name="range" mc="Standard.Attribute" uid="7cf845bf-dacd-4f1f-9c63-46ad9d0e478b"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -223,7 +223,7 @@
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="852430a6-457a-4c15-9bc8-643897cf6a8d"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[return this.fire;]]></ATT>
+                  <ATT name="Content"><![CDATA[return this.range;]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -238,7 +238,7 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="setFire" mc="Standard.Operation" uid="4f8c6754-27ec-4d70-8fa4-df7fd74b49fe"/>
+          <ID name="setRange" mc="Standard.Operation" uid="4f8c6754-27ec-4d70-8fa4-df7fd74b49fe"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -246,7 +246,7 @@
             <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[setFire]]></ATT>
+            <ATT name="Name"><![CDATA[setRange]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -287,7 +287,7 @@
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="fire" mc="Standard.Attribute" uid="7cf845bf-dacd-4f1f-9c63-46ad9d0e478b"/>
+                      <ID name="range" mc="Standard.Attribute" uid="7cf845bf-dacd-4f1f-9c63-46ad9d0e478b"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -301,8 +301,7 @@
                 <ID name="" mc="Infrastructure.Note" uid="6f429d64-1fd9-4f34-9ba1-c3900073fca2"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
-this.fire = value;
-]]></ATT>
+this.range = value;]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -509,7 +508,7 @@ this.timeRemaining = value;
       </COMP>
       <COMP relation="OwnedAttribute">
         <OBJECT>
-          <ID name="fire" mc="Standard.Attribute" uid="7cf845bf-dacd-4f1f-9c63-46ad9d0e478b"/>
+          <ID name="range" mc="Standard.Attribute" uid="7cf845bf-dacd-4f1f-9c63-46ad9d0e478b"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -523,7 +522,7 @@ this.timeRemaining = value;
             <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[fire]]></ATT>
+            <ATT name="Name"><![CDATA[range]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>

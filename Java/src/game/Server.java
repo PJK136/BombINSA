@@ -44,7 +44,7 @@ public class Server extends World {
 
     @objid ("b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e")
     @Override
-    void plantBomb(double x, double y, int fire) {
+    void plantBomb(double x, double y, int range) {
         // TODO Auto-generated method stub
     }
 
@@ -56,7 +56,7 @@ public class Server extends World {
 
     @objid ("d7b25576-cf20-47f5-9a75-9bc74eee10c2")
     @Override
-    void createExplosion(double x, double y, int fire) {
+    void createExplosion(double x, double y, int range) {
         // TODO Auto-generated method stub
     }
 

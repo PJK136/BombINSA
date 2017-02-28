@@ -5,7 +5,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("4399d714-75ab-40bb-b694-6207782f55ce")
 public class Bomb extends Entity {
     @objid ("7cf845bf-dacd-4f1f-9c63-46ad9d0e478b")
-     int fire;
+     int range;
 
     @objid ("57ad54f8-e371-4980-8fcc-383afd09c461")
      int timeRemaining;
@@ -18,15 +18,15 @@ public class Bomb extends Entity {
     }
 
     @objid ("af854c36-bd42-4e95-bfb6-98d2b4864671")
-    public int getFire() {
+    public int getRange() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.fire;
+        return this.range;
     }
 
     @objid ("4f8c6754-27ec-4d70-8fa4-df7fd74b49fe")
-    void setFire(int value) {
+    void setRange(int value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.fire = value;
+        this.range = value;
     }
 
     @objid ("46c24a88-c0e7-42af-aa08-f2217f450044")

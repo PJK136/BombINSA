@@ -425,7 +425,13 @@
             <ATT name="Name"><![CDATA[restart]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
-          <DEPENDENCIES></DEPENDENCIES>
+          <DEPENDENCIES>
+            <LINK relation="Redefines">
+              <REFOBJ>
+                <ID name="restart" mc="Standard.Operation" uid="cb1c5304-fd98-4582-be17-1c7dc3353443"/>
+              </REFOBJ>
+            </LINK>
+          </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
           <ID name="plantBomb" mc="Standard.Operation" uid="b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e"/>
@@ -486,7 +492,7 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="fire" mc="Standard.Parameter" uid="a87bd375-0589-4ced-a8c9-0df11403ae2a"/>
+                <ID name="range" mc="Standard.Parameter" uid="a87bd375-0589-4ced-a8c9-0df11403ae2a"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -498,7 +504,7 @@
                   <ATT name="IsException">false</ATT>
                   <ATT name="IsStream">false</ATT>
                   <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[fire]]></ATT>
+                  <ATT name="Name"><![CDATA[range]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
@@ -508,6 +514,11 @@
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
+            <LINK relation="Redefines">
+              <REFOBJ>
+                <ID name="plantBomb" mc="Standard.Operation" uid="7f0207e3-fb26-4a93-8d10-c12f9c0735f1"/>
+              </REFOBJ>
+            </LINK>
             <COMP relation="Descriptor">
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="9ef4c469-8df2-452e-95ec-5d0ee2057a77"/>
@@ -668,7 +679,7 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="fire" mc="Standard.Parameter" uid="1210bb1e-5fc9-4757-b336-5d968814ae42"/>
+                <ID name="range" mc="Standard.Parameter" uid="1210bb1e-5fc9-4757-b336-5d968814ae42"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -680,7 +691,7 @@
                   <ATT name="IsException">false</ATT>
                   <ATT name="IsStream">false</ATT>
                   <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[fire]]></ATT>
+                  <ATT name="Name"><![CDATA[range]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
@@ -690,6 +701,11 @@
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
+            <LINK relation="Redefines">
+              <REFOBJ>
+                <ID name="createExplosion" mc="Standard.Operation" uid="df2bc239-ca9f-42a9-b92a-6255de4d5c86"/>
+              </REFOBJ>
+            </LINK>
             <COMP relation="Descriptor">
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="95b2a1eb-c980-41ed-a833-c32b004512b5"/>

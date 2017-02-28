@@ -49,13 +49,13 @@ public abstract class World implements WorldView {
     }
 
     @objid ("7f0207e3-fb26-4a93-8d10-c12f9c0735f1")
-    abstract void plantBomb(double x, double y, int fire);
+    abstract void plantBomb(double x, double y, int range);
 
     @objid ("9c563a21-9aa5-4a46-9bc7-944623f9796c")
     abstract void plantBomb(Player player);
 
     @objid ("df2bc239-ca9f-42a9-b92a-6255de4d5c86")
-    abstract void createExplosion(double x, double y, int fire);
+    abstract void createExplosion(double x, double y, int range);
 
     @objid ("15006b09-55e2-4635-b9b7-f4cee5978c5d")
     abstract void pickUpBonus(double x, double y);
