@@ -18,7 +18,14 @@
       </COMP>
       <COMP relation="OwnedElement">
         <COMPID name="Entity" mc="Standard.Class" uid="c2a5ec32-8fb5-4eea-beff-33ee327f4352"/>
+        <COMPID name="Player" mc="Standard.Class" uid="7d9743df-c7cd-4679-9771-fa22b1be441d"/>
+        <COMPID name="Bomb" mc="Standard.Class" uid="4399d714-75ab-40bb-b694-6207782f55ce"/>
+        <COMPID name="Map" mc="Standard.Class" uid="828d0eae-528b-43df-a33e-799c03f4c5af"/>
+        <COMPID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
         <COMPID name="Tile" mc="Standard.Class" uid="0a4b4bbc-6c10-4d09-9d5f-ebe94f0193bd"/>
+        <COMPID name="EmptyTile" mc="Standard.Class" uid="2ee20b8d-0ca1-45dc-9c2f-d6f9a8dae45c"/>
+        <COMPID name="BreakableTile" mc="Standard.Class" uid="96719cc7-626b-4b48-9f90-aeab79c12c54"/>
+        <COMPID name="UnbreakableTile" mc="Standard.Class" uid="448c0a60-8029-4a03-b5df-bb399dc51ac3"/>
         <COMPID name="BonusTile" mc="Standard.Class" uid="e0899fb2-43c0-4905-a390-6c536094eade"/>
         <OBJECT>
           <ID name="TileType" mc="Standard.Enumeration" uid="2ce1720a-2b07-4544-8d70-37232840e2d5"/>
@@ -222,16 +229,6 @@
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
-        <COMPID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
-        <COMPID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
-        <COMPID name="Server" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
-        <COMPID name="Client" mc="Standard.Class" uid="b8264f8e-49d1-4a58-ad20-06ceafdee906"/>
-        <COMPID name="WorldView" mc="Standard.Interface" uid="ef002ca0-7638-4d64-9860-1c30b5e5c688"/>
-        <COMPID name="Player" mc="Standard.Class" uid="7d9743df-c7cd-4679-9771-fa22b1be441d"/>
-        <COMPID name="Bomb" mc="Standard.Class" uid="4399d714-75ab-40bb-b694-6207782f55ce"/>
-        <COMPID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
-        <COMPID name="Map" mc="Standard.Class" uid="828d0eae-528b-43df-a33e-799c03f4c5af"/>
-        <COMPID name="MapView" mc="Standard.Interface" uid="27201ab7-2fd3-4c35-abb3-37155f6d5822"/>
         <OBJECT>
           <ID name="PlayerAbility" mc="Standard.Enumeration" uid="85a85bd4-b37a-40cc-88cc-753b9029276e"/>
           <ATTRIBUTES>
@@ -283,9 +280,12 @@
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
-        <COMPID name="BreakableTile" mc="Standard.Class" uid="96719cc7-626b-4b48-9f90-aeab79c12c54"/>
-        <COMPID name="EmptyTile" mc="Standard.Class" uid="2ee20b8d-0ca1-45dc-9c2f-d6f9a8dae45c"/>
-        <COMPID name="UnbreakableTile" mc="Standard.Class" uid="448c0a60-8029-4a03-b5df-bb399dc51ac3"/>
+        <COMPID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
+        <COMPID name="Server" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
+        <COMPID name="Client" mc="Standard.Class" uid="b8264f8e-49d1-4a58-ad20-06ceafdee906"/>
+        <COMPID name="WorldView" mc="Standard.Interface" uid="ef002ca0-7638-4d64-9860-1c30b5e5c688"/>
+        <COMPID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
+        <COMPID name="MapView" mc="Standard.Interface" uid="27201ab7-2fd3-4c35-abb3-37155f6d5822"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

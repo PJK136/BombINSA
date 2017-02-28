@@ -29,6 +29,7 @@ public class Map implements MapView {
 
     @objid ("48cfdc63-3e7d-49fd-9aa2-20e0e732aea2")
     public int getTileSize() {
+    	return tileSize;
     }
 
     @objid ("30af5e79-8af8-4b1e-b7d3-b1f7764177ed")
@@ -61,7 +62,6 @@ public class Map implements MapView {
 
     @objid ("7f54516a-ad04-4987-b239-f3408e868759")
     public void setTileSize(int value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
         this.tileSize = value;
     }
 
