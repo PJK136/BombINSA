@@ -2,8 +2,10 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.StringJoiner;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -16,22 +18,41 @@ public class Map implements MapView {
     Tile[][] tiles;
 
     @objid("01eb7be5-4c79-4697-b0b8-0c701c3ff114")
-    List<GridCoordinates> spawningLocations = new ArrayList<GridCoordinates>();
+    List<GridCoordinates> spawningLocations;
 
     @objid("207bd3eb-53bc-4cf3-96e2-f4df05fd2714")
     public Map(int tileSize) {
         this.tileSize = tileSize;
-        // TODO voir quoi faire de l'attribut spawningLocations
+        this.spawningLocations = new ArrayList<GridCoordinates>();
+    }
+
+    public Map(int columns, int rows, int tileSize) {
+        this(tileSize);
+        tiles = new Tile[columns][rows];
+        GridCoordinates gc = new GridCoordinates();
+        for (gc.x = 0; gc.x < getColumnCount(); gc.x++) {
+            for (gc.y = 0; gc.y < getRowCount(); gc.y++) {
+                setTileType(TileType.Empty, gc);
+            }
+        }
+    }
+
+    public int getColumnCount() {
+        return tiles.length;
+    }
+
+    public int getRowCount() {
+        return tiles[0].length;
     }
 
     @objid("b23f3caa-604b-4104-bb57-0dd034b39302")
     public int getWidth() {
-        return (tiles.length) * (tileSize);
+        return getColumnCount() * tileSize;
     }//faite
-
+    
     @objid("59f30df4-4a7a-40d0-84f6-2dd01811ef45")
     public int getHeight() {
-        return (tiles[0].length) * (tileSize);
+        return getRowCount() * tileSize;
     }
 
     @objid("48cfdc63-3e7d-49fd-9aa2-20e0e732aea2")
@@ -88,6 +109,16 @@ public class Map implements MapView {
     public List<GridCoordinates> getSpawningLocations() {
         return Collections.unmodifiableList(spawningLocations);
     }//faite
+    
+    public void addSpawningLocation(GridCoordinates gc) {
+        if (gc.x < 0 || gc.x >= getColumnCount() || gc.y < 0 || gc.y >= getRowCount())
+            throw new RuntimeException("Coordonées du lieu de spawn invalides");
+        spawningLocations.add(gc);
+    }
+    
+    public void removeSpawningLocation(GridCoordinates gc) {
+        spawningLocations.remove(gc);
+    }
 
     @objid("7f54516a-ad04-4987-b239-f3408e868759")
     public void setTileSize(int value) {
@@ -95,12 +126,13 @@ public class Map implements MapView {
     }//faite
 
     @objid("81317f24-599b-4128-9480-5c1f6c0859f2")
-    public void loadMap(String map) {
+    public void loadMap(String map) throws InputMismatchException {
         Scanner sc = new Scanner(map);
-        int columns = sc.nextInt();
-        int lines = sc.nextInt();
         
-        tiles = new Tile[columns][lines];
+        int columnCount = sc.nextInt();
+        int rowCount = sc.nextInt();
+        
+        tiles = new Tile[columnCount][rowCount];
         
         int spawningLocationsCount = sc.nextInt();
         spawningLocations = new ArrayList<GridCoordinates>(spawningLocationsCount);
@@ -112,8 +144,8 @@ public class Map implements MapView {
         
         GridCoordinates grid = new GridCoordinates();
         
-        for (grid.x = 0; grid.x < columns; grid.x++) {
-            for (grid.y = 0; grid.y < lines; grid.y++) {
+        for (grid.x = 0; grid.x < columnCount; grid.x++) {
+            for (grid.y = 0; grid.y < rowCount; grid.y++) {
                 TileType type = types[sc.nextInt()];
                 setTileType(type, grid);
                 
@@ -127,7 +159,26 @@ public class Map implements MapView {
 
     @objid("8960c7a3-87e7-4b1b-8f9a-1858808c9349")
     public String saveMap() {
-    }//TODO
+        StringJoiner content = new StringJoiner(" ");
+        content.add(String.valueOf(getColumnCount()));
+        content.add(String.valueOf(getRowCount()));
+        content.add(String.valueOf(spawningLocations.size()));
+        
+        for (GridCoordinates coordinates : spawningLocations)
+            content.add(String.valueOf(coordinates.x)).add(String.valueOf(coordinates.y));
+        
+        for (int i = 0; i < getColumnCount(); i++) {
+            for (int j = 0; j < getRowCount(); j++) {
+                TileType type = tiles[i][j].getType();
+                content.add(String.valueOf(type.ordinal()));
+                
+                if (type == TileType.Arrow)
+                    content.add(String.valueOf(((ArrowTile)tiles[i][j]).getDirection().ordinal()));
+            }
+        }
+        
+        return content.toString();
+    }
 
     @objid("78a5a0ad-2342-4f09-8a8b-06386dbe2797")
     public void setTileType(TileType type, double x, double y) {
