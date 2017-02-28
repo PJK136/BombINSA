@@ -7,6 +7,10 @@ public class BonusTile extends Tile {
     @objid("3e29d10d-6372-4dd9-bd6f-32bbedb5490d")
     BonusType bonusType;
 
+    public BonusTile(){
+        bonusType = BonusType.Random;
+    }
+    
     @objid("ef5a626b-54a8-41e3-833e-b15b09f2c6ba")
     public BonusTile(BonusType type) {
         this.bonusType = type;
