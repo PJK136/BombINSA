@@ -17,13 +17,18 @@ public abstract class Entity {
      Direction direction = Direction.Up;
 
     @objid ("46bbc37c-9300-456a-87b3-a7774a36e395")
-     double speed = 0.;
+     double speed;
 
     @objid ("83945ddf-99e1-4a55-8f7c-5f7a2c89a534")
      World world;
 
     @objid ("2482ca74-f651-4b89-8f4e-b25e74535a33")
     Entity(World world, double x, double y) {
+        this.world = world;
+        this.x = x;
+        this.y = y;
+        this.speed = 0.;
+        this.direction = Direction.Down;
     }
 
     @objid ("012ef32d-c8e8-44f7-9f8f-11c1d0092657")
