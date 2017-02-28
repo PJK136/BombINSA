@@ -8,4 +8,8 @@ public class EmptyTile extends Tile {
     public TileType getType() {
     }
 
+    @objid ("81346f4a-1c14-472f-9623-a660ddd6b6d9")
+    public boolean isCollidable() {
+    }
+
 }

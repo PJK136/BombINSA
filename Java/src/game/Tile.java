@@ -18,6 +18,9 @@ public abstract class Tile {
     @objid ("eba8c794-3248-484e-8fdd-ec19b08a5c19")
     public abstract TileType getType();
 
+    @objid ("20137d66-fdca-4295-90c9-d845540dcb82")
+    public abstract boolean isCollidable();
+
     @objid ("afce3c9f-2a7e-43fa-b8fe-9183c2e26f63")
     public boolean isExploding() {
     }

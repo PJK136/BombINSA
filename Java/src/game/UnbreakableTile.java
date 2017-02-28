@@ -9,4 +9,8 @@ public class UnbreakableTile extends Tile {
     public TileType getType() {
     }
 
+    @objid ("014635fc-153f-46b5-9704-509b3100c351")
+    public boolean isCollidable() {
+    }
+
 }

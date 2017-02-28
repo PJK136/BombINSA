@@ -28,4 +28,8 @@ public class BonusTile extends Tile {
         this.bonusType = value;
     }
 
+    @objid ("b391e578-677f-47b3-bf9c-8bd76328658c")
+    public boolean isCollidable() {
+    }
+
 }

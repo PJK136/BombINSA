@@ -16,6 +16,10 @@ public class ArrowTile extends Tile {
     public TileType getType() {
     }
 
+    @objid ("174ded82-9ace-4d9b-aa99-54944b701bdd")
+    public boolean isCollidable() {
+    }
+
     @objid ("626cbd74-5143-4b0e-9b2e-40d5e7c8c616")
     public Direction getDirection() {
         // Automatically generated method. Please delete this comment before entering specific code.
