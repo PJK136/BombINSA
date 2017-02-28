@@ -9,22 +9,22 @@ public class BonusTile extends Tile {
 
     @objid ("ef5a626b-54a8-41e3-833e-b15b09f2c6ba")
     public BonusTile(BonusType type) {
+    	this.bonusType = type;
     }
 
     @objid ("d6775c48-2c05-42c4-ad12-706ebc1b8ee8")
     @Override
     public TileType getType() {
+    	return TileType.Bonus;
     }
 
     @objid ("6823a6b7-ebf3-44cf-8890-65bc440392e2")
     public BonusType getBonusType() {
-        // Automatically generated method. Please delete this comment before entering specific code.
         return this.bonusType;
     }
 
     @objid ("1277cdc7-164d-41c6-a297-9ad372607823")
     void setBonusType(BonusType value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
         this.bonusType = value;
     }
 

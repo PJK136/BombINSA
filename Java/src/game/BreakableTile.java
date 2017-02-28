@@ -7,6 +7,7 @@ public class BreakableTile extends Tile {
     @objid ("b437dbbe-08da-431d-a157-4f630122bbfa")
     @Override
     public TileType getType() {
+    	return TileType.Breakable;
     }
 
     @objid ("0f60bf8a-4b36-487b-9fe4-ea8ec57dcaa7")
