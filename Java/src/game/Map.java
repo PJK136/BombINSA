@@ -150,7 +150,7 @@ public class Map implements MapView {
         } else {
             throw new RuntimeException("Change le type de bonus d'une case qui n'en est pas une");
         }
-    }//doing
+    }//faite
 
     @objid("c15e0882-3eff-4467-ac1f-4152e69db4f1")
     List<Entity> getEntities(double x, double y) {
