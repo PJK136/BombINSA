@@ -57,9 +57,12 @@ public class Server extends World {
                 mapContent = mapContent + line;
             }
         } catch (IOException x) {
+            //TODO : exception à gérer
             System.err.format("IOException: %s%n", x);
         }
+        map.loadMap(mapContent);
     }
+    
 
     @objid("3201955a-ab70-48b8-b676-a53ca4da06a7")
     @Override
