@@ -18,7 +18,7 @@ public interface MapView {
     GridCoordinates toGridCoordinates(double x, double y);
 
     @objid ("530a81b2-8f93-4453-bff3-ab4a31d9de02")
-    boolean isCollidable(Entity entity, double x, double y);
+    boolean isCollidable(double x, double y);
 
     @objid ("81182a1c-ea0f-4d7b-8f92-2f8b49896d52")
     boolean isExploding(double x, double y);

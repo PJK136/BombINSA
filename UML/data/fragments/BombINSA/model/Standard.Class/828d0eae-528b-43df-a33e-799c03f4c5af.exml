@@ -339,29 +339,7 @@
           <DEPENDENCIES>
             <COMP relation="IO">
               <OBJECT>
-                <ID name="entity" mc="Standard.Parameter" uid="b7126bee-c13b-415d-9028-c58da3234e22"/>
-                <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[entity]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <ID name="Entity" mc="Standard.Class" uid="c2a5ec32-8fb5-4eea-beff-33ee327f4352"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="x" mc="Standard.Parameter" uid="7702b3d8-5fcc-477e-b010-4542fe2a6f78"/>
+                <ID name="x" mc="Standard.Parameter" uid="b7126bee-c13b-415d-9028-c58da3234e22"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -383,7 +361,7 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="y" mc="Standard.Parameter" uid="813c2220-d7a5-4e45-b0cd-7f824ad8650c"/>
+                <ID name="y" mc="Standard.Parameter" uid="7702b3d8-5fcc-477e-b010-4542fe2a6f78"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>

@@ -7,7 +7,6 @@ public enum TileType {
     Empty,
     Breakable,
     Unbreakable,
-    Explosion,
     Bonus,
     Arrow;
 }

@@ -14,7 +14,7 @@ public class Player extends Entity {
      int bombMax;
 
     @objid ("0ec9b326-319f-4b00-8ebb-c02b47dc166f")
-     int fire;
+     int range;
 
     @objid ("d3e49717-5f5c-49c0-b87a-e6ed29629386")
      boolean[] playerAbilites;
@@ -70,15 +70,15 @@ public class Player extends Entity {
     }
 
     @objid ("869e644a-c1c8-4013-937b-a11e9ac05ada")
-    public int getFire() {
+    public int getRange() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.fire;
+        return this.range;
     }
 
     @objid ("14a39b3e-b3ae-42e4-8757-4b67b7d510f6")
-    void setFire(int value) {
+    void setRange(int value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.fire = value;
+        this.range = value;
     }
 
     @objid ("671682b3-f854-4f65-8616-a0dee38409f6")

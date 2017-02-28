@@ -58,14 +58,6 @@
                 <DEPENDENCIES></DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="Explosion" mc="Standard.EnumerationLiteral" uid="57c43c06-125d-4f81-8aa8-61683a2fd827"/>
-                <ATTRIBUTES>
-                  <ATT name="Name"><![CDATA[Explosion]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES></DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="Bonus" mc="Standard.EnumerationLiteral" uid="add7e597-4526-45bd-abfd-45f9bab69a9c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"><![CDATA[Bonus]]></ATT>

@@ -121,13 +121,13 @@
           <ID name="getBombMax" mc="Standard.Operation" uid="38aca366-45f0-4745-934b-576af97cd356"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="fire" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
+          <ID name="range" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="getFire" mc="Standard.Operation" uid="869e644a-c1c8-4013-937b-a11e9ac05ada"/>
+          <ID name="getRange" mc="Standard.Operation" uid="869e644a-c1c8-4013-937b-a11e9ac05ada"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="setFire" mc="Standard.Operation" uid="14a39b3e-b3ae-42e4-8757-4b67b7d510f6"/>
+          <ID name="setRange" mc="Standard.Operation" uid="14a39b3e-b3ae-42e4-8757-4b67b7d510f6"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="invulnerability" mc="Standard.Attribute" uid="efe71f6e-6ac1-4f9a-bb96-98975b970b23"/>
@@ -278,9 +278,6 @@
         </REFOBJ>
         <REFOBJ>
           <ID name="TileType" mc="Standard.Enumeration" uid="2ce1720a-2b07-4544-8d70-37232840e2d5"/>
-        </REFOBJ>
-        <REFOBJ>
-          <ID name="Explosion" mc="Standard.EnumerationLiteral" uid="57c43c06-125d-4f81-8aa8-61683a2fd827"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="Arrow" mc="Standard.EnumerationLiteral" uid="068aa415-de46-4e83-855b-64e8653093e6"/>

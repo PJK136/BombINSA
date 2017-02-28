@@ -740,7 +740,7 @@ this.bombMax = value;
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="getFire" mc="Standard.Operation" uid="869e644a-c1c8-4013-937b-a11e9ac05ada"/>
+          <ID name="getRange" mc="Standard.Operation" uid="869e644a-c1c8-4013-937b-a11e9ac05ada"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -748,7 +748,7 @@ this.bombMax = value;
             <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[getFire]]></ATT>
+            <ATT name="Name"><![CDATA[getRange]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -789,7 +789,7 @@ this.bombMax = value;
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="fire" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
+                      <ID name="range" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -816,7 +816,7 @@ this.bombMax = value;
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="c0216503-81b8-465f-816d-a7d14dff0a90"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[return this.fire;]]></ATT>
+                  <ATT name="Content"><![CDATA[return this.range;]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -831,7 +831,7 @@ this.bombMax = value;
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="setFire" mc="Standard.Operation" uid="14a39b3e-b3ae-42e4-8757-4b67b7d510f6"/>
+          <ID name="setRange" mc="Standard.Operation" uid="14a39b3e-b3ae-42e4-8757-4b67b7d510f6"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
@@ -839,7 +839,7 @@ this.bombMax = value;
             <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[setFire]]></ATT>
+            <ATT name="Name"><![CDATA[setRange]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -880,7 +880,7 @@ this.bombMax = value;
                 <DEPENDENCIES>
                   <LINK relation="DependsOn">
                     <REFOBJ>
-                      <ID name="fire" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
+                      <ID name="range" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
                     </REFOBJ>
                   </LINK>
                   <LINK relation="Extension">
@@ -894,8 +894,7 @@ this.bombMax = value;
                 <ID name="" mc="Infrastructure.Note" uid="a6720513-30e8-43d6-892e-2a0c6a53b61a"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.
-this.fire = value;
-]]></ATT>
+this.range = value;]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1604,7 +1603,7 @@ this.controller = value;
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="fire" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
+          <ID name="range" mc="Standard.Attribute" uid="0ec9b326-319f-4b00-8ebb-c02b47dc166f"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
             <ATT name="Value"></ATT>
@@ -1618,7 +1617,7 @@ this.controller = value;
             <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[fire]]></ATT>
+            <ATT name="Name"><![CDATA[range]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
