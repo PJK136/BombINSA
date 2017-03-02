@@ -48,10 +48,11 @@ public abstract class Entity {
 
     @objid ("78c63e54-9035-40d2-ae0a-99cdbbcc8788")
     void setX(double value) {
-    	if(value >= 0){
+    	if(value >= world.getMap().getTileSize()/2. &&
+    	   value < world.getMap().getWidth()-(world.getMap().getTileSize()/2.)) {
     		this.x = value;
     	} else {
-    		throw new RuntimeException("X can't be negative");
+    		throw new RuntimeException("x = " + value + " can't be outside of the map");
     	}
     }
 
@@ -62,17 +63,17 @@ public abstract class Entity {
 
     @objid ("08e29169-aac4-43a6-9bc5-02f2282fe480")
     void setY(double value) {
-    	if(value >= 0){
-    		this.y = value;
+        if(value >= world.getMap().getTileSize()/2. &&
+           value < world.getMap().getHeight()-(world.getMap().getTileSize()/2.)) {
+             this.y = value;
     	} else {
-    		throw new RuntimeException("Y can't be negative");
+    		throw new RuntimeException("y = " + value + " can't be outside of the map");
     	}
     }
 
     @objid ("002e3653-fdf9-4157-9a2b-ffcf9d5fc685")
     public double getSpeed() {
-        return this
-                .speed;
+        return this.speed;
     }
 
     @objid ("00edac08-fa82-4b44-aa6f-c993f59649f3")
@@ -94,113 +95,62 @@ public abstract class Entity {
         this.direction = value;
     }
     
-    private boolean canCollide(Direction direction, int i){
-        boolean collidable = false;
-        switch(direction){
-            case Up :
-                if (this.world.getMap().isCollidable(this.x, this.y - i)){ //x et y coordonnées coins supérieur gauche puis on se place sur la bordure qui nous intéresse (ici en haut) et on enlève i pour voir si l'entité rencontre un mur
-                    collidable = true;
-                } 
-                return collidable;
-            
-            case Down :
-                if(this.world.getMap().isCollidable(this.x, this.y + this.world.getMap().getTileSize() + i)){  
-                    collidable = true;
-                } 
-                return collidable;
-            
-            case Right :
-                if(this.world.getMap().isCollidable(this.x + this.world.getMap().getTileSize() + i , this.y)){
-                    collidable = true;
-                } 
-                return collidable;
-
-            
-            case Left :
-                if(this.world.getMap().isCollidable(this.x - i , this.y)){ 
-                    collidable = true;
-                } 
-                return collidable;
-                
+    private double getNextBorderX(double step) {
+        switch (direction) {
+            case Left:
+                return this.x-(world.getMap().getTileSize()/2.)-step;
+            case Right:
+                return this.x+(world.getMap().getTileSize()/2.)+step;
             default:
-                return false;
-        
+                return this.x;
         }
+    }
+    
+    private double getNextBorderY(double speed) {
+        switch (direction) {
+            case Up:
+                return this.y-(world.getMap().getTileSize()/2.)-speed;
+            case Down:
+                return this.y+(world.getMap().getTileSize()/2.)+speed;
+            default:
+                return this.y;
+        }
+    }
+    
+    private void updatePosition(double step) {
+        switch (direction) {
+        case Left:
+            this.x -= step;
+            break;
+        case Right:
+            this.x += step;
+            break;
+        case Up:
+            this.y -= step;
+            break;
+        case Down:
+            this.y += step;
+            break;
+        }
+    }
+    
+    
+    boolean canCollide(double x, double y){
+        //Il faut aussi vérifier la collision dans les sous classes
+        return this.world.getMap().isCollidable(x, y);
     }
 
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
-        int i = 1;
-        double vitesse = this.speed; //Variable intermédiaire pour fixer la vitesse à l'approche d'un mur et arrêter l'entité si elle est collé au mur
-        
-        while(canCollide(direction,i) == false && i<this.speed){ 
-            vitesse = i-1; // Si un mur est rencontré alors la vitesse devient i-1 de telle manière à ce que si l'entitée est collée au mur, elle ne bouge plus car i = 0
-            i = Math.min((int)this.speed, i+1); //Gérer le fait que la vitesse ne doit pas dépasser celle fixé de base
-    }
-        switch(direction){
-            case Up :                
-                this.y -= vitesse; // on modifie y pour qu'elle fasse effectivement le déplacement vérifié ci-dessus
-                break;
-            
-            case Down :
-                this.y += vitesse; 
-                break;
-            
-            case Right :
-                this.x += vitesse;
-                break;
-            
-            case Left :
-                this.x -= vitesse;
-                break;
-                
-            default:
-                break;
-        
+        double step = this.speed;
+        //Tant que on percute quelque chose et que notre pas est plus grand ou égal à 1 pixel
+        while (canCollide(getNextBorderX(step), getNextBorderY(step)) && step >= 1) {
+            step -= 1.; //On avance 1 pixel moins loin
         }
-    }
-//Ancien update
-   /* void update() {
-        int i = 1;
-        double vitesse = this.speed; //Variable intermédiaire pour fixer la vitesse à l'approche d'un mur et arrêter l'entité si elle est collé au mur
-        switch(direction){
-            case Up :
-                while(this.world.getMap().isCollidable(this.x, this.y - i) == false && i<this.speed){ //x et y coordonnées coins supérieur gauche puis on se place sur la bordure qui nous intéresse (ici en haut) et on enlève i pour voir si l'entité rencontre un mur
-                        vitesse = i-1; // Si un mur est rencontré alors la vitesse devient i-1 de telle manière à ce que si l'entitée est collée au mur, elle ne bouge plus car i = 0
-                        i = Math.min((int)this.speed, i+1); //Gérer le fait que la vitesse ne doit pas dépasser celle fixé de base
-                }
-                this.y -= vitesse;
-                break;
-            
-            case Down :
-                while(this.world.getMap().isCollidable(this.x, this.y + this.world.getMap().getTileSize() + i) == false && i<this.speed){  
-                    vitesse = i-1; 
-                    i = Math.min((int)this.speed, i+1);
-                }    
-                
-                this.y += vitesse; // on modifie y pour qu'elle fasse effectivement le déplacement vérifié ci-dessus
-                break;
-            
-            case Right :
-                while(this.world.getMap().isCollidable(this.x + this.world.getMap().getTileSize() + i , this.y) == false && i<this.speed){ 
-                        vitesse = i-1;
-                        i = Math.min((int)this.speed, i+1);
-                }
-                this.x += vitesse;
-                break;
-            
-            case Left :
-                while(this.world.getMap().isCollidable(this.x - i , this.y) == false && i<this.speed){ 
-                        vitesse = i-1;
-                        i = Math.min((int)this.speed, i+1);   
-                }
-                this.x -= vitesse;
-                break;
-                
-            default:
-                break;
         
-        }
-    } */
+        //TODO : approche dichotomique ?
+        
+        updatePosition(step);
+    }
 
 }
