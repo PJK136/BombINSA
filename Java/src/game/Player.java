@@ -140,6 +140,10 @@ public class Player extends Entity {
     public int getInvulnerability() {
         return this.invulnerability;
     }
+    
+    void decreaseInvulnerability(){ //Méthode nouvelle
+        this.invulnerability = Math.max(0, this.invulnerability-1);
+    }
 
     @objid("3322d7de-cc32-48aa-8dde-e19bf6d5ba0c")
     void setInvulnerability(int value) {
@@ -163,6 +167,25 @@ public class Player extends Entity {
 
     @objid("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
+        //Update position (identique à update Entity)
+        
+        //Update acquisition Bonus/Malus (Random, More/Less Bomb, More/Less Range, More/Less Speed, Shield, Kick)
+        
+        //Update Marche sur une flèche (Déplacement dans la direction de la flèche d'un nombre de case déterminé)
+        
+        //Update Marche sur une case en Explosion (diminuer le nb de vie du joueur touché)
+        if(this.world.getMap().isExploding(this.x+ this.world.getMap().getTileSize()/2, this.y+ this.world.getMap().getTileSize()/2) && getInvulnerability() == 0){ // On vérifie si la case où se trouve le CENTRE du joueur explose et qu'il n'est pas invulnérable
+            decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
+            this.invulnerability = 100; //Pour pas que le joueur perde des vies en continue en marchant sur une case qui explose, Chiffre à changer
+        } else {
+            decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0; ici toute les 100 update, à affinner;
+        }
+        
+        // Vérifier si le joueur est encore vivant
+        if(isAlive() == false){
+            
+        }
+        
     }
 
 }

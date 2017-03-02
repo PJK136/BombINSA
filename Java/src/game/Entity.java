@@ -93,42 +93,64 @@ public abstract class Entity {
     void setDirection(Direction value) {
         this.direction = value;
     }
+    
+    private boolean canCollide(Direction direction, int i){
+        boolean collidable = false;
+        switch(direction){
+            case Up :
+                if (this.world.getMap().isCollidable(this.x, this.y - i)){ //x et y coordonnées coins supérieur gauche puis on se place sur la bordure qui nous intéresse (ici en haut) et on enlève i pour voir si l'entité rencontre un mur
+                    collidable = true;
+                } 
+                return collidable;
+            
+            case Down :
+                if(this.world.getMap().isCollidable(this.x, this.y + this.world.getMap().getTileSize() + i)){  
+                    collidable = true;
+                } 
+                return collidable;
+            
+            case Right :
+                if(this.world.getMap().isCollidable(this.x + this.world.getMap().getTileSize() + i , this.y)){
+                    collidable = true;
+                } 
+                return collidable;
+
+            
+            case Left :
+                if(this.world.getMap().isCollidable(this.x - i , this.y)){ 
+                    collidable = true;
+                } 
+                return collidable;
+                
+            default:
+                return false;
+        
+        }
+    }
 
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
         int i = 1;
         double vitesse = this.speed; //Variable intermédiaire pour fixer la vitesse à l'approche d'un mur et arrêter l'entité si elle est collé au mur
+        
+        while(canCollide(direction,i) == false && i<this.speed){ 
+            vitesse = i-1; // Si un mur est rencontré alors la vitesse devient i-1 de telle manière à ce que si l'entitée est collée au mur, elle ne bouge plus car i = 0
+            i = Math.min((int)this.speed, i+1); //Gérer le fait que la vitesse ne doit pas dépasser celle fixé de base
+    }
         switch(direction){
-            case Up :
-                while(this.world.getMap().isCollidable(this.x, this.y - i) == false && i<this.speed){ //x et y coordonnées coins supérieur gauche puis on se place sur la bordure qui nous intéresse (ici en haut) et on rajoute i pour voir si l'entité rencontre un mur
-                        vitesse = i-1; // Si un mur est rencontré alors la vitesse devient i-1 de telle manière à ce que si l'entitée est collée au mur, elle ne bouge plus car i = 0
-                        i = Math.min((int)this.speed, i++); //Gérer le fait que la vitesse ne doit pas dépasser celle fixé de base.
-                }
-                this.y -= vitesse;
+            case Up :                
+                this.y -= vitesse; // on modifie y pour qu'elle fasse effectivement le déplacement vérifié ci-dessus
                 break;
             
             case Down :
-                while(this.world.getMap().isCollidable(this.x, this.y + this.world.getMap().getTileSize() + i) == false && i<this.speed){  
-                    vitesse = i-1; 
-                    i = Math.min((int)this.speed, i++);
-                }    
-                
-                this.y += vitesse; // on modifie y pour qu'elle fasse effectivement le déplacement vérifié ci-dessus
+                this.y += vitesse; 
                 break;
             
             case Right :
-                while(this.world.getMap().isCollidable(this.x + this.world.getMap().getTileSize() + i , this.y) == false && i<this.speed){ 
-                        vitesse = i-1;
-                        i = Math.min((int)this.speed, i++);
-                }
                 this.x += vitesse;
                 break;
             
             case Left :
-                while(this.world.getMap().isCollidable(this.x - i , this.y) == false && i<this.speed){ 
-                        vitesse = i-1;
-                        i = Math.min((int)this.speed, i++);   
-                }
                 this.x -= vitesse;
                 break;
                 
@@ -137,5 +159,48 @@ public abstract class Entity {
         
         }
     }
+//Ancien update
+   /* void update() {
+        int i = 1;
+        double vitesse = this.speed; //Variable intermédiaire pour fixer la vitesse à l'approche d'un mur et arrêter l'entité si elle est collé au mur
+        switch(direction){
+            case Up :
+                while(this.world.getMap().isCollidable(this.x, this.y - i) == false && i<this.speed){ //x et y coordonnées coins supérieur gauche puis on se place sur la bordure qui nous intéresse (ici en haut) et on enlève i pour voir si l'entité rencontre un mur
+                        vitesse = i-1; // Si un mur est rencontré alors la vitesse devient i-1 de telle manière à ce que si l'entitée est collée au mur, elle ne bouge plus car i = 0
+                        i = Math.min((int)this.speed, i+1); //Gérer le fait que la vitesse ne doit pas dépasser celle fixé de base
+                }
+                this.y -= vitesse;
+                break;
+            
+            case Down :
+                while(this.world.getMap().isCollidable(this.x, this.y + this.world.getMap().getTileSize() + i) == false && i<this.speed){  
+                    vitesse = i-1; 
+                    i = Math.min((int)this.speed, i+1);
+                }    
+                
+                this.y += vitesse; // on modifie y pour qu'elle fasse effectivement le déplacement vérifié ci-dessus
+                break;
+            
+            case Right :
+                while(this.world.getMap().isCollidable(this.x + this.world.getMap().getTileSize() + i , this.y) == false && i<this.speed){ 
+                        vitesse = i-1;
+                        i = Math.min((int)this.speed, i+1);
+                }
+                this.x += vitesse;
+                break;
+            
+            case Left :
+                while(this.world.getMap().isCollidable(this.x - i , this.y) == false && i<this.speed){ 
+                        vitesse = i-1;
+                        i = Math.min((int)this.speed, i+1);   
+                }
+                this.x -= vitesse;
+                break;
+                
+            default:
+                break;
+        
+        }
+    } */
 
 }
