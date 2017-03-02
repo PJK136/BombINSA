@@ -47,7 +47,7 @@ public abstract class World implements WorldView {
 
     @objid ("8696ef92-01cf-4263-80c5-6bcf172924d8")
     public MapView getMap() {
-    	return map;		//TODO : make unchangeable
+    	return map;
     }
 
     @objid ("cb863fac-e1bd-4a91-aa76-95e63ad3fc08")
@@ -72,7 +72,7 @@ public abstract class World implements WorldView {
     abstract void plantBomb(Player player);
 
     @objid ("df2bc239-ca9f-42a9-b92a-6255de4d5c86")
-    abstract void createExplosion(double x, double y, int range);
+    abstract void createExplosion(Bomb bomb);
 
     @objid ("15006b09-55e2-4635-b9b7-f4cee5978c5d")
     abstract void pickUpBonus(double x, double y);

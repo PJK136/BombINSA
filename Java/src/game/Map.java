@@ -216,7 +216,7 @@ public class Map implements MapView {
     }//faite
 
     @objid("3197c6a7-683c-41b2-8d78-dc1d8b6b0f8a")
-    void setExplosion(int duration, double x, double y) {
+    void setExplosion(int duration, GridCoordinates gc) {
     }//doing
 
     @objid("3ec5e6c1-3f55-4edd-8324-02193ad30b88")

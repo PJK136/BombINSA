@@ -2,8 +2,13 @@ package game;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
+//import sun.util.resources.cldr.es.TimeZoneNames_es_AR;
 
 @objid("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Server extends World {
@@ -12,7 +17,12 @@ public class Server extends World {
     final int START_BOMB_MAX = 1;
     final int START_RANGE = 1;
     final int START_INVULNERABITY_SEC = 1;
+    final int TIME_BEFORE_EXPLOSION = 10;
+    final int EXPLOSION_DURATION = 1;
     int playerSpawnNumber;
+    Queue<Player> queuePlayer = new LinkedList<Player>();
+    Queue<Bomb> queueBomb = new LinkedList<Bomb>();
+    
         
     @objid("560005cd-1e82-4dc8-8a17-39d3577463ae")
     public Server(String mapFilename, int tileSize, int fps, int duration) throws Exception {
@@ -43,11 +53,7 @@ public class Server extends World {
 
     @objid("77769968-3eb5-4133-880a-e74cedee78ae")
     public void setTimeRemaining(int time) {
-        if (time < 0) {
-            throw new RuntimeException("time remaining not positive");
-        } else {
-            this.timeRemaining = time;
-        }
+        this.timeRemaining = time;
     }
 
     @objid("739ccd1c-6053-48a2-a809-596cf4134d36")
@@ -73,6 +79,32 @@ public class Server extends World {
 
     @objid("15f9ba61-54f9-4783-8bd0-923098e480d7")
     public void update() {
+        //update of Entities
+        Iterator<Entity> iterator = entities.iterator();
+        while(iterator.hasNext()){
+            Entity entity = iterator.next();
+            if(entity.isToRemove()){
+                iterator.remove();
+            }
+        }
+        
+        //update of the map
+        map.update();
+        
+        //update of timeRemaining
+        timeRemaining -= 1;
+        
+        //update of the new bombs
+        for(Player player : queuePlayer){
+            new Bomb(this, player.getX(), player.getY(), player.getRange(), TIME_BEFORE_EXPLOSION, player);
+        }
+           
+        //update of the bombs explosions
+        for(Bomb bomb : queueBomb){
+            GridCoordinates gc = new GridCoordinates();
+            gc = map.toGridCoordinates(bomb.getX(), bomb.getY());
+            map.setExplosion(EXPLOSION_DURATION, gc); 
+        }
     }
 
     @objid("a193a9c9-e032-4940-953b-5923c9da849e")
@@ -88,13 +120,13 @@ public class Server extends World {
     @objid("b13fef2c-1897-428c-871d-8a201627e755")
     @Override
     void plantBomb(Player player) {
-        // TODO Auto-generated method stub
+        queuePlayer.add(player);
     }
 
     @objid("d7b25576-cf20-47f5-9a75-9bc74eee10c2")
     @Override
-    void createExplosion(double x, double y, int range) {
-        // TODO Auto-generated method stub
+    void createExplosion(Bomb bomb) {
+        queueBomb.add(bomb);
     }
 
     @objid("1883d42c-f691-41ab-acc6-c37fc049f80c")
