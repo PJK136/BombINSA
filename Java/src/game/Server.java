@@ -74,7 +74,7 @@ public class Server extends World {
         while(count > map.spawningLocations.size()){
             count -= map.spawningLocations.size();
         }
-        new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_SEC*fps);
+        entities.add(new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_SEC*fps));
     }
 
     @objid("15f9ba61-54f9-4783-8bd0-923098e480d7")
@@ -96,7 +96,7 @@ public class Server extends World {
         
         //update of the new bombs
         for(Player player : queuePlayer){
-            new Bomb(this, player.getX(), player.getY(), player.getRange(), TIME_BEFORE_EXPLOSION, player);
+            entities.add(new Bomb(this, player.getX(), player.getY(), player.getRange(), TIME_BEFORE_EXPLOSION, player));
         }
            
         //update of the bombs explosions
