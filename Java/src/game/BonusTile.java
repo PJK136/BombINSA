@@ -38,8 +38,9 @@ public class BonusTile extends Tile {
     }
     
     public Tile explode(int duration){
-        explosionTimeRemaining = duration;
-        return new EmptyTile();
+        Tile emptyTile = new EmptyTile();
+        emptyTile.explosionTimeRemaining = duration;
+        return emptyTile;
     }
 
 }

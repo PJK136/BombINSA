@@ -174,7 +174,7 @@ public class Player extends Entity {
         //Update Marche sur une flèche (Déplacement dans la direction de la flèche d'un nombre de case déterminé)
         
         //Update Marche sur une case en Explosion (diminuer le nb de vie du joueur touché)
-        if(this.world.getMap().isExploding(this.x+ this.world.getMap().getTileSize()/2, this.y+ this.world.getMap().getTileSize()/2) && getInvulnerability() == 0){ // On vérifie si la case où se trouve le CENTRE du joueur explose et qu'il n'est pas invulnérable
+        if(this.world.getMap().isExploding(this.x, this.y) && getInvulnerability() == 0){ // On vérifie si la case où se trouve le CENTRE du joueur explose et qu'il n'est pas invulnérable
             decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
             this.invulnerability = 100; //Pour pas que le joueur perde des vies en continue en marchant sur une case qui explose, Chiffre à changer
         } else {
@@ -183,7 +183,7 @@ public class Player extends Entity {
         
         // Vérifier si le joueur est encore vivant
         if(isAlive() == false){
-            
+            remove();
         }
         
     }
