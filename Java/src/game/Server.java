@@ -101,9 +101,23 @@ public class Server extends World {
            
         //update of the bombs explosions
         for(Bomb bomb : queueBomb){
+            //locate center of the bomb impact
             GridCoordinates gc = new GridCoordinates();
             gc = map.toGridCoordinates(bomb.getX(), bomb.getY());
-            map.setExplosion(EXPLOSION_DURATION, gc); 
+            //setExplosion for columns
+            for(int i=gc.x-bomb.owner.range; i<=gc.x+bomb.owner.range; i++){
+                if(i>=0 && i<map.tiles.length){
+                    GridCoordinates gcl = new GridCoordinates(i,gc.y);
+                    map.setExplosion(EXPLOSION_DURATION,gcl);
+                }
+            }
+            //setExplosion for lines
+            for(int j=gc.y-bomb.owner.range; j<=gc.y+bomb.owner.range; j++){
+                if(j>=0 && j<map.tiles.length && j!=gc.y){  //not to explode center twice
+                    GridCoordinates gcc = new GridCoordinates(gc.x,j);
+                    map.setExplosion(EXPLOSION_DURATION,gcc);
+                }
+            }
         }
     }
 
