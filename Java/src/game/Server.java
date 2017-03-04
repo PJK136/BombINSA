@@ -58,7 +58,7 @@ public class Server extends World {
 
     @objid("739ccd1c-6053-48a2-a809-596cf4134d36")
     public void setTileSize(int tileSize) {
-
+        map.setTileSize(tileSize);
     }
 
     @objid("4164c416-9e5c-461f-a7dc-1758c0f94d36")
@@ -66,7 +66,6 @@ public class Server extends World {
         map.loadMap(new String(Files.readAllBytes(Paths.get(filename))));
     }
     
-
     @objid("3201955a-ab70-48b8-b676-a53ca4da06a7")
     @Override
     public void newPlayer(Controller controller) {
