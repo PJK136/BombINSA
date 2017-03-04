@@ -19,9 +19,11 @@ public class Server extends World {
     final int START_INVULNERABITY_SEC = 1;
     final int TIME_BEFORE_EXPLOSION = 10;
     final int EXPLOSION_DURATION = 1;
+    String mapFileName = new String();
     int playerSpawnNumber;
     Queue<Player> queuePlayer = new LinkedList<Player>();
     Queue<Bomb> queueBomb = new LinkedList<Bomb>();
+    Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
     
         
     @objid("560005cd-1e82-4dc8-8a17-39d3577463ae")
@@ -64,6 +66,7 @@ public class Server extends World {
     @objid("4164c416-9e5c-461f-a7dc-1758c0f94d36")
     public void loadMap(String filename) throws Exception {
         map.loadMap(new String(Files.readAllBytes(Paths.get(filename))));
+        mapFileName = filename;
     }
     
     @objid("3201955a-ab70-48b8-b676-a53ca4da06a7")
@@ -73,7 +76,10 @@ public class Server extends World {
         while(count > map.spawningLocations.size()){
             count -= map.spawningLocations.size();
         }
-        entities.add(new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_SEC*fps));
+        Player player = new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_SEC*fps);
+        entities.add(player);
+        controllers.add(controller);
+        controller.setPlayer(player);
     }
 
     @objid("15f9ba61-54f9-4783-8bd0-923098e480d7")
@@ -97,6 +103,11 @@ public class Server extends World {
         for(Player player : queuePlayer){
             entities.add(new Bomb(this, player.getX(), player.getY(), player.getRange(), TIME_BEFORE_EXPLOSION, player));
         }
+        
+        //update of the bonus
+        for(GridCoordinates bonus : queueBonus){
+            map.setTileType(TileType.Empty,bonus);
+        }
            
         //update of the bombs explosions
         for(Bomb bomb : queueBomb){
@@ -118,10 +129,24 @@ public class Server extends World {
                 }
             }
         }
+        //clearing all the queue lists
+        queuePlayer.clear();
+        queueBomb.clear();
+        queueBonus.clear();
     }
 
     @objid("a193a9c9-e032-4940-953b-5923c9da849e")
     public void restart() {
+        //reinitialize entities 
+        entities.clear();
+        //renew players
+        for(Controller controller : controllers){
+            newPlayer(controller);
+        }
+        //time remaining back to beginning
+        timeRemaining = duration;
+        //reload map
+        map.loadMap(mapFileName);
     }
 
     @objid("b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e")
@@ -145,7 +170,9 @@ public class Server extends World {
     @objid("1883d42c-f691-41ab-acc6-c37fc049f80c")
     @Override
     void pickUpBonus(double x, double y) {
-        // TODO Auto-generated method stub
+        GridCoordinates bonus = new GridCoordinates();
+        bonus = map.toGridCoordinates(x,y);
+        queueBonus.add(bonus);
     }
 
 }
