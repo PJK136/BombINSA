@@ -70,16 +70,19 @@ public class Server extends World {
     }
     
     @objid("3201955a-ab70-48b8-b676-a53ca4da06a7")
-    @Override
-    public void newPlayer(Controller controller) {
+    void newPlayer(Controller controller) {
         int count = playerSpawnNumber;
         while(count > map.spawningLocations.size()){
             count -= map.spawningLocations.size();
         }
         Player player = new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_SEC*fps);
         entities.add(player);
-        controllers.add(controller);
         controller.setPlayer(player);
+    }
+    
+    public void newController(Controller controller){
+        controllers.add(controller);
+        newPlayer(controller);
     }
 
     @objid("15f9ba61-54f9-4783-8bd0-923098e480d7")

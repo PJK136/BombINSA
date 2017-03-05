@@ -78,7 +78,7 @@ public abstract class World implements WorldView {
     abstract void pickUpBonus(double x, double y);
 
     @objid ("d65622a5-0611-42cd-87a7-975a15931e59")
-    public abstract void newPlayer(Controller controller);
+    public abstract void newController(Controller controller);
 
     @objid ("30c7a359-b727-428f-8ef4-493db313017c")
     public abstract void update();
