@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("580889f0-8e1d-4a59-9bfb-00c967a10ffd")
@@ -36,11 +38,17 @@ public class MainWindow {
         frame.setSize(640, 480);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        frame.setContentPane(new GamePanel());
+        showMenu();
     }
 
     @objid ("d0b8245a-6b07-481e-b47e-45ce8cfbffec")
     public void showMenu() {
+        setPage(new MainMenu(this));
+    }
+    
+    void setPage(JPanel page) {
+        frame.setContentPane(page);
+        frame.revalidate();
     }
 
     @objid ("6b34965b-9d8d-4d4f-ac64-d111b1e847c0")
