@@ -14,7 +14,7 @@ public abstract class World implements WorldView {
      int timeRemaining;
 
     @objid ("ed497149-29e3-423f-aa53-4d59e7f2d0a9")
-     int duration;
+     int duration; //En secondes
 
     @objid ("cdff29e5-a4b9-4b5a-865a-838fddcdb57d")
      Map map;
@@ -84,6 +84,6 @@ public abstract class World implements WorldView {
     public abstract void update();
 
     @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
-    public abstract void restart();
+    public abstract void restart() throws Exception;
 
 }
