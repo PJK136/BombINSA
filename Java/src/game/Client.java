@@ -18,7 +18,7 @@ public class Client extends World {
     }
 
     @Override
-    void createExplosion(double x, double y, int range) {
+    void createExplosion(Bomb bomb) {
         // TODO Auto-generated method stub
         
     }
@@ -30,7 +30,7 @@ public class Client extends World {
     }
 
     @Override
-    public void newPlayer(Controller controller) {
+    public void newController(Controller controller) {
         // TODO Auto-generated method stub
         
     }

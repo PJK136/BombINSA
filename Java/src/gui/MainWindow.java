@@ -1,12 +1,7 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.EventQueue;
-import javax.swing.Box;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("580889f0-8e1d-4a59-9bfb-00c967a10ffd")

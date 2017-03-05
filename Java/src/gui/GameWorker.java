@@ -1,8 +1,5 @@
 package gui;
 
-import java.io.IOException;
-import java.util.InputMismatchException;
-
 import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.Server;

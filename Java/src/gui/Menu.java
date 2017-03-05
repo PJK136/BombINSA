@@ -58,7 +58,6 @@ public class Menu extends JPanel implements ActionListener {
         button.setMaximumSize(new Dimension(160, button.getMaximumSize().height));
         button.addActionListener(this);
         add(button);
-        Component verticalStrut = Box.createVerticalStrut(20);
         add(Box.createVerticalStrut(20));
         return button;
     }
