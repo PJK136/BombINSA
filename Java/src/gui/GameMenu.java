@@ -14,18 +14,28 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import javax.swing.SpinnerNumberModel;
 
 public class GameMenu extends JPanel implements ActionListener {
-    MainWindow mainWindow;
+    public final static String SETTINGS_FILENAME = "settings.conf";
     
-    JButton btnPlay;
-    JButton btnReturn;
+    private MainWindow mainWindow;
+    private GameSettings settings;
+    
+    private JButton btnPlay;
+    private JButton btnReturn;
+    private JSpinner roundDuration;
+    private JSpinner playerCount;
+    private JSpinner roundCount;
+    private JSpinner aiCount;
     
     /**
      * Create the panel.
      */
     public GameMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
+        this.settings = new GameSettings();
+        this.settings.load(SETTINGS_FILENAME);
         
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{0, 0, 0, 25, 0, 64, 0, 0};
@@ -42,13 +52,13 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_lblTypeDuJeu.gridy = 1;
         add(lblTypeDuJeu, gbc_lblTypeDuJeu);
         
-        JComboBox comboBox = new JComboBox();
-        GridBagConstraints gbc_comboBox = new GridBagConstraints();
-        gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-        gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-        gbc_comboBox.gridx = 2;
-        gbc_comboBox.gridy = 1;
-        add(comboBox, gbc_comboBox);
+        JComboBox gameType = new JComboBox();
+        GridBagConstraints gbc_gameType = new GridBagConstraints();
+        gbc_gameType.insets = new Insets(0, 0, 5, 5);
+        gbc_gameType.fill = GridBagConstraints.HORIZONTAL;
+        gbc_gameType.gridx = 2;
+        gbc_gameType.gridy = 1;
+        add(gameType, gbc_gameType);
         
         JLabel lblHumain = new JLabel("Nombre de joueurs :");
         GridBagConstraints gbc_lblHumain = new GridBagConstraints();
@@ -58,13 +68,14 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_lblHumain.gridy = 1;
         add(lblHumain, gbc_lblHumain);
         
-        JSpinner spinner = new JSpinner();
-        GridBagConstraints gbc_spinner = new GridBagConstraints();
-        gbc_spinner.fill = GridBagConstraints.HORIZONTAL;
-        gbc_spinner.insets = new Insets(0, 0, 5, 5);
-        gbc_spinner.gridx = 5;
-        gbc_spinner.gridy = 1;
-        add(spinner, gbc_spinner);
+        playerCount = new JSpinner();
+        playerCount.setModel(new SpinnerNumberModel(new Integer(settings.playerCount), null, null, new Integer(1)));
+        GridBagConstraints gbc_playerCount = new GridBagConstraints();
+        gbc_playerCount.fill = GridBagConstraints.HORIZONTAL;
+        gbc_playerCount.insets = new Insets(0, 0, 5, 5);
+        gbc_playerCount.gridx = 5;
+        gbc_playerCount.gridy = 1;
+        add(playerCount, gbc_playerCount);
         
         JLabel lblOrdinateur = new JLabel("Nombre d'IA :");
         GridBagConstraints gbc_lblOrdinateur = new GridBagConstraints();
@@ -74,13 +85,14 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_lblOrdinateur.gridy = 2;
         add(lblOrdinateur, gbc_lblOrdinateur);
         
-        JSpinner spinner_1 = new JSpinner();
-        GridBagConstraints gbc_spinner_1 = new GridBagConstraints();
-        gbc_spinner_1.fill = GridBagConstraints.HORIZONTAL;
-        gbc_spinner_1.insets = new Insets(0, 0, 5, 5);
-        gbc_spinner_1.gridx = 5;
-        gbc_spinner_1.gridy = 2;
-        add(spinner_1, gbc_spinner_1);
+        aiCount = new JSpinner();
+        aiCount.setModel(new SpinnerNumberModel(new Integer(settings.aiCount), new Integer(0), null, new Integer(1)));
+        GridBagConstraints gbc_aiCount = new GridBagConstraints();
+        gbc_aiCount.fill = GridBagConstraints.HORIZONTAL;
+        gbc_aiCount.insets = new Insets(0, 0, 5, 5);
+        gbc_aiCount.gridx = 5;
+        gbc_aiCount.gridy = 2;
+        add(aiCount, gbc_aiCount);
         
         JLabel lblCarte = new JLabel("Carte :");
         GridBagConstraints gbc_lblCarte = new GridBagConstraints();
@@ -90,13 +102,13 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_lblCarte.gridy = 3;
         add(lblCarte, gbc_lblCarte);
         
-        JComboBox comboBox_1 = new JComboBox();
-        GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
-        gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
-        gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
-        gbc_comboBox_1.gridx = 2;
-        gbc_comboBox_1.gridy = 3;
-        add(comboBox_1, gbc_comboBox_1);
+        JComboBox map = new JComboBox();
+        GridBagConstraints gbc_map = new GridBagConstraints();
+        gbc_map.insets = new Insets(0, 0, 5, 5);
+        gbc_map.fill = GridBagConstraints.HORIZONTAL;
+        gbc_map.gridx = 2;
+        gbc_map.gridy = 3;
+        add(map, gbc_map);
         
         JLabel lblNombreDeRound = new JLabel("Nombre de round :");
         GridBagConstraints gbc_lblNombreDeRound = new GridBagConstraints();
@@ -106,13 +118,14 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_lblNombreDeRound.gridy = 3;
         add(lblNombreDeRound, gbc_lblNombreDeRound);
         
-        JSpinner spinner_2 = new JSpinner();
-        GridBagConstraints gbc_spinner_2 = new GridBagConstraints();
-        gbc_spinner_2.fill = GridBagConstraints.HORIZONTAL;
-        gbc_spinner_2.insets = new Insets(0, 0, 5, 5);
-        gbc_spinner_2.gridx = 5;
-        gbc_spinner_2.gridy = 3;
-        add(spinner_2, gbc_spinner_2);
+        roundCount = new JSpinner();
+        roundCount.setModel(new SpinnerNumberModel(new Integer(settings.roundCount), new Integer(1), null, new Integer(1)));
+        GridBagConstraints gbc_roundCount = new GridBagConstraints();
+        gbc_roundCount.fill = GridBagConstraints.HORIZONTAL;
+        gbc_roundCount.insets = new Insets(0, 0, 5, 5);
+        gbc_roundCount.gridx = 5;
+        gbc_roundCount.gridy = 3;
+        add(roundCount, gbc_roundCount);
         
         JLabel lblDureeRound = new JLabel("Durée d'un round (s) :");
         GridBagConstraints gbc_lblDureeRound = new GridBagConstraints();
@@ -122,13 +135,14 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_lblDureeRound.gridy = 4;
         add(lblDureeRound, gbc_lblDureeRound);
         
-        JSpinner spinner_3 = new JSpinner();
-        GridBagConstraints gbc_spinner_3 = new GridBagConstraints();
-        gbc_spinner_3.fill = GridBagConstraints.HORIZONTAL;
-        gbc_spinner_3.insets = new Insets(0, 0, 5, 5);
-        gbc_spinner_3.gridx = 5;
-        gbc_spinner_3.gridy = 4;
-        add(spinner_3, gbc_spinner_3);
+        roundDuration = new JSpinner();
+        roundDuration.setModel(new SpinnerNumberModel(new Integer(settings.duration), new Integer(0), null, new Integer(1)));
+        GridBagConstraints gbc_roundDuration = new GridBagConstraints();
+        gbc_roundDuration.fill = GridBagConstraints.HORIZONTAL;
+        gbc_roundDuration.insets = new Insets(0, 0, 5, 5);
+        gbc_roundDuration.gridx = 5;
+        gbc_roundDuration.gridy = 4;
+        add(roundDuration, gbc_roundDuration);
         
         JPanel panel = new JPanel();
         GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -153,14 +167,27 @@ public class GameMenu extends JPanel implements ActionListener {
         btnPlay = new JButton("Jouer");
         btnPlay.addActionListener(this);
         panel.add(btnPlay);
-
     }
 
+    private GameSettings updateGameSettings() {
+        settings.playerCount = (int) playerCount.getValue();
+        settings.aiCount = (int) aiCount.getValue();
+        settings.roundCount = (int) roundCount.getValue();
+        settings.duration = (int) roundDuration.getValue();
+        return settings;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == btnReturn) {
+            updateGameSettings();
+            settings.save(SETTINGS_FILENAME);
             mainWindow.showMenu();
         }
+        else if (event.getSource() == btnPlay) {
+            updateGameSettings();
+            settings.save(SETTINGS_FILENAME);
+            mainWindow.startGame(settings);
+        }
     }
-
 }

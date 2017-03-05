@@ -13,7 +13,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("edc89ef6-b498-483e-875c-befa52d629f4")
 public class GamePanel extends JPanel {
     @objid ("1630e521-8ea4-48df-9278-b85be1fba591")
-     GameViewer gameViewer;
+    private GameViewer gameViewer;
 
     @objid ("c0d6533a-0897-40bb-94e0-4be89488c38b")
     public GamePanel() {
