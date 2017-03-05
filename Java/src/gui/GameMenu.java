@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -24,6 +25,9 @@ public class GameMenu extends JPanel implements ActionListener {
     
     private JButton btnPlay;
     private JButton btnReturn;
+    
+    private JComboBox<GameType> gameType;
+    private JComboBox<String> maps;
     private JSpinner roundDuration;
     private JSpinner playerCount;
     private JSpinner roundCount;
@@ -52,13 +56,16 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_lblTypeDuJeu.gridy = 1;
         add(lblTypeDuJeu, gbc_lblTypeDuJeu);
         
-        JComboBox gameType = new JComboBox();
+        gameType = new JComboBox<GameType>();
         GridBagConstraints gbc_gameType = new GridBagConstraints();
         gbc_gameType.insets = new Insets(0, 0, 5, 5);
         gbc_gameType.fill = GridBagConstraints.HORIZONTAL;
         gbc_gameType.gridx = 2;
         gbc_gameType.gridy = 1;
         add(gameType, gbc_gameType);
+        
+        for (GameType type : GameType.values())
+            gameType.addItem(type);
         
         JLabel lblHumain = new JLabel("Nombre de joueurs :");
         GridBagConstraints gbc_lblHumain = new GridBagConstraints();
@@ -102,13 +109,15 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_lblCarte.gridy = 3;
         add(lblCarte, gbc_lblCarte);
         
-        JComboBox map = new JComboBox();
+        maps = new JComboBox<String>();
         GridBagConstraints gbc_map = new GridBagConstraints();
         gbc_map.insets = new Insets(0, 0, 5, 5);
         gbc_map.fill = GridBagConstraints.HORIZONTAL;
         gbc_map.gridx = 2;
         gbc_map.gridy = 3;
-        add(map, gbc_map);
+        add(maps, gbc_map);
+        updateMapList();
+        maps.setSelectedItem(settings.mapName);
         
         JLabel lblNombreDeRound = new JLabel("Nombre de round :");
         GridBagConstraints gbc_lblNombreDeRound = new GridBagConstraints();
@@ -169,7 +178,22 @@ public class GameMenu extends JPanel implements ActionListener {
         panel.add(btnPlay);
     }
 
+    private void updateMapList() {
+        File folder = new File(".");
+        File[] fileList = folder.listFiles();
+
+        for (File file : fileList) {
+            if (file.isFile()) {
+                String filename = file.getName();
+                if (filename.endsWith(".map"))
+                    maps.addItem(filename.substring(0, filename.length() - 4));
+            }
+        }
+    }
+    
     private GameSettings updateGameSettings() {
+        settings.gameType = (GameType) gameType.getSelectedItem();
+        settings.mapName = (String) maps.getSelectedItem();
         settings.playerCount = (int) playerCount.getValue();
         settings.aiCount = (int) aiCount.getValue();
         settings.roundCount = (int) roundCount.getValue();
