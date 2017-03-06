@@ -96,8 +96,16 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
         setGameState(GameState.Init);
         if (settings.gameType.equals(GameType.Local)) {
             world = new Server(settings.mapName+".map", settings.tileSize, settings.fps, settings.duration);
-            //TODO : Ajout des joueurs etc.
+            for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
+                KeyboardController kbController = new KeyboardController(settings.controls.get(i));
+                viewer.addKeyListener(kbController);
+                world.newController(kbController);
+            }
+            
+            //TODO : Ajout des ias etc.
         }
+        else
+            throw new Exception("Non implémenté !");
     }
 
     @objid ("df3a5c13-59cb-491e-811a-ea1af7e23cda")
