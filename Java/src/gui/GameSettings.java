@@ -33,9 +33,11 @@ public class GameSettings {
     public int roundCount;
 
     public GameSettings() {
+        //Configuration par défaut
         tileSize = 32;
         fps = 60;
         controls = new ArrayList<ControlSettings> ();
+        controls.add(ControlSettings.defaultControls());
         gameType = GameType.Local;
         mapName = "default";
         playerCount = 1;
