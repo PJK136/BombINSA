@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import com.oracle.webservices.internal.api.message.PropertySet.Property;
 
 import game.Controller;
 import game.Direction;
@@ -14,6 +15,7 @@ import game.World;
 
 @objid ("0352607c-7ee6-4aa1-839f-fc6a174af9fd")
 public class GameWorker extends SwingWorker<Integer,Integer> {
+    
     @objid ("48d2d522-c922-4b51-80ca-ea2a20a4e237")
     private GameState state;
 
@@ -58,6 +60,7 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
         
         for (int round = 0; round < settings.roundCount && !isCancelled(); round++)
         {
+            fireTimeRemaining();
             setGameState(GameState.Playing);
             while (world.getPlayerAliveCount() > 0 && !isCancelled())
             {
@@ -70,6 +73,10 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
                 }
                 
                 world.update();
+                
+                if (world.getTimeRemaining() % settings.fps == 0)
+                    fireTimeRemaining();
+                
                 if (world.getTimeRemaining() == 0)
                     setGameState(GameState.SuddenDeath);
                 viewer.drawWorld(world);
@@ -113,9 +120,14 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
         if (!this.state.equals(state) || this.state.equals(GameState.Init)) {
             GameState oldState = this.state;
             this.state = state;
-            firePropertyChange(GameState.class.getName(), oldState, state);
+            firePropertyChange(GameProperty.GameState.toString(), oldState, state);
             //TODO : Enlever debug message
             System.err.println(state);
         }
+    }
+    
+    private void fireTimeRemaining() {
+        int seconds = world.getTimeRemaining()/settings.fps;
+        firePropertyChange(GameProperty.TimeRemaining.toString(), seconds-1, seconds);
     }
 }

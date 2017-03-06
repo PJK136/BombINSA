@@ -63,6 +63,7 @@ public class MainWindow {
         GamePanel gamePanel = new GamePanel(this);
         try {
             gameWorker = new GameWorker(settings, gamePanel.getGameViewer());
+            gameWorker.addPropertyChangeListener(gamePanel);
             gameWorker.execute();
         } catch (Exception e) {
             // TODO Afficher un message d'erreur
