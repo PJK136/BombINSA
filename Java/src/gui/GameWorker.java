@@ -96,7 +96,7 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
         setGameState(GameState.Init);
         if (settings.gameType.equals(GameType.Local)) {
             world = new Server(settings.mapName+".map", settings.tileSize, settings.fps, settings.duration);
-            //Ajout des joueurs etc.
+            //TODO : Ajout des joueurs etc.
         }
     }
 
@@ -106,6 +106,7 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
             GameState oldState = this.state;
             this.state = state;
             firePropertyChange(GameState.class.getName(), oldState, state);
+            //TODO : Enlever debug message
             System.err.println(state);
         }
     }

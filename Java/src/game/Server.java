@@ -20,7 +20,7 @@ public class Server extends World {
     final int TIME_BEFORE_EXPLOSION = 10;
     final int EXPLOSION_DURATION = 1;
     String mapFileName = new String();
-    int playerSpawnNumber;
+    int playerSpawnNumber = 0;
     Queue<Player> queuePlayer = new LinkedList<Player>();
     Queue<Bomb> queueBomb = new LinkedList<Bomb>();
     Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
@@ -33,7 +33,6 @@ public class Server extends World {
         setFps(fps);
         setDuration(duration);
         timeRemaining = duration*fps;
-        playerSpawnNumber = 0;
     }
 
     @objid("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
@@ -102,12 +101,9 @@ public class Server extends World {
         //update of the map
         map.update();
         
-        //update of timeRemaining
-        timeRemaining -= 1;
-        
         //update of the new bombs
         for(Player player : queuePlayer){
-            entities.add(new Bomb(this, player.getX(), player.getY(), player.getRange(), TIME_BEFORE_EXPLOSION, player));
+            entities.add(new Bomb(this, player, TIME_BEFORE_EXPLOSION));
         }
         
         //update of the bonus
@@ -118,20 +114,24 @@ public class Server extends World {
         //update of the bombs explosions
         for(Bomb bomb : queueBomb){
             //locate center of the bomb impact
-            GridCoordinates gc = new GridCoordinates();
-            gc = map.toGridCoordinates(bomb.getX(), bomb.getY());
+            GridCoordinates bombGC = map.toGridCoordinates(bomb.getX(), bomb.getY());
+            GridCoordinates explosionGC = new GridCoordinates();
+            
+            explosionGC.y = bombGC.y;
             //setExplosion for columns
-            for(int i=gc.x-bomb.owner.range; i<=gc.x+bomb.owner.range; i++){
-                if(i>=0 && i<map.tiles.length){
-                    GridCoordinates gcl = new GridCoordinates(i,gc.y);
-                    map.setExplosion(EXPLOSION_DURATION,gcl);
-                }
+            for(explosionGC.x = Math.max(0,bombGC.x-bomb.getRange());
+                explosionGC.x <= Math.min(bombGC.x+bomb.getRange(), map.getColumnCount()-1);
+                explosionGC.x++) {
+                map.setExplosion(EXPLOSION_DURATION,explosionGC);
             }
+            
+            explosionGC.x = bombGC.x;
             //setExplosion for lines
-            for(int j=gc.y-bomb.owner.range; j<=gc.y+bomb.owner.range; j++){
-                if(j>=0 && j<map.tiles.length && j!=gc.y){  //not to explode center twice
-                    GridCoordinates gcc = new GridCoordinates(gc.x,j);
-                    map.setExplosion(EXPLOSION_DURATION,gcc);
+            for(explosionGC.y = Math.max(0, bombGC.y-bomb.getRange());
+                explosionGC.y <= Math.min(bombGC.y+bomb.getRange(), map.getRowCount()-1);
+                explosionGC.y++) {
+                if(explosionGC.y != bombGC.y){  //not to explode center twice
+                    map.setExplosion(EXPLOSION_DURATION, explosionGC);
                 }
             }
         }
@@ -139,6 +139,9 @@ public class Server extends World {
         queuePlayer.clear();
         queueBomb.clear();
         queueBonus.clear();
+        
+        //update of timeRemaining
+        timeRemaining -= 1;
     }
 
     @objid("a193a9c9-e032-4940-953b-5923c9da849e")
@@ -176,9 +179,7 @@ public class Server extends World {
     @objid("1883d42c-f691-41ab-acc6-c37fc049f80c")
     @Override
     void pickUpBonus(double x, double y) {
-        GridCoordinates bonus = new GridCoordinates();
-        bonus = map.toGridCoordinates(x,y);
-        queueBonus.add(bonus);
+        queueBonus.add(map.toGridCoordinates(x,y));
     }
 
 }

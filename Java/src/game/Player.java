@@ -1,6 +1,8 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -19,7 +21,7 @@ public class Player extends Entity {
     int range;
 
     @objid("d3e49717-5f5c-49c0-b87a-e6ed29629386")
-    ArrayList<Boolean> playerAbilities;
+    List<Boolean> playerAbilities;
 
     @objid("efe71f6e-6ac1-4f9a-bb96-98975b970b23")
     int invulnerability;
@@ -42,11 +44,7 @@ public class Player extends Entity {
 
     @objid("d8c3c2ca-78cd-4d35-8d4a-df8c6f1cbe55")
     public boolean isAlive() {
-        if(lives>0){
-            return true;
-        } else {
-            return false;
-        }
+        return lives > 0;
     }
 
     @objid("007b7078-5eba-4ff5-a413-43e779f00b19")
@@ -127,12 +125,12 @@ public class Player extends Entity {
     }
 
     @objid("671682b3-f854-4f65-8616-a0dee38409f6")
-    public ArrayList<Boolean> getPlayerAbilities() {
-        return this.playerAbilities;
+    public List<Boolean> getPlayerAbilities() {
+        return Collections.unmodifiableList(this.playerAbilities);
     }
 
     @objid("2559d9b8-e592-4923-928b-ebc444992c5c")
-    void setPlayerAbilities(ArrayList<Boolean> value) {
+    void setPlayerAbilities(List<Boolean> value) {
         this.playerAbilities = value;
     }
 
@@ -167,11 +165,9 @@ public class Player extends Entity {
 
     @objid("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
-        //Update position (identique à update Entity)
+        super.update();
         
         //Update acquisition Bonus/Malus (Random, More/Less Bomb, More/Less Range, More/Less Speed, Shield, Kick)
-        
-        //Update Marche sur une flèche (Déplacement dans la direction de la flèche d'un nombre de case déterminé)
         
         //Update Marche sur une case en Explosion (diminuer le nb de vie du joueur touché)
         if(this.world.getMap().isExploding(this.x, this.y) && getInvulnerability() == 0){ // On vérifie si la case où se trouve le CENTRE du joueur explose et qu'il n'est pas invulnérable
