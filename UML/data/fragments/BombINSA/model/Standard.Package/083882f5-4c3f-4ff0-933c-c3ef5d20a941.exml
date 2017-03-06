@@ -24,6 +24,10 @@
         <COMPID name="image" mc="Standard.Package" uid="61212704-1715-4647-9804-bab321fc81e1"/>
         <COMPID name="Color" mc="Standard.Class" uid="0b016977-cf9a-4c75-8fec-2e78fc50d5fa"/>
         <COMPID name="Graphics" mc="Standard.Class" uid="d0704cb2-c61b-4585-af29-5999831ef650"/>
+        <COMPID name="GridBagLayout" mc="Standard.Class" uid="c00f3746-4f9a-4e38-bf6e-d7d42d60bc0d"/>
+        <COMPID name="GridLayout" mc="Standard.Class" uid="098f7268-929c-4e3f-943f-ce81d8e53c95"/>
+        <COMPID name="GridBagConstraints" mc="Standard.Class" uid="91878312-107b-4ba7-a5da-4af1e6bf7b3a"/>
+        <COMPID name="Insets" mc="Standard.Class" uid="ab54ab1b-d238-4ec8-b8e2-3ab8c8dd7c9e"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

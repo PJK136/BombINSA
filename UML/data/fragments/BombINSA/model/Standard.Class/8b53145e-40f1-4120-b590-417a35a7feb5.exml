@@ -17,6 +17,51 @@
     <DEPENDENCIES>
       <COMP relation="OwnedOperation">
         <OBJECT>
+          <ID name="GameSettings" mc="Standard.Operation" uid="c6740cfb-642c-4bbc-82c0-d26fc0f5b072"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[GameSettings]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Extension">
+              <FOREIGNID name="create" mc="Infrastructure.Stereotype" uid="00700680-0000-0204-0000-000000000000"/>
+            </LINK>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="301afcdb-de80-4662-a0e8-ae0df7711df3"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[//Configuration par défaut
+tileSize = 32;
+fps = 60;
+controls = new ArrayList<ControlSettings> ();
+controls.add(ControlSettings.defaultControls());
+gameType = GameType.Local;
+mapName = "default";
+playerCount = 1;
+aiCount = 0;
+roundCount = 1;
+duration = 180;
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
           <ID name="load" mc="Standard.Operation" uid="f454de1c-cf21-4345-acd1-5debae4eb46b"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
@@ -122,7 +167,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="55d34542-5cd1-47f0-a415-220542ce9a28"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="74e7287c-965e-4e42-96cc-cdd4ff946ee2"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -160,7 +205,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="3b8822a7-0d48-488a-ac58-4c2bbae2081f"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="7175fff5-a071-4a25-9c89-160f2b541f1a"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -198,7 +243,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="c2bffd24-3a38-4f4c-9ba6-5c35afca63ba"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a445fdd3-080b-496e-a757-7b424d7482f5"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -236,7 +281,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="368db53b-8d5f-426a-a801-2a047794bfb2"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="efa03f9c-048b-4342-858f-974d516a51f4"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -274,7 +319,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="853a8859-502d-4433-b52d-dd717e895e31"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a81d6b17-c03e-48d2-b421-37ac624e069b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -312,7 +357,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="798455a1-0826-46bb-b521-6f40bc49c897"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="ce0e67ef-6e7a-440f-88ad-ea5be9dd24c7"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -350,7 +395,45 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="e348c346-98ad-4690-b9c6-f579de2a424d"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="ed31ef6e-36c9-43ee-a1b9-059f09946862"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="aiCount" mc="Standard.Attribute" uid="cff69b76-eea0-4a50-a107-1c15c7d9e87b"/>
+          <ATTRIBUTES>
+            <ATT name="TypeConstraint"></ATT>
+            <ATT name="Value"></ATT>
+            <ATT name="TargetIsClass">false</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[aiCount]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Type">
+              <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+            </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1ef90ee1-2ba4-4142-96da-fd9923ac3e1c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -448,19 +531,15 @@
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
-            </COMP>
-            <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="ab9052a6-dba0-49ef-b346-b0207a1926ab"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="cad8271e-d2ad-48f9-846a-518a2e0fdc77"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[new ArrayList<ControlSettings> ()]]></ATT>
-                  <ATT name="MimeType"></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaInitValue" mc="Infrastructure.NoteType" uid="00380080-0000-0994-0000-000000000000"/>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>

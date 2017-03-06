@@ -15,7 +15,7 @@
     <DEPENDENCIES>
       <COMP relation="OwnedElement">
         <COMPID name="MainWindow" mc="Standard.Class" uid="580889f0-8e1d-4a59-9bfb-00c967a10ffd"/>
-        <COMPID name="Menu" mc="Standard.Class" uid="e22186a6-1bcc-48ec-a2ac-a88a3eb90491"/>
+        <COMPID name="MainMenu" mc="Standard.Class" uid="e22186a6-1bcc-48ec-a2ac-a88a3eb90491"/>
         <COMPID name="GameViewer" mc="Standard.Class" uid="932712f7-e00f-431a-abd5-e4322b7407bd"/>
         <COMPID name="GamePanel" mc="Standard.Class" uid="edc89ef6-b498-483e-875c-befa52d629f4"/>
         <COMPID name="GameSettings" mc="Standard.Class" uid="8b53145e-40f1-4120-b590-417a35a7feb5"/>
@@ -121,6 +121,43 @@
                 <ID name="End" mc="Standard.EnumerationLiteral" uid="4912362a-fcab-4186-b7d9-ec5a590ff7d3"/>
                 <ATTRIBUTES>
                   <ATT name="Name"><![CDATA[End]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaEnumeration" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0262-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <COMPID name="KeyboardController" mc="Standard.Class" uid="0a274714-4157-430f-bba3-fe0b0286cf2f"/>
+        <COMPID name="GameMenu" mc="Standard.Class" uid="1792b20d-e79e-4f35-8f63-20089eca61f0"/>
+        <OBJECT>
+          <ID name="GameProperty" mc="Standard.Enumeration" uid="1bb54b81-6af2-4905-b669-b433d53ca201"/>
+          <ATTRIBUTES>
+            <ATT name="IsElementary">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">true</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[GameProperty]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Value">
+              <OBJECT>
+                <ID name="GameState" mc="Standard.EnumerationLiteral" uid="302fd361-927f-4223-aa62-12ec1a35e68b"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[GameState]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="TimeRemaining" mc="Standard.EnumerationLiteral" uid="b96a331c-f727-4315-9ab1-0a7578144ad3"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[TimeRemaining]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES></DEPENDENCIES>
