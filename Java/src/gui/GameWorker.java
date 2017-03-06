@@ -5,11 +5,7 @@ import java.util.TimerTask;
 
 import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import com.oracle.webservices.internal.api.message.PropertySet.Property;
 
-import game.Controller;
-import game.Direction;
-import game.Player;
 import game.Server;
 import game.World;
 

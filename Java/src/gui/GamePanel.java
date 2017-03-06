@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Event;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import com.oracle.webservices.internal.api.message.PropertySet.Property;
 
 @objid ("edc89ef6-b498-483e-875c-befa52d629f4")
 public class GamePanel extends JPanel implements ActionListener, PropertyChangeListener {
