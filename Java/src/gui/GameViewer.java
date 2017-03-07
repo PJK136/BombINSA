@@ -28,6 +28,8 @@ public class GameViewer extends JPanel {
     private int cacheTileSize;
     private Image cacheTiles[];
     
+    boolean showSpawningLocations;
+    
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
         tiles = new BufferedImage[TileType.values().length];
@@ -44,6 +46,8 @@ public class GameViewer extends JPanel {
                 tiles[type.ordinal()] = tile; 
             }
         }
+        
+        showSpawningLocations = false;
         
         cacheTileSize = 0;
         cacheTiles = new Image[TileType.values().length];
@@ -65,6 +69,11 @@ public class GameViewer extends JPanel {
             return Color.RED;
         }
     }
+    
+    public void setShowSpawningLocations(boolean showSpawningLocations) {
+        this.showSpawningLocations = showSpawningLocations;
+    }
+    
     @objid ("18e3e04f-dec2-45e2-a3f5-dbabb34447b4")
     public void drawWorld(WorldView worldView) {
         drawMap(worldView.getMap());
@@ -81,12 +90,23 @@ public class GameViewer extends JPanel {
                
         BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB); //ARGB ?
         Graphics2D g = newWorld.createGraphics();
-        g.fillRect(0, 0, map.getWidth(), map.getHeight());
-        g.setColor(Color.black);
-        GridCoordinates gc = new GridCoordinates();
-        for (gc.x = 0; gc.x < map.getColumnCount(); gc.x++) {
-            for (gc.y = 0; gc.y < map.getRowCount(); gc.y++) {
-                g.drawImage(cacheTiles[map.getTileType(gc).ordinal()], gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
+        
+        {
+            g.setColor(Color.black);
+            g.fillRect(0, 0, map.getWidth(), map.getHeight());
+            
+            GridCoordinates gc = new GridCoordinates();
+            for (gc.x = 0; gc.x < map.getColumnCount(); gc.x++) {
+                for (gc.y = 0; gc.y < map.getRowCount(); gc.y++) {
+                    g.drawImage(cacheTiles[map.getTileType(gc).ordinal()], gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
+                }
+            }
+        }
+        
+        if (showSpawningLocations) {
+            g.setColor(Color.blue);
+            for (GridCoordinates gc : map.getSpawningLocations()) {
+                g.drawOval(gc.x*map.getTileSize(), gc.y*map.getTileSize(), map.getTileSize(), map.getTileSize());
             }
         }
         

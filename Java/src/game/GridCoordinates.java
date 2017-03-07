@@ -20,5 +20,19 @@ public class GridCoordinates {
         this.x = x;
         this.y = y;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        else if (obj == this)
+            return true;
+        else if (!(obj instanceof GridCoordinates))
+            return false;
+        
+        GridCoordinates gc = (GridCoordinates)obj;
+        
+        return x == gc.x && y == gc.y;
+    }
 
 }

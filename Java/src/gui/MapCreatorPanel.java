@@ -24,6 +24,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import game.GridCoordinates;
 import game.Map;
 import game.TileType;
 
@@ -80,6 +81,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         map = new Map(20, 15, 32);
         
         gameViewer = new GameViewer();
+        gameViewer.setShowSpawningLocations(true);
         gameViewer.addMouseListener(this);
         gameViewer.addMouseMotionListener(this);
         add(gameViewer, BorderLayout.CENTER);
@@ -95,7 +97,14 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     
     private void placeTile(MouseEvent e) {
         if (tileTypeGroup.getSelection() != null && map.isInsideMap(e.getX(), e.getY())) {
-            TileType type = TileType.valueOf(tileTypeGroup.getSelection().getActionCommand());
+            TileType type;
+            if (SwingUtilities.isLeftMouseButton(e))
+                type = TileType.valueOf(tileTypeGroup.getSelection().getActionCommand());
+            else if (SwingUtilities.isRightMouseButton(e))
+                type = TileType.Empty;
+            else
+                return;
+            
             if (map.getTileType(e.getX(), e.getY()) != type) {
                 saved = false;
                 map.setTileType(type, e.getX(), e.getY());
@@ -106,8 +115,14 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
+        if (SwingUtilities.isMiddleMouseButton(e)) {
+            GridCoordinates gc = map.toGridCoordinates(e.getX(), e.getY());
+            if (map.getSpawningLocations().contains(gc))
+                map.removeSpawningLocation(gc);
+            else
+                map.addSpawningLocation(gc);
+            updateMap();
+        }
     }
 
     @Override
@@ -124,9 +139,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (SwingUtilities.isLeftMouseButton(e)) {
-            placeTile(e);
-        }
+        placeTile(e);
     }
 
     @Override
@@ -137,9 +150,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (SwingUtilities.isLeftMouseButton(e)) {
-            placeTile(e);
-        }
+        placeTile(e);
     }
 
     @Override
