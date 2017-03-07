@@ -9,7 +9,7 @@ public class BonusTile extends Tile {
 
     @objid ("2c6b3524-435a-414e-86f8-3a8b772005f9")
     public BonusTile() {
-        bonusType = BonusType.Random;
+        bonusType = randomBonus();
     }
 
     @objid ("ef5a626b-54a8-41e3-833e-b15b09f2c6ba")
@@ -43,6 +43,12 @@ public class BonusTile extends Tile {
         Tile emptyTile = new EmptyTile();
         emptyTile.explosionTimeRemaining = duration;
         return emptyTile;
+    }
+    
+    public static BonusType randomBonus(){
+        BonusType types[] = BonusType.values();
+        int type = (int)((types.length-1)*Math.random()+1);
+        return types[type];
     }
 
 }

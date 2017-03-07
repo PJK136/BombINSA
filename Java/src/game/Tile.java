@@ -43,6 +43,9 @@ public abstract class Tile {
 
     @objid ("56948d0a-9630-4a04-8e0a-25aafbb43b4d")
     void update() {
+        if(explosionTimeRemaining != 0){
+            explosionTimeRemaining--;
+        }
     }
 
     @objid ("9f2c3dd7-e9e3-46b8-82e0-23ea933b9eda")
