@@ -83,7 +83,7 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
             switch (property) {
                 case GameState:
                     if (GameState.valueOf(evt.getPropertyName()) == GameState.Init)
-                        updateGameSize();
+                        mainWindow.setToPreferredSize();
                 case TimeRemaining:
                     updateTimeRemaining((int) evt.getNewValue());
                     break;
@@ -109,12 +109,4 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
         text.append("  ");
         timeRemaining.setText(text.toString());
     }
-    
-    private void updateGameSize() {
-        Dimension d = gameViewer.getPreferredSize();
-        d.width += getInsets().left + getInsets().right;
-        d.height += getInsets().top + getInsets().bottom + topBar.getHeight();
-        mainWindow.setSize(d);
-    }
-
 }

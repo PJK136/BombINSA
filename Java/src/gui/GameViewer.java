@@ -2,8 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,6 +25,9 @@ public class GameViewer extends JPanel {
 
     private BufferedImage tiles[];
     
+    private int cacheTileSize;
+    private Image cacheTiles[];
+    
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
         tiles = new BufferedImage[TileType.values().length];
@@ -33,8 +36,17 @@ public class GameViewer extends JPanel {
                 tiles[type.ordinal()] = ImageIO.read(new File("img/" + type.name().toLowerCase() + ".png"));
             } catch (IOException e) {
                 System.err.println("Can't read : " + "img/" + type.name().toLowerCase() + ".png");
+                BufferedImage tile = new BufferedImage(256, 256, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g = tile.createGraphics();
+                g.setColor(toColor(type));
+                g.fillRect(0, 0, 256, 256);
+                g.dispose();
+                tiles[type.ordinal()] = tile; 
             }
         }
+        
+        cacheTileSize = 0;
+        cacheTiles = new Image[TileType.values().length];
     }
 
     private Color toColor(TileType type) {
@@ -60,29 +72,37 @@ public class GameViewer extends JPanel {
     }
     
     public void drawMap(MapView map) {
+        if (cacheTileSize != map.getTileSize()) {
+            for (int i = 0; i < tiles.length; i++) {
+                cacheTiles[i] = tiles[i].getScaledInstance(map.getTileSize(), map.getTileSize(), Image.SCALE_SMOOTH);
+            }
+            cacheTileSize = map.getTileSize();
+        }
+               
         BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB); //ARGB ?
         Graphics2D g = newWorld.createGraphics();
         g.fillRect(0, 0, map.getWidth(), map.getHeight());
         g.setColor(Color.black);
-        //g.setFont(new Font("Dialog", Font.BOLD, map.getTileSize()/2));
         GridCoordinates gc = new GridCoordinates();
         for (gc.x = 0; gc.x < map.getColumnCount(); gc.x++) {
             for (gc.y = 0; gc.y < map.getRowCount(); gc.y++) {
-                //g.drawImage(tiles[map.getTileType(gc).ordinal()], gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
-                //g.drawString(String.valueOf(map.getTileType(gc).ordinal()), gc.x*map.getTileSize(), gc.y*map.getTileSize());
-                g.setColor(toColor(map.getTileType(gc)));
-                g.fillRect(gc.x*map.getTileSize(), gc.y*map.getTileSize(), map.getTileSize(), map.getTileSize());
+                g.drawImage(cacheTiles[map.getTileType(gc).ordinal()], gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
             }
         }
-        world = newWorld;
-        repaint();
+        
+        if (world == null || (world.getWidth() != newWorld.getWidth() || world.getHeight() != newWorld.getHeight())) {
+            world = newWorld;
+            revalidate();
+        } else {
+            world = newWorld;
+            repaint();
+        }
     }
 
     @objid ("8a85e92f-ba76-4ae7-8d93-ab5ea648949a")
     @Override
     protected void paintComponent(Graphics g) {
-        //TODO : Remove filling the background with RED color
-        g.setColor(Color.RED);
+        g.setColor(Color.gray);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.drawImage(world, 0, 0, this);
     }

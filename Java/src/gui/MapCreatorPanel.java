@@ -13,7 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.InputMismatchException;
 
@@ -56,6 +58,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         toolBar.add(btnSave);
         
         fileChooser = new JFileChooser(".");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Cartes de BombINSA", "map"));
         
         toolBar.addSeparator();
         
@@ -75,8 +78,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         add(gameViewer, BorderLayout.CENTER);
         
         updateMap();
-        
-        setWindowSizeToFitMap();
     }
 
     private void updateMap() {
@@ -141,29 +142,36 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnOpen)
             openFile();
+        else if (e.getSource() == btnSave)
+            saveToFile();
         //else if (e.getSource() == btnSave)      
     }
     
-    private void setWindowSizeToFitMap() {
-        Dimension d = gameViewer.getPreferredSize();
-        d.width += getInsets().left + getInsets().right;
-        d.height += getInsets().top + getInsets().bottom;// + topBar.getHeight();
-        mainWindow.setSize(d);
-    }
-    
     private void openFile() {
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Cartes de BombINSA", "map"));
         int ret = fileChooser.showOpenDialog(this);
         if (ret == JFileChooser.APPROVE_OPTION) {
             try {
                 map.loadMap(new String(Files.readAllBytes(fileChooser.getSelectedFile().toPath())));
-                setWindowSizeToFitMap();
+                updateMap();
+                mainWindow.setToPreferredSize();
             } catch (InputMismatchException | IOException e) {
-                // TODO Auto-generated catch block
+                // TODO Afficher un message d'erreur
                 e.printStackTrace();
             }
-            
-            updateMap();
+        }
+    }
+    
+    private void saveToFile() {
+        int ret = fileChooser.showSaveDialog(this);
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            try {
+                PrintWriter printWriter = new PrintWriter(fileChooser.getSelectedFile());
+                printWriter.write(map.saveMap());
+                printWriter.close();
+            } catch (FileNotFoundException e) {
+             // TODO Afficher un message d'erreur
+                e.printStackTrace();
+            }
         }
     }
 }
