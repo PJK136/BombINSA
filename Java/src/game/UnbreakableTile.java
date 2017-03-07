@@ -15,10 +15,6 @@ public class UnbreakableTile extends Tile {
         return true;
     }
     
-    public boolean isExploding(){
-        return false;
-    }
-    
     public Tile explode(int duration){
         return this;
     }
