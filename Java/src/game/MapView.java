@@ -5,15 +5,18 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("27201ab7-2fd3-4c35-abb3-37155f6d5822")
 public interface MapView {
+    @objid ("14a5fb0b-a57a-499e-ab6a-00fbd434a72b")
     int getColumnCount();
+
+    @objid ("433694e2-86f3-4165-a7b0-800f219f33f3")
     int getRowCount();
-    
+
     @objid ("f9e27f3e-5590-406d-8e1c-c2283d78b1c0")
     int getWidth();
-    
+
     @objid ("5d4ce44b-0b1b-467b-a4d4-a9c59b922f08")
     int getHeight();
-    
+
     @objid ("bc0fe536-ee94-44d9-8252-030f1ca4ddc3")
     int getTileSize();
 

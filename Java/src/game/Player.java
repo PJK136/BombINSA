@@ -3,33 +3,32 @@ package game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-@objid("7d9743df-c7cd-4679-9771-fa22b1be441d")
+@objid ("7d9743df-c7cd-4679-9771-fa22b1be441d")
 public class Player extends Entity {
-    @objid("c10c97b4-7ea2-4021-aff7-4c0b87aac71b")
-    int lives;
+    @objid ("c10c97b4-7ea2-4021-aff7-4c0b87aac71b")
+     int lives;
 
-    @objid("42154f7e-37fd-4c85-b8bf-440560e7ccdf")
-    int bombCount;
+    @objid ("42154f7e-37fd-4c85-b8bf-440560e7ccdf")
+     int bombCount;
 
-    @objid("b8822ff6-0716-4acf-844b-19ea1d23faa0")
-    int bombMax;
+    @objid ("b8822ff6-0716-4acf-844b-19ea1d23faa0")
+     int bombMax;
 
-    @objid("0ec9b326-319f-4b00-8ebb-c02b47dc166f")
-    int range;
+    @objid ("0ec9b326-319f-4b00-8ebb-c02b47dc166f")
+     int range;
 
-    @objid("d3e49717-5f5c-49c0-b87a-e6ed29629386")
-    List<Boolean> playerAbilities;
+    @objid ("d3e49717-5f5c-49c0-b87a-e6ed29629386")
+     List<Boolean> playerAbilities;
 
-    @objid("efe71f6e-6ac1-4f9a-bb96-98975b970b23")
-    int invulnerability;
+    @objid ("efe71f6e-6ac1-4f9a-bb96-98975b970b23")
+     int invulnerability;
 
-    @objid("2f129ce7-ac16-42b5-85cb-d57015645a67")
+    @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
     protected Controller controller;
 
-    @objid("1c494051-0d17-471a-a273-fd48c48928d7")
+    @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
     public Player(World world, double x, double y, Controller controller, int lives, int bombMax, int range, int invulnerability) {
         super(world, x, y);
         this.controller = controller;
@@ -39,20 +38,19 @@ public class Player extends Entity {
         this.invulnerability = invulnerability;
         this.bombCount = 0;
         this.playerAbilities = new ArrayList<Boolean>(PlayerAbility.values().length);
-                
     }
 
-    @objid("d8c3c2ca-78cd-4d35-8d4a-df8c6f1cbe55")
+    @objid ("d8c3c2ca-78cd-4d35-8d4a-df8c6f1cbe55")
     public boolean isAlive() {
         return lives > 0;
     }
 
-    @objid("007b7078-5eba-4ff5-a413-43e779f00b19")
+    @objid ("007b7078-5eba-4ff5-a413-43e779f00b19")
     public int getLives() {
         return this.lives;
     }
 
-    @objid("c5f1c15a-e638-4096-9f19-f77708761f51")
+    @objid ("c5f1c15a-e638-4096-9f19-f77708761f51")
     void setLives(int value) {
         if (value >= 0) {
             this.lives = value;
@@ -60,31 +58,23 @@ public class Player extends Entity {
             throw new RuntimeException("Lives can't be negative");
         }
     }
-    
-    void decreaseLives(){
-        this.lives = Math.max(0, this.lives-1);
-    }
 
-    @objid("31123492-c96a-4af6-a1df-d35617285e33")
+    @objid ("31123492-c96a-4af6-a1df-d35617285e33")
     public int getBombCount() {
         return this.bombCount;
     }
 
-    @objid("778d6e7d-a16e-44d4-824d-f4ad18670c31")
+    @objid ("778d6e7d-a16e-44d4-824d-f4ad18670c31")
     void decreaseBombCount() {
         this.bombCount = Math.max(0,this.bombCount-1);
     }
-    
-    void increaseBombCount() {
-        this.bombCount += 1;
-    }
 
-    @objid("38aca366-45f0-4745-934b-576af97cd356")
+    @objid ("38aca366-45f0-4745-934b-576af97cd356")
     public int getBombMax() {
         return this.bombMax;
     }
 
-    @objid("c3b45755-91c1-4670-b1a9-c988acb88d59")
+    @objid ("c3b45755-91c1-4670-b1a9-c988acb88d59")
     void setBombMax(int value) {
         if (value >= 0) {
             this.bombMax = value;
@@ -92,78 +82,92 @@ public class Player extends Entity {
             throw new RuntimeException("BombMax can't be negative");
         }
     }
-    
-    void decreaseBombMax(){
-        this.bombMax = Math.max(1, this.bombMax-1);
-    }
-    
-    void increaseBombMax(){
-        this.bombMax += 1;
-    }
 
-    @objid("869e644a-c1c8-4013-937b-a11e9ac05ada")
+    @objid ("869e644a-c1c8-4013-937b-a11e9ac05ada")
     public int getRange() {
         return this.range;
     }
 
-    @objid("14a39b3e-b3ae-42e4-8757-4b67b7d510f6")
+    @objid ("14a39b3e-b3ae-42e4-8757-4b67b7d510f6")
     void setRange(int value) {
         if (value >= 0) {
             this.range = value;
         } else {
             throw new RuntimeException("Range can't be negative");
         }
-        
-    }
-    
-    void decreaseRange(){
-        this.range = Math.max(1, this.range-1);
-    }
-    
-    void increaseRange(){
-        this.range += 1;
     }
 
-    @objid("671682b3-f854-4f65-8616-a0dee38409f6")
+    @objid ("671682b3-f854-4f65-8616-a0dee38409f6")
     public List<Boolean> getPlayerAbilities() {
         return Collections.unmodifiableList(this.playerAbilities);
     }
 
-    @objid("2559d9b8-e592-4923-928b-ebc444992c5c")
+    @objid ("2559d9b8-e592-4923-928b-ebc444992c5c")
     void setPlayerAbilities(List<Boolean> value) {
         this.playerAbilities = value;
     }
 
-    @objid("1c7621e2-784f-4508-933f-55ea6bea5b83")
+    @objid ("1c7621e2-784f-4508-933f-55ea6bea5b83")
     public int getInvulnerability() {
         return this.invulnerability;
     }
-    
-    void decreaseInvulnerability(){ //Méthode nouvelle
-        this.invulnerability = Math.max(0, this.invulnerability-1);
-    }
 
-    @objid("3322d7de-cc32-48aa-8dde-e19bf6d5ba0c")
+    @objid ("3322d7de-cc32-48aa-8dde-e19bf6d5ba0c")
     void setInvulnerability(int value) {
         if (value >= 0) {
             this.invulnerability = value;
         } else {
             throw new RuntimeException("Invulnerability can't be negative");
         }
-        
     }
 
-    @objid("d24ca8af-7294-4611-bab0-5541345d4258")
+    @objid ("d24ca8af-7294-4611-bab0-5541345d4258")
     public Controller getController() {
         return this.controller;
     }
 
-    @objid("79de1afe-e6c2-4c96-ae54-f3d57da135dc")
+    @objid ("79de1afe-e6c2-4c96-ae54-f3d57da135dc")
     void setController(Controller value) {
         this.controller = value;
     }
 
-    @objid("83716caf-4650-4a93-b6e4-a9f241a25c9c")
+    @objid ("8cb4ed00-b6b9-4918-86a9-6a90e6368f8f")
+    void decreaseLives() {
+        this.lives = Math.max(0, this.lives-1);
+    }
+
+    @objid ("e0e09e0d-eb13-467a-b35f-235dff6e7fef")
+    void increaseBombCount() {
+        this.bombCount += 1;
+    }
+
+    @objid ("cae42f54-c6d5-484a-a987-2f4d38798b99")
+    void decreaseBombMax() {
+        this.bombMax = Math.max(1, this.bombMax-1);
+    }
+
+    @objid ("875e493f-36d6-4037-b1f4-235ed8b543b0")
+    void increaseBombMax() {
+        this.bombMax += 1;
+    }
+
+    @objid ("0ccac578-1a45-4e1a-828d-56a96c7e7b2a")
+    void decreaseRange() {
+        this.range = Math.max(1, this.range-1);
+    }
+
+    @objid ("6b5d4100-6a50-4fd6-b170-e9f343894c25")
+    void increaseRange() {
+        this.range += 1;
+    }
+
+    @objid ("e1e22784-8fdf-4da6-9c9c-3b900eef4dd6")
+    void decreaseInvulnerability() {
+        //Méthode nouvelle
+        this.invulnerability = Math.max(0, this.invulnerability-1);
+    }
+
+    @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
         super.update();
         
@@ -181,7 +185,6 @@ public class Player extends Entity {
         if(isAlive() == false){
             remove();
         }
-        
     }
 
 }

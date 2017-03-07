@@ -48,12 +48,12 @@ public abstract class Entity {
 
     @objid ("78c63e54-9035-40d2-ae0a-99cdbbcc8788")
     void setX(double value) {
-    	if(value >= world.getMap().getTileSize()/2. &&
-    	   value < world.getMap().getWidth()-(world.getMap().getTileSize()/2.)) {
-    		this.x = value;
-    	} else {
-    		throw new RuntimeException("x = " + value + " can't be outside of the map");
-    	}
+        if(value >= world.getMap().getTileSize()/2. &&
+           value < world.getMap().getWidth()-(world.getMap().getTileSize()/2.)) {
+            this.x = value;
+        } else {
+            throw new RuntimeException("x = " + value + " can't be outside of the map");
+        }
     }
 
     @objid ("9c402d71-f604-49ca-ac91-079aa3515974")
@@ -66,9 +66,9 @@ public abstract class Entity {
         if(value >= world.getMap().getTileSize()/2. &&
            value < world.getMap().getHeight()-(world.getMap().getTileSize()/2.)) {
              this.y = value;
-    	} else {
-    		throw new RuntimeException("y = " + value + " can't be outside of the map");
-    	}
+        } else {
+            throw new RuntimeException("y = " + value + " can't be outside of the map");
+        }
     }
 
     @objid ("002e3653-fdf9-4157-9a2b-ffcf9d5fc685")
@@ -78,11 +78,11 @@ public abstract class Entity {
 
     @objid ("00edac08-fa82-4b44-aa6f-c993f59649f3")
     void setSpeed(double value) {
-    	if(value >= 0){
-    		this.speed = value;
-    	} else {
-    		throw new RuntimeException("Speed can't be negative");
-    	}
+        if(value >= 0){
+            this.speed = value;
+        } else {
+            throw new RuntimeException("Speed can't be negative");
+        }
     }
 
     @objid ("b37c2cf9-7059-4677-bd3a-15fe9a906e34")
@@ -94,7 +94,21 @@ public abstract class Entity {
     void setDirection(Direction value) {
         this.direction = value;
     }
-    
+
+    @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
+    void update() {
+        double step = this.speed;
+        //Tant que on percute quelque chose et que notre pas est plus grand ou égal à 1 pixel
+        while (canCollide(getNextBorderX(step), getNextBorderY(step)) && step >= 1) {
+            step -= 1.; //On avance 1 pixel moins loin
+        }
+        
+        //TODO : approche dichotomique ?
+        
+        updatePosition(step);
+    }
+
+    @objid ("194c3447-8cdc-4a73-bb7e-0541df7f17d7")
     private double getNextBorderX(double step) {
         switch (direction) {
             case Left:
@@ -105,7 +119,8 @@ public abstract class Entity {
                 return this.x;
         }
     }
-    
+
+    @objid ("95953d18-28d5-49c4-a969-768a38407ff1")
     private double getNextBorderY(double speed) {
         switch (direction) {
             case Up:
@@ -116,7 +131,8 @@ public abstract class Entity {
                 return this.y;
         }
     }
-    
+
+    @objid ("30b55b46-96bb-4d8b-9810-6ccdaa97d7db")
     private void updatePosition(double step) {
         switch (direction) {
         case Left:
@@ -133,24 +149,11 @@ public abstract class Entity {
             break;
         }
     }
-    
-    
-    boolean canCollide(double x, double y){
+
+    @objid ("94f5132c-0a18-4827-bebd-451cd306edff")
+    boolean canCollide(double x, double y) {
         //Il faut aussi vérifier la collision dans les sous classes
         return this.world.getMap().isCollidable(x, y);
-    }
-
-    @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
-    void update() {
-        double step = this.speed;
-        //Tant que on percute quelque chose et que notre pas est plus grand ou égal à 1 pixel
-        while (canCollide(getNextBorderX(step), getNextBorderY(step)) && step >= 1) {
-            step -= 1.; //On avance 1 pixel moins loin
-        }
-        
-        //TODO : approche dichotomique ?
-        
-        updatePosition(step);
     }
 
 }

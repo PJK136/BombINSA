@@ -22,7 +22,8 @@ public interface WorldView {
 
     @objid ("bc99ac64-6430-4211-82c1-72ea90aac841")
     int getPlayerCount();
-    
+
+    @objid ("3c9c020a-4bd5-424b-9d90-1bdda21519a4")
     int getPlayerAliveCount();
 
 }

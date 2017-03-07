@@ -19,7 +19,8 @@ public class Bomb extends Entity {
         this.range = range;
         this.timeRemaining = duration;
     }
-    
+
+    @objid ("37d6734c-0f78-448a-a2c5-6fa8930b3233")
     public Bomb(World world, Player owner, int duration) {
         this(world, owner.getX(), owner.getY(), owner.getRange(), duration);
         this.owner = owner;

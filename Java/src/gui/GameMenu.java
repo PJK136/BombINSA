@@ -1,41 +1,58 @@
 package gui;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import javax.swing.JComboBox;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
-import javax.swing.JLabel;
-import javax.swing.JSpinner;
-import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JButton;
-import java.awt.GridLayout;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+@objid ("1792b20d-e79e-4f35-8f63-20089eca61f0")
 public class GameMenu extends JPanel implements ActionListener {
-    public final static String SETTINGS_FILENAME = "settings.conf";
-    
+    @objid ("0f381cf0-820f-41e4-95c2-1b2a1fc2f810")
+    public static final String SETTINGS_FILENAME = "settings.conf";
+
+    @objid ("a39767d1-eca3-41c4-85d7-7d0bde3a14cc")
     private MainWindow mainWindow;
+
+    @objid ("0b5dea46-9866-4b4e-9ccb-f30bb706f360")
     private GameSettings settings;
-    
+
+    @objid ("56ed9616-f3e2-4c23-abc7-d31623572af8")
     private JButton btnPlay;
+
+    @objid ("91fe7324-e7a9-4479-9307-8183fa44e192")
     private JButton btnReturn;
-    
+
+    @objid ("276bf142-216c-48e8-b35b-b3b22b2bca83")
     private JComboBox<GameType> gameType;
+
+    @objid ("ef8d0d33-3c2b-4e50-92ff-ea79a7776078")
     private JComboBox<String> maps;
+
+    @objid ("0963e96d-06f3-4813-bcde-a4a9cc51afc3")
     private JSpinner roundDuration;
+
+    @objid ("6fac6104-5782-4732-9bde-7820184bba18")
     private JSpinner playerCount;
+
+    @objid ("e49ecd14-7c49-417a-95cd-2a58b03e06a7")
     private JSpinner roundCount;
+
+    @objid ("0a56b5ff-f7dd-4db3-b7ce-44218221a273")
     private JSpinner aiCount;
-    
-    /**
-     * Create the panel.
-     */
+
+    @objid ("9b4377fe-7088-4d49-ac76-20f2e508013d")
     public GameMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         this.settings = new GameSettings();
@@ -178,10 +195,11 @@ public class GameMenu extends JPanel implements ActionListener {
         panel.add(btnPlay);
     }
 
+    @objid ("774feb6e-66a6-4fc0-869a-297ed681852b")
     private void updateMapList() {
         File folder = new File(".");
         File[] fileList = folder.listFiles();
-
+        
         for (File file : fileList) {
             if (file.isFile()) {
                 String filename = file.getName();
@@ -190,7 +208,8 @@ public class GameMenu extends JPanel implements ActionListener {
             }
         }
     }
-    
+
+    @objid ("d1e9ba38-aebd-4bc4-b6f9-a97681e13fe0")
     private GameSettings updateGameSettings() {
         settings.gameType = (GameType) gameType.getSelectedItem();
         settings.mapName = (String) maps.getSelectedItem();
@@ -200,7 +219,8 @@ public class GameMenu extends JPanel implements ActionListener {
         settings.duration = (int) roundDuration.getValue();
         return settings;
     }
-    
+
+    @objid ("3c87a9f3-8dd6-480e-a2ae-5e1534c8c5a2")
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == btnReturn) {
@@ -214,4 +234,5 @@ public class GameMenu extends JPanel implements ActionListener {
             mainWindow.startGame(settings);
         }
     }
+
 }

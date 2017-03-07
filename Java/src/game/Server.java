@@ -5,28 +5,45 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 //import sun.util.resources.cldr.es.TimeZoneNames_es_AR;
-
-@objid("8d1e22ca-441c-437e-83a3-fee76166baff")
+@objid ("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Server extends World {
-    
-    final int START_LIVES = 3;
-    final int START_BOMB_MAX = 1;
-    final int START_RANGE = 1;
-    final int START_INVULNERABITY_SEC = 1;
-    final int TIME_BEFORE_EXPLOSION = 10;
-    final int EXPLOSION_DURATION = 1;
-    String mapFileName = new String();
-    int playerSpawnNumber = 0;
-    Queue<Player> queuePlayer = new LinkedList<Player>();
-    Queue<Bomb> queueBomb = new LinkedList<Bomb>();
-    Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
-    
-        
-    @objid("560005cd-1e82-4dc8-8a17-39d3577463ae")
+    @objid ("d4ef51fc-99a1-4469-a144-395b415f38c6")
+     final int START_LIVES = 3;
+
+    @objid ("acdeeb9e-e8f4-4338-953e-9a58f3e8e5d6")
+     final int START_BOMB_MAX = 1;
+
+    @objid ("c4fcf211-c9b3-4bd3-8331-cb2c246c1b66")
+     final int START_RANGE = 1;
+
+    @objid ("d92377a2-aad4-4982-9040-3f2145155a66")
+     final int START_INVULNERABITY_SEC = 1;
+
+    @objid ("e291da2d-3413-4c04-9354-a2bdfd92e336")
+     final int TIME_BEFORE_EXPLOSION = 10;
+
+    @objid ("751024b2-9b44-4803-a99b-325fd609fbd3")
+     final int EXPLOSION_DURATION = 1;
+
+    @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")
+     String mapFileName = new String();
+
+    @objid ("66e07c05-b1ff-4f5b-bfff-d725dbefae11")
+     int playerSpawnNumber = 0;
+
+    @objid ("a6755987-9eb6-4703-a202-cad2bb6345a4")
+     Queue<Player> queuePlayer = new LinkedList<Player>();
+
+    @objid ("8f67b398-0aba-4beb-872c-590118673a03")
+     Queue<Bomb> queueBomb = new LinkedList<Bomb>();
+
+    @objid ("d09dce2a-6ccc-4d37-838d-8a1f201d7b56")
+     Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
+
+    @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
     public Server(String mapFilename, int tileSize, int fps, int duration) throws Exception {
         map = new Map(tileSize);
         loadMap(mapFilename);
@@ -35,7 +52,7 @@ public class Server extends World {
         timeRemaining = duration*fps;
     }
 
-    @objid("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
+    @objid ("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
     public void setFps(int fps) {
         if (fps <= 0) {
             throw new RuntimeException("fps not positive");
@@ -44,7 +61,7 @@ public class Server extends World {
         }
     }
 
-    @objid("3b2131f9-67d7-42dd-b764-55a156072456")
+    @objid ("3b2131f9-67d7-42dd-b764-55a156072456")
     public void setDuration(int duration) {
         if (duration < 0) {
             throw new RuntimeException("duration not positive");
@@ -55,23 +72,29 @@ public class Server extends World {
         }
     }
 
-    @objid("77769968-3eb5-4133-880a-e74cedee78ae")
+    @objid ("77769968-3eb5-4133-880a-e74cedee78ae")
     public void setTimeRemaining(int time) {
         this.timeRemaining = time;
     }
 
-    @objid("739ccd1c-6053-48a2-a809-596cf4134d36")
+    @objid ("739ccd1c-6053-48a2-a809-596cf4134d36")
     public void setTileSize(int tileSize) {
         map.setTileSize(tileSize);
     }
 
-    @objid("4164c416-9e5c-461f-a7dc-1758c0f94d36")
+    @objid ("4164c416-9e5c-461f-a7dc-1758c0f94d36")
     public void loadMap(String filename) throws Exception {
         map.loadMap(new String(Files.readAllBytes(Paths.get(filename))));
         mapFileName = filename;
     }
-    
-    @objid("3201955a-ab70-48b8-b676-a53ca4da06a7")
+
+    @objid ("57eecd7c-87d7-4fb4-933f-3928adf88bf1")
+    public void newController(Controller controller) {
+        controllers.add(controller);
+        newPlayer(controller);
+    }
+
+    @objid ("3201955a-ab70-48b8-b676-a53ca4da06a7")
     void newPlayer(Controller controller) {
         int count = playerSpawnNumber;
         while(count > map.spawningLocations.size()){
@@ -81,13 +104,8 @@ public class Server extends World {
         entities.add(player);
         controller.setPlayer(player);
     }
-    
-    public void newController(Controller controller){
-        controllers.add(controller);
-        newPlayer(controller);
-    }
 
-    @objid("15f9ba61-54f9-4783-8bd0-923098e480d7")
+    @objid ("15f9ba61-54f9-4783-8bd0-923098e480d7")
     public void update() {
         //update of Entities
         Iterator<Entity> iterator = entities.iterator();
@@ -144,7 +162,7 @@ public class Server extends World {
         timeRemaining -= 1;
     }
 
-    @objid("a193a9c9-e032-4940-953b-5923c9da849e")
+    @objid ("a193a9c9-e032-4940-953b-5923c9da849e")
     public void restart() throws Exception {
         //reinitialize entities 
         entities.clear();
@@ -158,25 +176,25 @@ public class Server extends World {
         loadMap(mapFileName);
     }
 
-    @objid("b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e")
+    @objid ("b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e")
     @Override
     void plantBomb(double x, double y, int range) {
         // TODO Auto-generated method stub
     }
 
-    @objid("b13fef2c-1897-428c-871d-8a201627e755")
+    @objid ("b13fef2c-1897-428c-871d-8a201627e755")
     @Override
     void plantBomb(Player player) {
         queuePlayer.add(player);
     }
 
-    @objid("d7b25576-cf20-47f5-9a75-9bc74eee10c2")
+    @objid ("d7b25576-cf20-47f5-9a75-9bc74eee10c2")
     @Override
     void createExplosion(Bomb bomb) {
         queueBomb.add(bomb);
     }
 
-    @objid("1883d42c-f691-41ab-acc6-c37fc049f80c")
+    @objid ("1883d42c-f691-41ab-acc6-c37fc049f80c")
     @Override
     void pickUpBonus(double x, double y) {
         queueBonus.add(map.toGridCoordinates(x,y));

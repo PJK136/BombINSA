@@ -3,15 +3,16 @@ package gui;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("580889f0-8e1d-4a59-9bfb-00c967a10ffd")
 public class MainWindow {
     @objid ("d7d0818d-1589-4942-982c-1a9cbfa0f600")
     private JFrame frame;
+
+    @objid ("294a7f1e-7ead-4bc6-bf80-c970a68ae918")
     private GameWorker gameWorker;
-    
+
     @objid ("c0396266-731f-4131-9df4-3e1a8c55ed3a")
     public static void main(String[] args) {
         /* Crée et affiche window dans l'Event Dispatch Thread (EDT)
@@ -51,11 +52,6 @@ public class MainWindow {
         
         setPage(new MainMenu(this));
     }
-    
-    void setPage(JPanel page) {
-        frame.setContentPane(page);
-        frame.revalidate();
-    }
 
     @objid ("6b34965b-9d8d-4d4f-ac64-d111b1e847c0")
     public void startGame(GameSettings settings) {
@@ -74,6 +70,12 @@ public class MainWindow {
 
     @objid ("8898c61c-fe11-44b3-8431-2a93405194ae")
     public void startEditor() {
+    }
+
+    @objid ("030bbdba-dcc6-4a25-9366-dab889f9d934")
+    void setPage(JPanel page) {
+        frame.setContentPane(page);
+        frame.revalidate();
     }
 
 }
