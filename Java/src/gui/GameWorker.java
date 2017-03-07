@@ -1,9 +1,12 @@
 package gui;
 
+import java.awt.Dimension;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
+import game.MapView;
 import game.Server;
 import game.World;
 
@@ -27,6 +30,7 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     @objid ("57911ebe-31d3-4df2-b871-111cf25912bf")
     @Override
     protected Integer doInBackground() {
+        setGameState(GameState.Init);
         timer.scheduleAtFixedRate(new WakeUpTask(this), 0, 1000/settings.fps);
         
         for (int round = 0; round < settings.roundCount && !isCancelled(); round++)
@@ -71,7 +75,6 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
 
     @objid ("b5e7e42e-c73b-4130-bed6-7aa32aa55eb3")
     void createWorld() throws Exception {
-        setGameState(GameState.Init);
         if (settings.gameType.equals(GameType.Local)) {
             world = new Server(settings.mapName+".map", settings.tileSize, settings.fps, settings.duration);
             for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
@@ -91,7 +94,7 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
         if (!this.state.equals(state) || this.state.equals(GameState.Init)) {
             GameState oldState = this.state;
             this.state = state;
-            firePropertyChange(GameProperty.GameState.toString(), oldState, state);
+            firePropertyChange(GameProperty.GameState.name(), oldState, state);
             //TODO : Enlever debug message
             System.err.println(state);
         }
@@ -109,7 +112,7 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     @objid ("fa4eea4b-bde3-4cc0-b13f-bdce9fd3ac26")
     private void fireTimeRemaining() {
         int seconds = world.getTimeRemaining()/settings.fps;
-        firePropertyChange(GameProperty.TimeRemaining.toString(), seconds-1, seconds);
+        firePropertyChange(GameProperty.TimeRemaining.name(), seconds-1, seconds);
     }
 
     @objid ("3f14b285-5a29-4704-9368-f0af1d1c9d5c")

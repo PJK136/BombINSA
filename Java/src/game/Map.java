@@ -57,6 +57,14 @@ public class Map implements MapView {
     public int getHeight() {
         return getRowCount() * tileSize;
     }
+    
+    public boolean isInsideMap(GridCoordinates gc) {
+        return gc.x >= 0 && gc.x < getColumnCount() && gc.y >= 0 && gc.y < getRowCount();
+    }
+    
+    public boolean isInsideMap(double x, double y) {
+        return x >= 0 && x < getWidth() && y >= 0 && y < getHeight();
+    }
 
     @objid ("48cfdc63-3e7d-49fd-9aa2-20e0e732aea2")
     public int getTileSize() {

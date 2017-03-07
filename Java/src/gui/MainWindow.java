@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -69,7 +70,8 @@ public class MainWindow {
     }
 
     @objid ("8898c61c-fe11-44b3-8431-2a93405194ae")
-    public void startEditor() {
+    public void startCreator() {
+        setPage(new MapCreatorPanel(this));
     }
 
     @objid ("030bbdba-dcc6-4a25-9366-dab889f9d934")
@@ -78,4 +80,9 @@ public class MainWindow {
         frame.revalidate();
     }
 
+    void setSize(Dimension d) {
+        d = new Dimension(d.width + frame.getInsets().left + frame.getInsets().right,
+                          d.height + frame.getInsets().top + frame.getInsets().bottom);
+        frame.setSize(new Dimension(Math.max(d.width, 640), Math.max(d.height, 480)));
+    }
 }

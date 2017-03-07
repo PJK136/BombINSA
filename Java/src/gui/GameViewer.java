@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
@@ -54,7 +55,11 @@ public class GameViewer extends JPanel {
     }
     @objid ("18e3e04f-dec2-45e2-a3f5-dbabb34447b4")
     public void drawWorld(WorldView worldView) {
-        MapView map = worldView.getMap();
+        drawMap(worldView.getMap());
+        //TODO : À enlever ou garder ?
+    }
+    
+    public void drawMap(MapView map) {
         BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB); //ARGB ?
         Graphics2D g = newWorld.createGraphics();
         g.fillRect(0, 0, map.getWidth(), map.getHeight());
@@ -80,6 +85,11 @@ public class GameViewer extends JPanel {
         g.setColor(Color.RED);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.drawImage(world, 0, 0, this);
+    }
+    
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(world.getWidth(), world.getHeight());
     }
 
 }
