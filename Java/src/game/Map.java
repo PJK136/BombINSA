@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringJoiner;
@@ -225,6 +226,7 @@ public class Map implements MapView {
 
     @objid ("3197c6a7-683c-41b2-8d78-dc1d8b6b0f8a")
     void setExplosion(int duration, GridCoordinates gc) {
+        tiles[gc.x][gc.y] = tiles[gc.x][gc.y].explode(duration);
     }
 
     @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
@@ -256,6 +258,29 @@ public class Map implements MapView {
 
     @objid ("0812769a-5d2b-489d-9bf4-f782cb16fbef")
     void update() {
-      //TODO
+        for(int i=0; i<getColumnCount(); i++){
+            for(int j=0; j<getRowCount(); j++){
+                //on parcours le tableau et on update les cases
+               tiles[i][j].update();
+               updateEntities(i, j);
+            }
+        }
+        
+    }
+    
+    private void updateEntities(int gx, int gy){
+        Iterator<Entity> iterator = tiles[gx][gy].entities.iterator();
+        while(iterator.hasNext()){
+            //parcours les entités pour virer ceux qui sont à remove
+            Entity entity = iterator.next();
+            GridCoordinates gc = toGridCoordinates(entity.x, entity.y);
+            if(entity.isToRemove()){
+                iterator.remove();
+            } else if((gc.x != gx) || (gc.y != gy)){
+                //parcours les entités et déplace puis remove celles qui sont pas dans la bonne case
+                tiles[gc.x][gc.y].addEntity(entity);
+                iterator.remove();
+            }
+        }
     }
 }
