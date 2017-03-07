@@ -81,10 +81,13 @@ public class Map implements MapView {
         return tiles[gc.x][gc.y].isExploding();
     }
 
+    public TileType getTileType(GridCoordinates gc) {
+        return tiles[gc.x][gc.y].getType();
+    }
+    
     @objid ("8591210d-fb9c-463e-b84f-c0fa935ec9c0")
     public TileType getTileType(double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
-        return tiles[gc.x][gc.y].getType();
+        return getTileType(toGridCoordinates(x, y));
     }
 
     @objid ("47c42a8c-d080-4066-9144-20a8fe58cd67")

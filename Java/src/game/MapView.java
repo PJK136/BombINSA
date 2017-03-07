@@ -29,6 +29,8 @@ public interface MapView {
     @objid ("81182a1c-ea0f-4d7b-8f92-2f8b49896d52")
     boolean isExploding(double x, double y);
 
+    TileType getTileType(GridCoordinates gc);
+    
     @objid ("81e81ab9-21a7-423b-ac6c-36f7186cd24a")
     TileType getTileType(double x, double y);
 
