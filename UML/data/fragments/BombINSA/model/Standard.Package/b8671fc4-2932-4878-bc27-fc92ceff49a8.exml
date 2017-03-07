@@ -17,6 +17,9 @@
         <COMPID name="util" mc="Standard.Package" uid="a80ff1bd-dc72-42d3-b920-a072861e5a98"/>
         <COMPID name="awt" mc="Standard.Package" uid="083882f5-4c3f-4ff0-933c-c3ef5d20a941"/>
         <COMPID name="lang" mc="Standard.Package" uid="b7cd3cb2-b1b7-46ec-9223-bf663aaac8d7"/>
+        <COMPID name="nio" mc="Standard.Package" uid="4f55d2ce-8cff-467d-a195-216ba244e421"/>
+        <COMPID name="beans" mc="Standard.Package" uid="4eca8c5d-0f10-4555-8e0a-60f03bbf5c10"/>
+        <COMPID name="io" mc="Standard.Package" uid="b5401088-c822-4caf-924d-7584ce9c95e1"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

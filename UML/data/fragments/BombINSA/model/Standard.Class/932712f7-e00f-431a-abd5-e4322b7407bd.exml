@@ -181,7 +181,7 @@ g.drawImage(world, 0, 0, this);
             <ATT name="IsUnique">false</ATT>
             <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[world]]></ATT>
@@ -231,7 +231,7 @@ g.drawImage(world, 0, 0, this);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="891bba2d-ab6b-4a00-8245-4486c62683df"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0d0b4f93-3174-4216-9af5-f425616ad8c2"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

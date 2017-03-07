@@ -23,11 +23,7 @@ public abstract class Tile {
 
     @objid ("afce3c9f-2a7e-43fa-b8fe-9183c2e26f63")
     public boolean isExploding() {
-        if(explosionTimeRemaining!=0){
-            return true;
-        } else {
-            return false;
-        }
+        return explosionTimeRemaining != 0;
     }
 
     @objid ("a0f2cff1-fab0-4f53-b3e0-2666e4eb5b0b")

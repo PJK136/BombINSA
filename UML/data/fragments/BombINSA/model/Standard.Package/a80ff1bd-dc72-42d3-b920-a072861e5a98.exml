@@ -16,6 +16,15 @@
       <COMP relation="OwnedElement">
         <COMPID name="List" mc="Standard.Interface" uid="7a31b4cf-e9b9-49eb-abbd-c25f5f82f68d"/>
         <COMPID name="ArrayList" mc="Standard.Class" uid="1ed1b32a-510a-4686-aa9e-a12eff2e5aba"/>
+        <COMPID name="StringJoiner" mc="Standard.Class" uid="f2fba3f9-5993-49bd-b9c3-45db4e684299"/>
+        <COMPID name="Queue" mc="Standard.Interface" uid="d9a1650b-30c6-4685-be6b-1f7733ac47ae"/>
+        <COMPID name="InputMismatchException" mc="Standard.Class" uid="aa0082c8-127a-4e62-810a-37072fc49032"/>
+        <COMPID name="Collections" mc="Standard.Class" uid="556de1bc-9071-420c-8f43-511037f40b57"/>
+        <COMPID name="TimerTask" mc="Standard.Class" uid="52aeef75-86e1-4f75-ae18-880f20e0d90b"/>
+        <COMPID name="Timer" mc="Standard.Class" uid="b4d567c2-5f12-448a-a932-07436e15d675"/>
+        <COMPID name="Iterator" mc="Standard.Interface" uid="2f3a16b7-1d4e-4c5e-aa84-bc68d9b43b51"/>
+        <COMPID name="LinkedList" mc="Standard.Class" uid="61466974-b16c-442d-a727-6c40adbbf374"/>
+        <COMPID name="Scanner" mc="Standard.Class" uid="8951cb64-b606-4958-b951-faec8e56b8af"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

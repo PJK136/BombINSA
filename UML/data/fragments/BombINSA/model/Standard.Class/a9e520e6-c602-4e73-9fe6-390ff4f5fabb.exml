@@ -15,6 +15,83 @@
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
+      <COMP relation="OwnedOperation">
+        <OBJECT>
+          <ID name="defaultControls" mc="Standard.Operation" uid="948d2cb4-d3f5-4e61-a924-4b263d52c766"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[defaultControls]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Return">
+              <OBJECT>
+                <ID name="" mc="Standard.Parameter" uid="10ff5feb-20af-42bb-9db0-badbe5e78b24"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <ID name="ControlSettings" mc="Standard.Class" uid="a9e520e6-c602-4e73-9fe6-390ff4f5fabb"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="a2204cd5-b469-48e3-a781-7cd41b380a09"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return controls;]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="b38e7ef1-4ec6-441f-bced-d6c56dc3e118"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[ControlSettings controls = new ControlSettings();
+controls.up = KeyEvent.VK_Z;
+controls.down = KeyEvent.VK_S;
+controls.left = KeyEvent.VK_Q;
+controls.right = KeyEvent.VK_D;
+controls.plantBomb = KeyEvent.VK_SPACE;
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
       <COMP relation="OwnedAttribute">
         <OBJECT>
           <ID name="up" mc="Standard.Attribute" uid="ef47dcfe-ed1a-44b1-ab68-df9640e77ce1"/>
@@ -40,7 +117,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="70cccec1-e51d-46bc-b211-3c1c0f589ded"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="5eb41733-2ba9-42e3-bab6-e47cae775190"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -78,7 +155,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="4e63e72d-23d8-4024-8699-b812435a3e50"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="c049e172-1011-4ad1-85e8-b78a74f49714"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -116,7 +193,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b61488ab-1f21-4ada-980a-77ddddb06e9b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a913fac2-0cb5-46b4-8942-9a240fed2fe3"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -154,7 +231,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a94e355d-aec7-4a9c-8daf-a3b31d3ef983"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="42ea3601-ace0-47f0-981e-03e3ddec2894"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -192,7 +269,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="30bdefec-e761-41b9-b050-f00c45346649"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="c0e20b5c-0fe0-4427-bcfc-e97cae7ef3a6"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -204,6 +281,21 @@
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedImport">
+        <OBJECT>
+          <ID name="" mc="Standard.ElementImport" uid="3b7c94a6-13bf-45cb-91cc-9f7e31490865"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="ImportedElement">
+              <ID name="KeyEvent" mc="Standard.Class" uid="3cf571c0-be32-49c4-9401-f2d76ed80f34"/>
+            </LINK>
           </DEPENDENCIES>
         </OBJECT>
       </COMP>

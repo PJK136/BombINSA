@@ -14,10 +14,14 @@ public class Bomb extends Entity {
     protected Player owner;
 
     @objid ("f9841259-647d-4cd7-9bb7-f10aea5a4794")
-    public Bomb(World world, double x, double y, int range, int duration, Player owner) {
+    public Bomb(World world, double x, double y, int range, int duration) {
         super(world, x, y);
         this.range = range;
         this.timeRemaining = duration;
+    }
+    
+    public Bomb(World world, Player owner, int duration) {
+        this(world, owner.getX(), owner.getY(), owner.getRange(), duration);
         this.owner = owner;
     }
 

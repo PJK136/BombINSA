@@ -13,15 +13,11 @@ import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("e22186a6-1bcc-48ec-a2ac-a88a3eb90491")
-public class Menu extends JPanel implements ActionListener {
+public class MainMenu extends JPanel implements ActionListener {
+    private MainWindow mainWindow;
+    
     @objid ("b2c4e4e8-bfe6-429e-a138-b575a0165129")
-    private JButton btnLocal;
-
-    @objid ("76d13c2f-6d3a-424a-8142-c2979822d6d4")
-    private JButton btnNetwork;
-
-    @objid ("c002cb95-7e3b-4f7d-802c-adc8b88d5146")
-    private JButton btnSandbox;
+    private JButton btnPlay;
 
     @objid ("a8f404a7-a099-4fdc-b955-5012e1502ee4")
     private JButton btnCreator;
@@ -30,7 +26,9 @@ public class Menu extends JPanel implements ActionListener {
     private JButton btnQuit;
 
     @objid ("a31a2175-f166-434f-b6fd-96a25b344584")
-    public Menu() {
+    public MainMenu(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
+        
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
         add(Box.createVerticalGlue());
@@ -42,9 +40,7 @@ public class Menu extends JPanel implements ActionListener {
         
         add(Box.createVerticalStrut(40));
         
-        btnLocal = addButton("Local");
-        btnNetwork = addButton("Réseau");
-        btnSandbox = addButton("Sandbox");
+        btnPlay = addButton("Jouer");
         btnCreator = addButton("Créateur de carte");
         btnQuit = addButton("Quitter");
         
@@ -58,7 +54,6 @@ public class Menu extends JPanel implements ActionListener {
         button.setMaximumSize(new Dimension(160, button.getMaximumSize().height));
         button.addActionListener(this);
         add(button);
-        Component verticalStrut = Box.createVerticalStrut(20);
         add(Box.createVerticalStrut(20));
         return button;
     }
@@ -66,7 +61,10 @@ public class Menu extends JPanel implements ActionListener {
     @objid ("8346e6ce-7734-4a0c-a6b2-83edb22b96c5")
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (event.getSource() == btnQuit) {
+        if (event.getSource() == btnPlay) {
+            mainWindow.setPage(new GameMenu(mainWindow));
+        }
+        else if (event.getSource() == btnQuit) {
             System.exit(0);
         }
     }

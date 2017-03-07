@@ -12,7 +12,7 @@ import game.WorldView;
 @objid ("932712f7-e00f-431a-abd5-e4322b7407bd")
 public class GameViewer extends JPanel {
     @objid ("12584c94-a9fc-48b1-bdf6-42c3345b8404")
-     BufferedImage world;
+    private BufferedImage world;
 
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {

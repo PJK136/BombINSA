@@ -14,10 +14,10 @@ public abstract class Entity {
      double y;
 
     @objid ("da6922c1-5f11-4728-90b0-fccc76eb2bd2")
-     Direction direction = Direction.Up;
+     Direction direction;
 
     @objid ("46bbc37c-9300-456a-87b3-a7774a36e395")
-     double speed;
+     double speed = 0;
 
     @objid ("83945ddf-99e1-4a55-8f7c-5f7a2c89a534")
      World world;
@@ -48,10 +48,11 @@ public abstract class Entity {
 
     @objid ("78c63e54-9035-40d2-ae0a-99cdbbcc8788")
     void setX(double value) {
-    	if(value >= 0){
+    	if(value >= world.getMap().getTileSize()/2. &&
+    	   value < world.getMap().getWidth()-(world.getMap().getTileSize()/2.)) {
     		this.x = value;
     	} else {
-    		throw new RuntimeException("X can't be negative");
+    		throw new RuntimeException("x = " + value + " can't be outside of the map");
     	}
     }
 
@@ -62,10 +63,11 @@ public abstract class Entity {
 
     @objid ("08e29169-aac4-43a6-9bc5-02f2282fe480")
     void setY(double value) {
-    	if(value >= 0){
-    		this.y = value;
+        if(value >= world.getMap().getTileSize()/2. &&
+           value < world.getMap().getHeight()-(world.getMap().getTileSize()/2.)) {
+             this.y = value;
     	} else {
-    		throw new RuntimeException("Y can't be negative");
+    		throw new RuntimeException("y = " + value + " can't be outside of the map");
     	}
     }
 
@@ -92,10 +94,63 @@ public abstract class Entity {
     void setDirection(Direction value) {
         this.direction = value;
     }
+    
+    private double getNextBorderX(double step) {
+        switch (direction) {
+            case Left:
+                return this.x-(world.getMap().getTileSize()/2.)-step;
+            case Right:
+                return this.x+(world.getMap().getTileSize()/2.)+step;
+            default:
+                return this.x;
+        }
+    }
+    
+    private double getNextBorderY(double speed) {
+        switch (direction) {
+            case Up:
+                return this.y-(world.getMap().getTileSize()/2.)-speed;
+            case Down:
+                return this.y+(world.getMap().getTileSize()/2.)+speed;
+            default:
+                return this.y;
+        }
+    }
+    
+    private void updatePosition(double step) {
+        switch (direction) {
+        case Left:
+            this.x -= step;
+            break;
+        case Right:
+            this.x += step;
+            break;
+        case Up:
+            this.y -= step;
+            break;
+        case Down:
+            this.y += step;
+            break;
+        }
+    }
+    
+    
+    boolean canCollide(double x, double y){
+        //Il faut aussi vérifier la collision dans les sous classes
+        return this.world.getMap().isCollidable(x, y);
+    }
 
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
-        // Implémenter ici le déplacement et la gestion des collisions de l'entité.
+        double step = this.speed;
+        //Tant que on percute quelque chose et que notre pas est plus grand ou égal à 1 pixel
+        while (canCollide(getNextBorderX(step), getNextBorderY(step)) && step >= 1) {
+            step -= 1.; //On avance 1 pixel moins loin
+        }
+        
+        //TODO : approche dichotomique ?
+        
+        updatePosition(step);
     }
 
 }

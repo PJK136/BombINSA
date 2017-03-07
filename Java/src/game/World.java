@@ -14,7 +14,7 @@ public abstract class World implements WorldView {
      int timeRemaining;
 
     @objid ("ed497149-29e3-423f-aa53-4d59e7f2d0a9")
-     int duration;
+     int duration; //En secondes
 
     @objid ("cdff29e5-a4b9-4b5a-865a-838fddcdb57d")
      Map map;
@@ -47,7 +47,7 @@ public abstract class World implements WorldView {
 
     @objid ("8696ef92-01cf-4263-80c5-6bcf172924d8")
     public MapView getMap() {
-    	return map;		//TODO : make unchangeable
+    	return map;
     }
 
     @objid ("cb863fac-e1bd-4a91-aa76-95e63ad3fc08")
@@ -72,18 +72,18 @@ public abstract class World implements WorldView {
     abstract void plantBomb(Player player);
 
     @objid ("df2bc239-ca9f-42a9-b92a-6255de4d5c86")
-    abstract void createExplosion(double x, double y, int range);
+    abstract void createExplosion(Bomb bomb);
 
     @objid ("15006b09-55e2-4635-b9b7-f4cee5978c5d")
     abstract void pickUpBonus(double x, double y);
 
     @objid ("d65622a5-0611-42cd-87a7-975a15931e59")
-    public abstract void newPlayer(Controller controller);
+    public abstract void newController(Controller controller);
 
     @objid ("30c7a359-b727-428f-8ef4-493db313017c")
     public abstract void update();
 
     @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
-    public abstract void restart();
+    public abstract void restart() throws Exception;
 
 }

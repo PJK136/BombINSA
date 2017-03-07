@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.event.KeyEvent;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("a9e520e6-c602-4e73-9fe6-390ff4f5fabb")
@@ -19,4 +21,13 @@ public class ControlSettings {
     @objid ("9f725747-d404-44fa-b88e-dffb549e8f13")
     public int plantBomb;
 
+    static public ControlSettings defaultControls() {
+        ControlSettings controls = new ControlSettings();
+        controls.up = KeyEvent.VK_Z;
+        controls.down = KeyEvent.VK_S;
+        controls.left = KeyEvent.VK_Q;
+        controls.right = KeyEvent.VK_D;
+        controls.plantBomb = KeyEvent.VK_SPACE;
+        return controls;
+    }
 }

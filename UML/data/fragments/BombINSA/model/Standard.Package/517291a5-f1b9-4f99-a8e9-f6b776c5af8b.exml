@@ -21,6 +21,9 @@
         <COMPID name="Box" mc="Standard.Class" uid="8b696f09-6374-494c-a63f-582eb4e296f5"/>
         <COMPID name="BoxLayout" mc="Standard.Class" uid="c8c17e0e-e098-4f02-a56d-0f985667f59c"/>
         <COMPID name="SwingWorker" mc="Standard.Class" uid="488d8703-f412-4273-9bee-1e6202ae121d"/>
+        <COMPID name="JComboBox" mc="Standard.Class" uid="62a5e05f-f4b9-471e-9795-cd68e6a5f1e4"/>
+        <COMPID name="SpinnerNumberModel" mc="Standard.Class" uid="2bfdd9d3-c134-4c30-98c9-d54457d4cf01"/>
+        <COMPID name="JSpinner" mc="Standard.Class" uid="88d21b55-a190-4e42-9032-cedb4684af1f"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
