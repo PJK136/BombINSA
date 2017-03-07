@@ -1,13 +1,14 @@
 package gui;
 
+import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -23,8 +24,6 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.sun.java.swing.plaf.windows.WindowsBorders.ToolBarBorder;
-
 import game.Map;
 import game.TileType;
 
@@ -38,7 +37,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     private JFileChooser fileChooser;
     
     private ButtonGroup tileTypeGroup;
+    private JButton btnExit;
     
+    private boolean saved;
     /**
      * Create the panel.
      */
@@ -70,6 +71,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             toolBar.add(button);
         }
         
+        toolBar.add(Box.createHorizontalGlue());
+        
+        btnExit = new JButton("🚪");
+        btnExit.addActionListener(this);
+        toolBar.add(btnExit);
+        
         map = new Map(20, 15, 32);
         
         gameViewer = new GameViewer();
@@ -78,6 +85,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         add(gameViewer, BorderLayout.CENTER);
         
         updateMap();
+        
+        saved = true;
     }
 
     private void updateMap() {
@@ -88,6 +97,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         if (tileTypeGroup.getSelection() != null && map.isInsideMap(e.getX(), e.getY())) {
             TileType type = TileType.valueOf(tileTypeGroup.getSelection().getActionCommand());
             if (map.getTileType(e.getX(), e.getY()) != type) {
+                saved = false;
                 map.setTileType(type, e.getX(), e.getY());
                 updateMap();
             }
@@ -143,11 +153,28 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         if (e.getSource() == btnOpen)
             openFile();
         else if (e.getSource() == btnSave)
-            saveToFile();
-        //else if (e.getSource() == btnSave)      
+            saveToFile();     
+        else if (e.getSource() == btnExit)
+        {
+            if (isSaved())
+                mainWindow.showMenu();
+        }
+    }
+    
+    private boolean isSaved() {
+        if (saved)
+            return true;
+        
+        return JOptionPane.showConfirmDialog(this,
+                "Il y a des modifications non sauvegardées, êtes-vous sûr de vouloir continuer ?",
+                "Modifications non sauvegardées",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
     
     private void openFile() {
+        if (!isSaved())
+            return;
+        
         int ret = fileChooser.showOpenDialog(this);
         if (ret == JFileChooser.APPROVE_OPTION) {
             try {
@@ -155,22 +182,27 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 updateMap();
                 mainWindow.setToPreferredSize();
             } catch (InputMismatchException | IOException e) {
-                // TODO Afficher un message d'erreur
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(this,
+                        "Impossible de lire le fichier demandé !",
+                        "Erreur lors de la lecture",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
     
-    private void saveToFile() {
+    private void saveToFile() {       
         int ret = fileChooser.showSaveDialog(this);
         if (ret == JFileChooser.APPROVE_OPTION) {
             try {
                 PrintWriter printWriter = new PrintWriter(fileChooser.getSelectedFile());
                 printWriter.write(map.saveMap());
                 printWriter.close();
+                saved = true;
             } catch (FileNotFoundException e) {
-             // TODO Afficher un message d'erreur
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(this,
+                        "Impossible de sauvegarder dans le fichier spécifié !",
+                        "Erreur lors de la sauvegarder",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }
