@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
         add(panel, BorderLayout.NORTH);
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         
-        JLabel lblNewLabel = new JLabel(" : 2 |  : 3 |  : 4 |   ");
+        JLabel lblNewLabel = new JLabel("👤 : 2 | 💣 : 3 | 💥 : 4 | 👊 👞 🛡");
         lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
         panel.add(lblNewLabel);
         
@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
         timeRemaining.setFont(new Font("Dialog", Font.BOLD, 16));
         panel.add(timeRemaining);
         
-        btnExit = new JButton("");
+        btnExit = new JButton("🚪");
         btnExit.addActionListener(this);
         panel.add(btnExit);
         
