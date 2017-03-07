@@ -8,17 +8,17 @@ public abstract class Entity {
      boolean toRemove;
 
     @objid ("f1ebcc19-f0b0-48a1-b6d3-cc22527239dd")
-     double x;
+     double x = 0;
 
     @objid ("adab154c-5601-468f-8356-4b51060cd90f")
-     double y;
+     double y = 0;
 
     @objid ("da6922c1-5f11-4728-90b0-fccc76eb2bd2")
      Direction direction;
 
     @objid ("46bbc37c-9300-456a-87b3-a7774a36e395")
      double speed = 0;
-
+     protected double speedMax = 50; //TODO changer la valeur
     @objid ("83945ddf-99e1-4a55-8f7c-5f7a2c89a534")
      World world;
 

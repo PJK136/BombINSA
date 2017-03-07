@@ -130,6 +130,59 @@ public class Player extends Entity {
     void setController(Controller value) {
         this.controller = value;
     }
+    
+    void updateBonusMalus(){
+        if(this.world.getMap().getTileType(this.x , this.y) == TileType.Bonus){
+            BonusType b = this.world.getMap().getBonusType(this.x , this.y);
+            
+            switch(b){ 
+            case Random:
+                
+                break;
+                
+            case MoreBomb:
+                increaseBombMax();
+                break;
+                
+            case LessBomb:
+                decreaseBombMax();
+                break;
+                
+            case MoreRange:
+                increaseRange();
+                break;
+                
+            case LessRange:
+                decreaseRange();
+                break;
+                
+            case MoreSpeed:
+                if(playerAbilities.get(PlayerAbility.LessSpeed.ordinal()) == true){
+                    playerAbilities.set(PlayerAbility.LessSpeed.ordinal(), false);
+                } else {
+                playerAbilities.set(PlayerAbility.MoreSpeed.ordinal(), true);
+                }
+                break;
+                
+            case LessSpeed:
+                if(playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()) == true){
+                    playerAbilities.set(PlayerAbility.MoreSpeed.ordinal(), false);
+                } else {
+                playerAbilities.set(PlayerAbility.LessSpeed.ordinal(), true);
+                }
+                break;
+                
+            case Shield:
+                playerAbilities.set(PlayerAbility.Shield.ordinal(), true);
+                break;
+                
+            case Kick:
+                playerAbilities.set(PlayerAbility.Kick.ordinal(), true);
+                break;
+            }
+            this.world.pickUpBonus(this.x, this.y);
+        }     
+    }
 
     @objid ("8cb4ed00-b6b9-4918-86a9-6a90e6368f8f")
     void decreaseLives() {
@@ -172,7 +225,7 @@ public class Player extends Entity {
         super.update();
         
         //Update acquisition Bonus/Malus (Random, More/Less Bomb, More/Less Range, More/Less Speed, Shield, Kick)
-        
+
         //Update Marche sur une case en Explosion (diminuer le nb de vie du joueur touché)
         if(this.world.getMap().isExploding(this.x, this.y) && getInvulnerability() == 0){ // On vérifie si la case où se trouve le CENTRE du joueur explose et qu'il n'est pas invulnérable
             decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
@@ -183,7 +236,7 @@ public class Player extends Entity {
         
         // Vérifier si le joueur est encore vivant
         if(isAlive() == false){
-            remove();
+            remove(); // On indique qu'il faut enlever le player qui a perdu toutes ses vies
         }
     }
 

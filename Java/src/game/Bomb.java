@@ -55,7 +55,36 @@ public class Bomb extends Entity {
     }
 
     @objid ("ce00607d-3c72-45ea-b3e1-5a3ac0315b22")
+    
     void update() {
+      //Decrease TimeRemaining
+        timeRemaining -= 1;
+        
+      // Update Position
+        super.update();
+        
+      //Update Marche sur une flèche (Déplacement dans la direction de la flèche d'un nombre de case déterminé)
+        if(this.world.getMap().getTileType(this.x , this.y) == TileType.Arrow){
+           Direction d = this.world.getMap().getArrowDirection(this.x , this.y);
+           switch(d){ 
+               case Left:
+                   this.direction = Direction.Left;
+                   break;
+               case Right:
+                   this.direction = Direction.Right;
+                   break;
+               case Up:
+                   this.direction = Direction.Up;
+                   break;
+               case Down:
+                   this.direction = Direction.Down;
+                   break;
+           }
+           this.speed = 10; //TODO Valeur à changer;
+        }
+       //On vérifie le TimeRemaining, si nulle ou si la case en train d'exploser, on modifie l'état des case dans la portée en train d'exploser
+       if(this.timeRemaining ==0 || this.world.getMap().isExploding(this.x , this.y) == true){
+               remove();
+       }
     }
-
 }
