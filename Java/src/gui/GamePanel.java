@@ -76,19 +76,21 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
     @objid ("28945b2a-0dba-494d-8e43-6992d3e5b089")
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        try {
-            System.out.println(evt.getPropertyName());
-            GameProperty property = GameProperty.valueOf(evt.getPropertyName());
-            
-            switch (property) {
-                case GameState:
-                    if (GameState.valueOf(evt.getPropertyName()) == GameState.Init)
-                        mainWindow.setToPreferredSize();
-                case TimeRemaining:
-                    updateTimeRemaining((int) evt.getNewValue());
-                    break;
-            }
-        } catch (IllegalArgumentException e) {}
+        if (evt.getPropertyName().equals("state"))
+            return;
+        
+        GameProperty property = GameProperty.valueOf(evt.getPropertyName());
+        
+        switch (property) {
+            case GameState:
+                if ((GameState)evt.getNewValue() == GameState.Init) {
+                    mainWindow.setToPreferredSize();
+                }
+                break;
+            case TimeRemaining:
+                updateTimeRemaining((int) evt.getNewValue());
+                break;
+        }
     }
 
     @objid ("4eda1677-dd51-4090-9ffa-956332a2fc44")

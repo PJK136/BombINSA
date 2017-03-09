@@ -87,8 +87,8 @@ public class Server extends World {
 
     @objid ("57eecd7c-87d7-4fb4-933f-3928adf88bf1")
     public void newController(Controller controller) {
-        controllers.add(controller);
         newPlayer(controller);
+        controllers.add(controller);
     }
 
     @objid ("3201955a-ab70-48b8-b676-a53ca4da06a7")

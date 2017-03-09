@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+import game.Entity;
 import game.GridCoordinates;
 import game.MapView;
 import game.TileType;
@@ -77,11 +78,15 @@ public class GameViewer extends JPanel {
     
     @objid ("18e3e04f-dec2-45e2-a3f5-dbabb34447b4")
     public void drawWorld(WorldView worldView) {
-        drawMap(worldView.getMap());
+        drawMap(worldView.getMap(), worldView.getEntities());
         //TODO : À enlever ou garder ?
     }
     
     public void drawMap(MapView map) {
+        drawMap(map, null);
+    }
+    
+    public void drawMap(MapView map, List<Entity> entities) {
         if (cacheTileSize != map.getTileSize()) {
             for (int i = 0; i < tiles.length; i++) {
                 cacheTiles[i] = tiles[i].getScaledInstance(map.getTileSize(), map.getTileSize(), Image.SCALE_SMOOTH);
@@ -115,6 +120,12 @@ public class GameViewer extends JPanel {
             }
         }
         
+        if (entities != null) {
+            for (Entity entity : entities) {
+                g.fillOval((int)(entity.getX()-map.getTileSize()/2.), (int)(entity.getY()-map.getTileSize()/2.), map.getTileSize(), map.getTileSize());
+            }
+        }
+        
         if (world == null || (world.getWidth() != newWorld.getWidth() || world.getHeight() != newWorld.getHeight())) {
             world = newWorld;
             revalidate();
@@ -141,7 +152,10 @@ public class GameViewer extends JPanel {
     
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(world.getWidth(), world.getHeight());
+        if (world != null)
+            return new Dimension(world.getWidth(), world.getHeight());
+        else
+            return super.getPreferredSize();
     }
 
 }
