@@ -19,13 +19,15 @@ public class BreakableTile extends Tile {
     }
     
     public Tile explode(int duration){
+       Tile ret;
        double drop = (Math.random());
         if(drop<LOOT_RATE){
-            return new BonusTile();
+            ret = new BonusTile();
         } else {
-            EmptyTile vide = new EmptyTile();
-            vide.explosionTimeRemaining = duration;
-            return vide;
+            ret = new EmptyTile();
         }
+        
+        ret.explosionTimeRemaining = duration;
+        return ret;
     }
 }
