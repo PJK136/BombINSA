@@ -105,6 +105,7 @@ public class Server extends World {
         Iterator<Entity> iterator = entities.iterator();
         while(iterator.hasNext()){
             Entity entity = iterator.next();
+            entity.update();
             if(entity.isToRemove()){
                 iterator.remove();
             }
