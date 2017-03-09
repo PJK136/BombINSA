@@ -31,9 +31,6 @@ public class Server extends World {
     @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")
      String mapFileName = new String();
 
-    @objid ("66e07c05-b1ff-4f5b-bfff-d725dbefae11")
-     int playerSpawnNumber = 0;
-
     @objid ("a6755987-9eb6-4703-a202-cad2bb6345a4")
      Queue<Player> queuePlayer = new LinkedList<Player>();
 
@@ -96,10 +93,7 @@ public class Server extends World {
 
     @objid ("3201955a-ab70-48b8-b676-a53ca4da06a7")
     void newPlayer(Controller controller) {
-        int count = playerSpawnNumber;
-        while(count > map.spawningLocations.size()){
-            count -= map.spawningLocations.size();
-        }
+        int count = getPlayerCount() % map.spawningLocations.size();
         Player player = new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_SEC*fps);
         entities.add(player);
         controller.setPlayer(player);
