@@ -1,12 +1,10 @@
 package gui;
 
-import java.awt.Dimension;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-import game.MapView;
 import game.Server;
 import game.World;
 

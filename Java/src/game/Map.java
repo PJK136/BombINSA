@@ -99,24 +99,30 @@ public class Map implements MapView {
         return getTileType(toGridCoordinates(x, y));
     }
 
-    @objid ("47c42a8c-d080-4066-9144-20a8fe58cd67")
-    public BonusType getBonusType(double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
+    public BonusType getBonusType(GridCoordinates gc) {
         if (tiles[gc.x][gc.y] instanceof BonusTile){
-        return(((BonusTile)(tiles[gc.x][gc.y])).getBonusType());
+            return(((BonusTile)(tiles[gc.x][gc.y])).getBonusType());
         } else {
             throw new RuntimeException("Recup le type de bonus d'une case qui n'en est pas une");
         }
     }
+    
+    @objid ("47c42a8c-d080-4066-9144-20a8fe58cd67")
+    public BonusType getBonusType(double x, double y) {
+        return getBonusType(toGridCoordinates(x, y));
+    }
 
     @objid ("5cbfa265-5ee9-4a71-afc5-0d371f6efe4e")
-    public Direction getArrowDirection(double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
+    public Direction getArrowDirection(GridCoordinates gc) {
         if (tiles[gc.x][gc.y] instanceof ArrowTile){
         return(((ArrowTile)(tiles[gc.x][gc.y])).getDirection());
         } else {
             throw new RuntimeException("Recup la dir d'une fleche qui n'en est pas une");
         }
+    }
+    
+    public Direction getArrowDirection(double x, double y) {
+        return getArrowDirection(toGridCoordinates(x, y));
     }
 
     

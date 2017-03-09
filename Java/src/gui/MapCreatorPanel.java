@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -9,16 +10,19 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.InputMismatchException;
+import java.util.List;
 
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
@@ -27,6 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import game.GridCoordinates;
 import game.Map;
 import game.TileType;
+import sun.awt.IconInfo;
 
 public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotionListener, ActionListener {
     private MainWindow mainWindow;
@@ -64,12 +69,24 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         toolBar.addSeparator();
         
+        gameViewer = new GameViewer();
+        gameViewer.setShowSpawningLocations(true);
+        gameViewer.addMouseListener(this);
+        gameViewer.addMouseMotionListener(this);
+        add(gameViewer, BorderLayout.CENTER);
+        
         tileTypeGroup = new ButtonGroup();
+        List<BufferedImage> tileImages = gameViewer.getTileImages();
         for (TileType type : TileType.values()) {
-            JToggleButton button = new JToggleButton(type.toString()); //TODO : Remplacer par image
+            final int size = 20; // TODO : À ajuster ?
+            JToggleButton button = new JToggleButton();
+            button.setIcon(new ImageIcon(tileImages.get(type.ordinal()).getScaledInstance(size, size, Image.SCALE_SMOOTH)));
             button.setActionCommand(type.name());
             tileTypeGroup.add(button);
-            toolBar.add(button);
+            toolBar.add(button);           
+            
+            if (type == TileType.Breakable)
+                button.setSelected(true);
         }
         
         toolBar.add(Box.createHorizontalGlue());
@@ -79,12 +96,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         toolBar.add(btnExit);
         
         map = new Map(20, 15, 32);
-        
-        gameViewer = new GameViewer();
-        gameViewer.setShowSpawningLocations(true);
-        gameViewer.addMouseListener(this);
-        gameViewer.addMouseMotionListener(this);
-        add(gameViewer, BorderLayout.CENTER);
         
         updateMap();
         

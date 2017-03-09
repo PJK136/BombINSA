@@ -34,9 +34,13 @@ public interface MapView {
     @objid ("81e81ab9-21a7-423b-ac6c-36f7186cd24a")
     TileType getTileType(double x, double y);
 
+    BonusType getBonusType(GridCoordinates gc);
+    
     @objid ("8d579098-48e5-4fc5-9e18-32c991448739")
     BonusType getBonusType(double x, double y);
 
+    Direction getArrowDirection(GridCoordinates gc);
+    
     @objid ("0048caaf-5a58-438a-8b3b-1a2a4c41cdec")
     Direction getArrowDirection(double x, double y);
 
