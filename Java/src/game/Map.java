@@ -241,7 +241,7 @@ public class Map implements MapView {
     void setBonusType(BonusType type, double x, double y) {
         GridCoordinates gc = toGridCoordinates(x, y);
         if (tiles[gc.x][gc.y] instanceof BonusTile){
-        ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
+            ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
         } else {
             throw new RuntimeException("Change le type de bonus d'une case qui n'en est pas une");
         }
@@ -281,13 +281,15 @@ public class Map implements MapView {
         while(iterator.hasNext()){
             //parcours les entités pour virer ceux qui sont à remove
             Entity entity = iterator.next();
-            GridCoordinates gc = toGridCoordinates(entity.x, entity.y);
             if(entity.isToRemove()){
                 iterator.remove();
-            } else if((gc.x != gx) || (gc.y != gy)){
-                //parcours les entités et déplace puis remove celles qui sont pas dans la bonne case
-                tiles[gc.x][gc.y].addEntity(entity);
-                iterator.remove();
+            } else {
+                GridCoordinates gc = toGridCoordinates(entity.x, entity.y);
+                if((gc.x != gx) || (gc.y != gy)){
+                    //parcours les entités et déplace puis remove celles qui sont pas dans la bonne case
+                    tiles[gc.x][gc.y].addEntity(entity);
+                    iterator.remove();
+                }
             }
         }
     }
