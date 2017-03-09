@@ -60,7 +60,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         toolBar.add(btnSave);
         
         fileChooser = new JFileChooser(".");
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Cartes de BombINSA", "map"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Cartes BombINSA", "map"));
         
         toolBar.addSeparator();
         

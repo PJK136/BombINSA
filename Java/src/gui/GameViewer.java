@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -105,8 +106,12 @@ public class GameViewer extends JPanel {
         
         if (showSpawningLocations) {
             g.setColor(Color.blue);
-            for (GridCoordinates gc : map.getSpawningLocations()) {
+            List<GridCoordinates> spawningLocations = map.getSpawningLocations();
+            for (int i = 0; i < spawningLocations.size(); i++) {
+                GridCoordinates gc = spawningLocations.get(i);
                 g.drawOval(gc.x*map.getTileSize(), gc.y*map.getTileSize(), map.getTileSize(), map.getTileSize());
+                
+                drawCenteredString(g, String.valueOf(i), (int)((gc.x+0.5)*map.getTileSize()), (int)((gc.y+0.5)*map.getTileSize()));
             }
         }
         
@@ -117,6 +122,13 @@ public class GameViewer extends JPanel {
             world = newWorld;
             repaint();
         }
+    }
+    
+    private void drawCenteredString(Graphics g, String str, int centerX, int centerY) {
+        int height = g.getFontMetrics().getHeight();
+        int width = g.getFontMetrics().stringWidth(str);
+        g.drawString(str, centerX-width/2, centerY+height/4);
+        
     }
 
     @objid ("8a85e92f-ba76-4ae7-8d93-ab5ea648949a")
