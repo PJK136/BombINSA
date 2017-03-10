@@ -166,21 +166,33 @@ public class Player extends Entity {
         //Méthode nouvelle
         this.invulnerability = Math.max(0, this.invulnerability-1);
     }
+    
+    boolean canCollide(double x, double y){
+        return false;
+    }
 
     @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
+        
         super.update();
         
         //Update acquisition Bonus/Malus (Random, More/Less Bomb, More/Less Range, More/Less Speed, Shield, Kick)
         updateBonusMalus();
         
-        //Update Marche sur une case en Explosion (diminuer le nb de vie du joueur touché)
+        //Update Marche sur une case en Explosion (diminuer le nb de vie du joueur touché + vérification du Shield)
+        
         if(this.world.getMap().isExploding(this.x, this.y) && getInvulnerability() == 0){ // On vérifie si la case où se trouve le CENTRE du joueur explose et qu'il n'est pas invulnérable
-            decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
-            this.invulnerability = 100; //Pour pas que le joueur perde des vies en continue en marchant sur une case qui explose, Chiffre à changer
-        } else {
-            decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0; ici toute les 100 update, à affinner;
+            if(playerAbilities.get(PlayerAbility.Shield.ordinal()) == true){
+                playerAbilities.set(PlayerAbility.Shield.ordinal(), false); // On enlève le Shield
+                setInvulnerability(100); // TODO Changer la valeur si nécessaire, Pareil en dessous
+            } else {
+                decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
+                setInvulnerability(100); //Pour pas que le joueur perde des vies en continue en marchant sur une case qui explose, Chiffre à changer
+            }
         }
+        
+        decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0; ici toute les 100 update, à affinner;
+        
         
         // Vérifier si le joueur est encore vivant
         if(isAlive() == false){
