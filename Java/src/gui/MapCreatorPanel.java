@@ -28,6 +28,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import game.Direction;
 import game.GridCoordinates;
 import game.Map;
 import game.TileType;
@@ -106,11 +107,15 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         gameViewer.drawMap(map);
     }
     
+    private TileType getActualType() {
+        return TileType.valueOf(tileTypeGroup.getSelection().getActionCommand());
+    }
+    
     private void placeTile(MouseEvent e) {
         if (tileTypeGroup.getSelection() != null && map.isInsideMap(e.getX(), e.getY())) {
             TileType type;
             if (SwingUtilities.isLeftMouseButton(e))
-                type = TileType.valueOf(tileTypeGroup.getSelection().getActionCommand());
+                type = getActualType();
             else if (SwingUtilities.isRightMouseButton(e))
                 type = TileType.Empty;
             else
@@ -150,7 +155,13 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
 
     @Override
     public void mousePressed(MouseEvent e) {
-        placeTile(e);
+        if (getActualType() == TileType.Arrow && map.isInsideMap(e.getX(), e.getY()) && map.getTileType(e.getX(), e.getY()) == TileType.Arrow) {
+            Direction[] directions = Direction.values();
+            int i = (map.getArrowDirection(e.getX(), e.getY()).ordinal()+1)%directions.length;
+            map.setArrowDirection(directions[i], e.getX(), e.getY());
+            updateMap();
+        } else
+            placeTile(e);
     }
 
     @Override
