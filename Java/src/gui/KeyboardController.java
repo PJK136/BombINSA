@@ -10,6 +10,12 @@ import game.World;
 
 @objid ("0a274714-4157-430f-bba3-fe0b0286cf2f")
 public class KeyboardController implements Controller, KeyListener {
+    /** TODO implémenter la méthode de lecture clavier
+     * Objectif : que l'on sache ou on est en train d'appuyer (doit conserver une variable car java n'a pas de methode qui lit si on est appuyé, seulement si on appui et si on relache)
+     * 
+     * 
+     * 
+     */
     @objid ("a93e8c2e-c054-4934-923f-acac72ff257c")
     private ControlSettings settings;
 
@@ -40,7 +46,7 @@ public class KeyboardController implements Controller, KeyListener {
     @objid ("39549206-ede1-4d8e-bdb7-8f5010446eb7")
     @Override
     public boolean isPlantingBomb() {
-        // TODO Auto-generated method stub
+        // TODO renvoie oui si on a appuyé sur espace et a la fin de la méthode ca enleve le conteur qui dit qu'on a appuyé sur espace
         return false;
     }
 
