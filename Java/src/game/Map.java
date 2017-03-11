@@ -83,6 +83,8 @@ public class Map implements MapView {
 
     @objid ("1731df9e-c870-4d85-8b30-64347ac9b64e")
     public boolean isCollidable(double x, double y) {
+        if (!isInsideMap(x, y))
+            return true;
         GridCoordinates gc = toGridCoordinates(x, y);
         return tiles[gc.x][gc.y].isCollidable();
     }

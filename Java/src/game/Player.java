@@ -28,7 +28,7 @@ public class Player extends Entity {
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
     protected Controller controller;
     
-    public static final double PLAYER_DEFAULT_SPEED = 1; // tile/sec
+    public static final double PLAYER_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
     public Player(World world, double x, double y, Controller controller, int lives, int bombMax, int range, int invulnerability) {

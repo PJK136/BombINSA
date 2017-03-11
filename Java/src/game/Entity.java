@@ -98,38 +98,33 @@ public abstract class Entity {
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
         double step = this.speed;
-        //Tant que on percute quelque chose et que notre pas est plus grand ou égal à 1 pixel
-        while (canCollide(getNextBorderX(step), getNextBorderY(step)) && step > 0) {
-            step -= 1.; //On avance 1 pixel moins loin
+        
+        switch (direction) {
+        case Left:
+            while (step >= 0 && (canCollide(this.x-(world.getMap().getTileSize()/2.)-step, this.y-(world.getMap().getTileSize()/2.)+1) || 
+                                 canCollide(this.x-(world.getMap().getTileSize()/2.)-step, this.y+(world.getMap().getTileSize()/2.)-1)))
+                step -= 1;
+            break;
+        case Right:
+            while (step >= 0 && (canCollide(this.x+(world.getMap().getTileSize()/2.)+step, this.y-(world.getMap().getTileSize()/2.)+1) || 
+                                 canCollide(this.x+(world.getMap().getTileSize()/2.)+step, this.y+(world.getMap().getTileSize()/2.)-1)))
+                step -= 1;
+            break;
+        case Up:
+            while (step >= 0 && (canCollide(this.x-(world.getMap().getTileSize()/2.)+1, this.y-(world.getMap().getTileSize()/2.)-step) || 
+                                 canCollide(this.x+(world.getMap().getTileSize()/2.)-1, this.y-(world.getMap().getTileSize()/2.)-step)))
+                step -= 1;
+            break;
+        case Down:
+            while (step >= 0 && (canCollide(this.x-(world.getMap().getTileSize()/2.)+1, this.y+(world.getMap().getTileSize()/2.)+step) || 
+                                 canCollide(this.x+(world.getMap().getTileSize()/2.)-1, this.y+(world.getMap().getTileSize()/2.)+step)))
+                step -= 1;
+            break;
         }
         
         //TODO : approche dichotomique ?
         
         updatePosition(Math.max(0, step));
-    }
-
-    @objid ("194c3447-8cdc-4a73-bb7e-0541df7f17d7")
-    private double getNextBorderX(double step) {
-        switch (direction) {
-            case Left:
-                return this.x-(world.getMap().getTileSize()/2.)-step;
-            case Right:
-                return this.x+(world.getMap().getTileSize()/2.)+step;
-            default:
-                return this.x;
-        }
-    }
-
-    @objid ("95953d18-28d5-49c4-a969-768a38407ff1")
-    private double getNextBorderY(double speed) {
-        switch (direction) {
-            case Up:
-                return this.y-(world.getMap().getTileSize()/2.)-speed;
-            case Down:
-                return this.y+(world.getMap().getTileSize()/2.)+speed;
-            default:
-                return this.y;
-        }
     }
 
     @objid ("30b55b46-96bb-4d8b-9810-6ccdaa97d7db")
