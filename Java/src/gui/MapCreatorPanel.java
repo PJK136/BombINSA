@@ -65,7 +65,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         setLayout(new BorderLayout(0, 0));
         
         JToolBar toolBar = new JToolBar();
-        toolBar.setFloatable(false);
         add(toolBar, BorderLayout.NORTH);
         
         btnNew = new JButton("📄");
@@ -103,12 +102,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         toolBar.add(tileSize);
         toolBar.addSeparator();
         
-        columnCount.setMaximumSize(new Dimension(48, columnCount.getMaximumSize().height));
-        rowCount.setMaximumSize(new Dimension(48, rowCount.getMaximumSize().height));
-        tileSize.setMaximumSize(new Dimension(48, tileSize.getMaximumSize().height));
-        columnCount.setPreferredSize(new Dimension(48, columnCount.getPreferredSize().height));
-        rowCount.setPreferredSize(new Dimension(48, rowCount.getPreferredSize().height));
-        tileSize.setPreferredSize(new Dimension(48, tileSize.getPreferredSize().height));
+        columnCount.setMaximumSize(new Dimension(48, btnNew.getMaximumSize().height));
+        rowCount.setMaximumSize(new Dimension(48, btnNew.getMaximumSize().height));
+        tileSize.setMaximumSize(new Dimension(48, btnNew.getMaximumSize().height));
+        columnCount.setPreferredSize(new Dimension(48, btnNew.getPreferredSize().height));
+        rowCount.setPreferredSize(new Dimension(48, btnNew.getPreferredSize().height));
+        tileSize.setPreferredSize(new Dimension(48, btnNew.getPreferredSize().height));
         
         toolBar.add(new JLabel("Tiles : "));
         gameViewer = new GameViewer();
