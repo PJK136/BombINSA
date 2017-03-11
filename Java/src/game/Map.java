@@ -100,11 +100,7 @@ public class Map implements MapView {
     }
 
     public BonusType getBonusType(GridCoordinates gc) {
-        if (tiles[gc.x][gc.y] instanceof BonusTile){
-            return(((BonusTile)(tiles[gc.x][gc.y])).getBonusType());
-        } else {
-            throw new RuntimeException("Recup le type de bonus d'une case qui n'en est pas une");
-        }
+        return(((BonusTile)(tiles[gc.x][gc.y])).getBonusType());
     }
     
     @objid ("47c42a8c-d080-4066-9144-20a8fe58cd67")
@@ -114,11 +110,7 @@ public class Map implements MapView {
 
     @objid ("5cbfa265-5ee9-4a71-afc5-0d371f6efe4e")
     public Direction getArrowDirection(GridCoordinates gc) {
-        if (tiles[gc.x][gc.y] instanceof ArrowTile){
         return(((ArrowTile)(tiles[gc.x][gc.y])).getDirection());
-        } else {
-            throw new RuntimeException("Recup la dir d'une fleche qui n'en est pas une");
-        }
     }
     
     public Direction getArrowDirection(double x, double y) {
@@ -258,11 +250,7 @@ public class Map implements MapView {
     @objid ("af2aa240-e83a-4b08-9641-56c0dfe48630")
     public void setArrowDirection(Direction direction, double x, double y) {
         GridCoordinates gc = toGridCoordinates(x, y);
-        if (tiles[gc.x][gc.y] instanceof ArrowTile){
-            ((ArrowTile)(tiles[gc.x][gc.y])).setDirection(direction);
-            } else {
-                throw new RuntimeException("Change la direction d'une fleche qui n'en est pas une");
-            }
+        ((ArrowTile)(tiles[gc.x][gc.y])).setDirection(direction);
     }
 
     @objid ("3197c6a7-683c-41b2-8d78-dc1d8b6b0f8a")
@@ -273,11 +261,7 @@ public class Map implements MapView {
     @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
     void setBonusType(BonusType type, double x, double y) {
         GridCoordinates gc = toGridCoordinates(x, y);
-        if (tiles[gc.x][gc.y] instanceof BonusTile){
-            ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
-        } else {
-            throw new RuntimeException("Change le type de bonus d'une case qui n'en est pas une");
-        }
+        ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
     }
 
     @objid ("c15e0882-3eff-4467-ac1f-4152e69db4f1")
