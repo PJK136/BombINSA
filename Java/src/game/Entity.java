@@ -99,13 +99,13 @@ public abstract class Entity {
     void update() {
         double step = this.speed;
         //Tant que on percute quelque chose et que notre pas est plus grand ou égal à 1 pixel
-        while (canCollide(getNextBorderX(step), getNextBorderY(step)) && step >= 1) {
+        while (canCollide(getNextBorderX(step), getNextBorderY(step)) && step > 0) {
             step -= 1.; //On avance 1 pixel moins loin
         }
         
         //TODO : approche dichotomique ?
         
-        updatePosition(step);
+        updatePosition(Math.max(0, step));
     }
 
     @objid ("194c3447-8cdc-4a73-bb7e-0541df7f17d7")

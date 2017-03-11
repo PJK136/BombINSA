@@ -71,6 +71,8 @@ public class GameViewer extends JPanel {
         cacheTiles = new Image[tiles.size()];
         cacheBonuses = new Image[bonuses.size()];
         cacheArrows = new Image[Direction.values().length];
+        
+        setFocusable(true);
     }
     
     public List<BufferedImage> getTileImages() {

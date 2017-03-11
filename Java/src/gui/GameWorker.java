@@ -37,47 +37,53 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     @objid ("57911ebe-31d3-4df2-b871-111cf25912bf")
     @Override
     protected Integer doInBackground() {
-        viewer.drawWorld(world);
-        setGameState(GameState.Init);
-        timer.scheduleAtFixedRate(new WakeUpTask(this), 0, 1000/settings.fps);
-        
-        for (int round = 0; round < settings.roundCount && !isCancelled(); round++)
-        {
-            fireTimeRemaining();
-            setGameState(GameState.Playing);
-            while (world.getPlayerAliveCount() > 0 && !isCancelled())
+        try {
+            viewer.drawWorld(world);
+            viewer.requestFocusInWindow();
+            setGameState(GameState.Init);
+            timer.scheduleAtFixedRate(new WakeUpTask(this), 0, 1000/settings.fps);
+            
+            for (int round = 0; round < settings.roundCount && !isCancelled(); round++)
             {
-                synchronized (this) {
+                fireTimeRemaining();
+                setGameState(GameState.Playing);
+                while (world.getPlayerAliveCount() > 0 && !isCancelled())
+                {
+                    synchronized (this) {
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            // TODO Is it okay to do nothing ?
+                        }
+                    }
+                    
+                    world.update();
+                    
+                    if (world.getTimeRemaining() % settings.fps == 0)
+                        fireTimeRemaining();
+                    
+                    if (world.getTimeRemaining() == 0)
+                        setGameState(GameState.SuddenDeath);
+                    viewer.drawWorld(world);
+                }
+                setGameState(GameState.EndRound);
+                
+                if (!isCancelled() && round < settings.roundCount-1) {
                     try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        // TODO Is it okay to do nothing ?
+                        world.restart();
+                    } catch (Exception e) {
+                        //TODO : Gérer l'exception
+                        e.printStackTrace();
                     }
                 }
-                
-                world.update();
-                
-                if (world.getTimeRemaining() % settings.fps == 0)
-                    fireTimeRemaining();
-                
-                if (world.getTimeRemaining() == 0)
-                    setGameState(GameState.SuddenDeath);
-                viewer.drawWorld(world);
             }
-            setGameState(GameState.EndRound);
+            setGameState(GameState.End);
             
-            if (!isCancelled() && round < settings.roundCount-1) {
-                try {
-                    world.restart();
-                } catch (Exception e) {
-                    //TODO : Gérer l'exception
-                    e.printStackTrace();
-                }
-            }
+            timer.cancel();
+        } catch (Exception e) {
+            e.printStackTrace(); //Sinon l'erreur n'est jamais propagée
         }
-        setGameState(GameState.End);
         
-        timer.cancel();
         return null;
     }
 
