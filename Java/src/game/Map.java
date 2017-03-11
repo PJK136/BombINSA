@@ -146,6 +146,11 @@ public class Map implements MapView {
     @objid ("7f54516a-ad04-4987-b239-f3408e868759")
     public void setTileSize(int value) {
         this.tileSize = value;
+        for (int i = 0; i < getColumnCount(); i++) {
+            for (int j = 0; j < getRowCount(); j++) {
+                updateEntities(i, j);
+            }
+        }
     }
     
     public void setsize(int columns, int rows) {
@@ -159,6 +164,12 @@ public class Map implements MapView {
                 else
                     newTiles[i][j] = new EmptyTile();
             }
+        }
+        
+        Iterator<GridCoordinates> iterator = spawningLocations.iterator();
+        while (iterator.hasNext()) {
+            if (!isInsideMap(iterator.next()))
+                iterator.remove();
         }
         
         tiles = newTiles;

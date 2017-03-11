@@ -261,6 +261,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         if (ret == JFileChooser.APPROVE_OPTION) {
             try {
                 map.loadMap(new String(Files.readAllBytes(fileChooser.getSelectedFile().toPath())));
+                columnCount.setValue(map.getColumnCount());
+                rowCount.setValue(map.getRowCount());
                 updateMap();
                 mainWindow.setToPreferredSize();
             } catch (InputMismatchException | IOException e) {
@@ -294,6 +296,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         if (e.getSource() == columnCount || e.getSource() == rowCount) {
             map.setsize((int) columnCount.getValue(), (int) rowCount.getValue());
             updateMap();
+            saved = false;
         }
         else if (e.getSource() == tileSize) {
             map.setTileSize((int) tileSize.getValue());
