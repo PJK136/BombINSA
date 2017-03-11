@@ -82,6 +82,8 @@ public class KeyboardController implements Controller, KeyListener {
             tabMemoire[2] = true;
         } else if(e.getKeyCode() == settings.left){
             tabMemoire[3] = true;
+        } else if(e.getKeyCode() == settings.plantBomb){
+            tabMemoire[4] = true;
         }
     }
 
@@ -97,6 +99,8 @@ public class KeyboardController implements Controller, KeyListener {
             tabMemoire[2] = false;
         } else if(e.getKeyCode() == settings.left){
             tabMemoire[3] = false;
+        } else if(e.getKeyCode() == settings.plantBomb){
+            tabMemoire[4] = false;
         }
     }
 

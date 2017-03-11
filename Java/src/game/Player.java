@@ -207,9 +207,13 @@ public class Player extends Entity {
                 setInvulnerability(100); //Pour pas que le joueur perde des vies en continue en marchant sur une case qui explose, Chiffre à changer
             }
         }
+        else
+            decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0; ici toute les 100 update, à affinner;
         
-        decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0; ici toute les 100 update, à affinner;
-        
+        if (getInvulnerability() == 0 && controller.isPlantingBomb() && bombCount < bombMax) {
+            bombCount++;
+            world.plantBomb(this);
+        }
         
         // Vérifier si le joueur est encore vivant
         if(isAlive() == false){
