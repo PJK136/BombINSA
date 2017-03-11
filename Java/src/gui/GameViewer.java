@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.Graphics;
 import java.awt.image.AffineTransformOp;
@@ -96,6 +97,7 @@ public class GameViewer extends JPanel {
     private BufferedImage stringInSquare(int size, int thickness, String str) {
         BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = image.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setColor(Color.white);
         g.fillRect(0, 0, size, size);
         for (int i = 0; i < thickness; i++)
@@ -165,6 +167,8 @@ public class GameViewer extends JPanel {
 
         BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB); //ARGB ?
         Graphics2D g = newWorld.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                           RenderingHints.VALUE_ANTIALIAS_ON);
         
         {
             g.setColor(Color.black);
