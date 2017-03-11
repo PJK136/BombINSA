@@ -87,13 +87,13 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         columnCount = new JSpinner(new SpinnerNumberModel(new Integer(20), new Integer(1), null, new Integer(1)));
         columnCount.addChangeListener(this);
-        toolBar.add(new JLabel("Col : "));
+        toolBar.add(new JLabel("Cols : "));
         toolBar.add(columnCount);
         toolBar.addSeparator();
         
         rowCount = new JSpinner(new SpinnerNumberModel(new Integer(15), new Integer(1), null, new Integer(1)));
         rowCount.addChangeListener(this);
-        toolBar.add(new JLabel("Row : "));
+        toolBar.add(new JLabel("Rows : "));
         toolBar.add(rowCount);
         toolBar.addSeparator();
         
