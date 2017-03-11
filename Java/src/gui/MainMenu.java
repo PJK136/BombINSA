@@ -65,6 +65,9 @@ public class MainMenu extends JPanel implements ActionListener {
         if (event.getSource() == btnPlay) {
             mainWindow.setPage(new GameMenu(mainWindow));
         }
+        else if (event.getSource() == btnCreator) {
+            mainWindow.startCreator();
+        }
         else if (event.getSource() == btnQuit) {
             System.exit(0);
         }

@@ -57,6 +57,14 @@ public class Map implements MapView {
     public int getHeight() {
         return getRowCount() * tileSize;
     }
+    
+    public boolean isInsideMap(GridCoordinates gc) {
+        return gc.x >= 0 && gc.x < getColumnCount() && gc.y >= 0 && gc.y < getRowCount();
+    }
+    
+    public boolean isInsideMap(double x, double y) {
+        return x >= 0 && x < getWidth() && y >= 0 && y < getHeight();
+    }
 
     @objid ("48cfdc63-3e7d-49fd-9aa2-20e0e732aea2")
     public int getTileSize() {
@@ -91,24 +99,30 @@ public class Map implements MapView {
         return getTileType(toGridCoordinates(x, y));
     }
 
-    @objid ("47c42a8c-d080-4066-9144-20a8fe58cd67")
-    public BonusType getBonusType(double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
+    public BonusType getBonusType(GridCoordinates gc) {
         if (tiles[gc.x][gc.y] instanceof BonusTile){
-        return(((BonusTile)(tiles[gc.x][gc.y])).getBonusType());
+            return(((BonusTile)(tiles[gc.x][gc.y])).getBonusType());
         } else {
             throw new RuntimeException("Recup le type de bonus d'une case qui n'en est pas une");
         }
     }
+    
+    @objid ("47c42a8c-d080-4066-9144-20a8fe58cd67")
+    public BonusType getBonusType(double x, double y) {
+        return getBonusType(toGridCoordinates(x, y));
+    }
 
     @objid ("5cbfa265-5ee9-4a71-afc5-0d371f6efe4e")
-    public Direction getArrowDirection(double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
+    public Direction getArrowDirection(GridCoordinates gc) {
         if (tiles[gc.x][gc.y] instanceof ArrowTile){
         return(((ArrowTile)(tiles[gc.x][gc.y])).getDirection());
         } else {
             throw new RuntimeException("Recup la dir d'une fleche qui n'en est pas une");
         }
+    }
+    
+    public Direction getArrowDirection(double x, double y) {
+        return getArrowDirection(toGridCoordinates(x, y));
     }
 
     
@@ -233,7 +247,7 @@ public class Map implements MapView {
     void setBonusType(BonusType type, double x, double y) {
         GridCoordinates gc = toGridCoordinates(x, y);
         if (tiles[gc.x][gc.y] instanceof BonusTile){
-        ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
+            ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
         } else {
             throw new RuntimeException("Change le type de bonus d'une case qui n'en est pas une");
         }
@@ -273,13 +287,15 @@ public class Map implements MapView {
         while(iterator.hasNext()){
             //parcours les entités pour virer ceux qui sont à remove
             Entity entity = iterator.next();
-            GridCoordinates gc = toGridCoordinates(entity.x, entity.y);
             if(entity.isToRemove()){
                 iterator.remove();
-            } else if((gc.x != gx) || (gc.y != gy)){
-                //parcours les entités et déplace puis remove celles qui sont pas dans la bonne case
-                tiles[gc.x][gc.y].addEntity(entity);
-                iterator.remove();
+            } else {
+                GridCoordinates gc = toGridCoordinates(entity.x, entity.y);
+                if((gc.x != gx) || (gc.y != gy)){
+                    //parcours les entités et déplace puis remove celles qui sont pas dans la bonne case
+                    tiles[gc.x][gc.y].addEntity(entity);
+                    iterator.remove();
+                }
             }
         }
     }

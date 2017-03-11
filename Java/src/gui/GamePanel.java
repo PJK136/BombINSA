@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,8 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
     @objid ("74e92561-a1a0-467e-a74c-be5e17aa47d1")
     private MainWindow mainWindow;
 
+    private JPanel topBar;
+    
     @objid ("dbd6f5cb-8848-4a03-9b74-402de0479e51")
     private JLabel timeRemaining;
 
@@ -34,24 +37,24 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
         this.mainWindow = mainWindow;
         setLayout(new BorderLayout(0, 0));
         
-        JPanel panel = new JPanel();
-        add(panel, BorderLayout.NORTH);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        topBar = new JPanel();
+        add(topBar, BorderLayout.NORTH);
+        topBar.setLayout(new BoxLayout(topBar, BoxLayout.X_AXIS));
         
         JLabel lblNewLabel = new JLabel("👤 : 2 | 💣 : 3 | 💥 : 4 | 👊 👞 🛡");
         lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
-        panel.add(lblNewLabel);
+        topBar.add(lblNewLabel);
         
         Component horizontalGlue = Box.createHorizontalGlue();
-        panel.add(horizontalGlue);
+        topBar.add(horizontalGlue);
         
         timeRemaining = new JLabel("0:00 ");
         timeRemaining.setFont(new Font("Dialog", Font.BOLD, 16));
-        panel.add(timeRemaining);
+        topBar.add(timeRemaining);
         
         btnExit = new JButton("🚪");
         btnExit.addActionListener(this);
-        panel.add(btnExit);
+        topBar.add(btnExit);
         
         gameViewer = new GameViewer();
         add(gameViewer, BorderLayout.CENTER);
@@ -73,15 +76,21 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
     @objid ("28945b2a-0dba-494d-8e43-6992d3e5b089")
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        try {
-            GameProperty property = GameProperty.valueOf(evt.getPropertyName());
-            
-            switch (property) {
-                case TimeRemaining:
-                    updateTimeRemaining((int) evt.getNewValue());
-                    break;
-            }
-        } catch (IllegalArgumentException e) {}
+        if (evt.getPropertyName().equals("state"))
+            return;
+        
+        GameProperty property = GameProperty.valueOf(evt.getPropertyName());
+        
+        switch (property) {
+            case GameState:
+                if ((GameState)evt.getNewValue() == GameState.Init) {
+                    mainWindow.setToPreferredSize();
+                }
+                break;
+            case TimeRemaining:
+                updateTimeRemaining((int) evt.getNewValue());
+                break;
+        }
     }
 
     @objid ("4eda1677-dd51-4090-9ffa-956332a2fc44")
@@ -102,5 +111,4 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
         text.append("  ");
         timeRemaining.setText(text.toString());
     }
-
 }

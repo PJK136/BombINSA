@@ -39,6 +39,7 @@ public class MainWindow {
         frame = new JFrame();
         frame.setSize(640, 480);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("BombINSA");
         
         showMenu();
     }
@@ -69,7 +70,8 @@ public class MainWindow {
     }
 
     @objid ("8898c61c-fe11-44b3-8431-2a93405194ae")
-    public void startEditor() {
+    public void startCreator() {
+        setPage(new MapCreatorPanel(this));
     }
 
     @objid ("030bbdba-dcc6-4a25-9366-dab889f9d934")
@@ -78,4 +80,7 @@ public class MainWindow {
         frame.revalidate();
     }
 
+    void setToPreferredSize() {
+        frame.setSize(frame.getPreferredSize());
+    }
 }
