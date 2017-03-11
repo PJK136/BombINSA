@@ -72,6 +72,7 @@ public class MainWindow {
     @objid ("8898c61c-fe11-44b3-8431-2a93405194ae")
     public void startCreator() {
         setPage(new MapCreatorPanel(this));
+        setToPreferredSize();
     }
 
     @objid ("030bbdba-dcc6-4a25-9366-dab889f9d934")

@@ -147,6 +147,22 @@ public class Map implements MapView {
     public void setTileSize(int value) {
         this.tileSize = value;
     }
+    
+    public void setsize(int columns, int rows) {
+        Tile[][] newTiles = new Tile[columns][rows];
+        
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
+                if (i < getColumnCount() && j < getRowCount()) {
+                    newTiles[i][j] = tiles[i][j];
+                }
+                else
+                    newTiles[i][j] = new EmptyTile();
+            }
+        }
+        
+        tiles = newTiles;
+    }
 
     @objid ("81317f24-599b-4128-9480-5c1f6c0859f2")
     public void loadMap(String map) throws InputMismatchException {

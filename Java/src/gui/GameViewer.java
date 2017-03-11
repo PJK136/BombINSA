@@ -111,7 +111,7 @@ public class GameViewer extends JPanel {
             return stringInSquare(256, 4, "B?");
         }
         else if (type == TileType.Arrow) {
-            return stringInSquare(256, 4, "→");
+            return stringInSquare(256, 4, "🡺");
         }
         else {
             BufferedImage tile = new BufferedImage(256, 256, BufferedImage.TYPE_INT_RGB);
@@ -206,6 +206,7 @@ public class GameViewer extends JPanel {
         if (world == null || (world.getWidth() != newWorld.getWidth() || world.getHeight() != newWorld.getHeight())) {
             world = newWorld;
             revalidate();
+            repaint();
         } else {
             world = newWorld;
             repaint();

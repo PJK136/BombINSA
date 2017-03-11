@@ -5,11 +5,14 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JToggleButton;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,23 +28,30 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 import javax.swing.JToolBar;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import game.Direction;
 import game.GridCoordinates;
 import game.Map;
 import game.TileType;
-import sun.awt.IconInfo;
 
-public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotionListener, ActionListener {
+public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotionListener, ActionListener, ChangeListener {
     private MainWindow mainWindow;
     private GameViewer gameViewer;
     private Map map;
     
+    private JButton btnNew;
     private JButton btnOpen;
     private JButton btnSave;
     private JFileChooser fileChooser;
+    
+    private JSpinner columnCount;
+    private JSpinner rowCount;
+    private JSpinner tileSize;
     
     private ButtonGroup tileTypeGroup;
     private JButton btnExit;
@@ -55,7 +65,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         setLayout(new BorderLayout(0, 0));
         
         JToolBar toolBar = new JToolBar();
+        toolBar.setFloatable(false);
         add(toolBar, BorderLayout.NORTH);
+        
+        btnNew = new JButton("📄");
+        btnNew.addActionListener(this);
+        toolBar.add(btnNew);
 
         btnOpen = new JButton("📂");
         btnOpen.addActionListener(this);
@@ -70,6 +85,32 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         toolBar.addSeparator();
         
+        columnCount = new JSpinner(new SpinnerNumberModel(new Integer(20), new Integer(1), null, new Integer(1)));
+        columnCount.addChangeListener(this);
+        toolBar.add(new JLabel("Col : "));
+        toolBar.add(columnCount);
+        toolBar.addSeparator();
+        
+        rowCount = new JSpinner(new SpinnerNumberModel(new Integer(15), new Integer(1), null, new Integer(1)));
+        rowCount.addChangeListener(this);
+        toolBar.add(new JLabel("Row : "));
+        toolBar.add(rowCount);
+        toolBar.addSeparator();
+        
+        tileSize = new JSpinner(new SpinnerNumberModel(new Integer(32), new Integer(8), null, new Integer(2)));
+        tileSize.addChangeListener(this);
+        toolBar.add(new JLabel("TS : "));
+        toolBar.add(tileSize);
+        toolBar.addSeparator();
+        
+        columnCount.setMaximumSize(new Dimension(48, columnCount.getMaximumSize().height));
+        rowCount.setMaximumSize(new Dimension(48, rowCount.getMaximumSize().height));
+        tileSize.setMaximumSize(new Dimension(48, tileSize.getMaximumSize().height));
+        columnCount.setPreferredSize(new Dimension(48, columnCount.getPreferredSize().height));
+        rowCount.setPreferredSize(new Dimension(48, rowCount.getPreferredSize().height));
+        tileSize.setPreferredSize(new Dimension(48, tileSize.getPreferredSize().height));
+        
+        toolBar.add(new JLabel("Tiles : "));
         gameViewer = new GameViewer();
         gameViewer.setShowSpawningLocations(true);
         gameViewer.addMouseListener(this);
@@ -96,13 +137,17 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         btnExit.addActionListener(this);
         toolBar.add(btnExit);
         
-        map = new Map(20, 15, 32);
-        
-        updateMap();
-        
-        saved = true;
+        newMap(false);
     }
 
+    private void newMap(boolean resizeWindow) {
+        map = new Map((int) columnCount.getValue(), (int) rowCount.getValue(), (int) tileSize.getValue());
+        saved = true;
+        updateMap();
+        if (resizeWindow)
+            mainWindow.setToPreferredSize();
+    }
+    
     private void updateMap() {
         gameViewer.drawMap(map);
     }
@@ -183,6 +228,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnNew && isSaved()) {
+            newMap(true);
+        }
         if (e.getSource() == btnOpen)
             openFile();
         else if (e.getSource() == btnSave)
@@ -201,7 +249,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         return JOptionPane.showConfirmDialog(this,
                 "Il y a des modifications non sauvegardées, êtes-vous sûr de vouloir continuer ?",
                 "Modifications non sauvegardées",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
     }
     
     private void openFile() {
@@ -237,6 +286,18 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                         "Erreur lors de la sauvegarder",
                         JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        if (e.getSource() == columnCount || e.getSource() == rowCount) {
+            map.setsize((int) columnCount.getValue(), (int) rowCount.getValue());
+            updateMap();
+        }
+        else if (e.getSource() == tileSize) {
+            map.setTileSize((int) tileSize.getValue());
+            updateMap();
         }
     }
 }
