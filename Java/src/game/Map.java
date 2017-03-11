@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringJoiner;
+
+import javax.management.RuntimeErrorException;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("828d0eae-528b-43df-a33e-799c03f4c5af")
@@ -125,8 +128,8 @@ public class Map implements MapView {
 
     @objid ("63d25698-a5f4-4701-a7ed-10309284ddb6")
     public void addSpawningLocation(GridCoordinates gc) {
-        if (gc.x < 0 || gc.x >= getColumnCount() || gc.y < 0 || gc.y >= getRowCount())
-            throw new RuntimeException("Coordonées du lieu de spawn invalides");
+        if (!isInsideMap(gc))
+            throw new RuntimeException("Coordonées du lieu de spawn invalides : " + gc);
         spawningLocations.add(gc);
     }
 
@@ -137,6 +140,9 @@ public class Map implements MapView {
 
     @objid ("7f54516a-ad04-4987-b239-f3408e868759")
     public void setTileSize(int value) {
+        if (value <= 1)
+            throw new RuntimeException("Taille des tuiles inférieure à 1 :" + value);
+        
         this.tileSize = value;
         for (int i = 0; i < getColumnCount(); i++) {
             for (int j = 0; j < getRowCount(); j++) {
@@ -146,6 +152,11 @@ public class Map implements MapView {
     }
     
     public void setsize(int columns, int rows) {
+        if (columns <= 0)
+            throw new RuntimeException("Nombre de colonnes négatif ou nul : " + columns);
+        else if (rows <= 0)
+            throw new RuntimeException("Nombre de lignes négatif ou nul : " + rows);
+        
         Tile[][] newTiles = new Tile[columns][rows];
         
         for (int i = 0; i < columns; i++) {

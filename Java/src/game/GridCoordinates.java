@@ -34,5 +34,10 @@ public class GridCoordinates {
         
         return x == gc.x && y == gc.y;
     }
+    
+    @Override
+    public String toString() {
+        return "("+x+";"+y+")";
+    }
 
 }
