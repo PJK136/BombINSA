@@ -95,6 +95,7 @@ public abstract class Entity {
     void setDirection(Direction value) {
         this.direction = value;
     }
+<<<<<<< HEAD
     
     private double getNextBorderX(double step) {
         switch (direction) {
@@ -116,6 +117,39 @@ public abstract class Entity {
             default:
                 return this.y;
         }
+=======
+
+    @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
+    void update() {
+        double step = this.speed;
+        
+        switch (direction) {
+        case Left:
+            while (step >= 0 && (canCollide(this.x-(world.getMap().getTileSize()/2.)-step, this.y-(world.getMap().getTileSize()/2.)+1) || 
+                                 canCollide(this.x-(world.getMap().getTileSize()/2.)-step, this.y+(world.getMap().getTileSize()/2.)-1)))
+                step -= 1;
+            break;
+        case Right:
+            while (step >= 0 && (canCollide(this.x+(world.getMap().getTileSize()/2.)+step, this.y-(world.getMap().getTileSize()/2.)+1) || 
+                                 canCollide(this.x+(world.getMap().getTileSize()/2.)+step, this.y+(world.getMap().getTileSize()/2.)-1)))
+                step -= 1;
+            break;
+        case Up:
+            while (step >= 0 && (canCollide(this.x-(world.getMap().getTileSize()/2.)+1, this.y-(world.getMap().getTileSize()/2.)-step) || 
+                                 canCollide(this.x+(world.getMap().getTileSize()/2.)-1, this.y-(world.getMap().getTileSize()/2.)-step)))
+                step -= 1;
+            break;
+        case Down:
+            while (step >= 0 && (canCollide(this.x-(world.getMap().getTileSize()/2.)+1, this.y+(world.getMap().getTileSize()/2.)+step) || 
+                                 canCollide(this.x+(world.getMap().getTileSize()/2.)-1, this.y+(world.getMap().getTileSize()/2.)+step)))
+                step -= 1;
+            break;
+        }
+        
+        //TODO : approche dichotomique ?
+        
+        updatePosition(Math.max(0, step));
+>>>>>>> d419793dcca90d25b90b3448ace13fc22204f6fa
     }
     
     private void updatePosition(double step) {

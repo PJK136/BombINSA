@@ -27,6 +27,8 @@ public class Player extends Entity {
 
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
     protected Controller controller;
+    
+    public static final double PLAYER_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
     public Player(World world, double x, double y, Controller controller, int lives, int bombMax, int range, int invulnerability) {
@@ -37,7 +39,11 @@ public class Player extends Entity {
         this.range = range;
         this.invulnerability = invulnerability;
         this.bombCount = 0;
-        this.playerAbilities = new ArrayList<Boolean>(PlayerAbility.values().length);
+        
+        PlayerAbility[] pa = PlayerAbility.values();
+        this.playerAbilities = new ArrayList<Boolean>(pa.length);
+        for (int i = 0; i < pa.length; i++)
+            this.playerAbilities.add(false);
     }
 
     @objid ("d8c3c2ca-78cd-4d35-8d4a-df8c6f1cbe55")
@@ -173,6 +179,20 @@ public class Player extends Entity {
 
     @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
+<<<<<<< HEAD
+=======
+        controller.update();
+        Direction nextDirection = controller.getDirection();
+        if (nextDirection != null) {
+            direction = nextDirection;
+            speed = PLAYER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
+            if (playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()))
+                speed *= 1.5;
+            else if (playerAbilities.get(PlayerAbility.LessSpeed.ordinal())) 
+                speed /= 2;
+        } else
+            speed = 0.;
+>>>>>>> d419793dcca90d25b90b3448ace13fc22204f6fa
         
         super.update();
         

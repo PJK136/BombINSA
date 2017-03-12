@@ -1,12 +1,10 @@
 package gui;
 
-import java.awt.Dimension;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-import game.MapView;
 import game.Server;
 import game.World;
 
@@ -27,49 +25,65 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     @objid ("564ac678-305a-4fb5-a045-5d19f13a522f")
     private Timer timer;
 
+    @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
+    public GameWorker(GameSettings settings, GameViewer viewer) throws Exception {
+        this.state = null;
+        this.settings = settings;
+        this.viewer = viewer;
+        this.timer = new Timer();
+        createWorld();
+    }
+
     @objid ("57911ebe-31d3-4df2-b871-111cf25912bf")
     @Override
     protected Integer doInBackground() {
-        setGameState(GameState.Init);
-        timer.scheduleAtFixedRate(new WakeUpTask(this), 0, 1000/settings.fps);
-        
-        for (int round = 0; round < settings.roundCount && !isCancelled(); round++)
-        {
-            fireTimeRemaining();
-            setGameState(GameState.Playing);
-            while (world.getPlayerAliveCount() > 0 && !isCancelled())
+        try {
+            viewer.drawWorld(world);
+            viewer.requestFocusInWindow();
+            setGameState(GameState.Init);
+            timer.scheduleAtFixedRate(new WakeUpTask(this), 0, 1000/settings.fps);
+            
+            for (int round = 0; round < settings.roundCount && !isCancelled(); round++)
             {
-                synchronized (this) {
+                fireTimeRemaining();
+                setGameState(GameState.Playing);
+                while (world.getPlayerAliveCount() > 0 && !isCancelled())
+                {
+                    synchronized (this) {
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            // TODO Is it okay to do nothing ?
+                        }
+                    }
+                    
+                    world.update();
+                    
+                    if (world.getTimeRemaining() % settings.fps == 0)
+                        fireTimeRemaining();
+                    
+                    if (world.getTimeRemaining() == 0)
+                        setGameState(GameState.SuddenDeath);
+                    viewer.drawWorld(world);
+                }
+                setGameState(GameState.EndRound);
+                
+                if (!isCancelled() && round < settings.roundCount-1) {
                     try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        // TODO Is it okay to do nothing ?
+                        world.restart();
+                    } catch (Exception e) {
+                        //TODO : Gérer l'exception
+                        e.printStackTrace();
                     }
                 }
-                
-                world.update();
-                
-                if (world.getTimeRemaining() % settings.fps == 0)
-                    fireTimeRemaining();
-                
-                if (world.getTimeRemaining() == 0)
-                    setGameState(GameState.SuddenDeath);
-                viewer.drawWorld(world);
             }
-            setGameState(GameState.EndRound);
+            setGameState(GameState.End);
             
-            if (!isCancelled() && round < settings.roundCount-1) {
-                try {
-                    world.restart();
-                } catch (Exception e) {
-                    //TODO : Gérer l'exception
-                    e.printStackTrace();
-                }
-            }
+            timer.cancel();
+        } catch (Exception e) {
+            e.printStackTrace(); //Sinon l'erreur n'est jamais propagée
         }
-        setGameState(GameState.End);
         
-        timer.cancel();
         return null;
     }
 
@@ -91,24 +105,13 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
 
     @objid ("df3a5c13-59cb-491e-811a-ea1af7e23cda")
     void setGameState(GameState state) {
-        if (!this.state.equals(state) || this.state.equals(GameState.Init)) {
-            GameState oldState = this.state;
-            this.state = state;
-            firePropertyChange(GameProperty.GameState.name(), oldState, state);
-            //TODO : Enlever debug message
-            System.err.println(state);
-        }
+        GameState oldState = this.state;
+        this.state = state;
+        firePropertyChange(GameProperty.GameState.name(), oldState, state);
+        //TODO : Enlever debug message
+        System.err.println(state);
     }
-
-    @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
-    public GameWorker(GameSettings settings, GameViewer viewer) throws Exception {
-        this.state = GameState.Init;
-        this.settings = settings;
-        this.viewer = viewer;
-        this.timer = new Timer();
-        createWorld();
-    }
-
+    
     @objid ("fa4eea4b-bde3-4cc0-b13f-bdce9fd3ac26")
     private void fireTimeRemaining() {
         int seconds = world.getTimeRemaining()/settings.fps;

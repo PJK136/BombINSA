@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringJoiner;
+
+import javax.management.RuntimeErrorException;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("828d0eae-528b-43df-a33e-799c03f4c5af")
@@ -80,6 +83,8 @@ public class Map implements MapView {
 
     @objid ("1731df9e-c870-4d85-8b30-64347ac9b64e")
     public boolean isCollidable(double x, double y) {
+        if (!isInsideMap(x, y))
+            return true;
         GridCoordinates gc = toGridCoordinates(x, y);
         return tiles[gc.x][gc.y].isCollidable();
     }
@@ -99,24 +104,22 @@ public class Map implements MapView {
         return getTileType(toGridCoordinates(x, y));
     }
 
+    public BonusType getBonusType(GridCoordinates gc) {
+        return(((BonusTile)(tiles[gc.x][gc.y])).getBonusType());
+    }
+    
     @objid ("47c42a8c-d080-4066-9144-20a8fe58cd67")
     public BonusType getBonusType(double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
-        if (tiles[gc.x][gc.y] instanceof BonusTile){
-        return(((BonusTile)(tiles[gc.x][gc.y])).getBonusType());
-        } else {
-            throw new RuntimeException("Recup le type de bonus d'une case qui n'en est pas une");
-        }
+        return getBonusType(toGridCoordinates(x, y));
     }
 
     @objid ("5cbfa265-5ee9-4a71-afc5-0d371f6efe4e")
-    public Direction getArrowDirection(double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
-        if (tiles[gc.x][gc.y] instanceof ArrowTile){
+    public Direction getArrowDirection(GridCoordinates gc) {
         return(((ArrowTile)(tiles[gc.x][gc.y])).getDirection());
-        } else {
-            throw new RuntimeException("Recup la dir d'une fleche qui n'en est pas une");
-        }
+    }
+    
+    public Direction getArrowDirection(double x, double y) {
+        return getArrowDirection(toGridCoordinates(x, y));
     }
 
     
@@ -127,8 +130,8 @@ public class Map implements MapView {
 
     @objid ("63d25698-a5f4-4701-a7ed-10309284ddb6")
     public void addSpawningLocation(GridCoordinates gc) {
-        if (gc.x < 0 || gc.x >= getColumnCount() || gc.y < 0 || gc.y >= getRowCount())
-            throw new RuntimeException("Coordonées du lieu de spawn invalides");
+        if (!isInsideMap(gc))
+            throw new RuntimeException("Coordonées du lieu de spawn invalides : " + gc);
         spawningLocations.add(gc);
     }
 
@@ -139,7 +142,42 @@ public class Map implements MapView {
 
     @objid ("7f54516a-ad04-4987-b239-f3408e868759")
     public void setTileSize(int value) {
+        if (value <= 1)
+            throw new RuntimeException("Taille des tuiles inférieure à 1 :" + value);
+        
         this.tileSize = value;
+        for (int i = 0; i < getColumnCount(); i++) {
+            for (int j = 0; j < getRowCount(); j++) {
+                updateEntities(i, j);
+            }
+        }
+    }
+    
+    public void setsize(int columns, int rows) {
+        if (columns <= 0)
+            throw new RuntimeException("Nombre de colonnes négatif ou nul : " + columns);
+        else if (rows <= 0)
+            throw new RuntimeException("Nombre de lignes négatif ou nul : " + rows);
+        
+        Tile[][] newTiles = new Tile[columns][rows];
+        
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
+                if (i < getColumnCount() && j < getRowCount()) {
+                    newTiles[i][j] = tiles[i][j];
+                }
+                else
+                    newTiles[i][j] = new EmptyTile();
+            }
+        }
+        
+        Iterator<GridCoordinates> iterator = spawningLocations.iterator();
+        while (iterator.hasNext()) {
+            if (!isInsideMap(iterator.next()))
+                iterator.remove();
+        }
+        
+        tiles = newTiles;
     }
 
     @objid ("81317f24-599b-4128-9480-5c1f6c0859f2")
@@ -225,11 +263,7 @@ public class Map implements MapView {
     @objid ("af2aa240-e83a-4b08-9641-56c0dfe48630")
     public void setArrowDirection(Direction direction, double x, double y) {
         GridCoordinates gc = toGridCoordinates(x, y);
-        if (tiles[gc.x][gc.y] instanceof ArrowTile){
-            ((ArrowTile)(tiles[gc.x][gc.y])).setDirection(direction);
-            } else {
-                throw new RuntimeException("Change la direction d'une fleche qui n'en est pas une");
-            }
+        ((ArrowTile)(tiles[gc.x][gc.y])).setDirection(direction);
     }
 
     @objid ("3197c6a7-683c-41b2-8d78-dc1d8b6b0f8a")
@@ -240,11 +274,7 @@ public class Map implements MapView {
     @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
     void setBonusType(BonusType type, double x, double y) {
         GridCoordinates gc = toGridCoordinates(x, y);
-        if (tiles[gc.x][gc.y] instanceof BonusTile){
-            ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
-        } else {
-            throw new RuntimeException("Change le type de bonus d'une case qui n'en est pas une");
-        }
+        ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
     }
 
     @objid ("c15e0882-3eff-4467-ac1f-4152e69db4f1")
