@@ -174,7 +174,7 @@ public class Player extends Entity {
     }
     
     boolean canCollide(double x, double y){
-        return false;
+        return super.canCollide(x, y);
     }
 
     @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
