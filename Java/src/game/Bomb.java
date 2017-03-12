@@ -14,15 +14,15 @@ public class Bomb extends Entity {
     protected Player owner;
 
     @objid ("f9841259-647d-4cd7-9bb7-f10aea5a4794")
-    public Bomb(World world, double x, double y, int range, int duration) {
-        super(world, x, y);
+    public Bomb(World world, GridCoordinates gc, int range, int duration) {
+        super(world, (gc.x+0.5)*world.getMap().getTileSize(), (gc.y+0.5)*world.getMap().getTileSize());
         this.range = range;
         this.timeRemaining = duration;
     }
 
     @objid ("37d6734c-0f78-448a-a2c5-6fa8930b3233")
     public Bomb(World world, Player owner, int duration) {
-        this(world, owner.getX(), owner.getY(), owner.getRange(), duration);
+        this(world, world.getMap().toGridCoordinates(owner.getX(), owner.getY()), owner.getRange(), duration);
         this.owner = owner;
     }
 
