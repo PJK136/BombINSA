@@ -24,7 +24,7 @@ public abstract class Entity {
     @objid ("83945ddf-99e1-4a55-8f7c-5f7a2c89a534")
      World world;
     
-    static final double offset_PERCENTAGE = 1./3.;
+    static final double OFFSET_PERCENTAGE = 1./3.;
 
     @objid ("2482ca74-f651-4b89-8f4e-b25e74535a33")
     Entity(World world, double x, double y) {
@@ -120,7 +120,7 @@ public abstract class Entity {
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
         double step = this.speed;
-        double offset = world.getMap().getTileSize()*offset_PERCENTAGE;
+        double offset = world.getMap().getTileSize()*OFFSET_PERCENTAGE;
         
         switch (direction) {
         case Left:
