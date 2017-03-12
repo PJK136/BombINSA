@@ -210,7 +210,7 @@ public class Player extends Entity {
         else
             decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0; ici toute les 100 update, à affinner;
         
-        if (getInvulnerability() == 0 && controller.isPlantingBomb() && bombCount < bombMax) {
+        if (controller.isPlantingBomb() && bombCount < bombMax && !world.getMap().isExploding(x, y) && !world.getMap().hasBomb(x,y)) {
             bombCount++;
             world.plantBomb(this);
         }

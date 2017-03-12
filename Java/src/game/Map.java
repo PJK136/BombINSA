@@ -277,11 +277,21 @@ public class Map implements MapView {
             break;
         }
     }
+    
 
     @objid ("af2aa240-e83a-4b08-9641-56c0dfe48630")
     public void setArrowDirection(Direction direction, double x, double y) {
         GridCoordinates gc = toGridCoordinates(x, y);
         ((ArrowTile)(tiles[gc.x][gc.y])).setDirection(direction);
+    }
+    
+    public boolean hasBomb(double x, double y) {
+        List<Entity> entities = getEntities(x, y);
+        for (Entity entity : entities) {
+            if (entity instanceof Bomb)
+                return true;
+        }
+        return false;
     }
 
     @objid ("3197c6a7-683c-41b2-8d78-dc1d8b6b0f8a")
@@ -316,7 +326,7 @@ public class Map implements MapView {
         GridCoordinates gc = toGridCoordinates(entity.getX(), entity.getY());
         tiles[gc.x][gc.y].addEntity(entity);
     }
-
+    
     @objid ("0812769a-5d2b-489d-9bf4-f782cb16fbef")
     void update() {
         for(int i=0; i<getColumnCount(); i++){
