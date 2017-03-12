@@ -8,6 +8,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 public abstract class Tile {
     @objid ("7ffae68f-5714-4e34-91d3-598f263115eb")
      int explosionTimeRemaining;
+    ExplosionType explosionType;
+    Direction explosionDirection;
 
     @objid ("2f216b30-27c8-4022-ad19-dbd71146cfd8")
     protected List<Entity> entities = new ArrayList<Entity> ();
@@ -30,9 +32,21 @@ public abstract class Tile {
     public int getExplosionTimeRemaining() {
         return this.explosionTimeRemaining;
     }
+    
+    public ExplosionType getExplosionType() {
+        return this.explosionType;
+    }
+    
+    void setExplosionType(ExplosionType type) {
+        explosionType = type;
+    }
+    
+    public Direction getExplosionDirection() {
+        return this.explosionDirection;
+    }
 
     @objid ("2b2f5efa-8de9-4ab7-932c-ca4af3ebd86f")
-    public List<Entity> getEntities() {
+    List<Entity> getEntities() {
         return this.entities;
     }
 
@@ -42,15 +56,34 @@ public abstract class Tile {
     }
 
     @objid ("56948d0a-9630-4a04-8e0a-25aafbb43b4d")
-    void update() {
+    Tile update() {
         if(explosionTimeRemaining != 0){
             explosionTimeRemaining--;
+            if (explosionTimeRemaining == 0)
+                return postExplosion();
         }
+        
+        return this;
     }
 
     @objid ("9f2c3dd7-e9e3-46b8-82e0-23ea933b9eda")
-    Tile explode(int duration) {
-        explosionTimeRemaining = duration;
+    void explode(int duration, ExplosionType type, Direction direction) {
+        if (explosionTimeRemaining == 0) {
+            explosionTimeRemaining = duration;
+            explosionType = type;
+            explosionDirection = direction;
+        } else {
+            explosionTimeRemaining = duration;
+            if (type == ExplosionType.Center || explosionDirection != direction) {
+                explosionType = ExplosionType.Center;
+                explosionDirection = null;
+            }
+            else if (explosionDirection == direction && explosionType != type)
+                explosionType = ExplosionType.Branch;
+        }
+    }
+    
+    Tile postExplosion() {
         return this;
     }
 

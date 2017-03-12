@@ -18,16 +18,17 @@ public class BreakableTile extends Tile {
         return true;
     }
     
-    public Tile explode(int duration){
-       Tile ret;
-       double drop = (Math.random());
-        if(drop<LOOT_RATE){
-            ret = new BonusTile();
-        } else {
-            ret = new EmptyTile();
-        }
-        
-        ret.explosionTimeRemaining = duration;
-        return ret;
+    @Override
+    Tile postExplosion() {
+        Tile ret;
+        double drop = (Math.random());
+         if(drop<LOOT_RATE){
+             ret = new BonusTile();
+         } else {
+             ret = new EmptyTile();
+         }
+         
+         ret.setEntities(entities);
+         return ret;
     }
 }

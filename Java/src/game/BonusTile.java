@@ -37,12 +37,12 @@ public class BonusTile extends Tile {
     void setBonusType(BonusType value) {
         this.bonusType = value;
     }
-
-    @objid ("55ed5042-47f7-40c9-95b1-ed6022b386c1")
-    public Tile explode(int duration) {
-        Tile emptyTile = new EmptyTile();
-        emptyTile.explosionTimeRemaining = duration;
-        return emptyTile;
+    
+    @Override
+    Tile postExplosion() {
+        EmptyTile tile = new EmptyTile();
+        tile.setEntities(entities);
+        return tile;
     }
     
     public static BonusType randomBonus(){

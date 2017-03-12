@@ -15,8 +15,8 @@ public class UnbreakableTile extends Tile {
         return true;
     }
     
-    public Tile explode(int duration){
-        return this;
+    @Override
+    void explode(int duration, ExplosionType type, Direction direction) {
+        return; // N'explose pas.
     }
-
 }

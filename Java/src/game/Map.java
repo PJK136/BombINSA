@@ -92,13 +92,29 @@ public class Map implements MapView {
     public boolean isCollidable(double x, double y) {
         return isCollidable(toGridCoordinates(x, y));
     }
+    
+    @Override
+    public boolean isExploding(GridCoordinates gc) {
+        return tiles[gc.x][gc.y].isExploding();
+    }
 
     @objid ("2d3a7680-da99-4351-813b-efa9981cf8ea")
     public boolean isExploding(double x, double y) {
         GridCoordinates gc = toGridCoordinates(x, y);
-        return tiles[gc.x][gc.y].isExploding();
+        return isExploding(gc);
     }
 
+    @Override
+    public ExplosionType getExplosionType(GridCoordinates gc) {
+        return tiles[gc.x][gc.y].getExplosionType();
+    }
+    
+    
+    @Override
+    public Direction getExplosionDirection(GridCoordinates gc) {
+        return tiles[gc.x][gc.y].getExplosionDirection();
+    }
+    
     public TileType getTileType(GridCoordinates gc) {
         return tiles[gc.x][gc.y].getType();
     }
@@ -271,8 +287,12 @@ public class Map implements MapView {
     }
 
     @objid ("3197c6a7-683c-41b2-8d78-dc1d8b6b0f8a")
-    void setExplosion(int duration, GridCoordinates gc) {
-        tiles[gc.x][gc.y] = tiles[gc.x][gc.y].explode(duration);
+    void setExplosion(int duration, ExplosionType type, Direction direction, GridCoordinates gc) {
+        tiles[gc.x][gc.y].explode(duration, type, direction);
+    }
+    
+    void setExplosionEnd(GridCoordinates gc) {
+        tiles[gc.x][gc.y].setExplosionType(ExplosionType.End);
     }
 
     @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
@@ -303,7 +323,7 @@ public class Map implements MapView {
         for(int i=0; i<getColumnCount(); i++){
             for(int j=0; j<getRowCount(); j++){
                 //on parcours le tableau et on update les cases
-               tiles[i][j].update();
+               tiles[i][j] = tiles[i][j].update();
                updateEntities(i, j);
             }
         }

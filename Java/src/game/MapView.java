@@ -23,12 +23,21 @@ public interface MapView {
     @objid ("f966b298-131f-4a66-b7f3-23dee860247f")
     GridCoordinates toGridCoordinates(double x, double y);
 
+    
+    boolean isCollidable(GridCoordinates gc);
+    
     @objid ("530a81b2-8f93-4453-bff3-ab4a31d9de02")
     boolean isCollidable(double x, double y);
 
+    boolean isExploding(GridCoordinates gc);
+    
     @objid ("81182a1c-ea0f-4d7b-8f92-2f8b49896d52")
     boolean isExploding(double x, double y);
 
+    ExplosionType getExplosionType(GridCoordinates gc);
+    
+    Direction getExplosionDirection(GridCoordinates gc);
+    
     TileType getTileType(GridCoordinates gc);
     
     @objid ("81e81ab9-21a7-423b-ac6c-36f7186cd24a")
