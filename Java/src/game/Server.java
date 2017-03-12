@@ -2,6 +2,7 @@ package game;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.chrono.IsoChronology;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -135,22 +136,41 @@ public class Server extends World {
             GridCoordinates explosionGC = new GridCoordinates();
             
             explosionGC.y = bombGC.y;
-            //setExplosion for columns
-            for(explosionGC.x = Math.max(0,bombGC.x-bomb.getRange());
-                explosionGC.x <= Math.min(bombGC.x+bomb.getRange(), map.getColumnCount()-1);
-                explosionGC.x++) {
-                map.setExplosion(EXPLOSION_DURATION*fps,explosionGC);
+            
+            for (explosionGC.x = bombGC.x;
+                 explosionGC.x >= bombGC.x-bomb.getRange();
+                 explosionGC.x--) {
+                map.setExplosion(EXPLOSION_DURATION*fps, explosionGC);
+                if (map.isCollidable(explosionGC))
+                    break;
             }
             
-            explosionGC.x = bombGC.x;
-            //setExplosion for lines
-            for(explosionGC.y = Math.max(0, bombGC.y-bomb.getRange());
-                explosionGC.y <= Math.min(bombGC.y+bomb.getRange(), map.getRowCount()-1);
-                explosionGC.y++) {
-                if(explosionGC.y != bombGC.y){  //not to explode center twice
-                    map.setExplosion(EXPLOSION_DURATION*fps, explosionGC);
-                }
+            for (explosionGC.x = bombGC.x+1;
+                 explosionGC.x <= bombGC.x+bomb.getRange();
+                 explosionGC.x++) {
+               map.setExplosion(EXPLOSION_DURATION*fps, explosionGC);
+               if (map.isCollidable(explosionGC))
+                   break;
             }
+            
+            
+            explosionGC.x = bombGC.x;
+            for (explosionGC.y = bombGC.y-1;
+                    explosionGC.y >= bombGC.y-bomb.getRange();
+                    explosionGC.y--) {
+               map.setExplosion(EXPLOSION_DURATION*fps, explosionGC);
+               if (map.isCollidable(explosionGC))
+                   break;
+            }
+               
+            for (explosionGC.y = bombGC.y+1;
+                 explosionGC.y <= bombGC.y+bomb.getRange();
+                 explosionGC.y++) {
+               map.setExplosion(EXPLOSION_DURATION*fps, explosionGC);
+               if (map.isCollidable(explosionGC))
+                   break;
+            }
+               
         }
         //clearing all the queue lists
         queuePlayer.clear();
