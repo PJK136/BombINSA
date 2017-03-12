@@ -74,12 +74,15 @@ public abstract class Tile {
             explosionDirection = direction;
         } else {
             explosionTimeRemaining = duration;
-            if (type == ExplosionType.Center || explosionDirection != direction) {
+            if (explosionType == ExplosionType.Center)
+                return;
+            else if (type == ExplosionType.Center || explosionDirection != direction) {
                 explosionType = ExplosionType.Center;
                 explosionDirection = null;
             }
-            else if (explosionDirection == direction && explosionType != type)
+            else {
                 explosionType = ExplosionType.Branch;
+            }
         }
     }
     

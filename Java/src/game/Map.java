@@ -292,7 +292,8 @@ public class Map implements MapView {
     }
     
     void setExplosionEnd(GridCoordinates gc) {
-        tiles[gc.x][gc.y].setExplosionType(ExplosionType.End);
+        if (tiles[gc.x][gc.y].getExplosionType() != ExplosionType.Center)
+            tiles[gc.x][gc.y].setExplosionType(ExplosionType.End);
     }
 
     @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
