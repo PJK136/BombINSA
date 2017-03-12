@@ -24,6 +24,7 @@ import game.Bomb;
 import game.BonusType;
 import game.Direction;
 import game.Entity;
+import game.ExplosionType;
 import game.GridCoordinates;
 import game.MapView;
 import game.TileType;
@@ -38,12 +39,14 @@ public class GameViewer extends JPanel {
     private ArrayList<BufferedImage> bonuses;
     private ArrayList<BufferedImage> players;
     private ArrayList<BufferedImage> bombs;
+    private ArrayList<BufferedImage> explosions;
     
     private int cacheTileSize;
     private Image cacheTiles[];
     private Image cacheBonuses[];
     private Image cacheArrows[];
     private Image cacheBombs[];
+    private Image cacheExplosions[][];
     
     boolean showSpawningLocations;
     
@@ -72,6 +75,11 @@ public class GameViewer extends JPanel {
             bombs.add(coalesce(readRessource("bomb_exploding"), stringInSquare(256, 0, "💣", Color.red)));
         }
         
+        explosions = new ArrayList<BufferedImage>(ExplosionType.values().length);
+        for (ExplosionType type : ExplosionType.values())
+            explosions.add(coalesce(readRessource("explosion_"+type.name().toLowerCase()),
+                                    stringInSquare(256, 0, "💥")));
+        
         showSpawningLocations = false;
         
         cacheTileSize = 0;
@@ -79,6 +87,7 @@ public class GameViewer extends JPanel {
         cacheBonuses = new Image[bonuses.size()];
         cacheArrows = new Image[Direction.values().length];
         cacheBombs = new Image[bombs.size()];
+        cacheExplosions = new Image[explosions.size()][Direction.values().length];
         
         setFocusable(true);
     }
@@ -138,7 +147,7 @@ public class GameViewer extends JPanel {
             return stringInSquare(256, 4, "🡺");
         }
         else {
-            BufferedImage tile = new BufferedImage(256, 256, BufferedImage.TYPE_INT_RGB);
+            BufferedImage tile = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = tile.createGraphics();
             g.setColor(toColor(type));
             g.fillRect(0, 0, 256, 256);
@@ -162,37 +171,10 @@ public class GameViewer extends JPanel {
     }
     
     public void drawMap(MapView map, List<Entity> entities) {
-        if (cacheTileSize != map.getTileSize()) {
-            //TODO : iterator
-            for (int i = 0; i < tiles.size(); i++) {
-                cacheTiles[i] = tiles.get(i).getScaledInstance(map.getTileSize(), map.getTileSize(), Image.SCALE_SMOOTH);
-            }
-            
-            for (int i = 0; i < bonuses.size(); i++) {
-                cacheBonuses[i] = bonuses.get(i).getScaledInstance(map.getTileSize(), map.getTileSize(), Image.SCALE_SMOOTH);
-            }
-            
-            for (int i = 0; i < cacheArrows.length; i++) {
-                // http://stackoverflow.com/questions/2245869/resize-jcomponent-for-file-export/2246484#2246484
-                BufferedImage image = tiles.get(TileType.Arrow.ordinal());
-                double w = image.getWidth();
-                double h = image.getHeight();
-                AffineTransform scaleTransform = new AffineTransform();
-                // last-in-first-applied: rotate, scale
-                scaleTransform.scale(map.getTileSize()/w, map.getTileSize()/h);
-                scaleTransform.rotate(-i*Math.PI/2, w/2, h/2);
-                AffineTransformOp scaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
-                cacheArrows[i] = scaleOp.filter(image, null);
-            }
-            
-            for (int i = 0; i < bombs.size(); i++) {
-                cacheBombs[i] = bombs.get(i).getScaledInstance(map.getTileSize(), map.getTileSize(), Image.SCALE_SMOOTH);
-            }
-            
-            cacheTileSize = map.getTileSize();
-        }
+        if (cacheTileSize != map.getTileSize())
+            updateCaches(map.getTileSize());
 
-        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB); //ARGB ?
+        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_ARGB); //ARGB ?
         Graphics2D g = newWorld.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON);
@@ -213,6 +195,15 @@ public class GameViewer extends JPanel {
                         image = cacheTiles[map.getTileType(gc).ordinal()];
                     
                     g.drawImage(image, gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
+                    
+                    if (map.isExploding(gc)) {
+                        if (map.getExplosionType(gc) != ExplosionType.Center)
+                            g.drawImage(cacheExplosions[map.getExplosionType(gc).ordinal()][map.getExplosionDirection(gc).ordinal()],
+                                        gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
+                        else
+                            g.drawImage(cacheExplosions[map.getExplosionType(gc).ordinal()][0],
+                                        gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
+                    }
                 }
             }
         }
@@ -246,6 +237,42 @@ public class GameViewer extends JPanel {
             world = newWorld;
             repaint();
         }
+    }
+    
+    private void updateCache(ArrayList<BufferedImage> src, int size, Image[] cache) {
+        for (int i = 0; i < cache.length; i++) {
+            cache[i] = src.get(i).getScaledInstance(size, size, Image.SCALE_SMOOTH);
+        }
+    }
+    
+    private Image[] getAllScaledRotations(BufferedImage src, int size) {
+        Image[] ret = new Image[4];
+        for (int i = 0; i < ret.length; i++) {
+            // http://stackoverflow.com/questions/2245869/resize-jcomponent-for-file-export/2246484#2246484
+            double w = src.getWidth();
+            double h = src.getHeight();
+            AffineTransform scaleTransform = new AffineTransform();
+            // last-in-first-applied: rotate, scale
+            scaleTransform.scale(size/w, size/h);
+            scaleTransform.rotate(-i*Math.PI/2, w/2, h/2);
+            AffineTransformOp scaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
+            ret[i] = scaleOp.filter(src, null);
+        }
+        return ret;
+    }
+    
+    private void updateCaches(int size) {
+        updateCache(tiles, size, cacheTiles);
+        updateCache(bonuses, size, cacheBonuses);
+        updateCache(bombs, size, cacheBombs);
+        
+        cacheArrows = getAllScaledRotations(tiles.get(TileType.Arrow.ordinal()), size);
+        
+        for (int i = 0; i < cacheExplosions.length; i++) {
+            cacheExplosions[i] = getAllScaledRotations(explosions.get(i), size);
+        }
+        
+        cacheTileSize = size;
     }
     
     private void drawCenteredString(Graphics g, String str, int centerX, int centerY) {
