@@ -133,44 +133,58 @@ public class Server extends World {
         for(Bomb bomb : queueBomb){
             //locate center of the bomb impact
             GridCoordinates bombGC = map.toGridCoordinates(bomb.getX(), bomb.getY());
-            GridCoordinates explosionGC = new GridCoordinates();
+            GridCoordinates explosionGC = new GridCoordinates(bombGC);
+            boolean collide = false;
             
-            explosionGC.y = bombGC.y;
+            map.setExplosion(EXPLOSION_DURATION*fps, ExplosionType.Center, null, explosionGC);
             
-            for (explosionGC.x = bombGC.x;
-                 explosionGC.x >= bombGC.x-bomb.getRange();
+            for (explosionGC.x = bombGC.x-1;
+                 explosionGC.x >= Math.max(0, bombGC.x-bomb.getRange()) && !collide;
                  explosionGC.x--) {
-                map.setExplosion(EXPLOSION_DURATION*fps, explosionGC);
-                if (map.isCollidable(explosionGC))
-                    break;
+                map.setExplosion(EXPLOSION_DURATION*fps, ExplosionType.Branch, Direction.Left, explosionGC);
+                collide = map.isCollidable(explosionGC);
+            }
+            if (!map.isInsideMap(explosionGC) || !map.isExploding(explosionGC)) {
+                explosionGC.x++;
+                map.setExplosionEnd(explosionGC);
             }
             
+            collide = false;
             for (explosionGC.x = bombGC.x+1;
-                 explosionGC.x <= bombGC.x+bomb.getRange();
+                 explosionGC.x <= Math.min(map.getColumnCount()-1, bombGC.x+bomb.getRange()) && !collide;
                  explosionGC.x++) {
-               map.setExplosion(EXPLOSION_DURATION*fps, explosionGC);
-               if (map.isCollidable(explosionGC))
-                   break;
+                map.setExplosion(EXPLOSION_DURATION*fps, ExplosionType.Branch, Direction.Right, explosionGC);
+                collide = map.isCollidable(explosionGC);
+            }
+            if (!map.isInsideMap(explosionGC) || !map.isExploding(explosionGC)) {
+                explosionGC.x--;
+                map.setExplosionEnd(explosionGC);
             }
             
-            
+            collide = false;
             explosionGC.x = bombGC.x;
             for (explosionGC.y = bombGC.y-1;
-                    explosionGC.y >= bombGC.y-bomb.getRange();
-                    explosionGC.y--) {
-               map.setExplosion(EXPLOSION_DURATION*fps, explosionGC);
-               if (map.isCollidable(explosionGC))
-                   break;
+                 explosionGC.y >= Math.max(0, bombGC.y-bomb.getRange()) && !collide;
+                 explosionGC.y--) {
+                map.setExplosion(EXPLOSION_DURATION*fps, ExplosionType.Branch, Direction.Up, explosionGC);
+                collide = map.isCollidable(explosionGC);
             }
-               
+            if (!map.isInsideMap(explosionGC) || !map.isExploding(explosionGC)) {
+                explosionGC.y++;
+                map.setExplosionEnd(explosionGC);
+            }
+            
+            collide = false;
             for (explosionGC.y = bombGC.y+1;
-                 explosionGC.y <= bombGC.y+bomb.getRange();
+                 explosionGC.y <= Math.min(map.getRowCount()-1, bombGC.y+bomb.getRange()) && !collide;
                  explosionGC.y++) {
-               map.setExplosion(EXPLOSION_DURATION*fps, explosionGC);
-               if (map.isCollidable(explosionGC))
-                   break;
+                map.setExplosion(EXPLOSION_DURATION*fps, ExplosionType.Branch, Direction.Down, explosionGC);
+                collide = map.isCollidable(explosionGC);
             }
-               
+            if (!map.isInsideMap(explosionGC) || !map.isExploding(explosionGC)) {
+                explosionGC.y--;
+                map.setExplosionEnd(explosionGC);
+            }
         }
         //clearing all the queue lists
         queuePlayer.clear();
