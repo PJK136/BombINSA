@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringJoiner;
 
-import javax.management.RuntimeErrorException;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("828d0eae-528b-43df-a33e-799c03f4c5af")
@@ -346,6 +344,8 @@ public class Map implements MapView {
                     iterator.remove();
                 }
             }
+            
+            //TODO : Mettre à jour les "bouts" des explosions
         }
     }
 }
