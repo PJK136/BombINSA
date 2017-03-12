@@ -119,56 +119,57 @@ public abstract class Entity {
 
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
-        double step = this.speed;
         double offset = world.getMap().getTileSize()*OFFSET_PERCENTAGE;
         
         switch (direction) {
         case Left:
-            while (step >= 0 && (canCollide(getBorderLeft()-step, getBorderTop()+offset) || 
-                                 canCollide(getBorderLeft()-step, getBorderDown()-offset)))
-                step -= 1;
+            while (this.speed >= 0 && (canCollide(getBorderLeft()-this.speed, getBorderTop()+offset) || 
+                                 canCollide(getBorderLeft()-this.speed, getBorderDown()-offset)))
+                this.speed -= 1;
             break;
         case Right:
-            while (step >= 0 && (canCollide(getBorderRight()+step, getBorderTop()+offset) || 
-                                 canCollide(getBorderRight()+step, getBorderDown()-offset)))
-                step -= 1;
+            while (this.speed >= 0 && (canCollide(getBorderRight()+this.speed, getBorderTop()+offset) || 
+                                 canCollide(getBorderRight()+this.speed, getBorderDown()-offset)))
+                this.speed -= 1;
             break;
         case Up:
-            while (step >= 0 && (canCollide(getBorderLeft()+offset, getBorderTop()-step) || 
-                                 canCollide(getBorderRight()-offset, getBorderTop()-step)))
-                step -= 1;
+            while (this.speed >= 0 && (canCollide(getBorderLeft()+offset, getBorderTop()-this.speed) || 
+                                 canCollide(getBorderRight()-offset, getBorderTop()-this.speed)))
+                this.speed -= 1;
             break;
         case Down:
-            while (step >= 0 && (canCollide(getBorderLeft()+offset, getBorderDown()+step) || 
-                                 canCollide(getBorderRight()-offset, getBorderDown()+step)))
-                step -= 1;
+            while (this.speed >= 0 && (canCollide(getBorderLeft()+offset, getBorderDown()+this.speed) || 
+                                 canCollide(getBorderRight()-offset, getBorderDown()+this.speed)))
+                this.speed -= 1;
             break;
         }
         
+        this.speed = Math.max(0, this.speed);
+        
         //TODO : approche dichotomique ?
         
-        updatePosition(Math.max(0, step));
+        updatePosition();
     }
     
-    private void updatePosition(double step) {
-        if (step == 0)
+    private void updatePosition() {
+        if (this.speed == 0)
             return;
 
         switch (direction) {
         case Left:
-            this.x -= step;
+            this.x -= this.speed;
             if (canCollide(getBorderLeft(), getBorderTop()) || canCollide(getBorderLeft(), getBorderDown())) {
                 this.y = (world.getMap().toGridCoordinates(x, y).y+0.5)*world.getMap().getTileSize();
             }
             break;
         case Right:
-            this.x += step;
+            this.x += this.speed;
             if (canCollide(getBorderRight(), getBorderTop()) || canCollide(getBorderRight(), getBorderDown())) {
                 this.y = (world.getMap().toGridCoordinates(x, y).y+0.5)*world.getMap().getTileSize();
             }
             break;
         case Up:
-            this.y -= step;
+            this.y -= this.speed;
             if (canCollide(getBorderLeft(), getBorderTop()) || canCollide(getBorderRight(), getBorderTop())) {
                 this.x = (world.getMap().toGridCoordinates(x, y).x+0.5)*world.getMap().getTileSize();
             }
@@ -177,7 +178,7 @@ public abstract class Entity {
             if (canCollide(getBorderLeft(), getBorderDown()) || canCollide(getBorderRight(), getBorderDown())) {
                 this.x = (world.getMap().toGridCoordinates(x, y).x+0.5)*world.getMap().getTileSize();
             }
-            this.y += step;
+            this.y += this.speed;
             break;
         }
     }

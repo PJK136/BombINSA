@@ -259,23 +259,28 @@ public class Map implements MapView {
 
     @objid ("33e1123b-fd64-4e1d-96ea-0813d9ffac7d")
     public void setTileType(TileType type, GridCoordinates gc) {
+        Tile newTile = null;
         switch(type){
         case Empty:
-            tiles[gc.x][gc.y] = new EmptyTile();
+            newTile = new EmptyTile();
             break;
         case Breakable:
-            tiles[gc.x][gc.y] = new BreakableTile();
+            newTile = new BreakableTile();
             break;
         case Unbreakable:
-            tiles[gc.x][gc.y] = new UnbreakableTile();
+            newTile = new UnbreakableTile();
             break;
         case Bonus:
-            tiles[gc.x][gc.y] = new BonusTile();
+            newTile = new BonusTile();
             break;
         case Arrow:
-            tiles[gc.x][gc.y] = new ArrowTile();
+            newTile = new ArrowTile();
             break;
         }
+        
+        if (tiles[gc.x][gc.y] != null)
+            newTile.setEntities(tiles[gc.x][gc.y].getEntities());
+        tiles[gc.x][gc.y] = newTile;
     }
     
 
@@ -311,9 +316,9 @@ public class Map implements MapView {
     }
 
     @objid ("c15e0882-3eff-4467-ac1f-4152e69db4f1")
-    List<Entity> getEntities(double x, double y) {
+    public List<Entity> getEntities(double x, double y) {
         GridCoordinates gc = toGridCoordinates(x, y);
-        return tiles[gc.x][gc.y].getEntities();
+        return Collections.unmodifiableList(tiles[gc.x][gc.y].getEntities());
     }
 
     @objid ("e0d1831e-0655-4b4d-a0d8-d282ff461427")

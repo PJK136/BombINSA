@@ -99,7 +99,7 @@ public class Server extends World {
         
         int count = getPlayerCount() % map.spawningLocations.size();
         Player player = new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_DURATION*fps);
-        entities.add(player);
+        addEntity(player);
         controller.setPlayer(player);
         controller.setWorldView(this);
     }

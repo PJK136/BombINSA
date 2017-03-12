@@ -56,6 +56,8 @@ public interface MapView {
     @objid ("9ae4fa5d-6b6e-4175-965a-97e27b2ffd71")
     List<GridCoordinates> getSpawningLocations();
     
+    List<Entity> getEntities(double x, double y);
+    
     boolean hasBomb(double x, double y);
 
 }

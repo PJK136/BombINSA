@@ -13,6 +13,8 @@ public class Bomb extends Entity {
     @objid ("d663f27d-b4de-411a-b687-8ae5d439ab48")
     protected Player owner;
 
+    public static final double BOMB_DEFAULT_SPEED = 4; // tile/sec
+    
     @objid ("f9841259-647d-4cd7-9bb7-f10aea5a4794")
     public Bomb(World world, GridCoordinates gc, int range, int duration) {
         super(world, (gc.x+0.5)*world.getMap().getTileSize(), (gc.y+0.5)*world.getMap().getTileSize());
@@ -81,7 +83,7 @@ public class Bomb extends Entity {
                 this.direction = Direction.Down;
                 break;
             }
-            this.speed = 10; // TODO Valeur à changer;
+            this.speed = BOMB_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
         }
         // On vérifie le TimeRemaining, si nulle ou si la case en train
         // d'exploser, on modifie l'état des case dans la portée en train
@@ -92,5 +94,15 @@ public class Bomb extends Entity {
                 owner.decreaseBombCount();
             remove();
         }
+    }
+    
+    @Override
+    boolean canCollide(double x, double y) {
+        for (Entity entity : world.getMap().getEntities(x, y)) {
+            if (entity != this) {
+                return true;
+            }
+        }
+        return super.canCollide(x, y);
     }
 }
