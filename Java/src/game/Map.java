@@ -289,8 +289,8 @@ public class Map implements MapView {
     }
 
     @objid ("6b4bc03d-7c89-4fd5-9ce3-be22a1dd04ba")
-    void addEntity(Entity entity, double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
+    void addEntity(Entity entity) {
+        GridCoordinates gc = toGridCoordinates(entity.getX(), entity.getY());
         tiles[gc.x][gc.y].addEntity(entity);
     }
 

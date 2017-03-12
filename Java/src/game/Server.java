@@ -11,22 +11,22 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Server extends World {
     @objid ("d4ef51fc-99a1-4469-a144-395b415f38c6")
-     final int START_LIVES = 3;
+    static final int START_LIVES = 3;
 
     @objid ("acdeeb9e-e8f4-4338-953e-9a58f3e8e5d6")
-     final int START_BOMB_MAX = 1;
+    static final int START_BOMB_MAX = 1;
 
     @objid ("c4fcf211-c9b3-4bd3-8331-cb2c246c1b66")
-     final int START_RANGE = 1;
+    static final int START_RANGE = 1;
 
     @objid ("d92377a2-aad4-4982-9040-3f2145155a66")
-     final int START_INVULNERABITY_SEC = 1;
+     static final int START_INVULNERABITY_DURATION = 1;
 
     @objid ("e291da2d-3413-4c04-9354-a2bdfd92e336")
-     final int TIME_BEFORE_EXPLOSION = 10;
+    static final int TIME_BEFORE_EXPLOSION = 5;
 
     @objid ("751024b2-9b44-4803-a99b-325fd609fbd3")
-     final int EXPLOSION_DURATION = 1;
+    static final int EXPLOSION_DURATION = 1;
 
     @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")
      String mapFileName = new String();
@@ -97,7 +97,7 @@ public class Server extends World {
             return;
         
         int count = getPlayerCount() % map.spawningLocations.size();
-        Player player = new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_SEC*fps);
+        Player player = new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_DURATION*fps);
         entities.add(player);
         controller.setPlayer(player);
         controller.setWorldView(this);
@@ -120,7 +120,7 @@ public class Server extends World {
         
         //update of the new bombs
         for(Player player : queuePlayer){
-            entities.add(new Bomb(this, player, TIME_BEFORE_EXPLOSION));
+            addEntity(new Bomb(this, player, TIME_BEFORE_EXPLOSION*fps));
         }
         
         //update of the bonus
@@ -139,7 +139,7 @@ public class Server extends World {
             for(explosionGC.x = Math.max(0,bombGC.x-bomb.getRange());
                 explosionGC.x <= Math.min(bombGC.x+bomb.getRange(), map.getColumnCount()-1);
                 explosionGC.x++) {
-                map.setExplosion(EXPLOSION_DURATION,explosionGC);
+                map.setExplosion(EXPLOSION_DURATION*fps,explosionGC);
             }
             
             explosionGC.x = bombGC.x;
@@ -148,7 +148,7 @@ public class Server extends World {
                 explosionGC.y <= Math.min(bombGC.y+bomb.getRange(), map.getRowCount()-1);
                 explosionGC.y++) {
                 if(explosionGC.y != bombGC.y){  //not to explode center twice
-                    map.setExplosion(EXPLOSION_DURATION, explosionGC);
+                    map.setExplosion(EXPLOSION_DURATION*fps, explosionGC);
                 }
             }
         }
@@ -197,6 +197,11 @@ public class Server extends World {
     @Override
     void pickUpBonus(double x, double y) {
         queueBonus.add(map.toGridCoordinates(x,y));
+    }
+    
+    private void addEntity(Entity entity) {
+        entities.add(entity);
+        map.addEntity(entity);
     }
 
 }

@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+import game.Bomb;
 import game.BonusType;
 import game.Direction;
 import game.Entity;
@@ -35,34 +36,40 @@ public class GameViewer extends JPanel {
 
     private ArrayList<BufferedImage> tiles;
     private ArrayList<BufferedImage> bonuses;
+    private ArrayList<BufferedImage> players;
+    private ArrayList<BufferedImage> bombs;
     
     private int cacheTileSize;
     private Image cacheTiles[];
     private Image cacheBonuses[];
     private Image cacheArrows[];
+    private Image cacheBombs[];
     
     boolean showSpawningLocations;
+    
+    //http://stackoverflow.com/questions/2768054/how-to-get-the-first-non-null-value-in-java
+    private static <T> T coalesce(T a, T b) {
+        return a == null ? b : a;
+    }
     
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
         tiles = new ArrayList<BufferedImage>(TileType.values().length);
         for (TileType type : TileType.values()) {
-            try {
-                tiles.add(ImageIO.read(new File("img/" + type.name().toLowerCase() + ".png")));
-            } catch (IOException e) {
-                System.err.println("Can't read : " + "img/" + type.name().toLowerCase() + ".png");
-                tiles.add(getDefaultTileImage(type)); 
-            }
+            tiles.add(coalesce(readRessource(type.name().toLowerCase()),
+                      getDefaultTileImage(type)));
         }
         
         bonuses = new ArrayList<BufferedImage>(BonusType.values().length);
         for (BonusType type : BonusType.values()) {
-            try {
-                bonuses.add(ImageIO.read(new File("img/bonus" + type.ordinal() + ".png")));
-            } catch (IOException e) {
-                System.err.println("Can't read : " + "img/bonus" + type.ordinal() + ".png");
-                bonuses.add(stringInSquare(256, 4, "B" + String.valueOf(type.ordinal()))); 
-            }
+            bonuses.add(coalesce(readRessource("bonus" + type.ordinal()), 
+                                 stringInSquare(256, 4, "B" + String.valueOf(type.ordinal())))); 
+        }
+        
+        bombs = new ArrayList<BufferedImage>(2);
+        {
+            bombs.add(coalesce(readRessource("bomb"), stringInSquare(256, 0, "💣")));
+            bombs.add(coalesce(readRessource("bomb_exploding"), stringInSquare(256, 0, "💣", Color.red)));
         }
         
         showSpawningLocations = false;
@@ -71,10 +78,19 @@ public class GameViewer extends JPanel {
         cacheTiles = new Image[tiles.size()];
         cacheBonuses = new Image[bonuses.size()];
         cacheArrows = new Image[Direction.values().length];
+        cacheBombs = new Image[bombs.size()];
         
         setFocusable(true);
     }
     
+    private BufferedImage readRessource(String name) {
+        try {
+            return ImageIO.read(new File("img/" + name + ".png"));
+        } catch (IOException e) {
+            System.err.println("Can't read : " + "img/" + name + ".png");
+            return null;
+        }
+    }
     public List<BufferedImage> getTileImages() {
         return Collections.unmodifiableList(tiles);
     }
@@ -96,18 +112,22 @@ public class GameViewer extends JPanel {
         }
     }
     
-    private BufferedImage stringInSquare(int size, int thickness, String str) {
-        BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage stringInSquare(int size, int thickness, String str, Color color) {
+        BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = image.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setColor(Color.white);
         g.fillRect(0, 0, size, size);
         for (int i = 0; i < thickness; i++)
             g.drawRect(i, i, size-i, size-i);
-        g.setColor(Color.black);
+        g.setColor(color);
         g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, (int) (((size-2*(thickness+1)))*0.8))); 
         drawCenteredString(g, str, size/2, size/2);
         return image;
+    }
+    
+    private BufferedImage stringInSquare(int size, int thickness, String str) {
+        return stringInSquare(size, thickness, str, Color.black);
     }
     
     private BufferedImage getDefaultTileImage(TileType type) {
@@ -143,6 +163,7 @@ public class GameViewer extends JPanel {
     
     public void drawMap(MapView map, List<Entity> entities) {
         if (cacheTileSize != map.getTileSize()) {
+            //TODO : iterator
             for (int i = 0; i < tiles.size(); i++) {
                 cacheTiles[i] = tiles.get(i).getScaledInstance(map.getTileSize(), map.getTileSize(), Image.SCALE_SMOOTH);
             }
@@ -162,6 +183,10 @@ public class GameViewer extends JPanel {
                 scaleTransform.rotate(-i*Math.PI/2, w/2, h/2);
                 AffineTransformOp scaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
                 cacheArrows[i] = scaleOp.filter(image, null);
+            }
+            
+            for (int i = 0; i < bombs.size(); i++) {
+                cacheBombs[i] = bombs.get(i).getScaledInstance(map.getTileSize(), map.getTileSize(), Image.SCALE_SMOOTH);
             }
             
             cacheTileSize = map.getTileSize();
@@ -205,7 +230,11 @@ public class GameViewer extends JPanel {
         
         if (entities != null) {
             for (Entity entity : entities) {
-                g.fillOval((int)(entity.getX()-map.getTileSize()/2.), (int)(entity.getY()-map.getTileSize()/2.), map.getTileSize(), map.getTileSize());
+                if (entity instanceof Bomb) {
+                    g.drawImage(cacheBombs[0], (int)(entity.getX()-map.getTileSize()/2), (int)(entity.getY()-map.getTileSize()/2), this);
+                }
+                else
+                    g.fillOval((int)(entity.getX()-map.getTileSize()/2.), (int)(entity.getY()-map.getTileSize()/2.), map.getTileSize(), map.getTileSize());
             }
         }
         
