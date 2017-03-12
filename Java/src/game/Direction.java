@@ -6,6 +6,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 public enum Direction {
     Right,
     Up,
-    Down,
-    Left;
+    Left,
+    Down;
 }
