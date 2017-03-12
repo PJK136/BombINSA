@@ -95,29 +95,7 @@ public abstract class Entity {
     void setDirection(Direction value) {
         this.direction = value;
     }
-<<<<<<< HEAD
-    
-    private double getNextBorderX(double step) {
-        switch (direction) {
-            case Left:
-                return this.x-(world.getMap().getTileSize()/2.)-step;
-            case Right:
-                return this.x+(world.getMap().getTileSize()/2.)+step;
-            default:
-                return this.x;
-        }
-    }
-    
-    private double getNextBorderY(double speed) {
-        switch (direction) {
-            case Up:
-                return this.y-(world.getMap().getTileSize()/2.)-speed;
-            case Down:
-                return this.y+(world.getMap().getTileSize()/2.)+speed;
-            default:
-                return this.y;
-        }
-=======
+
 
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
@@ -149,7 +127,6 @@ public abstract class Entity {
         //TODO : approche dichotomique ?
         
         updatePosition(Math.max(0, step));
->>>>>>> d419793dcca90d25b90b3448ace13fc22204f6fa
     }
     
     private void updatePosition(double step) {
@@ -174,18 +151,4 @@ public abstract class Entity {
         //Il faut aussi vérifier la collision dans les sous classes
         return this.world.getMap().isCollidable(x, y);
     }
-
-    @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
-    void update() {
-        double step = this.speed;
-        //Tant que on percute quelque chose et que notre pas est plus grand ou égal à 1 pixel
-        while (canCollide(getNextBorderX(step), getNextBorderY(step)) && step >= 1) {
-            step -= 1.; //On avance 1 pixel moins loin
-        }
-        
-        //TODO : approche dichotomique ?
-        
-        updatePosition(step);
-    }
-
 }

@@ -179,8 +179,6 @@ public class Player extends Entity {
 
     @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
-<<<<<<< HEAD
-=======
         controller.update();
         Direction nextDirection = controller.getDirection();
         if (nextDirection != null) {
@@ -192,7 +190,6 @@ public class Player extends Entity {
                 speed /= 2;
         } else
             speed = 0.;
->>>>>>> d419793dcca90d25b90b3448ace13fc22204f6fa
         
         super.update();
         
