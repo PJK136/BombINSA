@@ -21,6 +21,10 @@ public class GridCoordinates {
         this.y = y;
     }
     
+    public GridCoordinates(GridCoordinates gc) {
+        this(gc.x, gc.y);
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null)
