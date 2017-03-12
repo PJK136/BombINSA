@@ -1,5 +1,7 @@
 package game;
 
+import java.time.chrono.IsoChronology;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("c2a5ec32-8fb5-4eea-beff-33ee327f4352")
@@ -18,10 +20,11 @@ public abstract class Entity {
 
     @objid ("46bbc37c-9300-456a-87b3-a7774a36e395")
      double speed = 0;
-     protected double SPEEDMAX = 50; //TODO changer la valeur
-     protected double SPEEDMIN = 5; //TODO changer la valeur
+    
     @objid ("83945ddf-99e1-4a55-8f7c-5f7a2c89a534")
      World world;
+    
+    static final double offset_PERCENTAGE = 1./3.;
 
     @objid ("2482ca74-f651-4b89-8f4e-b25e74535a33")
     Entity(World world, double x, double y) {
@@ -61,6 +64,23 @@ public abstract class Entity {
     public double getY() {
         return this.y;
     }
+    
+    public double getBorderLeft() {
+        return this.x-(world.getMap().getTileSize()/2.);
+    }
+
+    public double getBorderRight() {
+        return this.x+(world.getMap().getTileSize()/2.);
+    }
+    
+    public double getBorderTop() {
+        return this.y-(world.getMap().getTileSize()/2.);
+    }
+    
+    public double getBorderDown() {
+        return this.y+(world.getMap().getTileSize()/2.);
+    }
+    
 
     @objid ("08e29169-aac4-43a6-9bc5-02f2282fe480")
     void setY(double value) {
@@ -100,26 +120,27 @@ public abstract class Entity {
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
         double step = this.speed;
+        double offset = world.getMap().getTileSize()*offset_PERCENTAGE;
         
         switch (direction) {
         case Left:
-            while (step >= 0 && (canCollide(this.x-(world.getMap().getTileSize()/2.)-step, this.y-(world.getMap().getTileSize()/2.)+1) || 
-                                 canCollide(this.x-(world.getMap().getTileSize()/2.)-step, this.y+(world.getMap().getTileSize()/2.)-1)))
+            while (step >= 0 && (canCollide(getBorderLeft()-step, getBorderTop()+offset) || 
+                                 canCollide(getBorderLeft()-step, getBorderDown()-offset)))
                 step -= 1;
             break;
         case Right:
-            while (step >= 0 && (canCollide(this.x+(world.getMap().getTileSize()/2.)+step, this.y-(world.getMap().getTileSize()/2.)+1) || 
-                                 canCollide(this.x+(world.getMap().getTileSize()/2.)+step, this.y+(world.getMap().getTileSize()/2.)-1)))
+            while (step >= 0 && (canCollide(getBorderRight()+step, getBorderTop()+offset) || 
+                                 canCollide(getBorderRight()+step, getBorderDown()-offset)))
                 step -= 1;
             break;
         case Up:
-            while (step >= 0 && (canCollide(this.x-(world.getMap().getTileSize()/2.)+1, this.y-(world.getMap().getTileSize()/2.)-step) || 
-                                 canCollide(this.x+(world.getMap().getTileSize()/2.)-1, this.y-(world.getMap().getTileSize()/2.)-step)))
+            while (step >= 0 && (canCollide(getBorderLeft()+offset, getBorderTop()-step) || 
+                                 canCollide(getBorderRight()-offset, getBorderTop()-step)))
                 step -= 1;
             break;
         case Down:
-            while (step >= 0 && (canCollide(this.x-(world.getMap().getTileSize()/2.)+1, this.y+(world.getMap().getTileSize()/2.)+step) || 
-                                 canCollide(this.x+(world.getMap().getTileSize()/2.)-1, this.y+(world.getMap().getTileSize()/2.)+step)))
+            while (step >= 0 && (canCollide(getBorderLeft()+offset, getBorderDown()+step) || 
+                                 canCollide(getBorderRight()-offset, getBorderDown()+step)))
                 step -= 1;
             break;
         }
@@ -130,17 +151,32 @@ public abstract class Entity {
     }
     
     private void updatePosition(double step) {
+        if (step == 0)
+            return;
+
         switch (direction) {
         case Left:
             this.x -= step;
+            if (canCollide(getBorderLeft(), getBorderTop()) || canCollide(getBorderLeft(), getBorderDown())) {
+                this.y = (world.getMap().toGridCoordinates(x, y).y+0.5)*world.getMap().getTileSize();
+            }
             break;
         case Right:
             this.x += step;
+            if (canCollide(getBorderRight(), getBorderTop()) || canCollide(getBorderRight(), getBorderDown())) {
+                this.y = (world.getMap().toGridCoordinates(x, y).y+0.5)*world.getMap().getTileSize();
+            }
             break;
         case Up:
             this.y -= step;
+            if (canCollide(getBorderLeft(), getBorderTop()) || canCollide(getBorderRight(), getBorderTop())) {
+                this.x = (world.getMap().toGridCoordinates(x, y).x+0.5)*world.getMap().getTileSize();
+            }
             break;
         case Down:
+            if (canCollide(getBorderLeft(), getBorderDown()) || canCollide(getBorderRight(), getBorderDown())) {
+                this.x = (world.getMap().toGridCoordinates(x, y).x+0.5)*world.getMap().getTileSize();
+            }
             this.y += step;
             break;
         }
