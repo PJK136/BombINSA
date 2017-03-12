@@ -174,6 +174,9 @@ public class Player extends Entity {
     }
     
     boolean canCollide(double x, double y){
+        if (!world.getMap().toGridCoordinates(this.x, this.y).equals(world.getMap().toGridCoordinates(x, y)) &&
+            world.getMap().hasBomb(x, y))
+            return true;
         return super.canCollide(x, y);
     }
 
