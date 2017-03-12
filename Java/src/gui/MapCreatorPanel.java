@@ -56,6 +56,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     private ButtonGroup tileTypeGroup;
     private JButton btnExit;
     
+    private boolean isLoading;
     private boolean saved;
     /**
      * Create the panel.
@@ -259,6 +260,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         int ret = fileChooser.showOpenDialog(this);
         if (ret == JFileChooser.APPROVE_OPTION) {
             try {
+                isLoading = true;
                 map.loadMap(new String(Files.readAllBytes(fileChooser.getSelectedFile().toPath())));
                 columnCount.setValue(map.getColumnCount());
                 rowCount.setValue(map.getRowCount());
@@ -269,6 +271,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                         "Impossible de lire le fichier demandé !",
                         "Erreur lors de la lecture",
                         JOptionPane.ERROR_MESSAGE);
+            } finally {
+                isLoading = false;
             }
         }
     }
@@ -293,9 +297,11 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @Override
     public void stateChanged(ChangeEvent e) {
         if (e.getSource() == columnCount || e.getSource() == rowCount) {
-            map.setsize((int) columnCount.getValue(), (int) rowCount.getValue());
-            updateMap();
-            saved = false;
+            if (!isLoading) {
+                map.setsize((int) columnCount.getValue(), (int) rowCount.getValue());
+                updateMap();
+                saved = false;
+            }
         }
         else if (e.getSource() == tileSize) {
             map.setTileSize((int) tileSize.getValue());
