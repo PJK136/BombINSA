@@ -75,13 +75,13 @@ public class KeyboardController implements Controller, KeyListener {
     public void keyPressed(KeyEvent e) {
         // A verifier si la condition est correcte ou pas ^^
         if(e.getKeyCode() == settings.right){
-            tabMemoire[0] = true;
+            tabMemoire[Direction.Right.ordinal()] = true;
         } else if(e.getKeyCode() == settings.up){
-            tabMemoire[1] = true;
-        } else if(e.getKeyCode() == settings.down){
-            tabMemoire[2] = true;
+            tabMemoire[Direction.Up.ordinal()] = true;
         } else if(e.getKeyCode() == settings.left){
-            tabMemoire[3] = true;
+            tabMemoire[Direction.Left.ordinal()] = true;
+        } else if(e.getKeyCode() == settings.down){
+            tabMemoire[Direction.Down.ordinal()] = true;
         } else if(e.getKeyCode() == settings.plantBomb){
             tabMemoire[4] = true;
         }
@@ -92,13 +92,13 @@ public class KeyboardController implements Controller, KeyListener {
     public void keyReleased(KeyEvent e) {
         // TODO Auto-generated method stub
         if(e.getKeyCode() == settings.right){
-            tabMemoire[0] = false;
+            tabMemoire[Direction.Right.ordinal()] = false;
         } else if(e.getKeyCode() == settings.up){
-            tabMemoire[1] = false;
-        } else if(e.getKeyCode() == settings.down){
-            tabMemoire[2] = false;
+            tabMemoire[Direction.Up.ordinal()] = false;
         } else if(e.getKeyCode() == settings.left){
-            tabMemoire[3] = false;
+            tabMemoire[Direction.Left.ordinal()] = false;
+        } else if(e.getKeyCode() == settings.down){
+            tabMemoire[Direction.Down.ordinal()] = false;
         } else if(e.getKeyCode() == settings.plantBomb){
             tabMemoire[4] = false;
         }
