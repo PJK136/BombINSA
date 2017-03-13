@@ -21,13 +21,13 @@ public class Server extends World {
     static final int START_RANGE = 1;
 
     @objid ("d92377a2-aad4-4982-9040-3f2145155a66")
-     static final int START_INVULNERABITY_DURATION = 1;
+     static final double START_INVULNERABITY_DURATION = 1;
 
     @objid ("e291da2d-3413-4c04-9354-a2bdfd92e336")
-    static final int TIME_BEFORE_EXPLOSION = 5;
+    static final double TIME_BEFORE_EXPLOSION = 3;
 
     @objid ("751024b2-9b44-4803-a99b-325fd609fbd3")
-    static final int EXPLOSION_DURATION = 1;
+    static final double EXPLOSION_DURATION = 0.3;
 
     @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")
      String mapFileName = new String();
@@ -100,7 +100,13 @@ public class Server extends World {
             return;
         
         int count = getPlayerCount() % map.spawningLocations.size();
-        Player player = new Player(this, (map.spawningLocations.get(count).x+0.5)*map.tileSize, (map.spawningLocations.get(count).y+0.5)*map.tileSize, controller, START_LIVES, START_BOMB_MAX, START_RANGE, START_INVULNERABITY_DURATION*fps);
+        Player player = new Player(this, map.toCenterX(map.spawningLocations.get(count)),
+                                         map.toCenterY(map.spawningLocations.get(count)),
+                                         controller,
+                                         START_LIVES,
+                                         START_BOMB_MAX,
+                                         START_RANGE,
+                                         (int)(START_INVULNERABITY_DURATION*fps));
         addEntity(player);
         controller.setPlayer(player);
         controller.setWorldView(this);
@@ -135,7 +141,7 @@ public class Server extends World {
         
         //update of the new bombs
         for(Player player : queuePlayer){
-            addEntity(new Bomb(this, player, TIME_BEFORE_EXPLOSION*fps));
+            addEntity(new Bomb(this, player, (int)(TIME_BEFORE_EXPLOSION*fps)));
         }
         
         //update of the bonus
@@ -150,12 +156,12 @@ public class Server extends World {
             GridCoordinates explosionGC = new GridCoordinates(bombGC);
             boolean collide = false;
             
-            map.setExplosion(EXPLOSION_DURATION*fps, ExplosionType.Center, null, explosionGC);
+            map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Center, null, explosionGC);
             
             for (explosionGC.x = bombGC.x-1;
                  explosionGC.x >= Math.max(0, bombGC.x-bomb.getRange()) && !collide;
                  explosionGC.x--) {
-                map.setExplosion(EXPLOSION_DURATION*fps, ExplosionType.Branch, Direction.Left, explosionGC);
+                map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, Direction.Left, explosionGC);
                 collide = map.isCollidable(explosionGC);
             }
             if (!map.isInsideMap(explosionGC) || !map.isExploding(explosionGC)) {
@@ -167,7 +173,7 @@ public class Server extends World {
             for (explosionGC.x = bombGC.x+1;
                  explosionGC.x <= Math.min(map.getColumnCount()-1, bombGC.x+bomb.getRange()) && !collide;
                  explosionGC.x++) {
-                map.setExplosion(EXPLOSION_DURATION*fps, ExplosionType.Branch, Direction.Right, explosionGC);
+                map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, Direction.Right, explosionGC);
                 collide = map.isCollidable(explosionGC);
             }
             if (!map.isInsideMap(explosionGC) || !map.isExploding(explosionGC)) {
@@ -180,7 +186,7 @@ public class Server extends World {
             for (explosionGC.y = bombGC.y-1;
                  explosionGC.y >= Math.max(0, bombGC.y-bomb.getRange()) && !collide;
                  explosionGC.y--) {
-                map.setExplosion(EXPLOSION_DURATION*fps, ExplosionType.Branch, Direction.Up, explosionGC);
+                map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, Direction.Up, explosionGC);
                 collide = map.isCollidable(explosionGC);
             }
             if (!map.isInsideMap(explosionGC) || !map.isExploding(explosionGC)) {
@@ -192,7 +198,7 @@ public class Server extends World {
             for (explosionGC.y = bombGC.y+1;
                  explosionGC.y <= Math.min(map.getRowCount()-1, bombGC.y+bomb.getRange()) && !collide;
                  explosionGC.y++) {
-                map.setExplosion(EXPLOSION_DURATION*fps, ExplosionType.Branch, Direction.Down, explosionGC);
+                map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, Direction.Down, explosionGC);
                 collide = map.isCollidable(explosionGC);
             }
             if (!map.isInsideMap(explosionGC) || !map.isExploding(explosionGC)) {
