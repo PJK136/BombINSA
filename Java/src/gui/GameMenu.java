@@ -7,20 +7,30 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("1792b20d-e79e-4f35-8f63-20089eca61f0")
 public class GameMenu extends JPanel implements ActionListener {
     @objid ("0f381cf0-820f-41e4-95c2-1b2a1fc2f810")
-    public static final String SETTINGS_FILENAME = "settings.conf";
+    public static final String SETTINGS_FILENAME = "settings.json";
 
     @objid ("a39767d1-eca3-41c4-85d7-7d0bde3a14cc")
     private MainWindow mainWindow;
@@ -56,7 +66,12 @@ public class GameMenu extends JPanel implements ActionListener {
     public GameMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         this.settings = new GameSettings();
-        this.settings.load(SETTINGS_FILENAME);
+        try {
+            this.settings = GameSettings.load(SETTINGS_FILENAME);
+        } catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{0, 0, 0, 25, 0, 64, 0, 0};
@@ -223,14 +238,20 @@ public class GameMenu extends JPanel implements ActionListener {
     @objid ("3c87a9f3-8dd6-480e-a2ae-5e1534c8c5a2")
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (event.getSource() == btnReturn) {
+        if (event.getSource() == btnReturn || event.getSource() == btnPlay) {
             updateGameSettings();
-            settings.save(SETTINGS_FILENAME);
-            mainWindow.showMenu();
-        }
-        else if (event.getSource() == btnPlay) {
-            updateGameSettings();
-            settings.save(SETTINGS_FILENAME);
+            try {
+                settings.save(SETTINGS_FILENAME);
+            } catch (FileNotFoundException e) {
+                JOptionPane.showMessageDialog(this,
+                        "Impossible de sauvegarder la configuration actuelle dans " + SETTINGS_FILENAME + " !",
+                        "Erreur lors de la sauvegarde",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            
+            if (event.getSource() == btnReturn)
+                mainWindow.showMenu();
+            else
             mainWindow.startGame(settings);
         }
     }

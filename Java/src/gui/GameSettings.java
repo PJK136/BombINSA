@@ -1,7 +1,17 @@
 package gui;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("8b53145e-40f1-4120-b590-417a35a7feb5")
@@ -49,11 +59,17 @@ public class GameSettings {
     }
 
     @objid ("f454de1c-cf21-4345-acd1-5debae4eb46b")
-    public void load(String filename) {
+    public static GameSettings load(String filename) throws JsonSyntaxException, JsonIOException, FileNotFoundException {
+        Gson gson = new Gson();
+        return gson.fromJson(new FileReader(new File(filename)), GameSettings.class);
     }
 
     @objid ("a03739e2-2ae7-4c62-a7b3-0d2edbd4412a")
-    public void save(String filename) {
+    public void save(String filename) throws FileNotFoundException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        PrintWriter printWriter = new PrintWriter(filename);
+        printWriter.write(gson.toJson(this));
+        printWriter.close();
     }
 
 }
