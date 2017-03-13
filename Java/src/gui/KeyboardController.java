@@ -25,7 +25,7 @@ public class KeyboardController implements Controller, KeyListener {
     public KeyboardController(ControlSettings settings) {
         this.settings = settings;
         tabMemoire = new boolean[5];
-        //case 0 : D - case 1 : Z - case 2 : S - case 3 : Q - case 4 : ESPACE 
+        //case 0 : D - case 1 : Z - case 2 : Q - case 3 : S - case 4 : ESPACE 
     }
 
     @objid ("5da90aab-5452-4e19-8f6e-f4c0ad78b77d")
