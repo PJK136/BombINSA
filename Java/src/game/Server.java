@@ -97,7 +97,7 @@ public class Server extends World {
         if (map.spawningLocations.size() == 0)
             return;
         
-        int count = getPlayerCount() % map.spawningLocations.size();
+        int count = getPlayerAliveCount() % map.spawningLocations.size();
         Player player = new Player(this, map.toCenterX(map.spawningLocations.get(count)),
                                          map.toCenterY(map.spawningLocations.get(count)),
                                          controller,
