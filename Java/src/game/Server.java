@@ -133,7 +133,7 @@ public class Server extends World {
             while(!bombPlanted){
                 GridCoordinates gcRnd = map.toGridCoordinates(Math.random()*map.getWidth(), Math.random()*map.getHeight());
                 if(map.getTileType(gcRnd) == TileType.Empty){
-                    addEntity(new Bomb(this,gcRnd,4,TIME_BEFORE_EXPLOSION*fps));
+                    addEntity(new Bomb(this,gcRnd,4,(int)(TIME_BEFORE_EXPLOSION*fps)));
                     bombPlanted = true;
                 }
             }
