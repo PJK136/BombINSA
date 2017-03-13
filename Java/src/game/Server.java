@@ -131,7 +131,7 @@ public class Server extends World {
         bombPlanted = false;
         if(timeRemaining<0 && timeRemaining%fps == 0){
             while(!bombPlanted){
-                GridCoordinates gcRnd = map.toGridCoordinates(Math.random()*map.getWidth(), Math.random()*map.getHeight());
+                GridCoordinates gcRnd = new GridCoordinates((int)(Math.random()*map.getColumnCount()), (int)(Math.random()*map.getRowCount()));
                 if(map.getTileType(gcRnd) == TileType.Empty){
                     addEntity(new Bomb(this,gcRnd,4,(int)(TIME_BEFORE_EXPLOSION*fps)));
                     bombPlanted = true;
