@@ -174,10 +174,10 @@ public class Player extends Entity {
     }
     
     boolean canCollide(double x, double y){
-        if (!world.getMap().toGridCoordinates(this.x, this.y).equals(world.getMap().toGridCoordinates(x, y)) &&
-            world.getMap().hasBomb(x, y))
-            return true;
-        return super.canCollide(x, y);
+        if (!super.canCollide(x, y))
+            return !world.getMap().toGridCoordinates(this.x, this.y).equals(world.getMap().toGridCoordinates(x, y))
+                   && world.getMap().hasBomb(x, y);
+        return true;
     }
 
     @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")

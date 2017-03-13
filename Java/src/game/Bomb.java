@@ -98,11 +98,14 @@ public class Bomb extends Entity {
     
     @Override
     boolean canCollide(double x, double y) {
-        for (Entity entity : world.getMap().getEntities(x, y)) {
-            if (entity != this) {
-                return true;
+        if (!super.canCollide(x, y)) {
+            for (Entity entity : world.getMap().getEntities(x, y)) {
+                if (entity != this) {
+                    return true;
+                }
             }
+            return false;
         }
-        return super.canCollide(x, y);
+        return true;
     }
 }

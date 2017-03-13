@@ -1,7 +1,5 @@
 package game;
 
-import java.time.chrono.IsoChronology;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("c2a5ec32-8fb5-4eea-beff-33ee327f4352")
