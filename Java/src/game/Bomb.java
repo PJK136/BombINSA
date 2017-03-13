@@ -17,7 +17,7 @@ public class Bomb extends Entity {
     
     @objid ("f9841259-647d-4cd7-9bb7-f10aea5a4794")
     public Bomb(World world, GridCoordinates gc, int range, int duration) {
-        super(world, (gc.x+0.5)*world.getMap().getTileSize(), (gc.y+0.5)*world.getMap().getTileSize());
+        super(world, world.getMap().toCenterX(gc), world.getMap().toCenterY(gc));
         this.range = range;
         this.timeRemaining = duration;
     }

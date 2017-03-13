@@ -79,6 +79,16 @@ public class Map implements MapView {
         return new GridCoordinates(X, Y);
     }
     
+    @Override
+    public double toCenterX(GridCoordinates gc) {
+        return (gc.x+0.5)*tileSize;
+    }
+    
+    @Override
+    public double toCenterY(GridCoordinates gc) {
+        return (gc.y+0.5)*tileSize;
+    }
+    
     public boolean isCollidable(GridCoordinates gc) {
         if (!isInsideMap(gc))
             return true;

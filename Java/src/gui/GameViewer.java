@@ -215,17 +215,17 @@ public class GameViewer extends JPanel {
                 GridCoordinates gc = spawningLocations.get(i);
                 g.drawOval(gc.x*map.getTileSize(), gc.y*map.getTileSize(), map.getTileSize(), map.getTileSize());
                 
-                drawCenteredString(g, String.valueOf(i), (int)((gc.x+0.5)*map.getTileSize()), (int)((gc.y+0.5)*map.getTileSize()));
+                drawCenteredString(g, String.valueOf(i), (int)map.toCenterX(gc), (int)map.toCenterY(gc));
             }
         }
         
         if (entities != null) {
             for (Entity entity : entities) {
                 if (entity instanceof Bomb) {
-                    g.drawImage(cacheBombs[0], (int)(entity.getX()-map.getTileSize()/2), (int)(entity.getY()-map.getTileSize()/2), this);
+                    g.drawImage(cacheBombs[0], (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
                 }
                 else
-                    g.fillOval((int)(entity.getX()-map.getTileSize()/2.), (int)(entity.getY()-map.getTileSize()/2.), map.getTileSize(), map.getTileSize());
+                    g.fillOval((int)entity.getBorderLeft(), (int)entity.getBorderTop(), map.getTileSize(), map.getTileSize());
             }
         }
         

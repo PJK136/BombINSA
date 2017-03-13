@@ -157,24 +157,24 @@ public abstract class Entity {
         case Left:
             this.x -= this.speed;
             if (canCollide(getBorderLeft(), getBorderTop()) || canCollide(getBorderLeft(), getBorderDown())) {
-                this.y = (world.getMap().toGridCoordinates(x, y).y+0.5)*world.getMap().getTileSize();
+                this.y = world.getMap().toCenterY(world.getMap().toGridCoordinates(x, y));
             }
             break;
         case Right:
             this.x += this.speed;
             if (canCollide(getBorderRight(), getBorderTop()) || canCollide(getBorderRight(), getBorderDown())) {
-                this.y = (world.getMap().toGridCoordinates(x, y).y+0.5)*world.getMap().getTileSize();
+                this.y = world.getMap().toCenterY(world.getMap().toGridCoordinates(x, y));
             }
             break;
         case Up:
             this.y -= this.speed;
             if (canCollide(getBorderLeft(), getBorderTop()) || canCollide(getBorderRight(), getBorderTop())) {
-                this.x = (world.getMap().toGridCoordinates(x, y).x+0.5)*world.getMap().getTileSize();
+                this.x =  world.getMap().toCenterX(world.getMap().toGridCoordinates(x, y));
             }
             break;
         case Down:
             if (canCollide(getBorderLeft(), getBorderDown()) || canCollide(getBorderRight(), getBorderDown())) {
-                this.x = (world.getMap().toGridCoordinates(x, y).x+0.5)*world.getMap().getTileSize();
+                this.x =  world.getMap().toCenterX(world.getMap().toGridCoordinates(x, y));
             }
             this.y += this.speed;
             break;
