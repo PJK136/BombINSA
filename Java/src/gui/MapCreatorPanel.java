@@ -288,7 +288,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             } catch (FileNotFoundException e) {
                 JOptionPane.showMessageDialog(this,
                         "Impossible de sauvegarder dans le fichier spécifié !",
-                        "Erreur lors de la sauvegarder",
+                        "Erreur lors de la sauvegarde",
                         JOptionPane.ERROR_MESSAGE);
             }
         }
