@@ -23,6 +23,9 @@ public interface MapView {
     @objid ("f966b298-131f-4a66-b7f3-23dee860247f")
     GridCoordinates toGridCoordinates(double x, double y);
 
+    boolean isInsideMap(GridCoordinates gc);
+    
+    boolean isInsideMap(double x, double y);
     
     boolean isCollidable(GridCoordinates gc);
     
