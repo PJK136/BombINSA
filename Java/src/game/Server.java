@@ -40,6 +40,8 @@ public class Server extends World {
 
     @objid ("d09dce2a-6ccc-4d37-838d-8a1f201d7b56")
      Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
+    
+    boolean bombPlanted;
 
     @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
     public Server(String mapFilename, int tileSize, int fps, int duration) throws Exception {
@@ -119,6 +121,18 @@ public class Server extends World {
         //update of the map
         map.update();
         
+        //sudden death case
+        bombPlanted = false;
+        if(timeRemaining<0 && timeRemaining%fps == 0){
+            while(!bombPlanted){
+                GridCoordinates gcRnd = map.toGridCoordinates(Math.random()*map.getWidth(), Math.random()*map.getHeight());
+                if(map.getTileType(gcRnd) == TileType.Empty){
+                    addEntity(new Bomb(this,gcRnd,4,TIME_BEFORE_EXPLOSION*fps));
+                    bombPlanted = true;
+                }
+            }
+        }
+        
         //update of the new bombs
         for(Player player : queuePlayer){
             addEntity(new Bomb(this, player, TIME_BEFORE_EXPLOSION*fps));
@@ -186,6 +200,7 @@ public class Server extends World {
                 map.setExplosionEnd(explosionGC);
             }
         }
+        
         //clearing all the queue lists
         queuePlayer.clear();
         queueBomb.clear();
@@ -209,11 +224,11 @@ public class Server extends World {
         loadMap(mapFileName);
     }
 
-    @objid ("b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e")
+    /*@objid ("b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e")
     @Override
     void plantBomb(double x, double y, int range) {
-        // TODO Auto-generated method stub
-    }
+        not really necessary for the moment
+    }*/
 
     @objid ("b13fef2c-1897-428c-871d-8a201627e755")
     @Override
