@@ -21,7 +21,7 @@ public class OrientedSprite extends Sprite {
     }
 
     @Override
-    void setSize(int size) {
+    public void setSize(int size) {
         super.setSize(size);
         
         for (int i = 0; i < directions.length; i++) {

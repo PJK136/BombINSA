@@ -11,17 +11,21 @@ public class Sprite {
         this.src = src;
     }
     
-    void setSize(int size) {
+    public int getSize() {
+        return cache.getWidth(null);
+    }
+    
+    public void setSize(int size) {
         if (cache == null || cache.getWidth(null) != size || cache.getHeight(null) != size) {
             cache = src.getScaledInstance(size, size, Image.SCALE_SMOOTH);
         }
     }
     
-    Image getImage() {
+    public Image getImage() {
         return cache;
     }
     
-    Image getImage(int size) {
+    public Image getImage(int size) {
         setSize(size);
         return cache;
     }

@@ -104,9 +104,10 @@ public class MainMenu extends JPanel implements ActionListener {
     }
     
     public void paintComponent(Graphics g){
-        wallPaperSprite.setSize(lblWallpaper.getHeight());
-        ImageIcon wallPaper = new ImageIcon(wallPaperSprite.getImage());
-        lblWallpaper.setIcon(wallPaper);
+        if (lblWallpaper.getHeight() != wallPaperSprite.getSize()) {
+            ImageIcon wallPaper = new ImageIcon(wallPaperSprite.getImage(lblWallpaper.getHeight()));
+            lblWallpaper.setIcon(wallPaper);
+        }
         super.paintComponent(g);
     }
 
