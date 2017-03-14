@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.LinkedList;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.Controller;
 import game.Direction;
@@ -16,16 +18,20 @@ public class KeyboardController implements Controller, KeyListener {
      *   
      *   
      */
+    
     @objid ("a93e8c2e-c054-4934-923f-acac72ff257c")
     private ControlSettings settings;
     
-    private boolean tabMemoire[];
+    private LinkedList<Integer> keysPressed ;
+    
+    private boolean bombing;
+    
+  
 
     @objid ("2c9abb5b-b9fc-4226-bee5-6df775a5d20d")
     public KeyboardController(ControlSettings settings) {
         this.settings = settings;
-        tabMemoire = new boolean[5];
-        //case 0 : D - case 1 : Z - case 2 : Q - case 3 : S - case 4 : ESPACE 
+        bombing = false;
     }
 
     @objid ("5da90aab-5452-4e19-8f6e-f4c0ad78b77d")
@@ -44,24 +50,14 @@ public class KeyboardController implements Controller, KeyListener {
     @Override
     public Direction getDirection() {
         // renvoie la direction qui correspond a la touche qui est enfoncée
-        for(int i=0; i<tabMemoire.length-1;i++){
-            if(tabMemoire[i]){
-                return Direction.values()[i];
-            }
-        }
-        return null;
+        return Direction.values()[keysPressed.getFirst()];
     }
 
     @objid ("39549206-ede1-4d8e-bdb7-8f5010446eb7")
     @Override
     public boolean isPlantingBomb() {
-        // renvoie oui si on a appuyé sur espace et a la fin de la méthode ca enleve le conteur qui dit qu'on a appuyé sur espace
-        if (tabMemoire[4]){
-            tabMemoire[4] = false;
-            return true;
-        } else {
-            return false;
-        }
+        return bombing;
+
     }
 
     @objid ("257910dc-1922-4e33-8c1b-78cf3a30f0b4")
@@ -75,39 +71,37 @@ public class KeyboardController implements Controller, KeyListener {
     public void keyPressed(KeyEvent e) {
         // A verifier si la condition est correcte ou pas ^^
         if(e.getKeyCode() == settings.right){
-            tabMemoire[Direction.Right.ordinal()] = true;
+            keysPressed.addFirst(Direction.Right.ordinal());
         } else if(e.getKeyCode() == settings.up){
-            tabMemoire[Direction.Up.ordinal()] = true;
+            keysPressed.addFirst(Direction.Up.ordinal());
         } else if(e.getKeyCode() == settings.left){
-            tabMemoire[Direction.Left.ordinal()] = true;
+            keysPressed.addFirst(Direction.Left.ordinal());
         } else if(e.getKeyCode() == settings.down){
-            tabMemoire[Direction.Down.ordinal()] = true;
+            keysPressed.addFirst(Direction.Down.ordinal());
         } else if(e.getKeyCode() == settings.plantBomb){
-            tabMemoire[4] = true;
+            bombing = true;
         }
     }
 
     @objid ("2aeea9b7-3dee-4dd7-887d-4c312c79010f")
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
         if(e.getKeyCode() == settings.right){
-            tabMemoire[Direction.Right.ordinal()] = false;
+            keysPressed.remove(Direction.Right.ordinal());
         } else if(e.getKeyCode() == settings.up){
-            tabMemoire[Direction.Up.ordinal()] = false;
+            keysPressed.remove(Direction.Up.ordinal());
         } else if(e.getKeyCode() == settings.left){
-            tabMemoire[Direction.Left.ordinal()] = false;
+            keysPressed.remove(Direction.Left.ordinal());
         } else if(e.getKeyCode() == settings.down){
-            tabMemoire[Direction.Down.ordinal()] = false;
+            keysPressed.remove(Direction.Down.ordinal());
         } else if(e.getKeyCode() == settings.plantBomb){
-            tabMemoire[4] = false;
+            bombing = false;
         }
     }
 
     @objid ("33d4b5b5-aade-4cf8-94ad-41eba98f283d")
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
     }
 
 }
