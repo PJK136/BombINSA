@@ -69,8 +69,7 @@ public class GameMenu extends JPanel implements ActionListener {
         try {
             this.settings = GameSettings.load(SETTINGS_FILENAME);
         } catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.err.println("Impossible de lire " + SETTINGS_FILENAME);
         }
         
         GridBagLayout gridBagLayout = new GridBagLayout();
