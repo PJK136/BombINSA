@@ -22,3 +22,8 @@ hs_err_pid*
 # compile files
 /Java/bin/
 /Java/src/bombinsa.xml
+
+# game generated
+/Java/settings.json
+/Java/*.map
+
