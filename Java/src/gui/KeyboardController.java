@@ -78,14 +78,17 @@ public class KeyboardController implements Controller, KeyListener {
     @objid ("3d5514a6-86cc-49d2-8723-289056c0be41")
     @Override
     public void keyPressed(KeyEvent e) {
-        // A verifier si la condition est correcte ou pas ^^
         if(e.getKeyCode() == settings.right){
+            keysPressed.remove((Integer)(Direction.Right.ordinal())); //fais en sorte qu'il y ai au maximum 1 exemplaire dans la liste sinon ca bug..
             keysPressed.addFirst(Direction.Right.ordinal());
         } else if(e.getKeyCode() == settings.up){
+            keysPressed.remove((Integer)(Direction.Up.ordinal()));
             keysPressed.addFirst(Direction.Up.ordinal());
         } else if(e.getKeyCode() == settings.left){
+            keysPressed.remove((Integer)(Direction.Left.ordinal()));
             keysPressed.addFirst(Direction.Left.ordinal());
         } else if(e.getKeyCode() == settings.down){
+            keysPressed.remove((Integer)(Direction.Down.ordinal()));
             keysPressed.addFirst(Direction.Down.ordinal());
         } else if(e.getKeyCode() == settings.plantBomb){
             bombing = true;
