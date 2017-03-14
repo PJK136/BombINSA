@@ -33,7 +33,7 @@ public class OrientedSprite extends Sprite {
                 // last-in-first-applied: rotate, scale
                 scaleTransform.scale(size/w, size/h);
                 scaleTransform.rotate(-i*Math.PI/2, w/2, h/2);
-                AffineTransformOp scaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
+                AffineTransformOp scaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BICUBIC);
                 directions[i] = scaleOp.filter(src, null);
             }
         }

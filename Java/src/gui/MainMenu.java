@@ -57,6 +57,7 @@ public class MainMenu extends JPanel implements ActionListener {
         add(lblWallpaper, BorderLayout.CENTER);
         
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setPreferredSize(new Dimension(300, buttonPanel.getPreferredSize().height));
         
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         
@@ -104,8 +105,9 @@ public class MainMenu extends JPanel implements ActionListener {
     }
     
     public void paintComponent(Graphics g){
-        if (lblWallpaper.getHeight() != wallPaperSprite.getSize()) {
-            ImageIcon wallPaper = new ImageIcon(wallPaperSprite.getImage(lblWallpaper.getHeight()));
+        int wallPaperSize = Math.max(lblWallpaper.getHeight(), lblWallpaper.getWidth());
+        if (wallPaperSize != wallPaperSprite.getSize()) {
+            ImageIcon wallPaper = new ImageIcon(wallPaperSprite.getImage(wallPaperSize));
             lblWallpaper.setIcon(wallPaper);
         }
         super.paintComponent(g);
