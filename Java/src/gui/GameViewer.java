@@ -12,8 +12,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -36,11 +34,11 @@ public class GameViewer extends JPanel {
     @objid ("12584c94-a9fc-48b1-bdf6-42c3345b8404")
     private BufferedImage world;
 
-    private ArrayList<BufferedImage> tiles;
-    private ArrayList<BufferedImage> bonuses;
-    private ArrayList<BufferedImage> players;
-    private ArrayList<BufferedImage> bombs;
-    private ArrayList<BufferedImage> explosions;
+    private BufferedImage[] tiles;
+    private BufferedImage[] bonuses;
+    private BufferedImage[][] players;
+    private BufferedImage[] bombs;
+    private BufferedImage[] explosions;
     
     private int cacheTileSize;
     private Image cacheTiles[];
@@ -60,37 +58,37 @@ public class GameViewer extends JPanel {
     
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
-        tiles = new ArrayList<BufferedImage>(TileType.values().length);
+        tiles = new BufferedImage[TileType.values().length];
         for (TileType type : TileType.values()) {
-            tiles.add(coalesce(readRessource(type.name().toLowerCase()),
-                      getDefaultTileImage(type)));
+            tiles[type.ordinal()] = coalesce(readRessource(type.name().toLowerCase()),
+                                             getDefaultTileImage(type));
         }
         
-        bonuses = new ArrayList<BufferedImage>(BonusType.values().length);
+        bonuses = new BufferedImage[BonusType.values().length];
         for (BonusType type : BonusType.values()) {
-            bonuses.add(coalesce(readRessource("bonus" + type.ordinal()), 
-                                 stringInSquare(256, 4, "B" + String.valueOf(type.ordinal())))); 
+            bonuses[type.ordinal()] = coalesce(readRessource("bonus" + type.ordinal()), 
+                                               stringInSquare(256, 4, "B" + String.valueOf(type.ordinal()))); 
         }
         
-        bombs = new ArrayList<BufferedImage>(2);
+        bombs = new BufferedImage[2];
         {
-            bombs.add(coalesce(readRessource("bomb"), stringInSquare(256, 0, "💣")));
-            bombs.add(coalesce(readRessource("bomb_exploding"), stringInSquare(256, 0, "💣", Color.red)));
+            bombs[0] = coalesce(readRessource("bomb"), stringInSquare(256, 0, "💣"));
+            bombs[1]= coalesce(readRessource("bomb_exploding"), stringInSquare(256, 0, "💣", Color.red));
         }
         
-        explosions = new ArrayList<BufferedImage>(ExplosionType.values().length);
+        explosions = new BufferedImage[ExplosionType.values().length];
         for (ExplosionType type : ExplosionType.values())
-            explosions.add(coalesce(readRessource("explosion_"+type.name().toLowerCase()),
-                                    stringInSquare(256, 0, "💥")));
+            explosions[type.ordinal()] = coalesce(readRessource("explosion_"+type.name().toLowerCase()),
+                                                                stringInSquare(256, 0, "💥"));
         
         showSpawningLocations = false;
         
         cacheTileSize = 0;
-        cacheTiles = new Image[tiles.size()];
-        cacheBonuses = new Image[bonuses.size()];
+        cacheTiles = new Image[tiles.length];
+        cacheBonuses = new Image[bonuses.length];
         cacheArrows = new Image[Direction.values().length];
-        cacheBombs = new Image[bombs.size()];
-        cacheExplosions = new Image[explosions.size()][Direction.values().length];
+        cacheBombs = new Image[bombs.length];
+        cacheExplosions = new Image[explosions.length][Direction.values().length];
         
         setFocusable(true);
     }
@@ -103,8 +101,8 @@ public class GameViewer extends JPanel {
             return null;
         }
     }
-    public List<BufferedImage> getTileImages() {
-        return Collections.unmodifiableList(tiles);
+    public BufferedImage[] getTileImages() {
+        return tiles;
     }
 
     private Color toColor(TileType type) {
@@ -245,9 +243,9 @@ public class GameViewer extends JPanel {
         }
     }
     
-    private void updateCache(ArrayList<BufferedImage> src, int size, Image[] cache) {
+    private void updateCache(BufferedImage[] src, int size, Image[] cache) {
         for (int i = 0; i < cache.length; i++) {
-            cache[i] = src.get(i).getScaledInstance(size, size, Image.SCALE_SMOOTH);
+            cache[i] = src[i].getScaledInstance(size, size, Image.SCALE_SMOOTH);
         }
     }
     
@@ -283,10 +281,10 @@ public class GameViewer extends JPanel {
         updateCache(bonuses, size, cacheBonuses);
         updateCache(bombs, size, cacheBombs);
         
-        cacheArrows = getAllScaledRotations(tiles.get(TileType.Arrow.ordinal()), size);
+        cacheArrows = getAllScaledRotations(tiles[TileType.Arrow.ordinal()], size);
         
         for (int i = 0; i < cacheExplosions.length; i++) {
-            cacheExplosions[i] = getAllScaledRotations(explosions.get(i), size);
+            cacheExplosions[i] = getAllScaledRotations(explosions[i], size);
         }
         
         cacheTileSize = size;
