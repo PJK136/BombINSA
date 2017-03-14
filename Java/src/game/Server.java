@@ -219,14 +219,17 @@ public class Server extends World {
         
         //Update kicks
         for (Entry<Bomb, Direction> entry : queueKickBomb.entrySet()) {
-            entry.getKey().setDirection(entry.getValue());
-            entry.getKey().setSpeed(Bomb.BOMB_DEFAULT_SPEED*map.getTileSize()/getFps());
+            if (entry.getValue() != null) {
+                entry.getKey().setDirection(entry.getValue());
+                entry.getKey().setSpeed(Bomb.BOMB_DEFAULT_SPEED*map.getTileSize()/getFps());
+            }
         }
         
         //clearing all the queue lists
         queuePlayer.clear();
         queueBomb.clear();
         queueBonus.clear();
+        queueKickBomb.clear();
         
         //update of timeRemaining
         timeRemaining -= 1;
@@ -272,7 +275,12 @@ public class Server extends World {
     
     @Override
     void kickBomb(Bomb bomb, Direction direction) {
-        queueKickBomb.put(bomb, direction);
+        if (queueKickBomb.containsKey(bomb)) {
+            //Si plusieurs joueurs veulent pousser la bombe mais pas dans le même sens
+            if (queueKickBomb.get(bomb) != direction)
+                queueKickBomb.put(bomb, null);
+        } else
+            queueKickBomb.put(bomb, direction);
     }
     
     private void addEntity(Entity entity) {
