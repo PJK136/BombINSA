@@ -1,6 +1,6 @@
 package game;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -12,7 +12,7 @@ public abstract class Tile {
     Direction explosionDirection;
 
     @objid ("2f216b30-27c8-4022-ad19-dbd71146cfd8")
-    protected List<Entity> entities = new ArrayList<Entity> ();
+    protected List<Entity> entities = new LinkedList<Entity> ();
 
     @objid ("f4911fdc-1c7c-45f9-80e8-3af86c75d6bb")
      Map map;
