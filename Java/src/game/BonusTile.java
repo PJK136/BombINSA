@@ -46,9 +46,19 @@ public class BonusTile extends Tile {
     }
     
     public static BonusType randomBonus(){
-        BonusType types[] = BonusType.values();
-        int type = (int)((types.length-1)*Math.random()+1);
-        return types[type];
+        double random = Math.random();
+        double summ = 0;
+        BonusType[] bonusList = BonusType.values();
+        for (int i=0; i<bonusList.length; i++){
+            if(random<summ+bonusList[i].getLootRate()){
+                return bonusList[i];
+            } else {
+                summ = summ + bonusList[i].getLootRate();
+            }
+        }
+        System.out.println("Problème  " + summ);
+        return BonusType.Random;
+        
     }
 
 }
