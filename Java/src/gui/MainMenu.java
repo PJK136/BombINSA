@@ -1,12 +1,21 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,37 +34,58 @@ public class MainMenu extends JPanel implements ActionListener {
 
     @objid ("cb8bf489-916e-4b78-a5d9-44be8855f17f")
     private MainWindow mainWindow;
+    
+    private JLabel lblWallpaper;
+    private Sprite wallPaperSprite;
 
     @objid ("a31a2175-f166-434f-b6fd-96a25b344584")
     public MainMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout(0,0));
         
-        add(Box.createVerticalGlue());
+        lblWallpaper = new JLabel();
+        try {
+            BufferedImage wallPaperImage = ImageIO.read(new File("img/wallPaper.png"));
+            wallPaperSprite = new Sprite(wallPaperImage);
+            wallPaperSprite.setSize(100);
+            ImageIcon wallPaper = new ImageIcon(wallPaperSprite.getImage());
+            lblWallpaper.setIcon(wallPaper);
+        } catch (IOException e) {
+            System.err.println("Can't find wallPaper.png");
+        }
+        add(lblWallpaper, BorderLayout.CENTER);
+        
+        JPanel buttonPanel = new JPanel();
+        
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        
+        buttonPanel.add(Box.createVerticalGlue());
         
         JLabel lblBombinsa = new JLabel("BombINSA");
         lblBombinsa.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lblBombinsa.setFont(new Font("Dialog", Font.BOLD, 72));
-        add(lblBombinsa);
+        lblBombinsa.setFont(new Font("Dialog", Font.BOLD, 36));
+        buttonPanel.add(lblBombinsa);
         
-        add(Box.createVerticalStrut(40));
+        buttonPanel.add(Box.createVerticalStrut(40));
         
-        btnPlay = addButton("Jouer");
-        btnCreator = addButton("Créateur de carte");
-        btnQuit = addButton("Quitter");
+        btnPlay = addButton("Jouer",buttonPanel);
+        btnCreator = addButton("Créateur de carte",buttonPanel);
+        btnQuit = addButton("Quitter",buttonPanel);
         
-        add(Box.createVerticalGlue());
+        buttonPanel.add(Box.createVerticalGlue());
+        
+        add(buttonPanel, BorderLayout.EAST);
     }
 
     @objid ("07a869f1-82e5-45c3-9ad9-a445c4aa7dde")
-    private JButton addButton(String text) {
+    private JButton addButton(String text, JPanel panel) {
         JButton button = new JButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setMaximumSize(new Dimension(160, button.getMaximumSize().height));
         button.addActionListener(this);
-        add(button);
-        add(Box.createVerticalStrut(20));
+        panel.add(button);
+        panel.add(Box.createVerticalStrut(20));
         return button;
     }
 
@@ -71,6 +101,13 @@ public class MainMenu extends JPanel implements ActionListener {
         else if (event.getSource() == btnQuit) {
             System.exit(0);
         }
+    }
+    
+    public void paintComponent(Graphics g){
+        wallPaperSprite.setSize(lblWallpaper.getHeight());
+        ImageIcon wallPaper = new ImageIcon(wallPaperSprite.getImage());
+        lblWallpaper.setIcon(wallPaper);
+        super.paintComponent(g);
     }
 
 }
