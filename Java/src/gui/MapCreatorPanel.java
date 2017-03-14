@@ -118,11 +118,11 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         add(gameViewer, BorderLayout.CENTER);
         
         tileTypeGroup = new ButtonGroup();
-        List<BufferedImage> tileImages = gameViewer.getTileImages();
+        Sprite[] tileImages = gameViewer.getTileSprites();
         for (TileType type : TileType.values()) {
             final int size = 20; // TODO : À ajuster ?
             JToggleButton button = new JToggleButton();
-            button.setIcon(new ImageIcon(tileImages.get(type.ordinal()).getScaledInstance(size, size, Image.SCALE_SMOOTH)));
+            button.setIcon(new ImageIcon(tileImages[type.ordinal()].getImage(size)));
             button.setActionCommand(type.name());
             tileTypeGroup.add(button);
             toolBar.add(button);           

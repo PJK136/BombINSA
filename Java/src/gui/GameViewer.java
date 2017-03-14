@@ -6,21 +6,20 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
 import java.awt.Graphics;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import game.Bomb;
 import game.BonusType;
-import game.Direction;
 import game.Entity;
 import game.ExplosionType;
 import game.GridCoordinates;
@@ -34,18 +33,13 @@ public class GameViewer extends JPanel {
     @objid ("12584c94-a9fc-48b1-bdf6-42c3345b8404")
     private BufferedImage world;
 
-    private BufferedImage[] tiles;
-    private BufferedImage[] bonuses;
-    private BufferedImage[][] players;
-    private BufferedImage[] bombs;
-    private BufferedImage[] explosions;
+    private Sprite[] tiles;
+    private Sprite[] bonuses;
+    private OrientedSprite[][] players;
+    private Sprite[] bombs;
+    private Sprite[] explosions;
     
     private int cacheTileSize;
-    private Image cacheTiles[];
-    private Image cacheBonuses[];
-    private Image cacheArrows[];
-    private Image cacheBombs[];
-    private Image cacheExplosions[][];
     
     boolean showSpawningLocations;
     
@@ -58,37 +52,43 @@ public class GameViewer extends JPanel {
     
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
-        tiles = new BufferedImage[TileType.values().length];
+        tiles = new Sprite[TileType.values().length];
         for (TileType type : TileType.values()) {
-            tiles[type.ordinal()] = coalesce(readRessource(type.name().toLowerCase()),
-                                             getDefaultTileImage(type));
+            if (type != TileType.Arrow)
+                tiles[type.ordinal()] = new Sprite(coalesce(readRessource(type.name().toLowerCase()),
+                                                   getDefaultTileImage(type)));
+            else
+                tiles[type.ordinal()] = new OrientedSprite(coalesce(readRessource(type.name().toLowerCase()),
+                                                                        getDefaultTileImage(type)));
         }
         
-        bonuses = new BufferedImage[BonusType.values().length];
+        bonuses = new Sprite[BonusType.values().length];
         for (BonusType type : BonusType.values()) {
-            bonuses[type.ordinal()] = coalesce(readRessource("bonus" + type.ordinal()), 
-                                               stringInSquare(256, 4, "B" + String.valueOf(type.ordinal()))); 
+            bonuses[type.ordinal()] = new Sprite(coalesce(readRessource("bonus" + type.ordinal()), 
+                                                          stringInSquare(256, 4, "B" + String.valueOf(type.ordinal())))); 
         }
         
-        bombs = new BufferedImage[2];
+        //players = new Buffered
+        
+        bombs = new Sprite[2];
         {
-            bombs[0] = coalesce(readRessource("bomb"), stringInSquare(256, 0, "💣"));
-            bombs[1]= coalesce(readRessource("bomb_exploding"), stringInSquare(256, 0, "💣", Color.red));
+            bombs[0] = new Sprite(coalesce(readRessource("bomb"), stringInSquare(256, 0, "💣")));
+            bombs[1]= new Sprite(coalesce(readRessource("bomb_exploding"), stringInSquare(256, 0, "💣", Color.red)));
         }
         
-        explosions = new BufferedImage[ExplosionType.values().length];
-        for (ExplosionType type : ExplosionType.values())
-            explosions[type.ordinal()] = coalesce(readRessource("explosion_"+type.name().toLowerCase()),
-                                                                stringInSquare(256, 0, "💥"));
+        explosions = new Sprite[ExplosionType.values().length];
+        for (ExplosionType type : ExplosionType.values()) {
+            if (type == ExplosionType.Center)
+                explosions[type.ordinal()] = new Sprite(coalesce(readRessource("explosion_"+type.name().toLowerCase()),
+                                                                 stringInSquare(256, 0, "💥")));
+            else
+                explosions[type.ordinal()] = new OrientedSprite(coalesce(readRessource("explosion_"+type.name().toLowerCase()),
+                                                                             stringInSquare(256, 0, "💥")));
+        }
         
         showSpawningLocations = false;
         
         cacheTileSize = 0;
-        cacheTiles = new Image[tiles.length];
-        cacheBonuses = new Image[bonuses.length];
-        cacheArrows = new Image[Direction.values().length];
-        cacheBombs = new Image[bombs.length];
-        cacheExplosions = new Image[explosions.length][Direction.values().length];
         
         setFocusable(true);
     }
@@ -101,8 +101,9 @@ public class GameViewer extends JPanel {
             return null;
         }
     }
-    public BufferedImage[] getTileImages() {
-        return tiles;
+    
+    public Sprite[] getTileSprites() {
+        return Arrays.copyOf(tiles, tiles.length);
     }
 
     private Color toColor(TileType type) {
@@ -193,20 +194,20 @@ public class GameViewer extends JPanel {
                 for (gc.y = 0; gc.y < map.getRowCount(); gc.y++) {
                     Image image;
                     if (map.getTileType(gc) == TileType.Bonus) {
-                        image = cacheBonuses[map.getBonusType(gc).ordinal()]; 
+                        image = bonuses[map.getBonusType(gc).ordinal()].getImage(); 
                     } else if (map.getTileType(gc) == TileType.Arrow) {
-                        image = cacheArrows[map.getArrowDirection(gc).ordinal()];
+                        image = ((OrientedSprite)tiles[TileType.Arrow.ordinal()]).getOrientedImage(map.getArrowDirection(gc));
                     } else
-                        image = cacheTiles[map.getTileType(gc).ordinal()];
+                        image = tiles[map.getTileType(gc).ordinal()].getImage();
                     
                     g.drawImage(image, gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
                     
                     if (map.isExploding(gc)) {
                         if (map.getExplosionType(gc) != ExplosionType.Center)
-                            g.drawImage(cacheExplosions[map.getExplosionType(gc).ordinal()][map.getExplosionDirection(gc).ordinal()],
+                            g.drawImage(((OrientedSprite)explosions[map.getExplosionType(gc).ordinal()]).getOrientedImage(map.getExplosionDirection(gc)),
                                         gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
                         else
-                            g.drawImage(cacheExplosions[map.getExplosionType(gc).ordinal()][0],
+                            g.drawImage(explosions[ExplosionType.Center.ordinal()].getImage(),
                                         gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
                     }
                 }
@@ -232,9 +233,9 @@ public class GameViewer extends JPanel {
                 if (entityType.isInstance(entity)) {
                     if (entityType.equals(Bomb.class)) { 
                         if (((Bomb)entity).getTimeRemaining() % (2*BOMB_BLINK_INTERVAL*worldView.getFps()) >= BOMB_BLINK_INTERVAL*worldView.getFps())
-                            g.drawImage(cacheBombs[0], (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
+                            g.drawImage(bombs[0].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
                         else
-                            g.drawImage(cacheBombs[1], (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
+                            g.drawImage(bombs[1].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
                     }
                     else //if (entityType.equals(Player.class))
                         g.fillOval((int)entity.getBorderLeft(), (int)entity.getBorderTop(), map.getTileSize(), map.getTileSize());
@@ -242,12 +243,7 @@ public class GameViewer extends JPanel {
             }
         }
     }
-    
-    private void updateCache(BufferedImage[] src, int size, Image[] cache) {
-        for (int i = 0; i < cache.length; i++) {
-            cache[i] = src[i].getScaledInstance(size, size, Image.SCALE_SMOOTH);
-        }
-    }
+
     
     private void updateDisplay(BufferedImage newWorld) {
         if (world == null || (world.getWidth() != newWorld.getWidth() || world.getHeight() != newWorld.getHeight())) {
@@ -260,31 +256,10 @@ public class GameViewer extends JPanel {
         }
     }
     
-    private Image[] getAllScaledRotations(BufferedImage src, int size) {
-        Image[] ret = new Image[4];
-        for (int i = 0; i < ret.length; i++) {
-            // http://stackoverflow.com/questions/2245869/resize-jcomponent-for-file-export/2246484#2246484
-            double w = src.getWidth();
-            double h = src.getHeight();
-            AffineTransform scaleTransform = new AffineTransform();
-            // last-in-first-applied: rotate, scale
-            scaleTransform.scale(size/w, size/h);
-            scaleTransform.rotate(-i*Math.PI/2, w/2, h/2);
-            AffineTransformOp scaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
-            ret[i] = scaleOp.filter(src, null);
-        }
-        return ret;
-    }
-    
     private void updateCaches(int size) {
-        updateCache(tiles, size, cacheTiles);
-        updateCache(bonuses, size, cacheBonuses);
-        updateCache(bombs, size, cacheBombs);
-        
-        cacheArrows = getAllScaledRotations(tiles[TileType.Arrow.ordinal()], size);
-        
-        for (int i = 0; i < cacheExplosions.length; i++) {
-            cacheExplosions[i] = getAllScaledRotations(explosions[i], size);
+        for (Sprite[] sprites : new Sprite[][]{tiles, bonuses, bombs, explosions}) {
+            for (Sprite sprite : sprites)
+                sprite.setSize(size);
         }
         
         cacheTileSize = size;
