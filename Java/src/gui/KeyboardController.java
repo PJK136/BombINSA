@@ -51,13 +51,21 @@ public class KeyboardController implements Controller, KeyListener {
     @Override
     public Direction getDirection() {
         // renvoie la direction qui correspond a la touche qui est enfoncée
+        if(keysPressed.isEmpty()){
+            return null;
+        }
         return Direction.values()[keysPressed.getFirst()];
     }
 
     @objid ("39549206-ede1-4d8e-bdb7-8f5010446eb7")
     @Override
     public boolean isPlantingBomb() {
-        return bombing;
+        if (bombing){
+            bombing = false;
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
@@ -88,15 +96,13 @@ public class KeyboardController implements Controller, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == settings.right){
-            keysPressed.remove(Direction.Right.ordinal());
+            keysPressed.remove((Integer)(Direction.Right.ordinal()));
         } else if(e.getKeyCode() == settings.up){
-            keysPressed.remove(Direction.Up.ordinal());
+            keysPressed.remove((Integer)(Direction.Up.ordinal()));
         } else if(e.getKeyCode() == settings.left){
-            keysPressed.remove(Direction.Left.ordinal());
+            keysPressed.remove((Integer)(Direction.Left.ordinal()));
         } else if(e.getKeyCode() == settings.down){
-            keysPressed.remove(Direction.Down.ordinal());
-        } else if(e.getKeyCode() == settings.plantBomb){
-            bombing = false;
+            keysPressed.remove((Integer)(Direction.Down.ordinal()));
         }
     }
 
