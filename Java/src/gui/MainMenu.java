@@ -57,7 +57,7 @@ public class MainMenu extends JPanel implements ActionListener {
         add(lblWallpaper, BorderLayout.CENTER);
         
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setPreferredSize(new Dimension(300, buttonPanel.getPreferredSize().height));
+        buttonPanel.setPreferredSize(new Dimension(250, buttonPanel.getPreferredSize().height));
         
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         
