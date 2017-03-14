@@ -13,8 +13,8 @@ public class MainWindow {
     @objid ("294a7f1e-7ead-4bc6-bf80-c970a68ae918")
     private GameWorker gameWorker;
     
-    private int width = 640;
-    private int height = 480;
+    private static final int START_WIDTH = 640;
+    private static final int START_HEIGHT = 480;
 
     @objid ("c0396266-731f-4131-9df4-3e1a8c55ed3a")
     public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class MainWindow {
     @objid ("14da88d1-2c75-4382-849c-9c7a54c281ac")
     private void initialize() {
         frame = new JFrame();
-        frame.setSize(width, height);
+        frame.setSize(START_WIDTH, START_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("BombINSA");
         
@@ -86,13 +86,5 @@ public class MainWindow {
 
     void setToPreferredSize() {
         frame.setSize(frame.getPreferredSize());
-    }
-    
-    public int getWidth(){
-        return width;
-    }
-    
-    public int getHeight(){
-        return height;
     }
 }
