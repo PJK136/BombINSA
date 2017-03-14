@@ -27,6 +27,7 @@ import game.Entity;
 import game.ExplosionType;
 import game.GridCoordinates;
 import game.MapView;
+import game.Player;
 import game.TileType;
 import game.WorldView;
 
@@ -49,6 +50,8 @@ public class GameViewer extends JPanel {
     private Image cacheExplosions[][];
     
     boolean showSpawningLocations;
+    
+    public static final double BOMB_BLINK_INTERVAL = 0.325;
     
     //http://stackoverflow.com/questions/2768054/how-to-get-the-first-non-null-value-in-java
     private static <T> T coalesce(T a, T b) {
@@ -162,20 +165,24 @@ public class GameViewer extends JPanel {
     
     @objid ("18e3e04f-dec2-45e2-a3f5-dbabb34447b4")
     public void drawWorld(WorldView worldView) {
-        drawMap(worldView.getMap(), worldView.getEntities());
-        //TODO : À enlever ou garder ?
+        MapView map = worldView.getMap();
+        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_ARGB); //ARGB ?
+        Graphics2D g = newWorld.createGraphics();
+        drawMap(g, map);
+        drawWorld(g, worldView);
+        updateDisplay(newWorld);
     }
     
     public void drawMap(MapView map) {
-        drawMap(map, null);
+        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_ARGB); //ARGB ?
+        drawMap(newWorld.createGraphics(), map);
+        updateDisplay(newWorld);
     }
     
-    public void drawMap(MapView map, List<Entity> entities) {
+    private void drawMap(Graphics2D g, MapView map) {
         if (cacheTileSize != map.getTileSize())
             updateCaches(map.getTileSize());
-
-        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_ARGB); //ARGB ?
-        Graphics2D g = newWorld.createGraphics();
+        
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON);
         
@@ -218,17 +225,33 @@ public class GameViewer extends JPanel {
                 drawCenteredString(g, String.valueOf(i), (int)map.toCenterX(gc), (int)map.toCenterY(gc));
             }
         }
-        
-        if (entities != null) {
-            for (Entity entity : entities) {
-                if (entity instanceof Bomb) {
-                    g.drawImage(cacheBombs[0], (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
+    }
+    
+    private void drawWorld(Graphics2D g, WorldView worldView) {
+        MapView map = worldView.getMap();
+        for (Class<?> entityType : new Class[]{Bomb.class, Player.class}) {
+            for (Entity entity : worldView.getEntities()) {
+                if (entityType.isInstance(entity)) {
+                    if (entityType.equals(Bomb.class)) { 
+                        if (((Bomb)entity).getTimeRemaining() % (2*BOMB_BLINK_INTERVAL*worldView.getFps()) >= BOMB_BLINK_INTERVAL*worldView.getFps())
+                            g.drawImage(cacheBombs[0], (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
+                        else
+                            g.drawImage(cacheBombs[1], (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
+                    }
+                    else //if (entityType.equals(Player.class))
+                        g.fillOval((int)entity.getBorderLeft(), (int)entity.getBorderTop(), map.getTileSize(), map.getTileSize());
                 }
-                else
-                    g.fillOval((int)entity.getBorderLeft(), (int)entity.getBorderTop(), map.getTileSize(), map.getTileSize());
             }
         }
-        
+    }
+    
+    private void updateCache(ArrayList<BufferedImage> src, int size, Image[] cache) {
+        for (int i = 0; i < cache.length; i++) {
+            cache[i] = src.get(i).getScaledInstance(size, size, Image.SCALE_SMOOTH);
+        }
+    }
+    
+    private void updateDisplay(BufferedImage newWorld) {
         if (world == null || (world.getWidth() != newWorld.getWidth() || world.getHeight() != newWorld.getHeight())) {
             world = newWorld;
             revalidate();
@@ -236,12 +259,6 @@ public class GameViewer extends JPanel {
         } else {
             world = newWorld;
             repaint();
-        }
-    }
-    
-    private void updateCache(ArrayList<BufferedImage> src, int size, Image[] cache) {
-        for (int i = 0; i < cache.length; i++) {
-            cache[i] = src.get(i).getScaledInstance(size, size, Image.SCALE_SMOOTH);
         }
     }
     
