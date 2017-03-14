@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -131,10 +132,16 @@ public class Server extends World {
             while(!bombPlanted){
                 GridCoordinates gcRnd = new GridCoordinates((int)(Math.random()*map.getColumnCount()), (int)(Math.random()*map.getRowCount()));
                 if(map.getTileType(gcRnd) == TileType.Empty){
-                    addEntity(new Bomb(this,gcRnd,4,(int)(TIME_BEFORE_EXPLOSION*fps)));
+                    addEntity(new Bomb(this,gcRnd,4,(int)(TIME_BEFORE_EXPLOSION*fps*0.750)));
                     bombPlanted = true;
                 }
             }
+            List<Player> playerList = new LinkedList<Player>();
+            playerList = getPlayers();
+            for(Player player : playerList){
+                player.setLives(1);
+            }
+            
         }
         
         //update of the new bombs

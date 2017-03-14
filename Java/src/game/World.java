@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -20,7 +21,7 @@ public abstract class World implements WorldView {
      Map map;
 
     @objid ("ea256a0b-ce0d-4498-ac24-bd5ea8fb8825")
-     List<Entity> entities = new ArrayList<Entity> ();
+     List<Entity> entities = new LinkedList<Entity> ();
 
     @objid ("20f367fb-bcb4-4389-912c-a406baff8d4e")
     public List<Controller> controllers = new ArrayList<Controller> ();
@@ -64,6 +65,16 @@ public abstract class World implements WorldView {
             }       
         }
         return sum;
+    }
+    
+    public List<Player> getPlayers(){
+        List<Player> playerList = new LinkedList<Player>();
+        for(Entity entity : entities){
+            if(entity instanceof Player){
+                playerList.add((Player)entity);
+            }
+        }
+        return playerList;
     }
 
     /*@objid ("7f0207e3-fb26-4a93-8d10-c12f9c0735f1")
