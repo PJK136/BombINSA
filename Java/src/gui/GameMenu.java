@@ -217,7 +217,7 @@ public class GameMenu extends JPanel implements ActionListener {
         for (File file : fileList) {
             if (file.isFile()) {
                 String filename = file.getName();
-                if (filename.endsWith(".map"))
+                if (filename.endsWith("." + MapCreatorPanel.MAP_EXTENSION))
                     maps.addItem(filename.substring(0, filename.length() - 4));
             }
         }
