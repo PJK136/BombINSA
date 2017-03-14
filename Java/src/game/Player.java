@@ -28,6 +28,8 @@ public class Player extends Entity {
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
     protected Controller controller;
     
+    Bomb lastCollidedBomb;
+    
     public static final double PLAYER_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
@@ -174,14 +176,27 @@ public class Player extends Entity {
     }
     
     boolean canCollide(double x, double y){
-        if (!super.canCollide(x, y))
-            return !world.getMap().toGridCoordinates(this.x, this.y).equals(world.getMap().toGridCoordinates(x, y))
-                   && world.getMap().hasBomb(x, y);
+        if (!super.canCollide(x, y)) {
+            if (!world.getMap().toGridCoordinates(this.x, this.y).equals(world.getMap().toGridCoordinates(x, y))
+                   && world.getMap().hasBomb(x, y)) {
+                if(playerAbilities.get(PlayerAbility.Kick.ordinal())) {
+                    for (Entity entity : world.getMap().getEntities(x, y)){
+                        if(entity instanceof Bomb) {
+                            lastCollidedBomb = (Bomb)entity;
+                        }
+                    }
+                }
+                return true;
+            } else
+                return false;
+        }
         return true;
     }
 
     @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
+        lastCollidedBomb = null;
+        
         controller.update();
         Direction nextDirection = controller.getDirection();
         if (nextDirection != null) {
@@ -195,6 +210,12 @@ public class Player extends Entity {
             speed = 0.;
         
         super.update();
+        //Kick
+        if(playerAbilities.get(PlayerAbility.Kick.ordinal())){
+            if(nextDirection != null && lastCollidedBomb != null){
+                this.world.kickBomb(lastCollidedBomb, nextDirection);
+            }
+        }
         
         //Update acquisition Bonus/Malus (Random, More/Less Bomb, More/Less Range, More/Less Speed, Shield, Kick)
         updateBonusMalus();

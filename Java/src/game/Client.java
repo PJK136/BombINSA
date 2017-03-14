@@ -46,4 +46,10 @@ public class Client extends World {
         // TODO Auto-generated method stub
     }
 
+    @Override
+    void kickBomb(Bomb bomb, Direction direction) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

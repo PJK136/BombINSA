@@ -88,7 +88,9 @@ public abstract class World implements WorldView {
 
     @objid ("15006b09-55e2-4635-b9b7-f4cee5978c5d")
     abstract void pickUpBonus(double x, double y);
-
+    
+    abstract void kickBomb(Bomb bomb, Direction direction);
+    
     @objid ("d65622a5-0611-42cd-87a7-975a15931e59")
     public abstract void newController(Controller controller);
 

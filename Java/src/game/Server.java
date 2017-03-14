@@ -2,9 +2,12 @@ package game;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.AbstractMap;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.LinkedList;
+import java.util.Map.Entry;
 import java.util.Queue;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -37,6 +40,8 @@ public class Server extends World {
     @objid ("8f67b398-0aba-4beb-872c-590118673a03")
      Queue<Bomb> queueBomb = new LinkedList<Bomb>();
 
+    HashMap<Bomb, Direction> queueKickBomb = new HashMap<>();
+    
     @objid ("d09dce2a-6ccc-4d37-838d-8a1f201d7b56")
      Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
     
@@ -212,6 +217,12 @@ public class Server extends World {
             }
         }
         
+        //Update kicks
+        for (Entry<Bomb, Direction> entry : queueKickBomb.entrySet()) {
+            entry.getKey().setDirection(entry.getValue());
+            entry.getKey().setSpeed(Bomb.BOMB_DEFAULT_SPEED*map.getTileSize()/getFps());
+        }
+        
         //clearing all the queue lists
         queuePlayer.clear();
         queueBomb.clear();
@@ -257,6 +268,11 @@ public class Server extends World {
     @Override
     void pickUpBonus(double x, double y) {
         queueBonus.add(map.toGridCoordinates(x,y));
+    }
+    
+    @Override
+    void kickBomb(Bomb bomb, Direction direction) {
+        queueKickBomb.put(bomb, direction);
     }
     
     private void addEntity(Entity entity) {
