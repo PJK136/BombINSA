@@ -13,19 +13,17 @@ import javax.swing.JToggleButton;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.InputMismatchException;
-import java.util.List;
 
 import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
@@ -40,6 +38,8 @@ import game.Map;
 import game.TileType;
 
 public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotionListener, ActionListener, ChangeListener {
+    public static final String MAP_EXTENSION = "map";
+    
     private MainWindow mainWindow;
     private GameViewer gameViewer;
     private Map map;
@@ -81,7 +81,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         toolBar.add(btnSave);
         
         fileChooser = new JFileChooser(".");
-        fileChooser.setFileFilter(new FileNameExtensionFilter("Cartes BombINSA", "map"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("Cartes BombINSA", MAP_EXTENSION));
         
         toolBar.addSeparator();
         
@@ -281,7 +281,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         int ret = fileChooser.showSaveDialog(this);
         if (ret == JFileChooser.APPROVE_OPTION) {
             try {
-                PrintWriter printWriter = new PrintWriter(fileChooser.getSelectedFile());
+                File file = fileChooser.getSelectedFile();
+
+                if(!file.getAbsolutePath().endsWith("." + MAP_EXTENSION)){
+                    file = new File(fileChooser.getSelectedFile() + "." + MAP_EXTENSION);
+                }
+                PrintWriter printWriter = new PrintWriter(file);
                 printWriter.write(map.saveMap());
                 printWriter.close();
                 saved = true;
