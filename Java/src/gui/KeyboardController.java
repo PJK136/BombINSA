@@ -31,6 +31,7 @@ public class KeyboardController implements Controller, KeyListener {
     @objid ("2c9abb5b-b9fc-4226-bee5-6df775a5d20d")
     public KeyboardController(ControlSettings settings) {
         this.settings = settings;
+        keysPressed = new LinkedList<Integer>();
         bombing = false;
     }
 
