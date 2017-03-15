@@ -44,8 +44,6 @@ public class Server extends World {
     @objid ("d09dce2a-6ccc-4d37-838d-8a1f201d7b56")
      Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
     
-    boolean bombPlanted;
-    
     int nextPlayerID = 0;
 
     @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
@@ -135,8 +133,8 @@ public class Server extends World {
         map.update();
         
         //sudden death case
-        bombPlanted = false;
         if(timeRemaining<0 && timeRemaining%(0.750*fps) == 0){
+            boolean bombPlanted = false;
             while(!bombPlanted){
                 GridCoordinates gcRnd = new GridCoordinates((int)(Math.random()*map.getColumnCount()), (int)(Math.random()*map.getRowCount()));
                 if(map.getTileType(gcRnd) == TileType.Empty){
