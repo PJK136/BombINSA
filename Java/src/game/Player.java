@@ -7,6 +7,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("7d9743df-c7cd-4679-9771-fa22b1be441d")
 public class Player extends Entity {
+    int playerID;
+    
     @objid ("c10c97b4-7ea2-4021-aff7-4c0b87aac71b")
      int lives;
 
@@ -33,9 +35,10 @@ public class Player extends Entity {
     public static final double PLAYER_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
-    public Player(World world, double x, double y, Controller controller, int lives, int bombMax, int range, int invulnerability) {
+    public Player(World world, double x, double y, Controller controller, int playerID, int lives, int bombMax, int range, int invulnerability) {
         super(world, x, y);
         this.controller = controller;
+        this.playerID = playerID;
         this.lives = lives;
         this.bombMax = bombMax;
         this.range = range;
@@ -46,6 +49,10 @@ public class Player extends Entity {
         this.playerAbilities = new ArrayList<Boolean>(pa.length);
         for (int i = 0; i < pa.length; i++)
             this.playerAbilities.add(false);
+    }
+    
+    public int getPlayerID() {
+        return playerID;
     }
 
     @objid ("d8c3c2ca-78cd-4d35-8d4a-df8c6f1cbe55")

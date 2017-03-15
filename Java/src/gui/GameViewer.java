@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -220,26 +221,26 @@ public class GameViewer extends JPanel {
     }
     
     private void drawWorld(Graphics2D g, WorldView worldView) {
-        MapView map = worldView.getMap();
-        for (Class<?> entityType : new Class[]{Bomb.class, Player.class}) {
-            for (Entity entity : worldView.getEntities()) {
-                if (entityType.isInstance(entity)) {
-                    if (entityType.equals(Bomb.class)) { 
-                        if (((Bomb)entity).getTimeRemaining() % (2*BOMB_BLINK_INTERVAL*worldView.getFps()) >= BOMB_BLINK_INTERVAL*worldView.getFps())
-                            g.drawImage(bombs[0].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
-                        else
-                            g.drawImage(bombs[1].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
-                    }
-                    else { //if (entityType.equals(Player.class))
-                        //g.fillOval((int)entity.getBorderLeft(), (int)entity.getBorderTop(), map.getTileSize(), map.getTileSize());
-                        if (entity.getSpeed() == 0.)
-                            g.drawImage(players[0].getStandingPlayer(entity.getDirection()),
-                                       (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
-                        else
-                            g.drawImage(players[0].getMovingPlayer(entity.getDirection(), 10*Math.abs(worldView.getTimeRemaining())/worldView.getFps()%2),
-                                       (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
-                    }
-                }
+        for (Entity entity : worldView.getEntities()) {
+            if (entity instanceof Bomb) { 
+                if (((Bomb)entity).getTimeRemaining() % (2*BOMB_BLINK_INTERVAL*worldView.getFps()) >= BOMB_BLINK_INTERVAL*worldView.getFps())
+                    g.drawImage(bombs[0].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
+                else
+                    g.drawImage(bombs[1].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
+            }
+        }
+        
+        final int colorCount = PlayerColor.values().length;
+        //Dessine les joueurs en dernier
+        for (Entity entity : worldView.getEntities()) {
+            if (entity instanceof Player) {
+                int color = ((Player)entity).getPlayerID() % colorCount;
+                if (entity.getSpeed() == 0.)
+                    g.drawImage(players[color].getStandingPlayer(entity.getDirection()),
+                               (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
+                else
+                    g.drawImage(players[color].getMovingPlayer(entity.getDirection(), 10*Math.abs(worldView.getTimeRemaining())/worldView.getFps()%2),
+                               (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
             }
         }
     }

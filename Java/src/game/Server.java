@@ -45,6 +45,8 @@ public class Server extends World {
      Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
     
     boolean bombPlanted;
+    
+    int nextPlayerID = 0;
 
     @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
     public Server(String mapFilename, int tileSize, int fps, int duration) throws Exception {
@@ -101,16 +103,18 @@ public class Server extends World {
     void newPlayer(Controller controller) {
         if (map.spawningLocations.size() == 0)
             return;
-        
-        int count = getPlayerAliveCount() % map.spawningLocations.size();
-        Player player = new Player(this, map.toCenterX(map.spawningLocations.get(count)),
-                                         map.toCenterY(map.spawningLocations.get(count)),
+
+        int spawnIndex = nextPlayerID % map.spawningLocations.size();
+        Player player = new Player(this, map.toCenterX(map.spawningLocations.get(spawnIndex)),
+                                         map.toCenterY(map.spawningLocations.get(spawnIndex)),
                                          controller,
+                                         nextPlayerID,
                                          START_LIVES,
                                          START_BOMB_MAX,
                                          START_RANGE,
                                          (int)(START_INVULNERABITY_DURATION*fps));
         addEntity(player);
+        nextPlayerID++;
         controller.setPlayer(player);
         controller.setWorldView(this);
     }
