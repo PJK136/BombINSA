@@ -175,6 +175,10 @@ public class Player extends Entity {
         this.invulnerability = Math.max(0, this.invulnerability-1);
     }
     
+    void removeShield() {
+        this.playerAbilities.set(PlayerAbility.Shield.ordinal(), false);
+    }
+    
     boolean canCollide(double x, double y){
         if (!super.canCollide(x, y)) {
             if (!world.getMap().toGridCoordinates(this.x, this.y).equals(world.getMap().toGridCoordinates(x, y))

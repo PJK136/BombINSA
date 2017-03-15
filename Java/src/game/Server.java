@@ -132,11 +132,11 @@ public class Server extends World {
         
         //sudden death case
         bombPlanted = false;
-        if(timeRemaining<0 && timeRemaining%fps == 0){
+        if(timeRemaining<0 && timeRemaining%(0.750*fps) == 0){
             while(!bombPlanted){
                 GridCoordinates gcRnd = new GridCoordinates((int)(Math.random()*map.getColumnCount()), (int)(Math.random()*map.getRowCount()));
                 if(map.getTileType(gcRnd) == TileType.Empty){
-                    addEntity(new Bomb(this,gcRnd,4,(int)(TIME_BEFORE_EXPLOSION*fps*0.750)));
+                    addEntity(new Bomb(this,gcRnd,4,(int)(TIME_BEFORE_EXPLOSION*fps)));
                     bombPlanted = true;
                 }
             }
@@ -144,6 +144,7 @@ public class Server extends World {
             playerList = getPlayers();
             for(Player player : playerList){
                 player.setLives(1);
+                player.removeShield();
             }
             
         }
