@@ -35,7 +35,7 @@ public class GameViewer extends JPanel {
 
     private Sprite[] tiles;
     private Sprite[] bonuses;
-    private OrientedSprite[][] players;
+    private PlayerSprite[] players;
     private Sprite[] bombs;
     private Sprite[] explosions;
     
@@ -55,35 +55,37 @@ public class GameViewer extends JPanel {
         tiles = new Sprite[TileType.values().length];
         for (TileType type : TileType.values()) {
             if (type != TileType.Arrow)
-                tiles[type.ordinal()] = new Sprite(coalesce(readRessource(type.name().toLowerCase()),
-                                                   getDefaultTileImage(type)));
+                tiles[type.ordinal()] = new Sprite(coalesce(Sprite.readRessource(type.name().toLowerCase()),
+                                                            getDefaultTileImage(type)));
             else
-                tiles[type.ordinal()] = new OrientedSprite(coalesce(readRessource(type.name().toLowerCase()),
-                                                                        getDefaultTileImage(type)));
+                tiles[type.ordinal()] = new OrientedSprite(coalesce(Sprite.readRessource(type.name().toLowerCase()),
+                                                                    getDefaultTileImage(type)));
         }
         
         bonuses = new Sprite[BonusType.values().length];
         for (BonusType type : BonusType.values()) {
-            bonuses[type.ordinal()] = new Sprite(coalesce(readRessource("bonus" + type.ordinal()), 
+            bonuses[type.ordinal()] = new Sprite(coalesce(Sprite.readRessource("bonus" + type.ordinal()), 
                                                           stringInSquare(256, 4, "B" + String.valueOf(type.ordinal())))); 
         }
         
-        //players = new Buffered
+        players = new PlayerSprite[PlayerColor.values().length];
+        for (PlayerColor color : PlayerColor.values())
+            players[color.ordinal()] = new PlayerSprite(color);
         
         bombs = new Sprite[2];
         {
-            bombs[0] = new Sprite(coalesce(readRessource("bomb"), stringInSquare(256, 0, "💣")));
-            bombs[1]= new Sprite(coalesce(readRessource("bomb_exploding"), stringInSquare(256, 0, "💣", Color.red)));
+            bombs[0] = new Sprite(coalesce(Sprite.readRessource("bomb"), stringInSquare(256, 0, "💣")));
+            bombs[1]= new Sprite(coalesce(Sprite.readRessource("bomb_exploding"), stringInSquare(256, 0, "💣", Color.red)));
         }
         
         explosions = new Sprite[ExplosionType.values().length];
         for (ExplosionType type : ExplosionType.values()) {
             if (type == ExplosionType.Center)
-                explosions[type.ordinal()] = new Sprite(coalesce(readRessource("explosion_"+type.name().toLowerCase()),
+                explosions[type.ordinal()] = new Sprite(coalesce(Sprite.readRessource("explosion_"+type.name().toLowerCase()),
                                                                  stringInSquare(256, 0, "💥")));
             else
-                explosions[type.ordinal()] = new OrientedSprite(coalesce(readRessource("explosion_"+type.name().toLowerCase()),
-                                                                             stringInSquare(256, 0, "💥")));
+                explosions[type.ordinal()] = new OrientedSprite(coalesce(Sprite.readRessource("explosion_"+type.name().toLowerCase()),
+                                                                         stringInSquare(256, 0, "💥")));
         }
         
         showSpawningLocations = false;
@@ -91,15 +93,6 @@ public class GameViewer extends JPanel {
         cacheTileSize = 0;
         
         setFocusable(true);
-    }
-    
-    private BufferedImage readRessource(String name) {
-        try {
-            return ImageIO.read(new File("img/" + name + ".png"));
-        } catch (IOException e) {
-            System.err.println("Can't read : " + "img/" + name + ".png");
-            return null;
-        }
     }
     
     public Sprite[] getTileSprites() {
@@ -237,8 +230,15 @@ public class GameViewer extends JPanel {
                         else
                             g.drawImage(bombs[1].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
                     }
-                    else //if (entityType.equals(Player.class))
-                        g.fillOval((int)entity.getBorderLeft(), (int)entity.getBorderTop(), map.getTileSize(), map.getTileSize());
+                    else { //if (entityType.equals(Player.class))
+                        //g.fillOval((int)entity.getBorderLeft(), (int)entity.getBorderTop(), map.getTileSize(), map.getTileSize());
+                        if (entity.getSpeed() == 0.)
+                            g.drawImage(players[0].getStandingPlayer(entity.getDirection()),
+                                       (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
+                        else
+                            g.drawImage(players[0].getMovingPlayer(entity.getDirection(), 10*Math.abs(worldView.getTimeRemaining())/worldView.getFps()%2),
+                                       (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
+                    }
                 }
             }
         }
@@ -261,6 +261,9 @@ public class GameViewer extends JPanel {
             for (Sprite sprite : sprites)
                 sprite.setSize(size);
         }
+        
+        for (PlayerSprite sprite : players)
+            sprite.setSize(size);
         
         cacheTileSize = size;
     }
