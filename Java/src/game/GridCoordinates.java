@@ -43,5 +43,19 @@ public class GridCoordinates {
     public String toString() {
         return "("+x+";"+y+")";
     }
+    
+    public GridCoordinates neighbor(Direction direction) {
+        switch (direction) {
+        case Left:
+            return new GridCoordinates(x-1, y);
+        case Right:
+            return new GridCoordinates(x+1, y);
+        case Up:
+            return new GridCoordinates(x, y-1);
+        case Down:
+            return new GridCoordinates(x, y+1);
+        }
+        return null;
+    }
 
 }

@@ -76,7 +76,7 @@ public abstract class Tile {
             explosionTimeRemaining = duration;
             if (explosionType == ExplosionType.Center)
                 return;
-            else if (type == ExplosionType.Center || !isSameAxis(explosionDirection, direction)) {
+            else if (type == ExplosionType.Center || !Direction.isSameAxis(explosionDirection, direction)) {
                 explosionType = ExplosionType.Center;
                 explosionDirection = null;
             }
@@ -84,14 +84,6 @@ public abstract class Tile {
                 explosionType = ExplosionType.Branch;
             }
         }
-    }
-    
-    private boolean isSameAxis(Direction d1, Direction d2) {
-        return d1.equals(d2) ||
-               (d1 == Direction.Up && d2 == Direction.Down) ||
-               (d2 == Direction.Up && d1 == Direction.Down) ||
-               (d1 == Direction.Left && d2 == Direction.Right) ||
-               (d2 == Direction.Left && d1 == Direction.Right);
     }
     
     Tile postExplosion() {

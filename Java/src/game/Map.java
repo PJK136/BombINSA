@@ -318,6 +318,10 @@ public class Map implements MapView {
         tiles[gc.x][gc.y].explode(duration, type, direction);
     }
     
+    void setExplosionCenter(GridCoordinates gc) {
+        tiles[gc.x][gc.y].setExplosionType(ExplosionType.Center);
+    }
+    
     void setExplosionEnd(GridCoordinates gc) {
         if (tiles[gc.x][gc.y].getExplosionType() != ExplosionType.Center)
             tiles[gc.x][gc.y].setExplosionType(ExplosionType.End);
