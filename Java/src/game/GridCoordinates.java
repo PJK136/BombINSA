@@ -58,4 +58,7 @@ public class GridCoordinates {
         return null;
     }
 
+    public static int distance(GridCoordinates gc1, GridCoordinates gc2) {
+        return Math.abs(gc2.x-gc1.x) + Math.abs(gc2.y-gc1.y); //Norme 1 #Maths 2A
+    }
 }
