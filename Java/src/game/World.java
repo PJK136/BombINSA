@@ -8,6 +8,24 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("4e38e511-34e5-49ff-aa51-e135ece3c5eb")
 public abstract class World implements WorldView {
+    @objid ("d4ef51fc-99a1-4469-a144-395b415f38c6")
+    public static final int START_LIVES = 3;
+
+    @objid ("acdeeb9e-e8f4-4338-953e-9a58f3e8e5d6")
+    public static final int START_BOMB_MAX = 1;
+
+    @objid ("c4fcf211-c9b3-4bd3-8331-cb2c246c1b66")
+    public static final int START_RANGE = 1;
+
+    @objid ("d92377a2-aad4-4982-9040-3f2145155a66")
+    public static final double START_INVULNERABITY_DURATION = 1;
+
+    @objid ("e291da2d-3413-4c04-9354-a2bdfd92e336")
+    public static final double TIME_BEFORE_EXPLOSION = 3;
+
+    @objid ("751024b2-9b44-4803-a99b-325fd609fbd3")
+    public static final double EXPLOSION_DURATION = 0.3;
+    
     @objid ("85c96d62-8a34-4a32-b45b-ae1b9c9d4112")
      int fps;
 
