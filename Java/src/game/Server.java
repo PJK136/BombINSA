@@ -28,7 +28,7 @@ public class Server extends World {
     public static final double TIME_BEFORE_EXPLOSION = 3;
 
     @objid ("751024b2-9b44-4803-a99b-325fd609fbd3")
-    public static final double EXPLOSION_DURATION = 3;
+    public static final double EXPLOSION_DURATION = 0.3;
 
     @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")
      String mapFileName = new String();
