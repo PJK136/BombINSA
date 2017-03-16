@@ -3,7 +3,7 @@ package game;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("7c0be07f-9851-49c1-9084-d21acfdf1a57")
-public class ArrowTile extends Tile {
+public class ArrowTile extends ExplodableTile {
     @objid ("e9081624-7d7d-411c-9fae-43e3570502a5")
      Direction direction;
 

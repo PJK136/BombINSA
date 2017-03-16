@@ -14,9 +14,4 @@ public class UnbreakableTile extends Tile {
     public boolean isCollidable() {
         return true;
     }
-    
-    @Override
-    void explode(int duration, ExplosionType type, Direction direction) {
-        return; // N'explose pas.
-    }
 }

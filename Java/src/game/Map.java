@@ -105,9 +105,12 @@ public class Map implements MapView {
         return tiles[gc.x][gc.y].isCollidable();
     }
     
+    public boolean isExplodable(GridCoordinates gc) {
+        return tiles[gc.x][gc.y] instanceof ExplodableTile;
+    }
     @Override
     public boolean isExploding(GridCoordinates gc) {
-        return tiles[gc.x][gc.y].isExploding();
+        return isExplodable(gc) && ((ExplodableTile)tiles[gc.x][gc.y]).isExploding();
     }
 
     @objid ("2d3a7680-da99-4351-813b-efa9981cf8ea")
@@ -118,13 +121,13 @@ public class Map implements MapView {
 
     @Override
     public ExplosionType getExplosionType(GridCoordinates gc) {
-        return tiles[gc.x][gc.y].getExplosionType();
+        return ((ExplodableTile)tiles[gc.x][gc.y]).getExplosionType();
     }
     
     
     @Override
     public Direction getExplosionDirection(GridCoordinates gc) {
-        return tiles[gc.x][gc.y].getExplosionDirection();
+        return ((ExplodableTile)tiles[gc.x][gc.y]).getExplosionDirection();
     }
     
     public TileType getTileType(GridCoordinates gc) {
@@ -315,16 +318,16 @@ public class Map implements MapView {
 
     @objid ("3197c6a7-683c-41b2-8d78-dc1d8b6b0f8a")
     void setExplosion(int duration, ExplosionType type, Direction direction, GridCoordinates gc) {
-        tiles[gc.x][gc.y].explode(duration, type, direction);
+        ((ExplodableTile)tiles[gc.x][gc.y]).explode(duration, type, direction);
     }
     
     void setExplosionCenter(GridCoordinates gc) {
-        tiles[gc.x][gc.y].setExplosionType(ExplosionType.Center);
+        ((ExplodableTile)tiles[gc.x][gc.y]).setExplosionType(ExplosionType.Center);
     }
     
     void setExplosionEnd(GridCoordinates gc) {
-        if (tiles[gc.x][gc.y].getExplosionType() != ExplosionType.Center)
-            tiles[gc.x][gc.y].setExplosionType(ExplosionType.End);
+        if (((ExplodableTile)tiles[gc.x][gc.y]).getExplosionType() != ExplosionType.Center)
+            ((ExplodableTile)tiles[gc.x][gc.y]).setExplosionType(ExplosionType.End);
     }
 
     @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")

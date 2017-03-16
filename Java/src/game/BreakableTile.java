@@ -3,7 +3,7 @@ package game;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("96719cc7-626b-4b48-9f90-aeab79c12c54")
-public class BreakableTile extends Tile {
+public class BreakableTile extends ExplodableTile {
     
     public static final double LOOT_RATE = 0.66;
     

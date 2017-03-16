@@ -34,6 +34,8 @@ public interface MapView {
     
     @objid ("530a81b2-8f93-4453-bff3-ab4a31d9de02")
     boolean isCollidable(double x, double y);
+    
+    boolean isExplodable(GridCoordinates gc);
 
     boolean isExploding(GridCoordinates gc);
     
