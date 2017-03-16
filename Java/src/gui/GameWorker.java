@@ -5,6 +5,7 @@ import java.util.TimerTask;
 import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+import game.AIController;
 import game.Server;
 import game.World;
 
@@ -98,6 +99,8 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
             }
             
             //TODO : Ajout des ias etc.
+            AIController iaController = new AIController();
+            world.newController(iaController);
         }
         else
             throw new Exception("Non implémenté !");

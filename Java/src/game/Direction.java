@@ -19,4 +19,8 @@ public enum Direction {
                (d1 == Direction.Left && d2 == Direction.Right) ||
                (d2 == Direction.Left && d1 == Direction.Right);
     }
+    
+    public static Direction getRandomDirection(){
+        return values()[(int)(Math.random()*values().length)];
+    }
 }
