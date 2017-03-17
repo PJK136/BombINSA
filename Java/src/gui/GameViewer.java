@@ -45,7 +45,7 @@ public class GameViewer extends JPanel {
         SpriteFactory factory = SpriteFactory.getInstance();
         tiles = new Sprite[TileType.values().length];
         for (TileType type : TileType.values()) {
-            if (type != TileType.Arrow)
+            if (type == TileType.Arrow)
                 tiles[type.ordinal()] = factory.getOrientedSprite(type.name().toLowerCase());
             else
                 tiles[type.ordinal()] = factory.getSprite(type.name().toLowerCase());
