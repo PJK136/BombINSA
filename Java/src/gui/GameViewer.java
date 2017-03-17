@@ -8,16 +8,10 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import game.Bomb;
 import game.BonusType;
@@ -46,27 +40,20 @@ public class GameViewer extends JPanel {
     
     public static final double BOMB_BLINK_INTERVAL = 0.325;
     
-    //http://stackoverflow.com/questions/2768054/how-to-get-the-first-non-null-value-in-java
-    private static <T> T coalesce(T a, T b) {
-        return a == null ? b : a;
-    }
-    
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
+        SpriteFactory factory = SpriteFactory.getInstance();
         tiles = new Sprite[TileType.values().length];
         for (TileType type : TileType.values()) {
             if (type != TileType.Arrow)
-                tiles[type.ordinal()] = new Sprite(coalesce(Sprite.readRessource(type.name().toLowerCase()),
-                                                            getDefaultTileImage(type)));
+                tiles[type.ordinal()] = factory.getOrientedSprite(type.name().toLowerCase());
             else
-                tiles[type.ordinal()] = new OrientedSprite(coalesce(Sprite.readRessource(type.name().toLowerCase()),
-                                                                    getDefaultTileImage(type)));
+                tiles[type.ordinal()] = factory.getSprite(type.name().toLowerCase());
         }
         
         bonuses = new Sprite[BonusType.values().length];
         for (BonusType type : BonusType.values()) {
-            bonuses[type.ordinal()] = new Sprite(coalesce(Sprite.readRessource("bonus" + type.ordinal()), 
-                                                          stringInSquare(256, 4, "B" + String.valueOf(type.ordinal())))); 
+            bonuses[type.ordinal()] = factory.getSprite("bonus" + type.ordinal()); 
         }
         
         players = new PlayerSprite[PlayerColor.values().length];
@@ -75,18 +62,16 @@ public class GameViewer extends JPanel {
         
         bombs = new Sprite[2];
         {
-            bombs[0] = new Sprite(coalesce(Sprite.readRessource("bomb"), stringInSquare(256, 0, "💣")));
-            bombs[1]= new Sprite(coalesce(Sprite.readRessource("bomb_exploding"), stringInSquare(256, 0, "💣", Color.red)));
+            bombs[0] = factory.getSprite("bomb");
+            bombs[1]= factory.getSprite("bomb_exploding");
         }
         
         explosions = new Sprite[ExplosionType.values().length];
         for (ExplosionType type : ExplosionType.values()) {
             if (type == ExplosionType.Center)
-                explosions[type.ordinal()] = new Sprite(coalesce(Sprite.readRessource("explosion_"+type.name().toLowerCase()),
-                                                                 stringInSquare(256, 0, "💥")));
+                explosions[type.ordinal()] = factory.getSprite("explosion_"+type.name().toLowerCase());
             else
-                explosions[type.ordinal()] = new OrientedSprite(coalesce(Sprite.readRessource("explosion_"+type.name().toLowerCase()),
-                                                                         stringInSquare(256, 0, "💥")));
+                explosions[type.ordinal()] = factory.getOrientedSprite("explosion_"+type.name().toLowerCase());
         }
         
         showSpawningLocations = false;
@@ -98,58 +83,6 @@ public class GameViewer extends JPanel {
     
     public Sprite[] getTileSprites() {
         return Arrays.copyOf(tiles, tiles.length);
-    }
-
-    private Color toColor(TileType type) {
-        switch (type) {
-        case Arrow:
-            return Color.GREEN;
-        case Bonus:
-            return Color.YELLOW;
-        case Breakable:
-            return Color.GRAY;
-        case Empty:
-            return Color.WHITE;
-        case Unbreakable:
-            return Color.BLACK;
-        default:
-            return Color.RED;
-        }
-    }
-    
-    private BufferedImage stringInSquare(int size, int thickness, String str, Color color) {
-        BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = image.createGraphics();
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setColor(Color.white);
-        g.fillRect(0, 0, size, size);
-        for (int i = 0; i < thickness; i++)
-            g.drawRect(i, i, size-i, size-i);
-        g.setColor(color);
-        g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, (int) (((size-2*(thickness+1)))*0.8))); 
-        drawCenteredString(g, str, size/2, size/2);
-        return image;
-    }
-    
-    private BufferedImage stringInSquare(int size, int thickness, String str) {
-        return stringInSquare(size, thickness, str, Color.black);
-    }
-    
-    private BufferedImage getDefaultTileImage(TileType type) {
-        if (type == TileType.Bonus) {
-            return stringInSquare(256, 4, "B?");
-        }
-        else if (type == TileType.Arrow) {
-            return stringInSquare(256, 4, "🡺");
-        }
-        else {
-            BufferedImage tile = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g = tile.createGraphics();
-            g.setColor(toColor(type));
-            g.fillRect(0, 0, 256, 256);
-            g.dispose();
-            return tile;
-        }
     }
     
     public void setShowSpawningLocations(boolean showSpawningLocations) {
@@ -269,11 +202,10 @@ public class GameViewer extends JPanel {
         cacheTileSize = size;
     }
     
-    private void drawCenteredString(Graphics g, String str, int centerX, int centerY) {
+    public static void drawCenteredString(Graphics g, String str, int centerX, int centerY) {
         int height = g.getFontMetrics().getHeight();
         int width = g.getFontMetrics().stringWidth(str);
         g.drawString(str, centerX-width/2, centerY+height/4);
-        
     }
 
     @objid ("8a85e92f-ba76-4ae7-8d93-ab5ea648949a")

@@ -7,11 +7,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -44,15 +39,9 @@ public class MainMenu extends JPanel implements ActionListener {
         setLayout(new BorderLayout(0,0));
         
         lblWallpaper = new JLabel();
-        try {
-            BufferedImage wallPaperImage = ImageIO.read(new File("img/wallPaper.png"));
-            wallPaperSprite = new Sprite(wallPaperImage);
-            wallPaperSprite.setSize(100);
-            ImageIcon wallPaper = new ImageIcon(wallPaperSprite.getImage());
-            lblWallpaper.setIcon(wallPaper);
-        } catch (IOException e) {
-            System.err.println("Can't find wallPaper.png");
-        }
+        wallPaperSprite = SpriteFactory.getInstance().getSprite("wallpaper");
+        ImageIcon wallPaper = new ImageIcon(wallPaperSprite.getImage(100));
+        lblWallpaper.setIcon(wallPaper);
         add(lblWallpaper, BorderLayout.CENTER);
         
         JPanel buttonPanel = new JPanel();

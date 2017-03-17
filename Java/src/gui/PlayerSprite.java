@@ -10,10 +10,11 @@ public class PlayerSprite {
     private OrientedSprite[] moving;
     
     public PlayerSprite(PlayerColor color) {
-        this.standing = new OrientedSprite(Sprite.readRessource("bomberMan_"+color.name().toLowerCase()));
+        SpriteFactory factory = SpriteFactory.getInstance();
+        this.standing = factory.getOrientedSprite("bomberMan_"+color.name().toLowerCase());
         this.moving = new OrientedSprite[TOTAL_MOVES];
         for (int i = 0; i < TOTAL_MOVES; i++)
-            this.moving[i] = new OrientedSprite(Sprite.readRessource("bomberMan_"+color.name().toLowerCase()+"_moving"+i));
+            this.moving[i] = factory.getOrientedSprite("bomberMan_"+color.name().toLowerCase()+"_moving"+i);
     }
     
     public Image getStandingPlayer(Direction direction) {
