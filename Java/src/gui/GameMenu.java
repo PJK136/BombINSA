@@ -7,8 +7,28 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.CodeSource;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -207,15 +227,28 @@ public class GameMenu extends JPanel implements ActionListener {
 
     @objid ("774feb6e-66a6-4fc0-869a-297ed681852b")
     private void updateMapList() {
+        maps.removeAllItems();
+        
         File folder = new File(".");
         File[] fileList = folder.listFiles();
         
-        for (File file : fileList) {
-            if (file.isFile()) {
-                String filename = file.getName();
-                if (filename.endsWith("." + MapCreatorPanel.MAP_EXTENSION))
-                    maps.addItem(filename.substring(0, filename.length() - 4));
+        if (fileList != null) {
+            for (File file : fileList) {
+                if (file.isFile()) {
+                    String filename = file.getName();
+                    if (filename.endsWith("." + MapCreatorPanel.MAP_EXTENSION))
+                        maps.addItem(filename.substring(0, filename.length() - 4));
+                }
             }
+        }
+        
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/maps/list.txt")))) {
+            for(String line; (line = br.readLine()) != null; ) {
+                if (!line.isEmpty())
+                    maps.addItem(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

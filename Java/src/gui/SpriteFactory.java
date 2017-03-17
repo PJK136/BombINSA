@@ -19,7 +19,7 @@ public class SpriteFactory {
         try {
             return ImageIO.read(Sprite.class.getResourceAsStream("/img/" + name + ".png"));
         } catch (IOException e) {
-            System.err.println("Can't read : " + "img/" + name + ".png");
+            System.err.println("Can't read ressource at " + "/img/" + name + ".png");
             return null;
         }
     }

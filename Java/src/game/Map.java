@@ -1,5 +1,8 @@
 package game;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
@@ -215,10 +218,20 @@ public class Map implements MapView {
         tiles = newTiles;
     }
 
-    @objid ("81317f24-599b-4128-9480-5c1f6c0859f2")
     public void loadMap(String map) throws InputMismatchException {
-        Scanner sc = new Scanner(map);
-        
+        loadMap(new Scanner(map));
+    }
+    
+    public void loadMap(Path path) throws InputMismatchException, IOException {
+        loadMap(new Scanner(path));
+    }
+    
+    public void loadMap(InputStream map) throws InputMismatchException {
+        loadMap(new Scanner(map));
+    }
+    
+    @objid ("81317f24-599b-4128-9480-5c1f6c0859f2")
+    private void loadMap(Scanner sc) throws InputMismatchException {
         int columnCount = sc.nextInt();
         int rowCount = sc.nextInt();
         
