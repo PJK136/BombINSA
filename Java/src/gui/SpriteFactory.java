@@ -1,7 +1,9 @@
 package gui;
 
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -17,9 +19,15 @@ public class SpriteFactory {
     
     private BufferedImage readRessource(String name) {
         try {
-            return ImageIO.read(Sprite.class.getResourceAsStream("/img/" + name + ".png"));
+            InputStream stream = getClass().getResourceAsStream("/img/" + name + ".png");
+            if (stream == null)
+                stream = getClass().getResourceAsStream("/img/" + name + ".jpg");
+            
+            if (stream == null)
+                throw new FileNotFoundException("Can't read ressource at " + "/img/" + name + ".png|.jpg");
+            return ImageIO.read(stream);
         } catch (IOException e) {
-            System.err.println("Can't read ressource at " + "/img/" + name + ".png");
+            e.printStackTrace();
             return null;
         }
     }

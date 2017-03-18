@@ -25,6 +25,11 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
 
     private JPanel topBar;
     
+    private JLabel playerAliveCount;
+    private JLabel bombCount;
+    private JLabel range;
+    private JLabel[] abilities;
+    
     @objid ("dbd6f5cb-8848-4a03-9b74-402de0479e51")
     private JLabel timeRemaining;
 
