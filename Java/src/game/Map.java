@@ -320,15 +320,6 @@ public class Map implements MapView {
         GridCoordinates gc = toGridCoordinates(x, y);
         ((ArrowTile)(tiles[gc.x][gc.y])).setDirection(direction);
     }
-    
-    public boolean hasBomb(double x, double y) {
-        List<Entity> entities = getEntities(x, y);
-        for (Entity entity : entities) {
-            if (entity instanceof Bomb)
-                return true;
-        }
-        return false;
-    }
 
     @objid ("3197c6a7-683c-41b2-8d78-dc1d8b6b0f8a")
     void setExplosion(int duration, ExplosionType type, Direction direction, GridCoordinates gc) {
@@ -350,12 +341,30 @@ public class Map implements MapView {
         ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
     }
 
-    @objid ("c15e0882-3eff-4467-ac1f-4152e69db4f1")
-    public List<Entity> getEntities(double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
+    @Override
+    public List<Entity> getEntities(GridCoordinates gc) {
         return Collections.unmodifiableList(tiles[gc.x][gc.y].getEntities());
     }
+    
+    @objid ("c15e0882-3eff-4467-ac1f-4152e69db4f1")
+    public List<Entity> getEntities(double x, double y) {
+        return getEntities(toGridCoordinates(x, y));
+    }
 
+    @Override
+    public boolean hasBomb(GridCoordinates gc) {
+        List<Entity> entities = getEntities(gc);
+        for (Entity entity : entities) {
+            if (entity instanceof Bomb)
+                return true;
+        }
+        return false;
+    }
+    
+    public boolean hasBomb(double x, double y) {
+        return hasBomb(toGridCoordinates(x, y));
+    }
+    
     @objid ("e0d1831e-0655-4b4d-a0d8-d282ff461427")
     Tile[][] getTiles() {
         return this.tiles;
