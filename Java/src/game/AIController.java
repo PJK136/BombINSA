@@ -1,5 +1,8 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AIController implements Controller {
     
     private WorldView world;
@@ -37,7 +40,7 @@ public class AIController implements Controller {
     @Override
     public void update() {
         aiLocation = world.getMap().toGridCoordinates((int)aiPlayer.getX(),(int)aiPlayer.getY());
-        if(aiPlayer.getSpeed() == 0){
+        if(aiPlayer.getSpeed() == 0 || !(isSafe(aiLocation.neighbor(currentDirection)))){
             turn(currentDirection,aiLocation);
         }
     }
@@ -46,14 +49,86 @@ public class AIController implements Controller {
         Direction randomDirection;
         for (int i = 0; i < 10 && !turned; i++) {
             randomDirection = Direction.getRandomDirection();
-            GridCoordinates nextPos = position.neighbor(randomDirection);
-            if(randomDirection != dir && world.getMap().isInsideMap(nextPos) && world.getMap().getTileType(nextPos) == TileType.Empty){
+            if(randomDirection != dir && world.getMap().getTileType(position.neighbor(randomDirection)) == TileType.Empty && world.getMap().isInsideMap(position.neighbor(randomDirection))){
                 currentDirection = randomDirection;
                 turned = true;
-                System.out.println("turned " + randomDirection);
             }
         }
         turned = false;
     }
-
+    
+    public boolean isSafe(GridCoordinates target){
+        GridCoordinates temp = target;
+        List<Entity> tileEntities = new ArrayList<Entity>();
+        Bomb bomb = null;
+        //first direction
+        while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
+            if(world.getMap().hasBomb(temp.x, temp.y)){
+                System.out.println("check right");
+                tileEntities = world.getMap().getEntities(temp);
+                for(Entity entity : tileEntities){
+                    if(entity instanceof Bomb){
+                        bomb = (Bomb)entity;
+                    }
+                }
+                if(GridCoordinates.distance(target,temp) <= bomb.getRange()){
+                    return false;
+                }
+            }
+            temp.x ++;
+            System.out.println(temp.x);
+        }
+        //second direction
+        temp = target;
+        while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
+            if(world.getMap().hasBomb(temp.x, temp.y)){
+                System.out.println("check left");
+                tileEntities = world.getMap().getEntities(temp);
+                for(Entity entity : tileEntities){
+                    if(entity instanceof Bomb){
+                        bomb = (Bomb)entity;
+                    }
+                }
+                if(GridCoordinates.distance(target,temp) <= bomb.getRange()){
+                    return false;
+                }
+            }
+            temp.x --;
+        }
+        //third direction
+        temp = target;
+        while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
+            if(world.getMap().hasBomb(temp.x, temp.y)){
+                System.out.println("check down");
+                tileEntities = world.getMap().getEntities(temp);
+                for(Entity entity : tileEntities){
+                    if(entity instanceof Bomb){
+                        bomb = (Bomb)entity;
+                    }
+                }
+                if(GridCoordinates.distance(target,temp) <= bomb.getRange()){
+                    return false;
+                }
+            }
+            temp.y ++;
+        }
+        //last direction
+        temp = target;
+        while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
+            if(world.getMap().hasBomb(temp.x, temp.y)){
+                System.out.println("check up");
+                tileEntities = world.getMap().getEntities(temp);
+                for(Entity entity : tileEntities){
+                    if(entity instanceof Bomb){
+                        bomb = (Bomb)entity;
+                    }
+                }
+                if(GridCoordinates.distance(target,temp) <= bomb.getRange()){
+                    return false;
+                }
+            }
+            temp.y --;
+        }
+        return true;
+    }
 }
