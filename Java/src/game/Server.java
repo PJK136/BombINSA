@@ -178,7 +178,7 @@ public class Server extends World {
                        map.isInsideMap(nextGC) && !hasCollided && map.isExplodable(nextGC)) {
                     explosionGC = nextGC;
                     map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, direction, explosionGC);
-                    hasCollided = map.isCollidable(explosionGC);
+                    hasCollided = map.isCollidable(explosionGC) || map.hasBomb(explosionGC);
                     nextGC = explosionGC.neighbor(direction);
                 }
                 if (!map.isInsideMap(nextGC) || !map.isExploding(nextGC))
