@@ -184,9 +184,10 @@ public class Map implements MapView {
             throw new RuntimeException("Taille des tuiles inférieure à 1 :" + value);
         
         this.tileSize = value;
-        for (int i = 0; i < getColumnCount(); i++) {
-            for (int j = 0; j < getRowCount(); j++) {
-                updateEntities(i, j);
+        GridCoordinates gc = new GridCoordinates();
+        for(gc.x= 0; gc.x < getColumnCount(); gc.x++){
+            for(gc.y= 0; gc.y < getRowCount(); gc.y++){
+                updateEntities(gc);
             }
         }
     }
@@ -368,28 +369,29 @@ public class Map implements MapView {
     
     @objid ("0812769a-5d2b-489d-9bf4-f782cb16fbef")
     void update() {
-        for(int i=0; i<getColumnCount(); i++){
-            for(int j=0; j<getRowCount(); j++){
+        GridCoordinates gc = new GridCoordinates();
+        for(gc.x=0; gc.x<getColumnCount(); gc.x++){
+            for(gc.y=0; gc.y<getRowCount(); gc.y++){
                 //on parcours le tableau et on update les cases
-               tiles[i][j] = tiles[i][j].update();
-               updateEntities(i, j);
+               tiles[gc.x][gc.y] = tiles[gc.x][gc.y].update();
+               updateEntities(gc);
             }
         }
         
     }
     
-    private void updateEntities(int gx, int gy){
-        Iterator<Entity> iterator = tiles[gx][gy].entities.iterator();
+    private void updateEntities(GridCoordinates gc){
+        Iterator<Entity> iterator = tiles[gc.x][gc.y].entities.iterator();
         while(iterator.hasNext()){
             //parcours les entités pour virer ceux qui sont à remove
             Entity entity = iterator.next();
             if(entity.isToRemove()){
                 iterator.remove();
             } else {
-                GridCoordinates gc = toGridCoordinates(entity.x, entity.y);
-                if((gc.x != gx) || (gc.y != gy)){
+                GridCoordinates pos = toGridCoordinates(entity.x, entity.y);
+                if((gc.x != pos.x) || (gc.y != pos.y)){
                     //parcours les entités et déplace puis remove celles qui sont pas dans la bonne case
-                    tiles[gc.x][gc.y].addEntity(entity);
+                    tiles[pos.x][pos.y].addEntity(entity);
                     iterator.remove();
                 }
             }
