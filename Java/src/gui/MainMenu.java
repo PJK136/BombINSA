@@ -17,6 +17,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("e22186a6-1bcc-48ec-a2ac-a88a3eb90491")
 public class MainMenu extends JPanel implements ActionListener {
+    private GameSettings settings;
+    
     @objid ("b2c4e4e8-bfe6-429e-a138-b575a0165129")
     private JButton btnPlay;
 
@@ -35,17 +37,17 @@ public class MainMenu extends JPanel implements ActionListener {
     @objid ("a31a2175-f166-434f-b6fd-96a25b344584")
     public MainMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
+        this.settings = GameSettings.getInstance();
         
         setLayout(new BorderLayout(0,0));
         
         lblWallpaper = new JLabel();
         wallPaperSprite = SpriteFactory.getInstance().getSprite("wallpaper");
-        ImageIcon wallPaper = new ImageIcon(wallPaperSprite.getImage(100));
+        ImageIcon wallPaper = new ImageIcon(wallPaperSprite.getImage());
         lblWallpaper.setIcon(wallPaper);
         add(lblWallpaper, BorderLayout.CENTER);
         
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setPreferredSize(new Dimension(250, buttonPanel.getPreferredSize().height));
         
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         
@@ -53,10 +55,10 @@ public class MainMenu extends JPanel implements ActionListener {
         
         JLabel lblBombinsa = new JLabel("BombINSA");
         lblBombinsa.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lblBombinsa.setFont(new Font("Dialog", Font.BOLD, 36));
+        lblBombinsa.setFont(new Font("Dialog", Font.BOLD, settings.scale(36)));
         buttonPanel.add(lblBombinsa);
         
-        buttonPanel.add(Box.createVerticalStrut(40));
+        buttonPanel.add(Box.createVerticalStrut(settings.scale(40)));
         
         btnPlay = addButton("Jouer",buttonPanel);
         btnCreator = addButton("Créateur de carte",buttonPanel);
@@ -64,17 +66,20 @@ public class MainMenu extends JPanel implements ActionListener {
         
         buttonPanel.add(Box.createVerticalGlue());
         
+        buttonPanel.setPreferredSize(new Dimension(settings.scale(250), buttonPanel.getPreferredSize().height));
+        
         add(buttonPanel, BorderLayout.EAST);
     }
 
     @objid ("07a869f1-82e5-45c3-9ad9-a445c4aa7dde")
     private JButton addButton(String text, JPanel panel) {
         JButton button = new JButton(text);
+        settings.scaleFont(button);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        button.setMaximumSize(new Dimension(160, button.getMaximumSize().height));
+        button.setMaximumSize(new Dimension(settings.scale(160), button.getMaximumSize().height));
         button.addActionListener(this);
         panel.add(button);
-        panel.add(Box.createVerticalStrut(20));
+        panel.add(Box.createVerticalStrut(settings.scale(20)));
         return button;
     }
 

@@ -146,7 +146,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     }
     
     private void updateUISize() {
-        final int size = ((int)tileSize.getValue())*3/4;
+        final int size = settings.scale(((int)tileSize.getValue())*3/4);
         SpriteFactory factory = SpriteFactory.getInstance();
         btnNew.setIcon(factory.getImageIcon("New24", size));
         btnOpen.setIcon(factory.getImageIcon("Open24", size));
@@ -195,7 +195,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     }
     
     private void placeTile(MouseEvent e) {
-        if (tileTypeGroup.getSelection() != null && map.isInsideMap(e.getX(), e.getY())) {
+        double x = e.getX()/settings.scale;
+        double y = e.getY()/settings.scale;
+        if (tileTypeGroup.getSelection() != null && map.isInsideMap(x, y)) {
             TileType type;
             if (SwingUtilities.isLeftMouseButton(e))
                 type = getActualType();
@@ -204,9 +206,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             else
                 return;
             
-            if (map.getTileType(e.getX(), e.getY()) != type) {
+            if (map.getTileType(x, y) != type) {
                 saved = false;
-                map.setTileType(type, e.getX(), e.getY());
+                map.setTileType(type, x, y);
                 updateMap();
             }
         }
@@ -215,7 +217,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @Override
     public void mouseClicked(MouseEvent e) {
         if (SwingUtilities.isMiddleMouseButton(e)) {
-            GridCoordinates gc = map.toGridCoordinates(e.getX(), e.getY());
+            GridCoordinates gc = map.toGridCoordinates(e.getX()/settings.scale, e.getY()/settings.scale);
             if (map.getSpawningLocations().contains(gc))
                 map.removeSpawningLocation(gc);
             else
@@ -238,10 +240,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (getActualType() == TileType.Arrow && map.isInsideMap(e.getX(), e.getY()) && map.getTileType(e.getX(), e.getY()) == TileType.Arrow) {
+        double x = e.getX()/settings.scale;
+        double y = e.getY()/settings.scale;
+        if (getActualType() == TileType.Arrow && map.isInsideMap(x, y) && map.getTileType(x, y) == TileType.Arrow) {
             Direction[] directions = Direction.values();
-            int i = (map.getArrowDirection(e.getX(), e.getY()).ordinal()+1)%directions.length;
-            map.setArrowDirection(directions[i], e.getX(), e.getY());
+            int i = (map.getArrowDirection(x, y).ordinal()+1)%directions.length;
+            map.setArrowDirection(directions[i], x, y);
             updateMap();
         } else
             placeTile(e);

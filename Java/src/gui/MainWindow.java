@@ -1,17 +1,22 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("580889f0-8e1d-4a59-9bfb-00c967a10ffd")
 public class MainWindow {
     @objid ("d7d0818d-1589-4942-982c-1a9cbfa0f600")
     private JFrame frame;
+    
+    private GameSettings settings;
 
     @objid ("294a7f1e-7ead-4bc6-bf80-c970a68ae918")
     private GameWorker gameWorker;
@@ -37,15 +42,21 @@ public class MainWindow {
 
     @objid ("3c9a8780-8ade-4f8d-8f7e-7bfa3ca27a66")
     public MainWindow() {
+        this.settings = GameSettings.getInstance();
         initialize();
     }
 
     @objid ("14da88d1-2c75-4382-849c-9c7a54c281ac")
     private void initialize() {
         frame = new JFrame();
-        frame.setSize(START_WIDTH, START_HEIGHT);
+        frame.setSize(settings.scale(START_WIDTH), settings.scale(START_HEIGHT));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("BombINSA");
+        
+        Font defaultFont = settings.scale((Font)UIManager.get("OptionPane.font"));
+        for (String font : new String[]{"OptionPane.font", "OptionPane.messageFont", "OptionPane.buttonFont"}) {
+            UIManager.put(font, defaultFont);
+        }
         
         showMenu();
     }

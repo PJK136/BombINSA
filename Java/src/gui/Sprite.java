@@ -11,10 +11,11 @@ public class Sprite {
     
     public Sprite(BufferedImage src) {
         this.src = src;
+        this.cache = src;
     }
     
     public Sprite(Sprite copy) {
-        this.src = copy.src;
+        this(copy.src);
     }
     
     public int getSize() {

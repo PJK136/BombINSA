@@ -24,6 +24,8 @@ import game.WorldView;
 
 @objid ("932712f7-e00f-431a-abd5-e4322b7407bd")
 public class GameViewer extends JPanel {
+    private GameSettings settings;
+    
     @objid ("12584c94-a9fc-48b1-bdf6-42c3345b8404")
     private BufferedImage world;
 
@@ -41,6 +43,8 @@ public class GameViewer extends JPanel {
     
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
+        settings = GameSettings.getInstance();
+        
         SpriteFactory factory = SpriteFactory.getInstance();
         tiles = new Sprite[TileType.values().length];
         for (TileType type : TileType.values()) {
@@ -91,22 +95,26 @@ public class GameViewer extends JPanel {
     @objid ("18e3e04f-dec2-45e2-a3f5-dbabb34447b4")
     public void drawWorld(WorldView worldView) {
         MapView map = worldView.getMap();
-        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage newWorld = new BufferedImage(settings.scale(map.getWidth()), settings.scale(map.getHeight()), BufferedImage.TYPE_INT_RGB);
         Graphics2D g = newWorld.createGraphics();
+        g.setFont(settings.scale(g.getFont()));
         drawMap(g, map);
         drawWorld(g, worldView);
         updateDisplay(newWorld);
     }
     
     public void drawMap(MapView map) {
-        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB);
-        drawMap(newWorld.createGraphics(), map);
+        BufferedImage newWorld = new BufferedImage(settings.scale(map.getWidth()), settings.scale(map.getHeight()), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = newWorld.createGraphics();
+        g.setFont(settings.scale(g.getFont()));
+        drawMap(g, map);
         updateDisplay(newWorld);
     }
     
     private void drawMap(Graphics2D g, MapView map) {
-        if (cacheTileSize != map.getTileSize())
-            updateCaches(map.getTileSize());
+        int size = settings.scale(map.getTileSize());
+        if (cacheTileSize != size)
+            updateCaches(size);
         
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON);
@@ -123,15 +131,15 @@ public class GameViewer extends JPanel {
                     } else
                         image = tiles[map.getTileType(gc).ordinal()].getImage();
                     
-                    g.drawImage(image, gc.x*map.getTileSize(), gc.y*map.getTileSize(), null);
+                    g.drawImage(image, gc.x*size, gc.y*size, null);
                     
                     if (map.isExploding(gc)) {
                         if (map.getExplosionType(gc) != ExplosionType.Center)
                             g.drawImage(((OrientedSprite)explosions[map.getExplosionType(gc).ordinal()]).getOrientedImage(map.getExplosionDirection(gc)),
-                                        gc.x*map.getTileSize(), gc.y*map.getTileSize(), null);
+                                        gc.x*size, gc.y*size, null);
                         else
                             g.drawImage(explosions[ExplosionType.Center.ordinal()].getImage(),
-                                        gc.x*map.getTileSize(), gc.y*map.getTileSize(), null);
+                                        gc.x*size, gc.y*size, null);
                     }
                 }
             }
@@ -142,9 +150,9 @@ public class GameViewer extends JPanel {
             List<GridCoordinates> spawningLocations = map.getSpawningLocations();
             for (int i = 0; i < spawningLocations.size(); i++) {
                 GridCoordinates gc = spawningLocations.get(i);
-                g.drawOval(gc.x*map.getTileSize(), gc.y*map.getTileSize(), map.getTileSize(), map.getTileSize());
+                g.drawOval(gc.x*size, gc.y*size, size, size);
                 
-                drawCenteredString(g, String.valueOf(i), (int)map.toCenterX(gc), (int)map.toCenterY(gc));
+                drawCenteredString(g, String.valueOf(i), settings.scale((int)map.toCenterX(gc)), settings.scale((int)map.toCenterY(gc)));
             }
         }
     }
@@ -153,9 +161,9 @@ public class GameViewer extends JPanel {
         for (Entity entity : worldView.getEntities()) {
             if (entity instanceof Bomb) { 
                 if (((Bomb)entity).getTimeRemaining() % (2*BOMB_BLINK_INTERVAL*worldView.getFps()) >= BOMB_BLINK_INTERVAL*worldView.getFps())
-                    g.drawImage(bombs[0].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
+                    drawEntity(g, entity, bombs[0].getImage());
                 else
-                    g.drawImage(bombs[1].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
+                    drawEntity(g, entity, bombs[1].getImage());
             }
         }
         
@@ -165,13 +173,15 @@ public class GameViewer extends JPanel {
             if (entity instanceof Player) {
                 int color = ((Player)entity).getPlayerID() % colorCount;
                 if (entity.getSpeed() == 0.)
-                    g.drawImage(players[color].getStandingPlayer(entity.getDirection()),
-                               (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
+                    drawEntity(g, entity, players[color].getStandingPlayer(entity.getDirection()));
                 else
-                    g.drawImage(players[color].getMovingPlayer(entity.getDirection(), 10*Math.abs(worldView.getTimeRemaining())/worldView.getFps()%2),
-                               (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
+                    drawEntity(g, entity, players[color].getMovingPlayer(entity.getDirection(), 10*Math.abs(worldView.getTimeRemaining())/worldView.getFps()%2));
             }
         }
+    }
+    
+    private void drawEntity(Graphics2D g, Entity entity, Image image) {
+        g.drawImage(image, (int)settings.scale(entity.getBorderLeft()), (int)settings.scale(entity.getBorderTop()), null);
     }
 
     

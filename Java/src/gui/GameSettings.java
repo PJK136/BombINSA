@@ -1,11 +1,15 @@
 package gui;
 
+import java.awt.Dimension;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JComponent;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,12 +27,6 @@ public class GameSettings {
     @objid ("97b01c6d-719e-40a4-a35e-4cf8ca0a1f5f")
     public String mapName;
 
-    @objid ("3358695a-0d2b-4e4c-ac1b-71c6800c0fe6")
-    public int tileSize;
-
-    @objid ("518dcb54-de5e-4a36-8b59-228bfd65feb9")
-    public int fps;
-
     @objid ("3d89f7ec-1b8b-4c83-ac61-bb0fcabae609")
     public int duration;
 
@@ -41,22 +39,51 @@ public class GameSettings {
     @objid ("cff69b76-eea0-4a50-a107-1c15c7d9e87b")
     public int aiCount;
 
+    @objid ("3358695a-0d2b-4e4c-ac1b-71c6800c0fe6")
+    public int tileSize;
+
+    @objid ("518dcb54-de5e-4a36-8b59-228bfd65feb9")
+    public int fps;
+    
     @objid ("35c7ed6d-70f2-46bc-9c5a-047fcaed1713")
     public List<ControlSettings> controls;
+    
+    public double scale;
 
     @objid ("c6740cfb-642c-4bbc-82c0-d26fc0f5b072")
     private GameSettings() {
         //Configuration par défaut
-        tileSize = 32;
-        fps = 60;
-        controls = new ArrayList<ControlSettings> ();
-        controls.add(ControlSettings.defaultControls());
         gameType = GameType.Local;
         mapName = "default";
         playerCount = 1;
         aiCount = 0;
         roundCount = 1;
         duration = 180;
+        tileSize = 32;
+        fps = 60;
+        controls = new ArrayList<ControlSettings> ();
+        controls.add(ControlSettings.defaultControls());
+        scale = 1;
+    }
+    
+    public int scale(int size) {
+        return (int)(size*scale);
+    }
+    
+    public double scale(double size) {
+        return size*scale;
+    }
+    
+    public Dimension scale(Dimension dim) {
+        return new Dimension(scale(dim.width), scale(dim.height));
+    }
+    
+    public Font scale(Font font) {
+        return font.deriveFont((float)scale(font.getSize()));
+    }
+    
+    public void scaleFont(JComponent component) {
+        MainWindow.setFontSize(component, scale(component.getFont().getSize()));
     }
 
     @objid ("f454de1c-cf21-4345-acd1-5debae4eb46b")

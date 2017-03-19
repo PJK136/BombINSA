@@ -28,6 +28,8 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
     @objid ("1630e521-8ea4-48df-9278-b85be1fba591")
     private GameViewer gameViewer;
 
+    private GameSettings settings;
+    
     @objid ("74e92561-a1a0-467e-a74c-be5e17aa47d1")
     private MainWindow mainWindow;
 
@@ -46,6 +48,7 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
     @objid ("c0d6533a-0897-40bb-94e0-4be89488c38b")
     public GamePanel(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
+        this.settings = GameSettings.getInstance();
         setLayout(new BorderLayout(0, 0));
         
         topBar = new JPanel();
@@ -87,7 +90,7 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
     }
     
     public void showGameStatus(WorldView view) {
-        final int size = (int) (view.getMap().getTileSize()*0.75);
+        final int size = settings.scale((int) (view.getMap().getTileSize()*0.75));
         updateTimeRemaining(view, size);
         if (btnExit.getIcon() == null || btnExit.getIcon().getIconHeight() != size)
             btnExit.setIcon(SpriteFactory.getInstance().getImageIcon("Stop24", size));

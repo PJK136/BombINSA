@@ -70,6 +70,7 @@ public class GameMenu extends JPanel implements ActionListener {
         setLayout(gridBagLayout);
         
         JLabel lblTypeDuJeu = new JLabel("Type du jeu :");
+        settings.scaleFont(lblTypeDuJeu);
         GridBagConstraints gbc_lblTypeDuJeu = new GridBagConstraints();
         gbc_lblTypeDuJeu.anchor = GridBagConstraints.WEST;
         gbc_lblTypeDuJeu.insets = new Insets(0, 0, 5, 5);
@@ -78,6 +79,7 @@ public class GameMenu extends JPanel implements ActionListener {
         add(lblTypeDuJeu, gbc_lblTypeDuJeu);
         
         gameType = new JComboBox<GameType>();
+        settings.scaleFont(gameType);
         GridBagConstraints gbc_gameType = new GridBagConstraints();
         gbc_gameType.insets = new Insets(0, 0, 5, 5);
         gbc_gameType.fill = GridBagConstraints.HORIZONTAL;
@@ -89,6 +91,7 @@ public class GameMenu extends JPanel implements ActionListener {
             gameType.addItem(type);
         
         JLabel lblHumain = new JLabel("Nombre de joueurs :");
+        settings.scaleFont(lblHumain);
         GridBagConstraints gbc_lblHumain = new GridBagConstraints();
         gbc_lblHumain.anchor = GridBagConstraints.WEST;
         gbc_lblHumain.insets = new Insets(0, 0, 5, 5);
@@ -98,6 +101,7 @@ public class GameMenu extends JPanel implements ActionListener {
         
         playerCount = new JSpinner();
         playerCount.setModel(new SpinnerNumberModel(new Integer(settings.playerCount), null, null, new Integer(1)));
+        settings.scaleFont(playerCount);
         GridBagConstraints gbc_playerCount = new GridBagConstraints();
         gbc_playerCount.fill = GridBagConstraints.HORIZONTAL;
         gbc_playerCount.insets = new Insets(0, 0, 5, 5);
@@ -106,6 +110,7 @@ public class GameMenu extends JPanel implements ActionListener {
         add(playerCount, gbc_playerCount);
         
         JLabel lblOrdinateur = new JLabel("Nombre d'IA :");
+        settings.scaleFont(lblOrdinateur);
         GridBagConstraints gbc_lblOrdinateur = new GridBagConstraints();
         gbc_lblOrdinateur.anchor = GridBagConstraints.WEST;
         gbc_lblOrdinateur.insets = new Insets(0, 0, 5, 5);
@@ -115,6 +120,7 @@ public class GameMenu extends JPanel implements ActionListener {
         
         aiCount = new JSpinner();
         aiCount.setModel(new SpinnerNumberModel(new Integer(settings.aiCount), new Integer(0), null, new Integer(1)));
+        settings.scaleFont(aiCount);
         GridBagConstraints gbc_aiCount = new GridBagConstraints();
         gbc_aiCount.fill = GridBagConstraints.HORIZONTAL;
         gbc_aiCount.insets = new Insets(0, 0, 5, 5);
@@ -123,6 +129,7 @@ public class GameMenu extends JPanel implements ActionListener {
         add(aiCount, gbc_aiCount);
         
         JLabel lblCarte = new JLabel("Carte :");
+        settings.scaleFont(lblCarte);
         GridBagConstraints gbc_lblCarte = new GridBagConstraints();
         gbc_lblCarte.anchor = GridBagConstraints.WEST;
         gbc_lblCarte.insets = new Insets(0, 0, 5, 5);
@@ -131,6 +138,7 @@ public class GameMenu extends JPanel implements ActionListener {
         add(lblCarte, gbc_lblCarte);
         
         maps = new JComboBox<String>();
+        settings.scaleFont(maps);
         GridBagConstraints gbc_map = new GridBagConstraints();
         gbc_map.insets = new Insets(0, 0, 5, 5);
         gbc_map.fill = GridBagConstraints.HORIZONTAL;
@@ -141,6 +149,7 @@ public class GameMenu extends JPanel implements ActionListener {
         maps.setSelectedItem(settings.mapName);
         
         JLabel lblNombreDeRound = new JLabel("Nombre de round :");
+        settings.scaleFont(lblNombreDeRound);
         GridBagConstraints gbc_lblNombreDeRound = new GridBagConstraints();
         gbc_lblNombreDeRound.anchor = GridBagConstraints.WEST;
         gbc_lblNombreDeRound.insets = new Insets(0, 0, 5, 5);
@@ -150,6 +159,7 @@ public class GameMenu extends JPanel implements ActionListener {
         
         roundCount = new JSpinner();
         roundCount.setModel(new SpinnerNumberModel(new Integer(settings.roundCount), new Integer(1), null, new Integer(1)));
+        settings.scaleFont(roundCount);
         GridBagConstraints gbc_roundCount = new GridBagConstraints();
         gbc_roundCount.fill = GridBagConstraints.HORIZONTAL;
         gbc_roundCount.insets = new Insets(0, 0, 5, 5);
@@ -158,6 +168,7 @@ public class GameMenu extends JPanel implements ActionListener {
         add(roundCount, gbc_roundCount);
         
         JLabel lblDureeRound = new JLabel("Durée d'un round (s) :");
+        settings.scaleFont(lblDureeRound);
         GridBagConstraints gbc_lblDureeRound = new GridBagConstraints();
         gbc_lblDureeRound.anchor = GridBagConstraints.WEST;
         gbc_lblDureeRound.insets = new Insets(0, 0, 5, 5);
@@ -167,6 +178,7 @@ public class GameMenu extends JPanel implements ActionListener {
         
         roundDuration = new JSpinner();
         roundDuration.setModel(new SpinnerNumberModel(new Integer(settings.duration), new Integer(0), null, new Integer(1)));
+        settings.scaleFont(roundDuration);
         GridBagConstraints gbc_roundDuration = new GridBagConstraints();
         gbc_roundDuration.fill = GridBagConstraints.HORIZONTAL;
         gbc_roundDuration.insets = new Insets(0, 0, 5, 5);
@@ -188,6 +200,7 @@ public class GameMenu extends JPanel implements ActionListener {
         panel.add(horizontalStrut_1);
         
         btnReturn = new JButton("Retour");
+        settings.scaleFont(btnReturn);
         btnReturn.addActionListener(this);
         panel.add(btnReturn);
         
@@ -195,6 +208,7 @@ public class GameMenu extends JPanel implements ActionListener {
         panel.add(horizontalStrut);
         
         btnPlay = new JButton("Jouer");
+        settings.scaleFont(btnPlay);
         btnPlay.addActionListener(this);
         panel.add(btnPlay);
     }
