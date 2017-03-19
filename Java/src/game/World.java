@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -38,7 +39,7 @@ public abstract class World implements WorldView {
      Map map;
 
     @objid ("ea256a0b-ce0d-4498-ac24-bd5ea8fb8825")
-     List<Entity> entities = new LinkedList<Entity> ();
+     List<Entity> entities = Collections.synchronizedList(new LinkedList<Entity> ());
 
     @objid ("20f367fb-bcb4-4389-912c-a406baff8d4e")
     public List<Controller> controllers = new ArrayList<Controller> ();
@@ -59,8 +60,10 @@ public abstract class World implements WorldView {
     }
 
     @objid ("83167709-dc8e-456e-b787-b9a4ed0d8113")
-    public synchronized List<Entity> getEntities() { //Thread-safety
-        return new LinkedList<Entity>(entities);
+    public List<Entity> getEntities() { //Thread-safety
+        synchronized (entities) {
+            return new LinkedList<Entity>(entities);            
+        }
     }
 
     @objid ("8696ef92-01cf-4263-80c5-6bcf172924d8")
