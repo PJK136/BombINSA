@@ -26,9 +26,9 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     private GameViewer viewer;
 
     @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
-    public GameWorker(GameSettings settings, GamePanel panel) throws Exception {
+    public GameWorker( GamePanel panel) throws Exception {
         this.state = null;
-        this.settings = settings;
+        this.settings = GameSettings.getInstance();
         this.panel = panel;
         this.viewer = panel.getGameViewer();
         createWorld();

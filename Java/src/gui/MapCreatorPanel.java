@@ -41,6 +41,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     public static final String MAP_EXTENSION = "map";
     
     private MainWindow mainWindow;
+    private GameSettings settings;
     private GameViewer gameViewer;
     private Map map;
     
@@ -64,6 +65,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     public MapCreatorPanel(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         setLayout(new BorderLayout(0, 0));
+        
+        this.settings = GameSettings.getInstance();
         
         JToolBar toolBar = new JToolBar();
         add(toolBar, BorderLayout.NORTH);
@@ -97,7 +100,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         toolBar.add(rowCount);
         toolBar.addSeparator();
         
-        tileSize = new JSpinner(new SpinnerNumberModel(new Integer(32), new Integer(8), null, new Integer(2)));
+        tileSize = new JSpinner(new SpinnerNumberModel(new Integer(settings.tileSize), new Integer(8), null, new Integer(2)));
         tileSize.addChangeListener(this);
         toolBar.add(new JLabel("TS : "));
         toolBar.add(tileSize);

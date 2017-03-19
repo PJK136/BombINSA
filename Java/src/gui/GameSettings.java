@@ -15,6 +15,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("8b53145e-40f1-4120-b590-417a35a7feb5")
 public class GameSettings {
+    public static final String SETTINGS_FILENAME = "settings.json";
+    
     @objid ("59545b35-c143-4d23-81e7-cfa605a46f32")
     public GameType gameType;
 
@@ -43,7 +45,7 @@ public class GameSettings {
     public List<ControlSettings> controls;
 
     @objid ("c6740cfb-642c-4bbc-82c0-d26fc0f5b072")
-    public GameSettings() {
+    private GameSettings() {
         //Configuration par défaut
         tileSize = 32;
         fps = 60;
@@ -58,17 +60,34 @@ public class GameSettings {
     }
 
     @objid ("f454de1c-cf21-4345-acd1-5debae4eb46b")
-    public static GameSettings load(String filename) throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-        Gson gson = new Gson();
-        return gson.fromJson(new FileReader(new File(filename)), GameSettings.class);
+    private static GameSettings load() {
+        try {
+            Gson gson = new Gson();
+            return gson.fromJson(new FileReader(new File(SETTINGS_FILENAME)), GameSettings.class);
+        } catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
+            System.err.println("Impossible de lire " + SETTINGS_FILENAME);
+            e.printStackTrace();
+            return new GameSettings();
+        }
     }
 
     @objid ("a03739e2-2ae7-4c62-a7b3-0d2edbd4412a")
-    public void save(String filename) throws FileNotFoundException {
+    public void save() throws FileNotFoundException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        PrintWriter printWriter = new PrintWriter(filename);
+        PrintWriter printWriter = new PrintWriter(SETTINGS_FILENAME);
         printWriter.write(gson.toJson(this));
         printWriter.close();
     }
-
+   
+    // http://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java
+    private static class SingletonHolder
+    {       
+        /** Instance unique non préinitialisée */
+        private final static GameSettings instance = load();
+    }
+ 
+    /** Point d'accès pour l'instance unique du singleton */
+    public static GameSettings getInstance() {
+        return SingletonHolder.instance;
+    }
 }

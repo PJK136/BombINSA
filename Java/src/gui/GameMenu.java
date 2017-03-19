@@ -22,14 +22,10 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonSyntaxException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("1792b20d-e79e-4f35-8f63-20089eca61f0")
 public class GameMenu extends JPanel implements ActionListener {
-    @objid ("0f381cf0-820f-41e4-95c2-1b2a1fc2f810")
-    public static final String SETTINGS_FILENAME = "settings.json";
 
     @objid ("a39767d1-eca3-41c4-85d7-7d0bde3a14cc")
     private MainWindow mainWindow;
@@ -64,12 +60,7 @@ public class GameMenu extends JPanel implements ActionListener {
     @objid ("9b4377fe-7088-4d49-ac76-20f2e508013d")
     public GameMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
-        this.settings = new GameSettings();
-        try {
-            this.settings = GameSettings.load(SETTINGS_FILENAME);
-        } catch (JsonSyntaxException | JsonIOException | FileNotFoundException e) {
-            System.err.println("Impossible de lire " + SETTINGS_FILENAME);
-        }
+        this.settings = GameSettings.getInstance();
         
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{0, 0, 0, 25, 0, 64, 0, 0};
@@ -236,14 +227,13 @@ public class GameMenu extends JPanel implements ActionListener {
     }
 
     @objid ("d1e9ba38-aebd-4bc4-b6f9-a97681e13fe0")
-    private GameSettings updateGameSettings() {
+    private void updateGameSettings() {
         settings.gameType = (GameType) gameType.getSelectedItem();
         settings.mapName = (String) maps.getSelectedItem();
         settings.playerCount = (int) playerCount.getValue();
         settings.aiCount = (int) aiCount.getValue();
         settings.roundCount = (int) roundCount.getValue();
         settings.duration = (int) roundDuration.getValue();
-        return settings;
     }
 
     @objid ("3c87a9f3-8dd6-480e-a2ae-5e1534c8c5a2")
@@ -252,10 +242,10 @@ public class GameMenu extends JPanel implements ActionListener {
         if (event.getSource() == btnReturn || event.getSource() == btnPlay) {
             updateGameSettings();
             try {
-                settings.save(SETTINGS_FILENAME);
+                settings.save();
             } catch (FileNotFoundException e) {
                 JOptionPane.showMessageDialog(this,
-                        "Impossible de sauvegarder la configuration actuelle dans " + SETTINGS_FILENAME + " !",
+                        "Impossible de sauvegarder la configuration actuelle dans " + GameSettings.SETTINGS_FILENAME + " !",
                         "Erreur lors de la sauvegarde",
                         JOptionPane.ERROR_MESSAGE);
             }
@@ -263,7 +253,7 @@ public class GameMenu extends JPanel implements ActionListener {
             if (event.getSource() == btnReturn)
                 mainWindow.showMenu();
             else
-            mainWindow.startGame(settings);
+                mainWindow.startGame();
         }
     }
 

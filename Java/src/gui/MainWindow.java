@@ -59,10 +59,10 @@ public class MainWindow {
     }
 
     @objid ("6b34965b-9d8d-4d4f-ac64-d111b1e847c0")
-    public void startGame(GameSettings settings) {
+    public void startGame() {
         try {
             GamePanel gamePanel = new GamePanel(this);
-            gameWorker = new GameWorker(settings, gamePanel);
+            gameWorker = new GameWorker(gamePanel);
             gameWorker.addPropertyChangeListener(gamePanel);
             gameWorker.execute();
             setPage(gamePanel);
