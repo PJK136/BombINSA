@@ -112,9 +112,6 @@ public class GameViewer extends JPanel {
                            RenderingHints.VALUE_ANTIALIAS_ON);
         
         {
-            g.setColor(Color.black);
-            g.fillRect(0, 0, map.getWidth(), map.getHeight());
-            
             GridCoordinates gc = new GridCoordinates();
             for (gc.x = 0; gc.x < map.getColumnCount(); gc.x++) {
                 for (gc.y = 0; gc.y < map.getRowCount(); gc.y++) {
@@ -212,7 +209,7 @@ public class GameViewer extends JPanel {
     protected void paintComponent(Graphics g) {
         g.setColor(Color.gray);
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.drawImage(world, 0, 0, this);
+        g.drawImage(world, 0, 0, null);
     }
     
     @Override
