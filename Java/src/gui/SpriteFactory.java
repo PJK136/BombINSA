@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class SpriteFactory {
 
@@ -60,6 +62,14 @@ public class SpriteFactory {
     
     public OrientedSprite getOrientedSprite(String name) {
         return new OrientedSprite(readImage(name));
+    }
+    
+    public Image getScaledImage(String name, int size) {
+        return getSprite(name).getImage(size);
+    }
+    
+    public ImageIcon getImageIcon(String name, int size) {
+        return new ImageIcon(getScaledImage(name, size));
     }
     
     /* For test purposes
