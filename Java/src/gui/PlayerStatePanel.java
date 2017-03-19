@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 import game.BonusType;
+import game.Player;
 import game.PlayerAbility;
 
 public class PlayerStatePanel extends JPanel {
@@ -65,7 +66,11 @@ public class PlayerStatePanel extends JPanel {
         add(separator);
     }
     
-    void updatePlayerAbilities(List<Boolean> playerAbilities) {
+    void updatePlayerState(Player player) {
+        lives.setText("×" + player.getLives() + "  ");
+        bombMax.setText("×" + player.getBombMax() + "  ");
+        range.setText("×" + player.getRange() + "  ");
+        List<Boolean> playerAbilities = player.getPlayerAbilities();
         for (int i = 0; i < playerAbilities.size(); i++) {
             abilities[i].setVisible(playerAbilities.get(i));
         }

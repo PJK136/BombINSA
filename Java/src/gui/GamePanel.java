@@ -100,11 +100,7 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
                 playerStates.put(player, pState);
                 playerStateGroup.add(pState);
             }
-            
-            pState.lives.setText("×" + player.getLives() + "  ");
-            pState.bombMax.setText("×" + player.getBombMax() + "  ");
-            pState.range.setText("×" + player.getRange() + "  ");
-            pState.updatePlayerAbilities(player.getPlayerAbilities());
+            pState.updatePlayerState(player);
         }
         
         Iterator<Entry<Player, PlayerStatePanel>> iterator = playerStates.entrySet().iterator();
