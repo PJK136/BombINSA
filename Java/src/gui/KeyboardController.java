@@ -2,8 +2,7 @@ package gui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.EmptyStackException;
-import java.util.Stack;
+import java.util.LinkedList;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.Controller;
@@ -23,7 +22,7 @@ public class KeyboardController implements Controller, KeyListener {
     @objid ("a93e8c2e-c054-4934-923f-acac72ff257c")
     private ControlSettings settings;
     
-    private Stack<Direction> keysPressed ;
+    private LinkedList<Direction> keysPressed;
     
     private boolean bombing;
     
@@ -32,7 +31,7 @@ public class KeyboardController implements Controller, KeyListener {
     @objid ("2c9abb5b-b9fc-4226-bee5-6df775a5d20d")
     public KeyboardController(ControlSettings settings) {
         this.settings = settings;
-        keysPressed = new Stack<Direction>();
+        keysPressed = new LinkedList<Direction>();
         bombing = false;
     }
 
@@ -52,11 +51,7 @@ public class KeyboardController implements Controller, KeyListener {
     @Override
     public Direction getDirection() {
         // renvoie la direction qui correspond a la touche qui est enfoncée
-        try {
-            return keysPressed.peek();
-        } catch (EmptyStackException e) {
-            return null;
-        }
+        return keysPressed.peek();
     }
 
     @objid ("39549206-ede1-4d8e-bdb7-8f5010446eb7")
