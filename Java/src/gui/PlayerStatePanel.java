@@ -30,24 +30,24 @@ public class PlayerStatePanel extends JPanel {
         
         lives = new JLabel();
         lives.setIcon(factory.getImageIcon("bomberMan_"+colors[color].name().toLowerCase(), size));
-        GamePanel.setFontSize(lives, size);
+        MainWindow.setFontSize(lives, size);
         add(lives);
         
         bombMax = new JLabel();
         bombMax.setIcon(factory.getImageIcon("bonus"+BonusType.MoreBomb.ordinal(), size));
-        GamePanel.setFontSize(bombMax, size);
+        MainWindow.setFontSize(bombMax, size);
         add(bombMax);
         
         range = new JLabel();
         range.setIcon(factory.getImageIcon("bonus"+BonusType.MoreRange.ordinal(), size));
-        GamePanel.setFontSize(range, size);
+        MainWindow.setFontSize(range, size);
         add(range);
         
         abilities = new JLabel[PlayerAbility.values().length];
         
         for (int i = 0; i < abilities.length; i++) {
             abilities[i] = new JLabel(" ");
-            GamePanel.setFontSize(abilities[i], size);
+            MainWindow.setFontSize(abilities[i], size);
             abilities[i].setVisible(false);
             add(abilities[i]);
         }

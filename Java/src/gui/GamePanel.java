@@ -15,7 +15,6 @@ import java.util.Map.Entry;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -64,12 +63,14 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
         timeRemaining = new JLabel("9:99 ");
         topBar.add(timeRemaining);
         
-        btnExit = new JButton("🚪");
+        btnExit = new JButton();
         btnExit.addActionListener(this);
         topBar.add(btnExit);
         
         gameViewer = new GameViewer();
         add(gameViewer, BorderLayout.CENTER);
+        
+        setVisible(false); //Affiche le panel seulement une fois chargé
     }
 
     @objid ("20db9f0e-9e0f-43ed-88e1-ac5019fb649c")
@@ -86,10 +87,10 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
     }
     
     public void showGameStatus(WorldView view) {
-        int size = view.getMap().getTileSize()/2;
+        final int size = (int) (view.getMap().getTileSize()*0.75);
         updateTimeRemaining(view, size);
-        if (btnExit.getFont().getSize() != size)
-            setFontSize(btnExit, size);
+        if (btnExit.getIcon() == null || btnExit.getIcon().getIconHeight() != size)
+            btnExit.setIcon(SpriteFactory.getInstance().getImageIcon("Stop24", size));
         
         List<Player> playerList = view.getPlayers();
         
@@ -114,10 +115,6 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
         }
     }
     
-    public static void setFontSize(JComponent component, float size) {
-        component.setFont(component.getFont().deriveFont((float)size));
-    }
-
     @objid ("28945b2a-0dba-494d-8e43-6992d3e5b089")
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -137,6 +134,8 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
                         playerStateGroup.revalidate();
                         mainWindow.pack();
                     } while (previousHeight != playerStateGroup.getHeight());
+                    setVisible(true);
+                    gameViewer.requestFocusInWindow();
                 }
                 break;
         }
@@ -145,7 +144,7 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
     @objid ("4eda1677-dd51-4090-9ffa-956332a2fc44")
     private void updateTimeRemaining(WorldView view, int size) {
         if (timeRemaining.getFont().getSize() != size)
-            setFontSize(timeRemaining, size);
+            MainWindow.setFontSize(timeRemaining, size);
         
         if (view.getTimeRemaining() % view.getFps() != 0)
             return;
