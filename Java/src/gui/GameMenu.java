@@ -100,7 +100,7 @@ public class GameMenu extends JPanel implements ActionListener {
         add(lblHumain, gbc_lblHumain);
         
         playerCount = new JSpinner();
-        playerCount.setModel(new SpinnerNumberModel(new Integer(settings.playerCount), null, null, new Integer(1)));
+        playerCount.setModel(new SpinnerNumberModel(new Integer(settings.playerCount), new Integer(0), new Integer(settings.controls.size()), new Integer(1)));
         settings.scaleFont(playerCount);
         GridBagConstraints gbc_playerCount = new GridBagConstraints();
         gbc_playerCount.fill = GridBagConstraints.HORIZONTAL;
