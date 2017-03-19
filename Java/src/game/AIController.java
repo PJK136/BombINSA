@@ -44,9 +44,10 @@ public class AIController implements Controller {
     
     public void turn(Direction dir, GridCoordinates position){
         Direction randomDirection;
-        while(!turned){
+        for (int i = 0; i < 10 && !turned; i++) {
             randomDirection = Direction.getRandomDirection();
-            if(randomDirection != dir && world.getMap().getTileType(position.neighbor(randomDirection)) == TileType.Empty){
+            GridCoordinates nextPos = position.neighbor(randomDirection);
+            if(randomDirection != dir && world.getMap().isInsideMap(nextPos) && world.getMap().getTileType(nextPos) == TileType.Empty){
                 currentDirection = randomDirection;
                 turned = true;
                 System.out.println("turned " + randomDirection);
