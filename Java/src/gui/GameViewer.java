@@ -91,7 +91,7 @@ public class GameViewer extends JPanel {
     @objid ("18e3e04f-dec2-45e2-a3f5-dbabb34447b4")
     public void drawWorld(WorldView worldView) {
         MapView map = worldView.getMap();
-        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_ARGB); //ARGB ?
+        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g = newWorld.createGraphics();
         drawMap(g, map);
         drawWorld(g, worldView);
@@ -99,7 +99,7 @@ public class GameViewer extends JPanel {
     }
     
     public void drawMap(MapView map) {
-        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_ARGB); //ARGB ?
+        BufferedImage newWorld = new BufferedImage(map.getWidth(), map.getHeight(), BufferedImage.TYPE_INT_RGB);
         drawMap(newWorld.createGraphics(), map);
         updateDisplay(newWorld);
     }

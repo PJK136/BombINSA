@@ -9,11 +9,11 @@ import game.Direction;
 
 public class OrientedSprite extends Sprite {
 
-    Image directions[];
+    BufferedImage directions[];
             
     public OrientedSprite(BufferedImage src) {
         super(src);
-        directions = new Image[Direction.values().length];
+        directions = new BufferedImage[Direction.values().length];
     }
     
     public Image getOrientedImage(Direction direction) {
@@ -29,6 +29,7 @@ public class OrientedSprite extends Sprite {
         
         for (int i = 0; i < directions.length; i++) {
             if (directions[i] == null || directions[i].getWidth(null) != size || directions[i].getHeight(null) != size) {
+                directions[i] = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
                 // http://stackoverflow.com/questions/2245869/resize-jcomponent-for-file-export/2246484#2246484
                 double w = src.getWidth();
                 double h = src.getHeight();
@@ -37,7 +38,7 @@ public class OrientedSprite extends Sprite {
                 scaleTransform.scale(size/w, size/h);
                 scaleTransform.rotate(-i*Math.PI/2, w/2, h/2);
                 AffineTransformOp scaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BICUBIC);
-                directions[i] = scaleOp.filter(src, null);
+                scaleOp.filter(src, directions[i]);
             }
         }
     }
