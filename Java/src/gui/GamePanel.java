@@ -3,17 +3,26 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
+import game.Player;
+import game.WorldView;
 
 @objid ("edc89ef6-b498-483e-875c-befa52d629f4")
 public class GamePanel extends JPanel implements ActionListener, PropertyChangeListener {
@@ -25,10 +34,9 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
 
     private JPanel topBar;
     
-    private JLabel playerAliveCount;
-    private JLabel bombCount;
-    private JLabel range;
-    private JLabel[] abilities;
+    private JPanel playerStateGroup;
+    
+    HashMap<Player, PlayerStatePanel> playerStates;
     
     @objid ("dbd6f5cb-8848-4a03-9b74-402de0479e51")
     private JLabel timeRemaining;
@@ -45,15 +53,15 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
         add(topBar, BorderLayout.NORTH);
         topBar.setLayout(new BoxLayout(topBar, BoxLayout.X_AXIS));
         
-        JLabel lblNewLabel = new JLabel("👤 : 2 | 💣 : 3 | 💥 : 4 | 👊 👞 🛡");
-        lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 16));
-        topBar.add(lblNewLabel);
+        playerStates = new HashMap<Player, PlayerStatePanel>();
+        playerStateGroup = new JPanel() ;
+        playerStateGroup.setLayout(new WrapLayout(WrapLayout.LEFT));
+        topBar.add(playerStateGroup);
         
         Component horizontalGlue = Box.createHorizontalGlue();
         topBar.add(horizontalGlue);
         
-        timeRemaining = new JLabel("0:00 ");
-        timeRemaining.setFont(new Font("Dialog", Font.BOLD, 16));
+        timeRemaining = new JLabel("9:99 ");
         topBar.add(timeRemaining);
         
         btnExit = new JButton("🚪");
@@ -76,6 +84,43 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
             mainWindow.showMenu();
         }
     }
+    
+    public void showGameStatus(WorldView view) {
+        int size = view.getMap().getTileSize()/2;
+        updateTimeRemaining(view, size);
+        if (btnExit.getFont().getSize() != size)
+            setFontSize(btnExit, size);
+        
+        List<Player> playerList = view.getPlayers();
+        
+        for (Player player : playerList) {
+            PlayerStatePanel pState = playerStates.get(player);
+            if (pState == null) {
+                pState = new PlayerStatePanel(player.getPlayerID(), size);
+                playerStates.put(player, pState);
+                playerStateGroup.add(pState);
+            }
+            
+            pState.lives.setText("×" + player.getLives() + "  ");
+            pState.bombMax.setText("×" + player.getBombMax() + "  ");
+            pState.range.setText("×" + player.getRange() + "  ");
+            pState.updatePlayerAbilities(player.getPlayerAbilities());
+        }
+        
+        Iterator<Entry<Player, PlayerStatePanel>> iterator = playerStates.entrySet().iterator();
+        Entry<Player, PlayerStatePanel> player;
+        while (iterator.hasNext()) {
+            player = iterator.next();
+            if (!playerList.contains(player.getKey())) {
+                playerStateGroup.remove(player.getValue());
+                iterator.remove();
+            }
+        }
+    }
+    
+    public static void setFontSize(JComponent component, float size) {
+        component.setFont(component.getFont().deriveFont((float)size));
+    }
 
     @objid ("28945b2a-0dba-494d-8e43-6992d3e5b089")
     @Override
@@ -88,23 +133,34 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
         switch (property) {
             case GameState:
                 if ((GameState)evt.getNewValue() == GameState.Init) {
-                    mainWindow.setToPreferredSize();
+                    mainWindow.pack();
+                    
+                    int previousHeight;
+                    do { //Réajuste la fenêtre tant que la hauteur est modifiée
+                        previousHeight = playerStateGroup.getHeight();
+                        playerStateGroup.revalidate();
+                        mainWindow.pack();
+                    } while (previousHeight != playerStateGroup.getHeight());
                 }
-                break;
-            case TimeRemaining:
-                updateTimeRemaining((int) evt.getNewValue());
                 break;
         }
     }
 
     @objid ("4eda1677-dd51-4090-9ffa-956332a2fc44")
-    private void updateTimeRemaining(int remaining) {
+    private void updateTimeRemaining(WorldView view, int size) {
+        if (timeRemaining.getFont().getSize() != size)
+            setFontSize(timeRemaining, size);
+        
+        if (view.getTimeRemaining() % view.getFps() != 0)
+            return;
+        
+        int remaining = view.getTimeRemaining()/view.getFps();
         if (remaining <= 10 && remaining % 2 == 0) //Fait clignoter en rouge
             timeRemaining.setForeground(Color.red);
         else
             timeRemaining.setForeground(Color.black);
         StringBuilder text = new StringBuilder("⌛ ");
-        if (remaining < 0)
+        if (view.getTimeRemaining() < 0)
             text.append("-");
         text.append(Math.abs(remaining/60));
         text.append(':');

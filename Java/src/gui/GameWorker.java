@@ -2,6 +2,8 @@ package gui;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -20,6 +22,8 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     @objid ("e6c9ac41-77db-49aa-b718-1530b3eebbcd")
     private GameSettings settings;
 
+    private GamePanel panel;
+    
     @objid ("0c0b3418-de2f-49f0-91d2-008a02cea763")
     private GameViewer viewer;
 
@@ -27,10 +31,11 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     private Timer timer;
 
     @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
-    public GameWorker(GameSettings settings, GameViewer viewer) throws Exception {
+    public GameWorker(GameSettings settings, GamePanel panel) throws Exception {
         this.state = null;
         this.settings = settings;
-        this.viewer = viewer;
+        this.panel = panel;
+        this.viewer = panel.getGameViewer();
         this.timer = new Timer();
         createWorld();
     }
@@ -41,12 +46,12 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
         try {
             viewer.drawWorld(world);
             viewer.requestFocusInWindow();
+            panel.showGameStatus(world);
             setGameState(GameState.Init);
             timer.scheduleAtFixedRate(new WakeUpTask(this), 0, 1000/settings.fps);
             
             for (int round = 0; round < settings.roundCount && !isCancelled(); round++)
             {
-                fireTimeRemaining();
                 setGameState(GameState.Playing);
                 while (world.getPlayerAliveCount() > 0 && !isCancelled())
                 {
@@ -60,12 +65,17 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
                     
                     world.update();
                     
-                    if (world.getTimeRemaining() % settings.fps == 0)
-                        fireTimeRemaining();
-                    
                     if (world.getTimeRemaining() == 0)
                         setGameState(GameState.SuddenDeath);
-                    viewer.drawWorld(world);
+                    
+                    SwingUtilities.invokeLater(new Runnable() {
+                        
+                        @Override
+                        public void run() {
+                            panel.showGameStatus(world);
+                            viewer.drawWorld(world);
+                        }
+                    });
                 }
                 setGameState(GameState.EndRound);
                 
@@ -99,8 +109,10 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
             }
             
             //TODO : Ajout des ias etc.
-            AIController iaController = new AIController();
-            world.newController(iaController);
+            for (int i = 0; i < settings.aiCount; i++) {
+                AIController iaController = new AIController();
+                world.newController(iaController);
+            }
         }
         else
             throw new Exception("Non implémenté !");
@@ -113,12 +125,6 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
         firePropertyChange(GameProperty.GameState.name(), oldState, state);
         //TODO : Enlever debug message
         System.err.println(state);
-    }
-    
-    @objid ("fa4eea4b-bde3-4cc0-b13f-bdce9fd3ac26")
-    private void fireTimeRemaining() {
-        int seconds = world.getTimeRemaining()/settings.fps;
-        firePropertyChange(GameProperty.TimeRemaining.name(), seconds-1, seconds);
     }
 
     @objid ("3f14b285-5a29-4704-9368-f0af1d1c9d5c")

@@ -61,7 +61,7 @@ public class MainWindow {
     public void startGame(GameSettings settings) {
         GamePanel gamePanel = new GamePanel(this);
         try {
-            gameWorker = new GameWorker(settings, gamePanel.getGameViewer());
+            gameWorker = new GameWorker(settings, gamePanel);
             gameWorker.addPropertyChangeListener(gamePanel);
             gameWorker.execute();
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class MainWindow {
     @objid ("8898c61c-fe11-44b3-8431-2a93405194ae")
     public void startCreator() {
         setPage(new MapCreatorPanel(this));
-        setToPreferredSize();
+        pack();
     }
 
     @objid ("030bbdba-dcc6-4a25-9366-dab889f9d934")
@@ -84,7 +84,7 @@ public class MainWindow {
         frame.revalidate();
     }
 
-    void setToPreferredSize() {
-        frame.setSize(frame.getPreferredSize());
+    void pack() {
+        frame.pack();
     }
 }

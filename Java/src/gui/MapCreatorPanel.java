@@ -145,7 +145,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         saved = true;
         updateMap();
         if (resizeWindow)
-            mainWindow.setToPreferredSize();
+            mainWindow.pack();
     }
     
     private void updateMap() {
@@ -265,7 +265,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 columnCount.setValue(map.getColumnCount());
                 rowCount.setValue(map.getRowCount());
                 updateMap();
-                mainWindow.setToPreferredSize();
+                mainWindow.pack();
             } catch (InputMismatchException | IOException e) {
                 JOptionPane.showMessageDialog(this,
                         "Impossible de lire le fichier demandé !",
