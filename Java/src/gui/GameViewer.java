@@ -126,15 +126,15 @@ public class GameViewer extends JPanel {
                     } else
                         image = tiles[map.getTileType(gc).ordinal()].getImage();
                     
-                    g.drawImage(image, gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
+                    g.drawImage(image, gc.x*map.getTileSize(), gc.y*map.getTileSize(), null);
                     
                     if (map.isExploding(gc)) {
                         if (map.getExplosionType(gc) != ExplosionType.Center)
                             g.drawImage(((OrientedSprite)explosions[map.getExplosionType(gc).ordinal()]).getOrientedImage(map.getExplosionDirection(gc)),
-                                        gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
+                                        gc.x*map.getTileSize(), gc.y*map.getTileSize(), null);
                         else
                             g.drawImage(explosions[ExplosionType.Center.ordinal()].getImage(),
-                                        gc.x*map.getTileSize(), gc.y*map.getTileSize(), this);
+                                        gc.x*map.getTileSize(), gc.y*map.getTileSize(), null);
                     }
                 }
             }
@@ -156,9 +156,9 @@ public class GameViewer extends JPanel {
         for (Entity entity : worldView.getEntities()) {
             if (entity instanceof Bomb) { 
                 if (((Bomb)entity).getTimeRemaining() % (2*BOMB_BLINK_INTERVAL*worldView.getFps()) >= BOMB_BLINK_INTERVAL*worldView.getFps())
-                    g.drawImage(bombs[0].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
+                    g.drawImage(bombs[0].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
                 else
-                    g.drawImage(bombs[1].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), this);
+                    g.drawImage(bombs[1].getImage(), (int)entity.getBorderLeft(), (int)entity.getBorderTop(), null);
             }
         }
         
