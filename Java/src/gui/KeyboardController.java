@@ -2,7 +2,8 @@ package gui;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.LinkedList;
+import java.util.EmptyStackException;
+import java.util.Stack;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.Controller;
@@ -22,7 +23,7 @@ public class KeyboardController implements Controller, KeyListener {
     @objid ("a93e8c2e-c054-4934-923f-acac72ff257c")
     private ControlSettings settings;
     
-    private LinkedList<Integer> keysPressed ;
+    private Stack<Direction> keysPressed ;
     
     private boolean bombing;
     
@@ -31,7 +32,7 @@ public class KeyboardController implements Controller, KeyListener {
     @objid ("2c9abb5b-b9fc-4226-bee5-6df775a5d20d")
     public KeyboardController(ControlSettings settings) {
         this.settings = settings;
-        keysPressed = new LinkedList<Integer>();
+        keysPressed = new Stack<Direction>();
         bombing = false;
     }
 
@@ -51,10 +52,11 @@ public class KeyboardController implements Controller, KeyListener {
     @Override
     public Direction getDirection() {
         // renvoie la direction qui correspond a la touche qui est enfoncée
-        if(keysPressed.isEmpty()){
+        try {
+            return keysPressed.peek();
+        } catch (EmptyStackException e) {
             return null;
         }
-        return Direction.values()[keysPressed.getFirst()];
     }
 
     @objid ("39549206-ede1-4d8e-bdb7-8f5010446eb7")
@@ -79,17 +81,17 @@ public class KeyboardController implements Controller, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == settings.right){
-            keysPressed.remove((Integer)(Direction.Right.ordinal())); //fais en sorte qu'il y ai au maximum 1 exemplaire dans la liste sinon ca bug..
-            keysPressed.addFirst(Direction.Right.ordinal());
+            keysPressed.remove(Direction.Right); //fais en sorte qu'il y ai au maximum 1 exemplaire dans la liste sinon ca bug..
+            keysPressed.push(Direction.Right);
         } else if(e.getKeyCode() == settings.up){
-            keysPressed.remove((Integer)(Direction.Up.ordinal()));
-            keysPressed.addFirst(Direction.Up.ordinal());
+            keysPressed.remove(Direction.Up);
+            keysPressed.push(Direction.Up);
         } else if(e.getKeyCode() == settings.left){
-            keysPressed.remove((Integer)(Direction.Left.ordinal()));
-            keysPressed.addFirst(Direction.Left.ordinal());
+            keysPressed.remove(Direction.Left);
+            keysPressed.push(Direction.Left);
         } else if(e.getKeyCode() == settings.down){
-            keysPressed.remove((Integer)(Direction.Down.ordinal()));
-            keysPressed.addFirst(Direction.Down.ordinal());
+            keysPressed.remove(Direction.Down);
+            keysPressed.push(Direction.Down);
         } else if(e.getKeyCode() == settings.plantBomb){
             bombing = true;
         }
@@ -99,13 +101,13 @@ public class KeyboardController implements Controller, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == settings.right){
-            keysPressed.remove((Integer)(Direction.Right.ordinal()));
+            keysPressed.remove(Direction.Right);
         } else if(e.getKeyCode() == settings.up){
-            keysPressed.remove((Integer)(Direction.Up.ordinal()));
+            keysPressed.remove(Direction.Up);
         } else if(e.getKeyCode() == settings.left){
-            keysPressed.remove((Integer)(Direction.Left.ordinal()));
+            keysPressed.remove(Direction.Left);
         } else if(e.getKeyCode() == settings.down){
-            keysPressed.remove((Integer)(Direction.Down.ordinal()));
+            keysPressed.remove(Direction.Down);
         }
     }
 
