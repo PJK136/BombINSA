@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -23,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.util.Enumeration;
 import java.util.InputMismatchException;
 
 import javax.swing.JToolBar;
@@ -50,10 +52,14 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     private JButton btnSave;
     private JFileChooser fileChooser;
     
+    private JLabel lblColumns;
     private JSpinner columnCount;
+    private JLabel lblRows;
     private JSpinner rowCount;
+    private JLabel lblTS;
     private JSpinner tileSize;
     
+    private JLabel lblTiles;
     private ButtonGroup tileTypeGroup;
     private JButton btnExit;
     
@@ -71,15 +77,15 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         JToolBar toolBar = new JToolBar();
         add(toolBar, BorderLayout.NORTH);
         
-        btnNew = new JButton("📄");
+        btnNew = new JButton();
         btnNew.addActionListener(this);
         toolBar.add(btnNew);
 
-        btnOpen = new JButton("📂");
+        btnOpen = new JButton();
         btnOpen.addActionListener(this);
         toolBar.add(btnOpen);
         
-        btnSave = new JButton("💾");
+        btnSave = new JButton();
         btnSave.addActionListener(this);
         toolBar.add(btnSave);
         
@@ -88,32 +94,29 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         toolBar.addSeparator();
         
+        lblColumns = new JLabel("Cols : ");
+        toolBar.add(lblColumns);
         columnCount = new JSpinner(new SpinnerNumberModel(new Integer(20), new Integer(1), null, new Integer(1)));
         columnCount.addChangeListener(this);
-        toolBar.add(new JLabel("Cols : "));
         toolBar.add(columnCount);
         toolBar.addSeparator();
         
+        lblRows = new JLabel("Rows : ");
+        toolBar.add(lblRows);
         rowCount = new JSpinner(new SpinnerNumberModel(new Integer(15), new Integer(1), null, new Integer(1)));
         rowCount.addChangeListener(this);
-        toolBar.add(new JLabel("Rows : "));
         toolBar.add(rowCount);
         toolBar.addSeparator();
         
+        lblTS = new JLabel("TS : ");
+        toolBar.add(lblTS);
         tileSize = new JSpinner(new SpinnerNumberModel(new Integer(settings.tileSize), new Integer(8), null, new Integer(2)));
         tileSize.addChangeListener(this);
-        toolBar.add(new JLabel("TS : "));
         toolBar.add(tileSize);
         toolBar.addSeparator();
         
-        columnCount.setMaximumSize(new Dimension(48, btnNew.getMaximumSize().height));
-        rowCount.setMaximumSize(new Dimension(48, btnNew.getMaximumSize().height));
-        tileSize.setMaximumSize(new Dimension(48, btnNew.getMaximumSize().height));
-        columnCount.setPreferredSize(new Dimension(48, btnNew.getPreferredSize().height));
-        rowCount.setPreferredSize(new Dimension(48, btnNew.getPreferredSize().height));
-        tileSize.setPreferredSize(new Dimension(48, btnNew.getPreferredSize().height));
-        
-        toolBar.add(new JLabel("Tiles : "));
+        lblTiles = new JLabel("Tiles : ");
+        toolBar.add(lblTiles);
         gameViewer = new GameViewer();
         gameViewer.setShowSpawningLocations(true);
         gameViewer.addMouseListener(this);
@@ -121,11 +124,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         add(gameViewer, BorderLayout.CENTER);
         
         tileTypeGroup = new ButtonGroup();
-        Sprite[] tileImages = gameViewer.getTileSprites();
         for (TileType type : TileType.values()) {
-            final int size = 20; // TODO : À ajuster ?
             JToggleButton button = new JToggleButton();
-            button.setIcon(new ImageIcon(tileImages[type.ordinal()].getImage(size)));
             button.setActionCommand(type.name());
             tileTypeGroup.add(button);
             toolBar.add(button);           
@@ -136,11 +136,46 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         toolBar.add(Box.createHorizontalGlue());
         
-        btnExit = new JButton("🚪");
+        btnExit = new JButton();
         btnExit.addActionListener(this);
         toolBar.add(btnExit);
         
+        updateUISize();
+        
         newMap(false);
+    }
+    
+    private void updateUISize() {
+        final int size = ((int)tileSize.getValue())*3/4;
+        SpriteFactory factory = SpriteFactory.getInstance();
+        btnNew.setIcon(factory.getImageIcon("New24", size));
+        btnOpen.setIcon(factory.getImageIcon("Open24", size));
+        btnSave.setIcon(factory.getImageIcon("Save24", size));
+        btnExit.setIcon(factory.getImageIcon("Stop24", size));
+        
+        MainWindow.setFontSize(lblColumns, size/2);
+        MainWindow.setFontSize(columnCount, size/2);
+        MainWindow.setFontSize(lblRows, size/2);
+        MainWindow.setFontSize(rowCount, size/2);
+        MainWindow.setFontSize(lblTS, size/2);
+        MainWindow.setFontSize(tileSize, size/2);
+        
+        MainWindow.setFontSize(lblTiles, size/2);
+        
+        int spinnerWidth = columnCount.getMinimumSize().width*3/2;
+        columnCount.setMaximumSize(new Dimension(spinnerWidth, btnNew.getMaximumSize().height));
+        rowCount.setMaximumSize(new Dimension(spinnerWidth, btnNew.getMaximumSize().height));
+        tileSize.setMaximumSize(new Dimension(spinnerWidth, btnNew.getMaximumSize().height));
+        columnCount.setPreferredSize(new Dimension(spinnerWidth, btnNew.getPreferredSize().height));
+        rowCount.setPreferredSize(new Dimension(spinnerWidth, btnNew.getPreferredSize().height));
+        tileSize.setPreferredSize(new Dimension(spinnerWidth, btnNew.getPreferredSize().height));
+        
+        Sprite[] tileImages = gameViewer.getTileSprites();
+        Enumeration<AbstractButton> buttons = tileTypeGroup.getElements();
+        for (TileType type : TileType.values()) {
+            AbstractButton button = buttons.nextElement();
+            button.setIcon(new ImageIcon(tileImages[type.ordinal()].getImage(size)));
+        }
     }
 
     private void newMap(boolean resizeWindow) {
@@ -313,6 +348,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         }
         else if (e.getSource() == tileSize) {
             map.setTileSize((int) tileSize.getValue());
+            updateUISize();
             updateMap();
         }
     }

@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.EventQueue;
+
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -88,5 +90,9 @@ public class MainWindow {
 
     void pack() {
         frame.pack();
+    }
+
+    public static void setFontSize(JComponent component, float size) {
+        component.setFont(component.getFont().deriveFont((float)size));
     }
 }

@@ -24,9 +24,11 @@ public class SpriteFactory {
             InputStream stream = getClass().getResourceAsStream("/img/" + name + ".png");
             if (stream == null)
                 stream = getClass().getResourceAsStream("/img/" + name + ".jpg");
+            if (stream == null)
+                stream = getClass().getResourceAsStream("/toolbarButtonGraphics/general/" + name + ".gif");
             
             if (stream == null)
-                throw new FileNotFoundException("Can't read ressource at " + "/img/" + name + ".png|.jpg");
+                throw new FileNotFoundException("Can't read ressource : " + name);
             return ImageIO.read(stream);
         } catch (IOException e) {
             e.printStackTrace();
