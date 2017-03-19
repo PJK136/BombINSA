@@ -39,13 +39,12 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     protected Integer doInBackground() {
         try {
             viewer.drawWorld(world);
-            viewer.requestFocusInWindow();
             panel.showGameStatus(world);
             setGameState(GameState.Init);
             
             int frame = 0;
             long lastDisplay = System.nanoTime();
-            final long timeStep = 1000000000/settings.fps; 
+            final long timeStep = 1000000000/settings.fps;
             final Runnable updateGamePanel = new Runnable() {
                 @Override
                 public void run() {
@@ -62,31 +61,27 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
                 while (world.getPlayerAliveCount() > 0 && !isCancelled())
                 {              
                     world.update();
-                    
-                    viewer.drawWorld(world);
-                    
                     SwingUtilities.invokeLater(updateGamePanel);
+                    viewer.drawWorld(world);
                     
                     if (world.getTimeRemaining() == 0)
                         setGameState(GameState.SuddenDeath);
                     
                     long duration = System.nanoTime() - start;
                     
-                    if (duration < timeStep) {
-                        if (timeStep-duration-offset > 0) {
-                            try {
-                                Thread.sleep((timeStep-duration-offset)/1000000, (int)(timeStep-duration-offset)%1000000);
-                            } catch (InterruptedException e) { }
-                        }
-                        
-                        offset += (System.nanoTime() - start) - timeStep;
+                    if (timeStep-duration-offset > 0) {
+                        try {
+                            Thread.sleep((timeStep-duration-offset)/1000000, (int)(timeStep-duration-offset)%1000000);
+                        } catch (InterruptedException e) { }
                     }
+                    
+                    offset += (System.nanoTime() - start) - timeStep;
                     
                     start = System.nanoTime();
                     
                     frame++;
                     if (System.nanoTime() - lastDisplay >= 1000000000) {
-                        System.out.println(frame + " FPS");
+                        System.out.println(frame*(System.nanoTime() - lastDisplay)/1000000000 + " FPS");
                         frame = 0;
                         lastDisplay = System.nanoTime();
                     }
