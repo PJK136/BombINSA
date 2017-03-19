@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -45,6 +46,12 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
             int frame = 0;
             long lastDisplay = System.nanoTime();
             final long timeStep = 1000000000/settings.fps; 
+            final Runnable updateGamePanel = new Runnable() {
+                @Override
+                public void run() {
+                    panel.showGameStatus(world);
+                }
+            };
             
             for (int round = 0; round < settings.roundCount && !isCancelled(); round++)
             {
@@ -58,13 +65,7 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
                     
                     viewer.drawWorld(world);
                     
-                    SwingUtilities.invokeLater(new Runnable() {
-                        
-                        @Override
-                        public void run() {
-                            panel.showGameStatus(world);
-                        }
-                    });
+                    SwingUtilities.invokeLater(updateGamePanel);
                     
                     if (world.getTimeRemaining() == 0)
                         setGameState(GameState.SuddenDeath);
@@ -72,8 +73,12 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
                     long duration = System.nanoTime() - start;
                     
                     if (duration < timeStep) {
-                        if (timeStep-duration-offset > 0)
-                            Thread.sleep((timeStep-duration-offset)/1000000, (int)(timeStep-duration-offset)%1000000);
+                        if (timeStep-duration-offset > 0) {
+                            try {
+                                Thread.sleep((timeStep-duration-offset)/1000000, (int)(timeStep-duration-offset)%1000000);
+                            } catch (InterruptedException e) { }
+                        }
+                        
                         offset += (System.nanoTime() - start) - timeStep;
                     }
                     
@@ -89,17 +94,21 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
                 setGameState(GameState.EndRound);
                 
                 if (!isCancelled() && round < settings.roundCount-1) {
-                    try {
                         world.restart();
-                    } catch (Exception e) {
-                        //TODO : Gérer l'exception
-                        e.printStackTrace();
-                    }
                 }
             }
             setGameState(GameState.End);
         } catch (Exception e) {
             e.printStackTrace(); //Sinon l'erreur n'est jamais propagée
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    JOptionPane.showMessageDialog(panel,
+                                                  e.getMessage(),
+                                                  "Une erreur est survenue...",
+                                                  JOptionPane.ERROR_MESSAGE);
+                }
+            });
         }
         
         return null;

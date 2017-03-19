@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -59,17 +60,18 @@ public class MainWindow {
 
     @objid ("6b34965b-9d8d-4d4f-ac64-d111b1e847c0")
     public void startGame(GameSettings settings) {
-        GamePanel gamePanel = new GamePanel(this);
         try {
+            GamePanel gamePanel = new GamePanel(this);
             gameWorker = new GameWorker(settings, gamePanel);
             gameWorker.addPropertyChangeListener(gamePanel);
             gameWorker.execute();
+            setPage(gamePanel);
         } catch (Exception e) {
-            // TODO Afficher un message d'erreur
-            e.printStackTrace();
-            System.exit(1);
+            JOptionPane.showMessageDialog(this.frame,
+                                         e.getMessage(),
+                                         "Une erreur est survenue...",
+                                         JOptionPane.ERROR_MESSAGE);
         }
-        setPage(gamePanel);
     }
 
     @objid ("8898c61c-fe11-44b3-8431-2a93405194ae")
