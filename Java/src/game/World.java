@@ -1,7 +1,6 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -60,8 +59,8 @@ public abstract class World implements WorldView {
     }
 
     @objid ("83167709-dc8e-456e-b787-b9a4ed0d8113")
-    public List<Entity> getEntities() {
-        return Collections.unmodifiableList(entities);
+    public synchronized List<Entity> getEntities() { //Thread-safety
+        return new LinkedList<Entity>(entities);
     }
 
     @objid ("8696ef92-01cf-4263-80c5-6bcf172924d8")
@@ -77,7 +76,7 @@ public abstract class World implements WorldView {
     @objid ("fe9b5eb2-5def-4f69-8e0e-49e6eaaa3315")
     public int getPlayerAliveCount() {
         int sum = 0;
-        for(Entity entity : entities){
+        for(Entity entity : getEntities()){ //Thread-safety
             if(entity instanceof Player){
                 sum ++;
             }       
@@ -85,9 +84,9 @@ public abstract class World implements WorldView {
         return sum;
     }
     
-    public List<Player> getPlayers(){
+    public List<Player> getPlayers() {
         List<Player> playerList = new LinkedList<Player>();
-        for(Entity entity : entities){
+        for(Entity entity : getEntities()){ //Thread-safety
             if(entity instanceof Player){
                 playerList.add((Player)entity);
             }

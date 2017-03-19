@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
@@ -138,11 +137,12 @@ public class Server extends World {
                     bombPlanted = true;
                 }
             }
-            List<Player> playerList = new LinkedList<Player>();
-            playerList = getPlayers();
-            for(Player player : playerList){
-                player.setLives(1);
-                player.removeShield();
+
+            for (Entity entity : entities) {
+                if (entity instanceof Player) {
+                    ((Player)entity).setLives(1);
+                    ((Player)entity).removeShield();
+                }
             }
             
         }

@@ -236,7 +236,7 @@ public class Map implements MapView {
         int columnCount = sc.nextInt();
         int rowCount = sc.nextInt();
         
-        tiles = new Tile[columnCount][rowCount];
+        Tile[][] newTiles = new Tile[columnCount][rowCount];
         
         int spawningLocationsCount = sc.nextInt();
         spawningLocations = new ArrayList<GridCoordinates>(spawningLocationsCount);
@@ -251,14 +251,16 @@ public class Map implements MapView {
         for (grid.x = 0; grid.x < columnCount; grid.x++) {
             for (grid.y = 0; grid.y < rowCount; grid.y++) {
                 TileType type = types[sc.nextInt()];
-                setTileType(type, grid);
+                setTileType(newTiles, type, grid);
                 
                 if (type == TileType.Arrow)
-                    ((ArrowTile)tiles[grid.x][grid.y]).setDirection(directions[sc.nextInt()]);
+                    ((ArrowTile)newTiles[grid.x][grid.y]).setDirection(directions[sc.nextInt()]);
             }
         }
         
         sc.close();
+        
+        tiles = newTiles;
     }
 
     @objid ("8960c7a3-87e7-4b1b-8f9a-1858808c9349")
@@ -290,6 +292,10 @@ public class Map implements MapView {
 
     @objid ("33e1123b-fd64-4e1d-96ea-0813d9ffac7d")
     public void setTileType(TileType type, GridCoordinates gc) {
+        setTileType(tiles, type, gc);
+    }
+    
+    private void setTileType(Tile[][] tiles, TileType type, GridCoordinates gc) {
         Tile newTile = null;
         switch(type){
         case Empty:
