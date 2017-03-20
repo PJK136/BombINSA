@@ -62,7 +62,9 @@ public class GameSettings {
         tileSize = 32;
         fps = 60;
         controls = new ArrayList<ControlSettings> ();
-        controls.add(ControlSettings.defaultControls());
+        controls.add(ControlSettings.defaultControls(0));
+        controls.add(ControlSettings.defaultControls(1));
+        controls.add(ControlSettings.defaultControls(2));
         scale = 1;
     }
     

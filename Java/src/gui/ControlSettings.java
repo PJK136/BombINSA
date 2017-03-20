@@ -21,13 +21,33 @@ public class ControlSettings {
     public int plantBomb;
 
     @objid ("948d2cb4-d3f5-4e61-a924-4b263d52c766")
-    public static ControlSettings defaultControls() {
+    public static ControlSettings defaultControls(int i) {
         ControlSettings controls = new ControlSettings();
-        controls.up = KeyEvent.VK_Z;
-        controls.down = KeyEvent.VK_S;
-        controls.left = KeyEvent.VK_Q;
-        controls.right = KeyEvent.VK_D;
-        controls.plantBomb = KeyEvent.VK_SPACE;
+        switch (i) {
+        case 0:
+            controls.up = KeyEvent.VK_Z;
+            controls.down = KeyEvent.VK_S;
+            controls.left = KeyEvent.VK_Q;
+            controls.right = KeyEvent.VK_D;
+            controls.plantBomb = KeyEvent.VK_SPACE;
+            break;
+        case 1:
+            controls.up = KeyEvent.VK_UP;
+            controls.down = KeyEvent.VK_DOWN;
+            controls.left = KeyEvent.VK_LEFT;
+            controls.right = KeyEvent.VK_RIGHT;
+            controls.plantBomb = KeyEvent.VK_ENTER;
+            break;
+        case 2:
+            controls.up = KeyEvent.VK_NUMPAD8;
+            controls.down = KeyEvent.VK_NUMPAD5;
+            controls.left = KeyEvent.VK_NUMPAD4;
+            controls.right = KeyEvent.VK_NUMPAD6;
+            controls.plantBomb = KeyEvent.VK_NUMPAD0;
+            break;
+        default:
+            return null;
+        }
         return controls;
     }
 
