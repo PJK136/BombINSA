@@ -1,6 +1,11 @@
 package gui;
 
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -27,14 +32,16 @@ public class Sprite {
             return;
         
         if (cache == null || cache.getWidth(null) != size || cache.getHeight(null) != size) {
-            // http://stackoverflow.com/questions/2245869/resize-jcomponent-for-file-export/2246484#2246484
-            cache = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+            BufferedImage newCache = newCompatibleImage(size, size, Transparency.BITMASK);
             double w = src.getWidth();
             double h = src.getHeight();
-            AffineTransform scaleTransform = new AffineTransform();
-            scaleTransform.scale(size/w, size/h);
-            AffineTransformOp scaleOp = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BICUBIC);
-            scaleOp.filter(src, cache);
+            Graphics2D g = newCache.createGraphics();
+            g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g.scale(size/w, size/h);
+            g.drawImage(src, 0, 0, null);
+            g.dispose();
+            cache = newCache;
         }
     }
     
@@ -45,5 +52,10 @@ public class Sprite {
     public Image getImage(int size) {
         setSize(size);
         return cache;
+    }
+    
+    public static BufferedImage newCompatibleImage(int width, int height, int transparency) {
+        GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+        return gc.createCompatibleImage(width, height, transparency);
     }
 }

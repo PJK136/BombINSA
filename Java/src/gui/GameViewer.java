@@ -3,10 +3,14 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Transparency;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.image.VolatileImage;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JPanel;
@@ -27,7 +31,7 @@ public class GameViewer extends JPanel {
     private GameSettings settings;
     
     @objid ("12584c94-a9fc-48b1-bdf6-42c3345b8404")
-    private BufferedImage world;
+    private Image world;
 
     private Sprite[] tiles;
     private Sprite[] bonuses;
@@ -95,7 +99,7 @@ public class GameViewer extends JPanel {
     @objid ("18e3e04f-dec2-45e2-a3f5-dbabb34447b4")
     public void drawWorld(WorldView worldView) {
         MapView map = worldView.getMap();
-        BufferedImage newWorld = new BufferedImage(settings.scale(map.getWidth()), settings.scale(map.getHeight()), BufferedImage.TYPE_INT_RGB);
+        BufferedImage newWorld = Sprite.newCompatibleImage(settings.scale(map.getWidth()), settings.scale(map.getHeight()), Transparency.OPAQUE);
         Graphics2D g = newWorld.createGraphics();
         g.setFont(settings.scale(g.getFont()));
         drawMap(g, map);
@@ -104,7 +108,7 @@ public class GameViewer extends JPanel {
     }
     
     public void drawMap(MapView map) {
-        BufferedImage newWorld = new BufferedImage(settings.scale(map.getWidth()), settings.scale(map.getHeight()), BufferedImage.TYPE_INT_RGB);
+        BufferedImage newWorld = Sprite.newCompatibleImage(settings.scale(map.getWidth()), settings.scale(map.getHeight()), Transparency.OPAQUE);
         Graphics2D g = newWorld.createGraphics();
         g.setFont(settings.scale(g.getFont()));
         drawMap(g, map);
@@ -185,8 +189,8 @@ public class GameViewer extends JPanel {
     }
 
     
-    private void updateDisplay(BufferedImage newWorld) {
-        if (world == null || (world.getWidth() != newWorld.getWidth() || world.getHeight() != newWorld.getHeight())) {
+    private void updateDisplay(Image newWorld) {
+        if (world == null || (world.getWidth(null) != newWorld.getWidth(null) || world.getHeight(null) != newWorld.getHeight(null))) {
             world = newWorld;
             revalidate();
             repaint();
@@ -225,7 +229,7 @@ public class GameViewer extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         if (world != null)
-            return new Dimension(world.getWidth(), world.getHeight());
+            return new Dimension(world.getWidth(null), world.getHeight(null));
         else
             return super.getPreferredSize();
     }
