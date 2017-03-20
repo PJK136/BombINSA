@@ -3,11 +3,13 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.image.VolatileImage;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JPanel;
@@ -28,7 +30,9 @@ public class GameViewer extends JPanel {
     private GameSettings settings;
     
     @objid ("12584c94-a9fc-48b1-bdf6-42c3345b8404")
-    private Image world;
+    private VolatileImage world;
+    private VolatileImage wait;
+    private VolatileImage draw;
 
     private Sprite[] tiles;
     private Sprite[] bonuses;
@@ -45,6 +49,8 @@ public class GameViewer extends JPanel {
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
         settings = GameSettings.getInstance();
+        
+        GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
         
         SpriteFactory factory = SpriteFactory.getInstance();
         tiles = new Sprite[TileType.values().length];
@@ -93,23 +99,34 @@ public class GameViewer extends JPanel {
         this.showSpawningLocations = showSpawningLocations;
     }
     
+    private void updateDrawImage(MapView map) {
+        int width = settings.scale(map.getWidth());
+        int height = settings.scale(map.getHeight());
+        
+        if (draw == null || draw.getWidth() != width || draw.getHeight() != height) {
+            GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+            draw = gc.createCompatibleVolatileImage(width, height, Transparency.OPAQUE);
+        }
+    }
+    
     @objid ("18e3e04f-dec2-45e2-a3f5-dbabb34447b4")
     public void drawWorld(WorldView worldView) {
         MapView map = worldView.getMap();
-        BufferedImage newWorld = Sprite.newCompatibleImage(settings.scale(map.getWidth()), settings.scale(map.getHeight()), Transparency.OPAQUE);
-        Graphics2D g = newWorld.createGraphics();
+        updateDrawImage(map);
+        
+        Graphics2D g = draw.createGraphics();
         g.setFont(settings.scale(g.getFont()));
         drawMap(g, map);
         drawWorld(g, worldView);
-        updateDisplay(newWorld);
+        updateDisplay();
     }
     
     public void drawMap(MapView map) {
-        BufferedImage newWorld = Sprite.newCompatibleImage(settings.scale(map.getWidth()), settings.scale(map.getHeight()), Transparency.OPAQUE);
-        Graphics2D g = newWorld.createGraphics();
+        updateDrawImage(map);
+        Graphics2D g = draw.createGraphics();
         g.setFont(settings.scale(g.getFont()));
         drawMap(g, map);
-        updateDisplay(newWorld);
+        updateDisplay();
     }
     
     private void drawMap(Graphics2D g, MapView map) {
@@ -186,13 +203,22 @@ public class GameViewer extends JPanel {
     }
 
     
-    private void updateDisplay(Image newWorld) {
-        if (world == null || (world.getWidth(null) != newWorld.getWidth(null) || world.getHeight(null) != newWorld.getHeight(null))) {
-            world = newWorld;
+    private void updateDisplay() {
+        if (wait == null) {
+            wait = draw;
             revalidate();
             repaint();
-        } else {
-            world = newWorld;
+        }
+        else {
+            boolean toRevalidate = wait.getWidth(null) != draw.getWidth(null) || wait.getHeight(null) != draw.getHeight(null);
+            synchronized (wait) {
+                VolatileImage cache = wait;
+                wait = draw;
+                draw = cache;
+            }
+
+            if (toRevalidate)
+                revalidate();
             repaint();
         }
     }
@@ -218,6 +244,14 @@ public class GameViewer extends JPanel {
     @objid ("8a85e92f-ba76-4ae7-8d93-ab5ea648949a")
     @Override
     protected void paintComponent(Graphics g) {
+        if (wait != null) {
+            synchronized (wait) {
+                VolatileImage cache = wait;
+                wait = world;
+                world = cache;
+            }
+        }
+        
         g.setColor(Color.gray);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.drawImage(world, 0, 0, null);
@@ -225,8 +259,8 @@ public class GameViewer extends JPanel {
     
     @Override
     public Dimension getPreferredSize() {
-        if (world != null)
-            return new Dimension(world.getWidth(null), world.getHeight(null));
+        if (wait != null)
+            return new Dimension(wait.getWidth(null), wait.getHeight(null));
         else
             return super.getPreferredSize();
     }
