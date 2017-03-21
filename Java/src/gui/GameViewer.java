@@ -112,19 +112,22 @@ public class GameViewer extends JPanel {
     public void drawWorld(WorldView worldView) {
         MapView map = worldView.getMap();
         updateDrawImage(map);
-        
-        Graphics2D g = draw.createGraphics();
-        g.setFont(settings.scale(g.getFont()));
-        drawMap(g, map);
-        drawWorld(g, worldView);
+        do {
+            Graphics2D g = draw.createGraphics();
+            g.setFont(settings.scale(g.getFont()));
+            drawMap(g, map);
+            drawWorld(g, worldView);
+        } while (draw.contentsLost());
         updateDisplay();
     }
     
     public void drawMap(MapView map) {
         updateDrawImage(map);
-        Graphics2D g = draw.createGraphics();
-        g.setFont(settings.scale(g.getFont()));
-        drawMap(g, map);
+        do {
+            Graphics2D g = draw.createGraphics();
+            g.setFont(settings.scale(g.getFont()));
+            drawMap(g, map);
+        } while (draw.contentsLost());
         updateDisplay();
     }
     
