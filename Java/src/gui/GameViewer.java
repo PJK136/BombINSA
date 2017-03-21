@@ -30,6 +30,7 @@ public class GameViewer extends JPanel {
     private GameSettings settings;
     
     @objid ("12584c94-a9fc-48b1-bdf6-42c3345b8404")
+    private boolean updatePending;
     private VolatileImage world;
     private VolatileImage wait;
     private VolatileImage draw;
@@ -49,8 +50,6 @@ public class GameViewer extends JPanel {
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
         settings = GameSettings.getInstance();
-        
-        GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
         
         SpriteFactory factory = SpriteFactory.getInstance();
         tiles = new Sprite[TileType.values().length];
@@ -206,6 +205,7 @@ public class GameViewer extends JPanel {
     private void updateDisplay() {
         if (wait == null) {
             wait = draw;
+            updatePending = true;
             revalidate();
             repaint();
         }
@@ -215,6 +215,7 @@ public class GameViewer extends JPanel {
                 VolatileImage cache = wait;
                 wait = draw;
                 draw = cache;
+                updatePending = true;
             }
 
             if (toRevalidate)
@@ -244,11 +245,12 @@ public class GameViewer extends JPanel {
     @objid ("8a85e92f-ba76-4ae7-8d93-ab5ea648949a")
     @Override
     protected void paintComponent(Graphics g) {
-        if (wait != null) {
+        if (updatePending && wait != null) {
             synchronized (wait) {
                 VolatileImage cache = wait;
                 wait = world;
                 world = cache;
+                updatePending = false;
             }
         }
         
