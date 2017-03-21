@@ -65,9 +65,21 @@ public class Bomb extends Entity {
         // Update Position
         super.update();
 
+        //vérifie qu'il est au milieu de la case dans la direction ou il bouge
+        boolean changeDir = false;
+        if((this.direction == direction.Up) && (this.getY() <= this.world.getMap().toCenterY(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+            changeDir = true;
+        } else if ((this.direction == direction.Down) && (this.getY() >= this.world.getMap().toCenterY(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+            changeDir = true;
+        }else if ((this.direction == direction.Right) && (this.getX() >= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+            changeDir = true;
+        } else if ((this.direction == direction.Left) && (this.getX() <= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+            changeDir = true;
+        }
+        
         // Update Marche sur une flèche (Déplacement dans la direction de la
         // flèche d'un nombre de case déterminé)
-        if (this.world.getMap().getTileType(this.x, this.y) == TileType.Arrow) {
+        if ((changeDir) && (this.world.getMap().getTileType(this.x, this.y) == TileType.Arrow)) {
             Direction d = this.world.getMap().getArrowDirection(this.x, this.y);
             switch (d) {
             case Left:

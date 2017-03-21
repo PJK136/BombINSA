@@ -56,7 +56,7 @@ public class BonusTile extends ExplodableTile {
                 summ = summ + bonusList[i].getLootRate();
             }
         }
-        System.out.println("Problème  " + summ);
+        System.err.println("Problème bonus " + summ);
         return BonusType.Random;
         
     }
