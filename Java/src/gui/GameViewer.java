@@ -106,7 +106,9 @@ public class GameViewer extends JPanel {
         int height = settings.scale(map.getHeight());
         
         if (draw == null || draw.getWidth() != width || draw.getHeight() != height) {
-            GraphicsConfiguration gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+            GraphicsConfiguration gc = getGraphicsConfiguration();
+            if (gc == null)
+                gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
             draw = gc.createCompatibleVolatileImage(width, height, Transparency.OPAQUE);
         }
     }

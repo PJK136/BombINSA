@@ -77,8 +77,8 @@ public class MainWindow {
             GamePanel gamePanel = new GamePanel(this);
             gameWorker = new GameWorker(gamePanel);
             gameWorker.addPropertyChangeListener(gamePanel);
-            gameWorker.execute();
             setPage(gamePanel);
+            gameWorker.execute();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this.frame,
                                          e.getMessage(),
