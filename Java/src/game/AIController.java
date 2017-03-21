@@ -40,7 +40,7 @@ public class AIController implements Controller {
     @Override
     public void update() {
         aiLocation = world.getMap().toGridCoordinates((int)aiPlayer.getX(),(int)aiPlayer.getY());
-        if(aiPlayer.getSpeed() == 0 || (!(isSafe(aiLocation.neighbor(currentDirection))) && world.getTimeRemaining()%0.5*(world.getMap().getTileSize())/aiPlayer.getSpeed() == 0)){
+        if(aiPlayer.getSpeed() == 0 || (!(isSafe(aiLocation.neighbor(currentDirection))))){
             turn(currentDirection,aiLocation);
         }
     }
