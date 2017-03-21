@@ -26,6 +26,7 @@ public class Player extends Entity {
 
     @objid ("efe71f6e-6ac1-4f9a-bb96-98975b970b23")
      int invulnerability;
+     int blink; 
 
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
     protected Controller controller;
@@ -44,6 +45,7 @@ public class Player extends Entity {
         this.range = range;
         this.invulnerability = invulnerability;
         this.bombCount = 0;
+        blink = 0;
         
         PlayerAbility[] pa = PlayerAbility.values();
         this.playerAbilities = new ArrayList<Boolean>(pa.length);
@@ -120,6 +122,14 @@ public class Player extends Entity {
     @objid ("2559d9b8-e592-4923-928b-ebc444992c5c")
     void setPlayerAbilities(List<Boolean> value) {
         this.playerAbilities = value;
+    }
+    
+    public int getBlink(){
+        return this.blink;
+    }
+    
+    void decreaseBlink() {
+        this.blink = Math.max(0, this.blink-1);
     }
 
     @objid ("1c7621e2-784f-4508-933f-55ea6bea5b83")
@@ -240,10 +250,12 @@ public class Player extends Entity {
             } else {
                 decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
                 setInvulnerability((int) (World.EXPLOSION_DURATION*world.getFps())+1);
+                blink = world.getFps()*2;
             }
         }
         else
             decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0; ici toute les 100 update, à affinner;
+            decreaseBlink();
         
         if (controller.isPlantingBomb() && bombCount < bombMax && !world.getMap().isExploding(x, y) && !world.getMap().hasBomb(x,y)) {
             bombCount++;
