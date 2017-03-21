@@ -33,13 +33,14 @@ public class PlayerStatePanel extends JPanel {
         MainWindow.setFontSize(lives, size);
         add(lives);
         
+        
         bombMax = new JLabel();
-        bombMax.setIcon(factory.getImageIcon("bonus"+BonusType.MoreBomb.ordinal(), size));
+        bombMax.setIcon(factory.getImageIcon("bombMax", size));
         MainWindow.setFontSize(bombMax, size);
         add(bombMax);
         
         range = new JLabel();
-        range.setIcon(factory.getImageIcon("bonus"+BonusType.MoreRange.ordinal(), size));
+        range.setIcon(factory.getImageIcon("range", size));
         MainWindow.setFontSize(range, size);
         add(range);
         
@@ -53,13 +54,13 @@ public class PlayerStatePanel extends JPanel {
         }
         
         abilities[PlayerAbility.MoreSpeed.ordinal()].setIcon(
-                factory.getImageIcon("bonus"+BonusType.MoreSpeed.ordinal(), size));
+                factory.getImageIcon("moreSpeed", size));
         abilities[PlayerAbility.LessSpeed.ordinal()].setIcon(
-                factory.getImageIcon("bonus"+BonusType.LessSpeed.ordinal(), size));
+                factory.getImageIcon("lessSpeed", size));
         abilities[PlayerAbility.Shield.ordinal()].setIcon(
-                factory.getImageIcon("bonus"+BonusType.Shield.ordinal(), size));
+                factory.getImageIcon("shield", size));
         abilities[PlayerAbility.Kick.ordinal()].setIcon(
-                factory.getImageIcon("bonus"+BonusType.Kick.ordinal(), size));
+                factory.getImageIcon("kick", size));
         
         separator = new JSeparator(JSeparator.VERTICAL);
         separator.setMaximumSize(new Dimension(1, Integer.MAX_VALUE));
