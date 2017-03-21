@@ -63,7 +63,7 @@ public class AIController implements Controller {
         Bomb bomb = null;
         //first direction
         while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
-            if(world.getMap().hasBomb(temp.x, temp.y)){
+            if(world.getMap().hasBomb(temp)){
                 System.out.println("check right");
                 tileEntities = world.getMap().getEntities(temp);
                 for(Entity entity : tileEntities){
@@ -76,12 +76,11 @@ public class AIController implements Controller {
                 }
             }
             temp.x ++;
-            System.out.println(temp.x);
         }
         //second direction
         temp = target;
         while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
-            if(world.getMap().hasBomb(temp.x, temp.y)){
+            if(world.getMap().hasBomb(temp)){
                 System.out.println("check left");
                 tileEntities = world.getMap().getEntities(temp);
                 for(Entity entity : tileEntities){
@@ -98,7 +97,7 @@ public class AIController implements Controller {
         //third direction
         temp = target;
         while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
-            if(world.getMap().hasBomb(temp.x, temp.y)){
+            if(world.getMap().hasBomb(temp)){
                 System.out.println("check down");
                 tileEntities = world.getMap().getEntities(temp);
                 for(Entity entity : tileEntities){
@@ -115,7 +114,7 @@ public class AIController implements Controller {
         //last direction
         temp = target;
         while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
-            if(world.getMap().hasBomb(temp.x, temp.y)){
+            if(world.getMap().hasBomb(temp)){
                 System.out.println("check up");
                 tileEntities = world.getMap().getEntities(temp);
                 for(Entity entity : tileEntities){
