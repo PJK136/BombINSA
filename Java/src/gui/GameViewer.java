@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 import java.awt.image.VolatileImage;
 import java.util.Arrays;
 import java.util.List;
@@ -88,6 +89,7 @@ public class GameViewer extends JPanel {
         cacheTileSize = 0;
         
         setFocusable(true);
+        setDoubleBuffered(true);
     }
     
     public Sprite[] getTileSprites() {
@@ -117,6 +119,7 @@ public class GameViewer extends JPanel {
             g.setFont(settings.scale(g.getFont()));
             drawMap(g, map);
             drawWorld(g, worldView);
+            g.dispose();
         } while (draw.contentsLost());
         updateDisplay();
     }
@@ -127,6 +130,7 @@ public class GameViewer extends JPanel {
             Graphics2D g = draw.createGraphics();
             g.setFont(settings.scale(g.getFont()));
             drawMap(g, map);
+            g.dispose();
         } while (draw.contentsLost());
         updateDisplay();
     }
@@ -147,6 +151,7 @@ public class GameViewer extends JPanel {
                     if (map.getTileType(gc) == TileType.Bonus) {
                         image = bonuses[map.getBonusType(gc).ordinal()].getImage(); 
                     } else if (map.getTileType(gc) == TileType.Arrow) {
+                        g.drawImage(tiles[TileType.Empty.ordinal()].getImage(), gc.x*size, gc.y*size, null);
                         image = ((OrientedSprite)tiles[TileType.Arrow.ordinal()]).getOrientedImage(map.getArrowDirection(gc));
                     } else
                         image = tiles[map.getTileType(gc).ordinal()].getImage();
@@ -248,6 +253,8 @@ public class GameViewer extends JPanel {
     @objid ("8a85e92f-ba76-4ae7-8d93-ab5ea648949a")
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
         if (updatePending && wait != null) {
             synchronized (wait) {
                 VolatileImage cache = wait;
@@ -260,6 +267,7 @@ public class GameViewer extends JPanel {
         g.setColor(Color.gray);
         g.fillRect(0, 0, getWidth(), getHeight());
         g.drawImage(world, 0, 0, null);
+        g.dispose();
     }
     
     @Override
