@@ -47,7 +47,7 @@ public class GameViewer extends JPanel {
     boolean showSpawningLocations;
     
     public static final double BOMB_BLINK_INTERVAL = 0.325;
-    public static final double HIT_BLINK_INTERVAL = 0.2;
+    public static final double HIT_BLINK_INTERVAL = 0.05;
     
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
@@ -199,16 +199,8 @@ public class GameViewer extends JPanel {
         //Dessine les joueurs en dernier
         for (Entity entity : worldView.getEntities()) {
             if (entity instanceof Player) {
-                if( ((Player)entity).getBlink() > 0){
-                    if (((Player)entity).getBlink() % (2*HIT_BLINK_INTERVAL*worldView.getFps()) >= HIT_BLINK_INTERVAL*worldView.getFps()){
-                        int color = ((Player)entity).getPlayerID() % colorCount;
-                        if (entity.getSpeed() == 0.)
-                            drawEntity(g, entity, players[color].getStandingPlayer(entity.getDirection()));
-                        else
-                            drawEntity(g, entity, players[color].getMovingPlayer(entity.getDirection(), 10*Math.abs(worldView.getTimeRemaining())/worldView.getFps()%2));
-                    }
-                        
-                }else{
+                int invulnerability = ((Player)entity).getInvulnerability();
+                if (invulnerability == 0 || invulnerability % (2*HIT_BLINK_INTERVAL*worldView.getFps()) >= HIT_BLINK_INTERVAL*worldView.getFps()) {
                     int color = ((Player)entity).getPlayerID() % colorCount;
                     if (entity.getSpeed() == 0.)
                         drawEntity(g, entity, players[color].getStandingPlayer(entity.getDirection()));
