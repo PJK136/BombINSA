@@ -40,7 +40,7 @@ public class AIController implements Controller {
     @Override
     public void update() {
         aiLocation = world.getMap().toGridCoordinates((int)aiPlayer.getX(),(int)aiPlayer.getY());
-        if(aiPlayer.getSpeed() == 0 || !(isSafe(aiLocation.neighbor(currentDirection)))){
+        if(aiPlayer.getSpeed() == 0 || (!(isSafe(aiLocation.neighbor(currentDirection))) && world.getTimeRemaining()%0.5*(world.getMap().getTileSize())/aiPlayer.getSpeed() == 0)){
             turn(currentDirection,aiLocation);
         }
     }
@@ -58,13 +58,15 @@ public class AIController implements Controller {
     }
     
     public boolean isSafe(GridCoordinates target){
-        GridCoordinates temp = target;
+        if(world.getMap().isExploding(target)){
+            return false;
+        }
+        GridCoordinates temp = new GridCoordinates(target);
         List<Entity> tileEntities = new ArrayList<Entity>();
         Bomb bomb = null;
         //first direction
         while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
             if(world.getMap().hasBomb(temp)){
-                System.out.println("check right");
                 tileEntities = world.getMap().getEntities(temp);
                 for(Entity entity : tileEntities){
                     if(entity instanceof Bomb){
@@ -78,10 +80,9 @@ public class AIController implements Controller {
             temp.x ++;
         }
         //second direction
-        temp = target;
+        temp = new GridCoordinates(target);
         while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
             if(world.getMap().hasBomb(temp)){
-                System.out.println("check left");
                 tileEntities = world.getMap().getEntities(temp);
                 for(Entity entity : tileEntities){
                     if(entity instanceof Bomb){
@@ -95,10 +96,9 @@ public class AIController implements Controller {
             temp.x --;
         }
         //third direction
-        temp = target;
+        temp = new GridCoordinates(target);
         while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
             if(world.getMap().hasBomb(temp)){
-                System.out.println("check down");
                 tileEntities = world.getMap().getEntities(temp);
                 for(Entity entity : tileEntities){
                     if(entity instanceof Bomb){
@@ -112,10 +112,9 @@ public class AIController implements Controller {
             temp.y ++;
         }
         //last direction
-        temp = target;
+        temp = new GridCoordinates(target);
         while(world.getMap().getTileType(temp) == TileType.Empty || world.getMap().getTileType(temp) == TileType.Bonus || world.getMap().getTileType(temp) == TileType.Arrow){
             if(world.getMap().hasBomb(temp)){
-                System.out.println("check up");
                 tileEntities = world.getMap().getEntities(temp);
                 for(Entity entity : tileEntities){
                     if(entity instanceof Bomb){
