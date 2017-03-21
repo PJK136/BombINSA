@@ -219,13 +219,14 @@ public class GameViewer extends JPanel {
     private void updateDisplay() {
         if (wait == null) {
             wait = draw;
+            draw = null;
             updatePending = true;
             revalidate();
             repaint();
         }
         else {
             boolean toRevalidate = wait.getWidth(null) != draw.getWidth(null) || wait.getHeight(null) != draw.getHeight(null);
-            synchronized (this) {
+            synchronized (wait) {
                 VolatileImage cache = wait;
                 wait = draw;
                 draw = cache;
@@ -259,10 +260,8 @@ public class GameViewer extends JPanel {
     @objid ("8a85e92f-ba76-4ae7-8d93-ab5ea648949a")
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        
         if (updatePending && wait != null) {
-            synchronized (this) {
+            synchronized (wait) {
                 VolatileImage cache = wait;
                 wait = world;
                 world = cache;
