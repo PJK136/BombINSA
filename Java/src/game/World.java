@@ -24,7 +24,7 @@ public abstract class World implements WorldView {
     public static final double TIME_BEFORE_EXPLOSION = 3;
 
     @objid ("751024b2-9b44-4803-a99b-325fd609fbd3")
-    public static final double EXPLOSION_DURATION = 0.3;
+    public static final double EXPLOSION_DURATION = 0.25;
     
     @objid ("85c96d62-8a34-4a32-b45b-ae1b9c9d4112")
      int fps;

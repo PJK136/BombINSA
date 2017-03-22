@@ -96,10 +96,11 @@ public class Bomb extends Entity {
             }
         }
         
-        // On vérifie le TimeRemaining, si nulle ou si la case en train
-        // d'exploser, on modifie l'état des case dans la portée en train
-        // d'exploser
-        if (this.timeRemaining == 0 || this.world.getMap().isExploding(this.x, this.y) == true) {
+        if (this.world.getMap().isExploding(this.x, this.y))
+            timeRemaining /= 2;
+            
+        // On vérifie le TimeRemaining et on fait exploser si nulle
+        if (this.timeRemaining == 0) {
             this.world.createExplosion(this);
             if (owner != null)
                 owner.decreaseBombCount();
