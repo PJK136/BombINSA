@@ -332,13 +332,8 @@ public class Map implements MapView {
         ((ExplodableTile)tiles[gc.x][gc.y]).explode(duration, type, direction);
     }
     
-    void setExplosionCenter(GridCoordinates gc) {
-        ((ExplodableTile)tiles[gc.x][gc.y]).setExplosionType(ExplosionType.Center);
-    }
-    
     void setExplosionEnd(GridCoordinates gc) {
-        if (((ExplodableTile)tiles[gc.x][gc.y]).getExplosionType() != ExplosionType.Center)
-            ((ExplodableTile)tiles[gc.x][gc.y]).setExplosionType(ExplosionType.End);
+        ((ExplodableTile)tiles[gc.x][gc.y]).setLastExplosionEnd();
     }
 
     @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")

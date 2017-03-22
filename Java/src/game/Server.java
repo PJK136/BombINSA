@@ -180,8 +180,7 @@ public class Server extends World {
                     hasCollided = map.isCollidable(explosionGC) || map.hasBomb(explosionGC);
                     nextGC = explosionGC.neighbor(direction);
                 }
-                if (!map.isInsideMap(nextGC) || !map.isExploding(nextGC))
-                    map.setExplosionEnd(explosionGC);
+                map.setExplosionEnd(explosionGC);
             }
         }
         
