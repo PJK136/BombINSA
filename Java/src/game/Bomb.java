@@ -73,38 +73,29 @@ public class Bomb extends Entity {
         // Update Position
         super.update();
 
-        //vérifie qu'il est au milieu de la case dans la direction ou il bouge
-        boolean changeDir = false;
-        if((this.direction == direction.Up) && (this.getY() <= this.world.getMap().toCenterY(this.world.getMap().toGridCoordinates(this.x, this.y)))){
-            changeDir = true;
-        } else if ((this.direction == direction.Down) && (this.getY() >= this.world.getMap().toCenterY(this.world.getMap().toGridCoordinates(this.x, this.y)))){
-            changeDir = true;
-        }else if ((this.direction == direction.Right) && (this.getX() >= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
-            changeDir = true;
-        } else if ((this.direction == direction.Left) && (this.getX() <= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
-            changeDir = true;
-        }
-        
         // Update Marche sur une flèche (Déplacement dans la direction de la
         // flèche d'un nombre de case déterminé)
-        if ((changeDir) && (this.world.getMap().getTileType(this.x, this.y) == TileType.Arrow)) {
-            Direction d = this.world.getMap().getArrowDirection(this.x, this.y);
-            switch (d) {
-            case Left:
-                this.direction = Direction.Left;
-                break;
-            case Right:
-                this.direction = Direction.Right;
-                break;
-            case Up:
-                this.direction = Direction.Up;
-                break;
-            case Down:
-                this.direction = Direction.Down;
-                break;
+        if (this.world.getMap().getTileType(this.x, this.y) == TileType.Arrow) {
+            //vérifie si la bombe ne bouge pas ou s'il est bien au milieu de la case dans la direction où il bouge
+            boolean changeDir = false;
+            if (this.speed == 0.) {
+                changeDir = true;
+            } else if((this.direction == Direction.Up) && (this.y <= this.world.getMap().toCenterY(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+                changeDir = true;
+            } else if ((this.direction == Direction.Down) && (this.y >= this.world.getMap().toCenterY(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+                changeDir = true;
+            } else if ((this.direction == Direction.Right) && (this.x >= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+                changeDir = true;
+            } else if ((this.direction == Direction.Left) && (this.x <= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+                changeDir = true;
             }
-            this.speed = BOMB_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
+        
+            if (changeDir) {
+                this.direction = this.world.getMap().getArrowDirection(this.x, this.y);
+                this.speed = BOMB_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
+            }
         }
+        
         // On vérifie le TimeRemaining, si nulle ou si la case en train
         // d'exploser, on modifie l'état des case dans la portée en train
         // d'exploser
