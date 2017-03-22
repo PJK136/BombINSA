@@ -7,6 +7,8 @@ public class Bomb extends Entity {
     @objid ("7cf845bf-dacd-4f1f-9c63-46ad9d0e478b")
      int range;
 
+    int duration;
+    
     @objid ("57ad54f8-e371-4980-8fcc-383afd09c461")
      int timeRemaining;
 
@@ -19,6 +21,7 @@ public class Bomb extends Entity {
     public Bomb(World world, GridCoordinates gc, int range, int duration) {
         super(world, world.getMap().toCenterX(gc), world.getMap().toCenterY(gc));
         this.range = range;
+        this.duration = duration;
         this.timeRemaining = duration;
     }
 
@@ -42,18 +45,23 @@ public class Bomb extends Entity {
         }
     }
 
-    @objid ("46c24a88-c0e7-42af-aa08-f2217f450044")
-    public int getTimeRemaining() {
-        return this.timeRemaining;
+    public int getDuration() {
+        return duration;
     }
 
     @objid ("8568627a-17f2-49d3-a8e6-c690ecf21ab1")
-    void setTimeRemaining(int value) {
+    void setDuration(int value) {
         if(value >= 0){
+            this.duration = value;
             this.timeRemaining = value;
         } else {
-            throw new RuntimeException("Remaining Time cannot be negative");
+            throw new RuntimeException("Duration cannot be negative");
         }
+    }
+    
+    @objid ("46c24a88-c0e7-42af-aa08-f2217f450044")
+    public int getTimeRemaining() {
+        return this.timeRemaining;
     }
 
     @objid ("ce00607d-3c72-45ea-b3e1-5a3ac0315b22")
