@@ -71,5 +71,9 @@ public interface MapView {
     boolean hasBomb(GridCoordinates gc);
     
     boolean hasBomb(double x, double y);
+    
+    Bomb getFirstBomb(GridCoordinates gc);
+    
+    Bomb getFirstBomb(double x, double y);
 
 }

@@ -371,6 +371,21 @@ public class Map implements MapView {
         return hasBomb(toGridCoordinates(x, y));
     }
     
+    @Override
+    public Bomb getFirstBomb(GridCoordinates gc) {
+        List<Entity> entities = getEntities(gc);
+        for (Entity entity : entities) {
+            if (entity instanceof Bomb)
+                return (Bomb)entity;
+        }
+        return null;
+    }
+    
+    @Override
+    public Bomb getFirstBomb(double x, double y) {
+        return getFirstBomb(toGridCoordinates(x, y));
+    }
+    
     @objid ("e0d1831e-0655-4b4d-a0d8-d282ff461427")
     Tile[][] getTiles() {
         return this.tiles;
