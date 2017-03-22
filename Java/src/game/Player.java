@@ -176,7 +176,6 @@ public class Player extends Entity {
 
     @objid ("e1e22784-8fdf-4da6-9c9c-3b900eef4dd6")
     void decreaseInvulnerability() {
-        //Méthode nouvelle
         this.invulnerability = Math.max(0, this.invulnerability-1);
     }
     
@@ -249,14 +248,14 @@ public class Player extends Entity {
         if(this.world.getMap().isExploding(this.x, this.y) && getInvulnerability() == 0){ // On vérifie si la case où se trouve le CENTRE du joueur explose et qu'il n'est pas invulnérable
             if(playerAbilities.get(PlayerAbility.Shield.ordinal()) == true){
                 playerAbilities.set(PlayerAbility.Shield.ordinal(), false); // On enlève le Shield
-                setInvulnerability((int) (World.EXPLOSION_DURATION*world.getFps())+1);
             } else {
                 decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
-                setInvulnerability((int) (World.EXPLOSION_DURATION*world.getFps())+1);
             }
+            
+            setInvulnerability((int) (World.EXPLOSION_DURATION*world.getFps())+1);
         }
         else
-            decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0; ici toute les 100 update, à affinner;
+            decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0
         
         if (controller.isPlantingBomb() && bombCount < bombMax && !world.getMap().isExploding(x, y) && !world.getMap().hasBomb(x,y)) {
             bombCount++;
@@ -272,10 +271,12 @@ public class Player extends Entity {
     private void updateBonusMalus(){
         if(this.world.getMap().getTileType(this.x , this.y) == TileType.Bonus){
             BonusType b = this.world.getMap().getBonusType(this.x, this.y);
+            while (b == BonusType.Random) {
+                b = BonusTile.randomBonus();
+            }
             
             switch(b){ 
             case Random:
-                
                 break;
                 
             case MoreBomb:
