@@ -58,6 +58,11 @@ public abstract class World implements WorldView {
     public int getTimeRemaining() {
         return timeRemaining;
     }
+    
+    @Override
+    public int getTimeElapsed() {
+        return duration-timeRemaining;
+    }
 
     @objid ("83167709-dc8e-456e-b787-b9a4ed0d8113")
     public List<Entity> getEntities() { //Thread-safety
@@ -119,5 +124,22 @@ public abstract class World implements WorldView {
 
     @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
     public abstract void restart() throws Exception;
+    
+    //http://answers.unity3d.com/questions/150347/what-exactly-does-timetime-do-in-mathfpingpong.html
+    private static double pingPong(int time, int length) {
+        int l = 2 * length;
+        int t = time % l;
+        
+        if (0 <= t && t < length)
+            return t;
+        else
+            return l - t;
+    }
+    
+    public static boolean oscillate(int remaining, int duration, int intervalMin, int intervalMax) {
+        //http://answers.unity3d.com/questions/678855/trying-to-get-object-to-blink-speed-acording-to-ti.html
+        int interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;        
+        return pingPong(duration - remaining, interval) > interval/2; //Ping pong sur la durée écoulée
+    }
 
 }

@@ -35,7 +35,7 @@ public class Server extends World {
         loadMap(mapFilename);
         setFps(fps);
         setDuration(duration);
-        timeRemaining = duration*fps;
+        setTimeRemaining(duration);
     }
 
     @objid ("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
@@ -53,14 +53,17 @@ public class Server extends World {
             throw new RuntimeException("duration not positive");
         } else {
             this.duration = duration;
-            if (timeRemaining > duration*fps)
-                timeRemaining = duration*fps;
+            if (timeRemaining > duration)
+                timeRemaining = duration;
         }
     }
 
     @objid ("77769968-3eb5-4133-880a-e74cedee78ae")
     public void setTimeRemaining(int time) {
-        this.timeRemaining = time;
+        if (timeRemaining < 0)
+            throw new RuntimeException("time remaining not positive");
+        else
+            this.timeRemaining = time;
     }
 
     @objid ("739ccd1c-6053-48a2-a809-596cf4134d36")
@@ -209,7 +212,7 @@ public class Server extends World {
             newPlayer(controller);
         }
         //time remaining back to beginning
-        timeRemaining = duration*fps;
+        timeRemaining = duration;
         //reload map
         loadMap(mapFileName);
     }
