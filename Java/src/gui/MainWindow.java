@@ -89,7 +89,6 @@ public class MainWindow {
             gameWorker = null;
         }
         
-        frame.setResizable(true);
         setPage(new MainMenu(this));
     }
 
@@ -98,7 +97,6 @@ public class MainWindow {
         try {
             GamePanel gamePanel = new GamePanel(this);
             gameWorker = new GameWorker(this, gamePanel);
-            frame.setResizable(false);
             setPage(gamePanel);
             new Thread(gameWorker).start();
         } catch (Exception e) {
