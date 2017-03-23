@@ -10,9 +10,7 @@ import game.Server;
 import game.World;
 
 @objid ("0352607c-7ee6-4aa1-839f-fc6a174af9fd")
-public class GameWorker extends SwingWorker<Integer,Integer> {
-    @objid ("48d2d522-c922-4b51-80ca-ea2a20a4e237")
-    private GameState state;
+public class GameWorker implements Runnable {
 
     @objid ("f996874c-1764-42a2-867d-851bf61a9f40")
     private World world;
@@ -25,9 +23,10 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     @objid ("0c0b3418-de2f-49f0-91d2-008a02cea763")
     private GameViewer viewer;
 
+    private boolean stop;
+    
     @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
     public GameWorker( GamePanel panel) throws Exception {
-        this.state = null;
         this.settings = GameSettings.getInstance();
         this.panel = panel;
         this.viewer = panel.getGameViewer();
@@ -35,16 +34,9 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     }
 
     @objid ("57911ebe-31d3-4df2-b871-111cf25912bf")
-    @Override
-    protected Integer doInBackground() {
+    public void run() {
         try {
-            viewer.drawWorld(world);
-            panel.showGameStatus(world);
-            setGameState(GameState.Init);
-            
-            int frame = 0;
-            long lastDisplay = System.nanoTime();
-            final long timeStep = 1000000000/settings.fps;
+            this.stop = false;
             final Runnable updateGamePanel = new Runnable() {
                 @Override
                 public void run() {
@@ -52,13 +44,21 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
                 }
             };
             
-            for (int round = 0; round < settings.roundCount && !isCancelled(); round++)
+            viewer.drawWorld(world);
+            SwingUtilities.invokeAndWait(updateGamePanel);
+            setGameState(GameState.Init);
+            
+            int frame = 0;
+            long lastDisplay = System.nanoTime();
+            final long timeStep = 1000000000/settings.fps;
+            
+            for (int round = 0; round < settings.roundCount && !stop; round++)
             {
                 setGameState(GameState.Playing);
                 
                 long offset = 0;
                 long start = System.nanoTime();
-                while (world.getPlayerAliveCount() > 0 && !isCancelled())
+                while (world.getPlayerAliveCount() > 0 && !stop)
                 {              
                     world.update();
                     SwingUtilities.invokeLater(updateGamePanel);
@@ -88,7 +88,7 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
                 }
                 setGameState(GameState.EndRound);
                 
-                if (!isCancelled() && round < settings.roundCount-1) {
+                if (!stop && round < settings.roundCount-1) {
                         world.restart();
                 }
             }
@@ -105,8 +105,10 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
                 }
             });
         }
-        
-        return null;
+    }
+    
+    public void stop() {
+        this.stop = true;
     }
 
     @objid ("b5e7e42e-c73b-4130-bed6-7aa32aa55eb3")
@@ -131,10 +133,13 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
 
     @objid ("df3a5c13-59cb-491e-811a-ea1af7e23cda")
     void setGameState(GameState state) {
-        GameState oldState = this.state;
-        this.state = state;
-        firePropertyChange(GameProperty.GameState.name(), oldState, state);
-        //TODO : Enlever debug message
+        SwingUtilities.invokeLater(new Runnable() {
+            
+            @Override
+            public void run() {
+                panel.setGameState(state);
+            }
+        });
         System.err.println(state);
     }
 }

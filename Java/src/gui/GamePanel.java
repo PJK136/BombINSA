@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -24,7 +22,7 @@ import game.Player;
 import game.WorldView;
 
 @objid ("edc89ef6-b498-483e-875c-befa52d629f4")
-public class GamePanel extends JPanel implements ActionListener, PropertyChangeListener {
+public class GamePanel extends JPanel implements ActionListener {
     @objid ("1630e521-8ea4-48df-9278-b85be1fba591")
     private GameViewer gameViewer;
 
@@ -117,30 +115,19 @@ public class GamePanel extends JPanel implements ActionListener, PropertyChangeL
             }
         }
     }
-    
     @objid ("28945b2a-0dba-494d-8e43-6992d3e5b089")
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("state"))
-            return;
-        
-        GameProperty property = GameProperty.valueOf(evt.getPropertyName());
-        
-        switch (property) {
-            case GameState:
-                if ((GameState)evt.getNewValue() == GameState.Init) {
-                    mainWindow.pack();
-                    
-                    int previousHeight;
-                    do { //Réajuste la fenêtre tant que la hauteur est modifiée
-                        previousHeight = playerStateGroup.getHeight();
-                        playerStateGroup.revalidate();
-                        mainWindow.pack();
-                    } while (previousHeight != playerStateGroup.getHeight());
-                    setVisible(true);
-                    gameViewer.requestFocusInWindow();
-                }
-                break;
+    public void setGameState(GameState state) {
+        if (state == GameState.Init) {
+            mainWindow.pack();
+            
+            int previousHeight;
+            do { //Réajuste la fenêtre tant que la hauteur est modifiée
+                previousHeight = playerStateGroup.getHeight();
+                playerStateGroup.revalidate();
+                mainWindow.pack();
+            } while (previousHeight != playerStateGroup.getHeight());
+            setVisible(true);
+            gameViewer.requestFocusInWindow();
         }
     }
 

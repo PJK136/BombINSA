@@ -64,7 +64,7 @@ public class MainWindow {
     @objid ("d0b8245a-6b07-481e-b47e-45ce8cfbffec")
     public void showMenu() {
         if (gameWorker != null) {
-            gameWorker.cancel(true);
+            gameWorker.stop();
             gameWorker = null;
         }
         
@@ -76,9 +76,8 @@ public class MainWindow {
         try {
             GamePanel gamePanel = new GamePanel(this);
             gameWorker = new GameWorker(gamePanel);
-            gameWorker.addPropertyChangeListener(gamePanel);
             setPage(gamePanel);
-            gameWorker.execute();
+            new Thread(gameWorker).start();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this.frame,
                                          e.getMessage(),
