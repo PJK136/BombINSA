@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -89,9 +90,13 @@ public class GamePanel extends JPanel implements ActionListener {
     
     public void showGameStatus(WorldView view) {
         final int size = settings.scale((int) (view.getMap().getTileSize()*0.75));
+        boolean updateSize = false;
+        
         updateTimeRemaining(view, size);
-        if (btnExit.getIcon() == null || btnExit.getIcon().getIconHeight() != size)
+        if (btnExit.getIcon() == null || btnExit.getIcon().getIconHeight() != size) {
             btnExit.setIcon(SpriteFactory.getInstance().getImageIcon("Stop24", size));
+            updateSize = true;
+        }
         
         List<Player> playerList = view.getPlayers();
         
@@ -101,10 +106,11 @@ public class GamePanel extends JPanel implements ActionListener {
                 pState = new PlayerStatePanel(player.getPlayerID(), size);
                 playerStates.put(player, pState);
                 playerStateGroup.add(pState);
+                updateSize = true;
             }
             pState.updatePlayerState(player);
         }
-        
+
         Iterator<Entry<Player, PlayerStatePanel>> iterator = playerStates.entrySet().iterator();
         Entry<Player, PlayerStatePanel> player;
         while (iterator.hasNext()) {
@@ -112,25 +118,28 @@ public class GamePanel extends JPanel implements ActionListener {
             if (!playerList.contains(player.getKey())) {
                 playerStateGroup.remove(player.getValue());
                 iterator.remove();
+                updateSize = true;
             }
         }
+        
+        if (updateSize)
+            updateGameSize();
     }
+    
     @objid ("28945b2a-0dba-494d-8e43-6992d3e5b089")
-    public void setGameState(GameState state) {
-        if (state == GameState.Init) {
+    void updateGameSize() {
+        mainWindow.pack();
+        
+        int previousHeight;
+        do { //Réajuste la fenêtre tant que la hauteur est modifiée
+            previousHeight = playerStateGroup.getHeight();
+            playerStateGroup.revalidate();
             mainWindow.pack();
-            
-            int previousHeight;
-            do { //Réajuste la fenêtre tant que la hauteur est modifiée
-                previousHeight = playerStateGroup.getHeight();
-                playerStateGroup.revalidate();
-                mainWindow.pack();
-            } while (previousHeight != playerStateGroup.getHeight());
-            setVisible(true);
-            gameViewer.requestFocusInWindow();
-        }
+        } while (previousHeight != playerStateGroup.getHeight());
+        setVisible(true);
+        gameViewer.requestFocusInWindow();
     }
-
+    
     @objid ("4eda1677-dd51-4090-9ffa-956332a2fc44")
     private void updateTimeRemaining(WorldView view, int size) {
         if (timeRemaining.getFont().getSize() != size)

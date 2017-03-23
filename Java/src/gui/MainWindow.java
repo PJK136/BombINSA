@@ -1,7 +1,9 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -16,10 +18,15 @@ public class MainWindow {
     @objid ("d7d0818d-1589-4942-982c-1a9cbfa0f600")
     private JFrame frame;
     
+    private JPanel glassPanel;
+    
     private GameSettings settings;
 
     @objid ("294a7f1e-7ead-4bc6-bf80-c970a68ae918")
     private GameWorker gameWorker;
+    
+    private String message;
+    private Color messageColor;
     
     private static final int START_WIDTH = 640;
     private static final int START_HEIGHT = 480;
@@ -58,6 +65,20 @@ public class MainWindow {
             UIManager.put(font, defaultFont);
         }
         
+        glassPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                setOpaque(false);
+                g.setColor(new Color(Color.gray.getRed(), Color.gray.getGreen(), Color.gray.getBlue(), 127));
+                g.fillRect(0, 0, getWidth(), getHeight());
+                g.setColor(messageColor);
+                g.setFont(g.getFont().deriveFont((float)settings.scale(72.)));
+                GameViewer.drawCenteredString(g, message, getWidth()/2, getHeight()/2);
+            }
+        };
+        glassPanel.setOpaque(false);
+        frame.setGlassPane(glassPanel);
+        
         showMenu();
     }
 
@@ -68,6 +89,7 @@ public class MainWindow {
             gameWorker = null;
         }
         
+        frame.setResizable(true);
         setPage(new MainMenu(this));
     }
 
@@ -75,7 +97,8 @@ public class MainWindow {
     public void startGame() {
         try {
             GamePanel gamePanel = new GamePanel(this);
-            gameWorker = new GameWorker(gamePanel);
+            gameWorker = new GameWorker(this, gamePanel);
+            frame.setResizable(false);
             setPage(gamePanel);
             new Thread(gameWorker).start();
         } catch (Exception e) {
@@ -94,12 +117,25 @@ public class MainWindow {
 
     @objid ("030bbdba-dcc6-4a25-9366-dab889f9d934")
     void setPage(JPanel page) {
+        frame.getGlassPane().setVisible(false);
         frame.setContentPane(page);
         frame.revalidate();
     }
 
     void pack() {
         frame.pack();
+    }
+    
+    void showMessage(String message, Color color) {
+        this.message = message;
+        this.messageColor = color;
+        frame.getGlassPane().setVisible(true);
+        frame.repaint();
+    }
+    
+    void clearMessage() {
+        this.message = null;
+        frame.getGlassPane().setVisible(false);
     }
 
     public static void setFontSize(JComponent component, float size) {

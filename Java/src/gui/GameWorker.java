@@ -1,13 +1,17 @@
 package gui;
 
+import java.awt.Color;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 import game.AIController;
+import game.Player;
 import game.Server;
 import game.World;
+import sun.misc.Cleaner;
 
 @objid ("0352607c-7ee6-4aa1-839f-fc6a174af9fd")
 public class GameWorker implements Runnable {
@@ -18,6 +22,8 @@ public class GameWorker implements Runnable {
     @objid ("e6c9ac41-77db-49aa-b718-1530b3eebbcd")
     private GameSettings settings;
 
+    private MainWindow mainWindow;
+    
     private GamePanel panel;
     
     @objid ("0c0b3418-de2f-49f0-91d2-008a02cea763")
@@ -26,8 +32,9 @@ public class GameWorker implements Runnable {
     private boolean stop;
     
     @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
-    public GameWorker( GamePanel panel) throws Exception {
+    public GameWorker(MainWindow mainWindow, GamePanel panel) throws Exception {
         this.settings = GameSettings.getInstance();
+        this.mainWindow = mainWindow;
         this.panel = panel;
         this.viewer = panel.getGameViewer();
         createWorld();
@@ -54,18 +61,40 @@ public class GameWorker implements Runnable {
             
             for (int round = 0; round < settings.roundCount && !stop; round++)
             {
+                for (String message : new String[]{"À vos marques.", "Prêts.", "Jouez !"}) {
+                    for (int i = 0; i <= 3; i++) {
+                        String total = message.substring(0, message.length()-1);
+                        for (int j = 0; j < i; j++)
+                            total = total + message.substring(message.length()-1);
+                        
+                        final String x = total;
+                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(x, Color.black));
+
+                        try {
+                            Thread.sleep(100, 0);
+                        } catch (InterruptedException e) {  }
+                    }
+                }
+                    
+                mainWindow.clearMessage();
+                    
                 setGameState(GameState.Playing);
                 
                 long offset = 0;
                 long start = System.nanoTime();
-                while (world.getPlayerAliveCount() > 0 && !stop)
+                while (!stop && !doesRoundEnded())
                 {              
                     world.update();
                     SwingUtilities.invokeLater(updateGamePanel);
                     viewer.drawWorld(world);
                     
-                    if (world.getTimeRemaining() == 0)
+                    if (world.getTimeRemaining() == 0) {
                         setGameState(GameState.SuddenDeath);
+                        SwingUtilities.invokeLater(() -> mainWindow.showMessage("Mort subite !", Color.red));
+                    }
+                    else if (world.getTimeRemaining() == (int)(-0.75 * world.getFps())) {
+                        SwingUtilities.invokeLater(() -> mainWindow.clearMessage());
+                    }
                     
                     long duration = System.nanoTime() - start;
                     
@@ -88,8 +117,22 @@ public class GameWorker implements Runnable {
                 }
                 setGameState(GameState.EndRound);
                 
+                if (world.getPlayerAliveCount() == 1) {
+                    PlayerColor[] colors = PlayerColor.values();
+                    PlayerColor color = colors[((Player)world.getPlayers().get(0)).getPlayerID() % colors.length];
+                    
+                    final String message = "Le joueur " + color.toString() + " gagne !";
+                    SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(message, color.toColor())) ;
+                 
+                    try {
+                        Thread.sleep(5000, 0);
+                    } catch (InterruptedException e) {  }
+                    
+                    mainWindow.clearMessage();
+                }
+                
                 if (!stop && round < settings.roundCount-1) {
-                        world.restart();
+                    world.restart();
                 }
             }
             setGameState(GameState.End);
@@ -107,13 +150,28 @@ public class GameWorker implements Runnable {
         }
     }
     
+    private boolean doesRoundEnded() {
+        switch (settings.gameType) {
+        case Client:
+            break;
+        case Local:
+            return world.getPlayerAliveCount() <= 1;
+        case Sandbox:
+            return world.getPlayerAliveCount() <= 0;
+        case Server:
+            break;
+        }
+        
+        return false;
+    }
+    
     public void stop() {
         this.stop = true;
     }
 
     @objid ("b5e7e42e-c73b-4130-bed6-7aa32aa55eb3")
     void createWorld() throws Exception {
-        if (settings.gameType.equals(GameType.Local)) {
+        if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox)) {
             world = new Server(settings.mapName+".map", settings.tileSize, settings.fps, settings.duration*settings.fps);
             for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
                 KeyboardController kbController = new KeyboardController(settings.controls.get(i));
@@ -126,6 +184,9 @@ public class GameWorker implements Runnable {
                 AIController iaController = new AIController();
                 world.newController(iaController);
             }
+            
+            if (settings.gameType.equals(GameType.Local) && world.getPlayerCount() <= 1)
+                throw new Exception("Il faut au moins deux joueurs !");
         }
         else
             throw new Exception("Non implémenté !");
@@ -133,13 +194,6 @@ public class GameWorker implements Runnable {
 
     @objid ("df3a5c13-59cb-491e-811a-ea1af7e23cda")
     void setGameState(GameState state) {
-        SwingUtilities.invokeLater(new Runnable() {
-            
-            @Override
-            public void run() {
-                panel.setGameState(state);
-            }
-        });
         System.err.println(state);
     }
 }
