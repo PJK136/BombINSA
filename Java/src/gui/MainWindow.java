@@ -72,7 +72,7 @@ public class MainWindow {
                 g.setColor(new Color(Color.gray.getRed(), Color.gray.getGreen(), Color.gray.getBlue(), 127));
                 g.fillRect(0, 0, getWidth(), getHeight());
                 g.setColor(messageColor);
-                g.setFont(g.getFont().deriveFont((float)settings.scale(72.)));
+                g.setFont(g.getFont().deriveFont((float)settings.scale(60.)));
                 GameViewer.drawCenteredString(g, message, getWidth()/2, getHeight()/2);
             }
         };
