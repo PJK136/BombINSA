@@ -47,6 +47,7 @@ public class AIController implements Controller {
     public void update() {
         aiLocation = world.getMap().toGridCoordinates((int)aiPlayer.getX(),(int)aiPlayer.getY());
         if(readyToBomb()){
+            droppedBomb = world.getTimeElapsed();
             currentDirection = null;
             bombing = true;
             return;
