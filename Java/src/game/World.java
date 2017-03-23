@@ -24,7 +24,7 @@ public abstract class World implements WorldView {
     public static final double TIME_BEFORE_EXPLOSION = 3;
 
     @objid ("751024b2-9b44-4803-a99b-325fd609fbd3")
-    public static final double EXPLOSION_DURATION = 0.3;
+    public static final double EXPLOSION_DURATION = 0.25;
     
     @objid ("85c96d62-8a34-4a32-b45b-ae1b9c9d4112")
      int fps;
@@ -57,6 +57,11 @@ public abstract class World implements WorldView {
     @objid ("181a1f7d-91b0-4a1e-8a77-235ba0c5dd0c")
     public int getTimeRemaining() {
         return timeRemaining;
+    }
+    
+    @Override
+    public int getTimeElapsed() {
+        return duration-timeRemaining;
     }
 
     @objid ("83167709-dc8e-456e-b787-b9a4ed0d8113")
@@ -119,5 +124,22 @@ public abstract class World implements WorldView {
 
     @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
     public abstract void restart() throws Exception;
+    
+    //http://answers.unity3d.com/questions/150347/what-exactly-does-timetime-do-in-mathfpingpong.html
+    private static double pingPong(int time, int length) {
+        int l = 2 * length;
+        int t = time % l;
+        
+        if (0 <= t && t < length)
+            return t;
+        else
+            return l - t;
+    }
+    
+    public static boolean oscillate(int remaining, int duration, int intervalMin, int intervalMax) {
+        //http://answers.unity3d.com/questions/678855/trying-to-get-object-to-blink-speed-acording-to-ti.html
+        int interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;        
+        return pingPong(duration - remaining, interval) > interval/2; //Ping pong sur la durée écoulée
+    }
 
 }

@@ -332,13 +332,8 @@ public class Map implements MapView {
         ((ExplodableTile)tiles[gc.x][gc.y]).explode(duration, type, direction);
     }
     
-    void setExplosionCenter(GridCoordinates gc) {
-        ((ExplodableTile)tiles[gc.x][gc.y]).setExplosionType(ExplosionType.Center);
-    }
-    
     void setExplosionEnd(GridCoordinates gc) {
-        if (((ExplodableTile)tiles[gc.x][gc.y]).getExplosionType() != ExplosionType.Center)
-            ((ExplodableTile)tiles[gc.x][gc.y]).setExplosionType(ExplosionType.End);
+        ((ExplodableTile)tiles[gc.x][gc.y]).setLastExplosionEnd();
     }
 
     @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
@@ -369,6 +364,21 @@ public class Map implements MapView {
     
     public boolean hasBomb(double x, double y) {
         return hasBomb(toGridCoordinates(x, y));
+    }
+    
+    @Override
+    public Bomb getFirstBomb(GridCoordinates gc) {
+        List<Entity> entities = getEntities(gc);
+        for (Entity entity : entities) {
+            if (entity instanceof Bomb)
+                return (Bomb)entity;
+        }
+        return null;
+    }
+    
+    @Override
+    public Bomb getFirstBomb(double x, double y) {
+        return getFirstBomb(toGridCoordinates(x, y));
     }
     
     @objid ("e0d1831e-0655-4b4d-a0d8-d282ff461427")

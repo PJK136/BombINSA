@@ -7,6 +7,8 @@ public class Bomb extends Entity {
     @objid ("7cf845bf-dacd-4f1f-9c63-46ad9d0e478b")
      int range;
 
+    int duration;
+    
     @objid ("57ad54f8-e371-4980-8fcc-383afd09c461")
      int timeRemaining;
 
@@ -19,6 +21,7 @@ public class Bomb extends Entity {
     public Bomb(World world, GridCoordinates gc, int range, int duration) {
         super(world, world.getMap().toCenterX(gc), world.getMap().toCenterY(gc));
         this.range = range;
+        this.duration = duration;
         this.timeRemaining = duration;
     }
 
@@ -42,18 +45,23 @@ public class Bomb extends Entity {
         }
     }
 
-    @objid ("46c24a88-c0e7-42af-aa08-f2217f450044")
-    public int getTimeRemaining() {
-        return this.timeRemaining;
+    public int getDuration() {
+        return duration;
     }
 
     @objid ("8568627a-17f2-49d3-a8e6-c690ecf21ab1")
-    void setTimeRemaining(int value) {
+    void setDuration(int value) {
         if(value >= 0){
+            this.duration = value;
             this.timeRemaining = value;
         } else {
-            throw new RuntimeException("Remaining Time cannot be negative");
+            throw new RuntimeException("Duration cannot be negative");
         }
+    }
+    
+    @objid ("46c24a88-c0e7-42af-aa08-f2217f450044")
+    public int getTimeRemaining() {
+        return this.timeRemaining;
     }
 
     @objid ("ce00607d-3c72-45ea-b3e1-5a3ac0315b22")
@@ -65,42 +73,34 @@ public class Bomb extends Entity {
         // Update Position
         super.update();
 
-        //vérifie qu'il est au milieu de la case dans la direction ou il bouge
-        boolean changeDir = false;
-        if((this.direction == direction.Up) && (this.getY() <= this.world.getMap().toCenterY(this.world.getMap().toGridCoordinates(this.x, this.y)))){
-            changeDir = true;
-        } else if ((this.direction == direction.Down) && (this.getY() >= this.world.getMap().toCenterY(this.world.getMap().toGridCoordinates(this.x, this.y)))){
-            changeDir = true;
-        }else if ((this.direction == direction.Right) && (this.getX() >= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
-            changeDir = true;
-        } else if ((this.direction == direction.Left) && (this.getX() <= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
-            changeDir = true;
-        }
-        
         // Update Marche sur une flèche (Déplacement dans la direction de la
         // flèche d'un nombre de case déterminé)
-        if ((changeDir) && (this.world.getMap().getTileType(this.x, this.y) == TileType.Arrow)) {
-            Direction d = this.world.getMap().getArrowDirection(this.x, this.y);
-            switch (d) {
-            case Left:
-                this.direction = Direction.Left;
-                break;
-            case Right:
-                this.direction = Direction.Right;
-                break;
-            case Up:
-                this.direction = Direction.Up;
-                break;
-            case Down:
-                this.direction = Direction.Down;
-                break;
+        if (this.world.getMap().getTileType(this.x, this.y) == TileType.Arrow) {
+            //vérifie si la bombe ne bouge pas ou s'il est bien au milieu de la case dans la direction où il bouge
+            boolean changeDir = false;
+            if (this.speed == 0.) {
+                changeDir = true;
+            } else if((this.direction == Direction.Up) && (this.y <= this.world.getMap().toCenterY(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+                changeDir = true;
+            } else if ((this.direction == Direction.Down) && (this.y >= this.world.getMap().toCenterY(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+                changeDir = true;
+            } else if ((this.direction == Direction.Right) && (this.x >= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+                changeDir = true;
+            } else if ((this.direction == Direction.Left) && (this.x <= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
+                changeDir = true;
             }
-            this.speed = BOMB_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
+        
+            if (changeDir) {
+                this.direction = this.world.getMap().getArrowDirection(this.x, this.y);
+                this.speed = BOMB_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
+            }
         }
-        // On vérifie le TimeRemaining, si nulle ou si la case en train
-        // d'exploser, on modifie l'état des case dans la portée en train
-        // d'exploser
-        if (this.timeRemaining == 0 || this.world.getMap().isExploding(this.x, this.y) == true) {
+        
+        if (this.world.getMap().isExploding(this.x, this.y))
+            timeRemaining /= 2;
+            
+        // On vérifie le TimeRemaining et on fait exploser si nulle
+        if (this.timeRemaining == 0) {
             this.world.createExplosion(this);
             if (owner != null)
                 owner.decreaseBombCount();

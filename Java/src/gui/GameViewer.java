@@ -9,7 +9,6 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
 import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
 import java.awt.image.VolatileImage;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +23,7 @@ import game.GridCoordinates;
 import game.MapView;
 import game.Player;
 import game.TileType;
+import game.World;
 import game.WorldView;
 
 @objid ("932712f7-e00f-431a-abd5-e4322b7407bd")
@@ -46,7 +46,8 @@ public class GameViewer extends JPanel {
     
     boolean showSpawningLocations;
     
-    public static final double BOMB_BLINK_INTERVAL = 0.325;
+    public static final double BOMB_BLINK_INTERVAL_MIN = 0.1;
+    public static final double BOMB_BLINK_INTERVAL_MAX = 0.5;
     public static final double HIT_BLINK_INTERVAL = 0.05;
     
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
@@ -187,11 +188,15 @@ public class GameViewer extends JPanel {
     
     private void drawWorld(Graphics2D g, WorldView worldView) {
         for (Entity entity : worldView.getEntities()) {
-            if (entity instanceof Bomb) { 
-                if (((Bomb)entity).getTimeRemaining() % (2*BOMB_BLINK_INTERVAL*worldView.getFps()) >= BOMB_BLINK_INTERVAL*worldView.getFps())
+            if (entity instanceof Bomb) {
+                if (World.oscillate(((Bomb)entity).getTimeRemaining(),
+                                    ((Bomb)entity).getDuration(),
+                                    (int)(BOMB_BLINK_INTERVAL_MIN*worldView.getFps()),
+                                    (int)(BOMB_BLINK_INTERVAL_MAX*worldView.getFps()))) {
                     drawEntity(g, entity, bombs[0].getImage());
-                else
+                } else {
                     drawEntity(g, entity, bombs[1].getImage());
+                }
             }
         }
         

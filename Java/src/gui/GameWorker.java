@@ -112,7 +112,7 @@ public class GameWorker extends SwingWorker<Integer,Integer> {
     @objid ("b5e7e42e-c73b-4130-bed6-7aa32aa55eb3")
     void createWorld() throws Exception {
         if (settings.gameType.equals(GameType.Local)) {
-            world = new Server(settings.mapName+".map", settings.tileSize, settings.fps, settings.duration);
+            world = new Server(settings.mapName+".map", settings.tileSize, settings.fps, settings.duration*settings.fps);
             for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
                 KeyboardController kbController = new KeyboardController(settings.controls.get(i));
                 viewer.addKeyListener(kbController);

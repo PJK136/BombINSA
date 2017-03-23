@@ -13,6 +13,8 @@ public interface WorldView {
 
     @objid ("39ec082e-e21c-4225-b905-acf6c47cbd9b")
     int getTimeRemaining();
+    
+    int getTimeElapsed();
 
     @objid ("32dcdef1-5a7a-4722-92ad-5d4d0aa3f197")
     List<Entity> getEntities();
