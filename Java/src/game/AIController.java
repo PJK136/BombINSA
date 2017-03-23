@@ -11,7 +11,7 @@ public class AIController implements Controller {
     private GridCoordinates aiLocation;
     private boolean turned = false;
     private boolean bombing = false;
-    //private boolean trapped = false;
+    private int droppedBomb = 0;
     
     public AIController(){
         currentDirection = Direction.Right;
@@ -46,6 +46,9 @@ public class AIController implements Controller {
     @Override
     public void update() {
         aiLocation = world.getMap().toGridCoordinates((int)aiPlayer.getX(),(int)aiPlayer.getY());
+        if(readyToBomb()){
+            bombing = true;
+        }
         if(isSafe(aiLocation) && ((!isSafe(aiLocation.neighbor(Direction.Up)) || world.getMap().getTileType(aiLocation.neighbor(Direction.Up)) == TileType.Breakable || world.getMap().getTileType(aiLocation.neighbor(Direction.Up)) == TileType.Unbreakable) && ((!isSafe(aiLocation.neighbor(Direction.Left)) || world.getMap().getTileType(aiLocation.neighbor(Direction.Left)) == TileType.Breakable || world.getMap().getTileType(aiLocation.neighbor(Direction.Left)) == TileType.Unbreakable) && ((!isSafe(aiLocation.neighbor(Direction.Down)) || world.getMap().getTileType(aiLocation.neighbor(Direction.Down)) == TileType.Breakable || world.getMap().getTileType(aiLocation.neighbor(Direction.Down)) == TileType.Unbreakable) && ((!isSafe(aiLocation.neighbor(Direction.Right)) || world.getMap().getTileType(aiLocation.neighbor(Direction.Right)) == TileType.Breakable || world.getMap().getTileType(aiLocation.neighbor(Direction.Right)) == TileType.Unbreakable)))))){
             aiPlayer.setDirection(null);
         }
@@ -59,13 +62,13 @@ public class AIController implements Controller {
         }
         else if(!isSafe(aiLocation)){
             for(Direction dir : Direction.values()){
-                if((dir == Direction.Left || dir == Direction.Left) && Math.abs(aiPlayer.getY()% 0.5*world.getMap().getTileSize()) < 1){
+                if((dir == Direction.Left || dir == Direction.Left) && Math.abs(aiPlayer.getY()% 0.5*world.getMap().getTileSize()) < 0.5){
                     if(isSafe(aiLocation.neighbor(dir)) && (world.getMap().getTileType(aiLocation.neighbor(dir)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(dir)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(dir)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(dir))){
                         currentDirection = dir;
                         System.out.println("third turn");
                     }
                 }
-                if((dir == Direction.Up || dir == Direction.Down) && Math.abs(aiPlayer.getY()% 0.5*world.getMap().getTileSize()) < 1){
+                if((dir == Direction.Up || dir == Direction.Down) && Math.abs(aiPlayer.getY()% 0.5*world.getMap().getTileSize()) < 0.5){
                     if(isSafe(aiLocation.neighbor(dir)) && (world.getMap().getTileType(aiLocation.neighbor(dir)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(dir)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(dir)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(dir))){
                         currentDirection = dir;
                         System.out.println("third turn");
@@ -73,9 +76,6 @@ public class AIController implements Controller {
                 }
             }
         }
-        /*if(readyToBomb()){
-            bombing = true;
-        }*/
     }
     
     public void turn(Direction dir, GridCoordinates position){
@@ -163,36 +163,46 @@ public class AIController implements Controller {
         return true;
     }
     
-    /*public boolean readyToBomb(){
-        //check up
-        if(isSafe(aiLocation.neighbor(Direction.Up)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Up)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Up)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Up)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Up))){
-            if((isSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left))) || (isSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right)))){
-                currentDirection = Direction.Up;
-                return true;
+    public boolean readyToBomb(){
+        if((world.getTimeElapsed() - droppedBomb)>3*world.getFps() && world.getTimeRemaining()>0){
+            //check up
+            if(isSafe(aiLocation.neighbor(Direction.Up)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Up)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Up)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Up)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Up))){
+                if((isSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left))) || (isSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right)))){
+                    currentDirection = Direction.Up;
+                    System.out.println(currentDirection);
+                    droppedBomb = world.getTimeElapsed();
+                    return true;
+                }
+            }
+            //check left
+            if(isSafe(aiLocation.neighbor(Direction.Left)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Left)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Left)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Left)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Left))){
+                if((isSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up))) || (isSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down)))){
+                    currentDirection = Direction.Left;
+                    System.out.println(currentDirection);
+                    droppedBomb = world.getTimeElapsed();
+                    return true;
+                }
+            } 
+            //check down
+            if(isSafe(aiLocation.neighbor(Direction.Down)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Down)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Down)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Down)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Down))){
+                if((isSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left))) || (isSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right)))){
+                    currentDirection = Direction.Down;
+                    System.out.println(currentDirection);
+                    droppedBomb = world.getTimeElapsed();
+                    return true;
+                }
+            } 
+            //check right
+            if(isSafe(aiLocation.neighbor(Direction.Right)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Right)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Right)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Right)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Right))){
+                if((isSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up))) || (isSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down)))){
+                    currentDirection = Direction.Right;
+                    System.out.println(currentDirection);
+                    droppedBomb = world.getTimeElapsed();
+                    return true;
+                }
             }
         }
-        //check left
-        if(isSafe(aiLocation.neighbor(Direction.Left)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Left)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Left)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Left)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Left))){
-            if((isSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up))) || (isSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down)))){
-                currentDirection = Direction.Left;
-                return true;
-            }
-        } 
-        //check down
-        if(isSafe(aiLocation.neighbor(Direction.Down)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Down)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Down)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Down)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Down))){
-            if((isSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left))) || (isSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right)))){
-                currentDirection = Direction.Down;
-                return true;
-            }
-        } 
-        //check right
-        if(isSafe(aiLocation.neighbor(Direction.Right)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Right)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Right)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Right)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Right))){
-            if((isSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up))) || (isSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down)) && (world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down)) == TileType.Empty || world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down)) == TileType.Bonus || world.getMap().getTileType(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down)) == TileType.Arrow) && world.getMap().isInsideMap(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down)))){
-                currentDirection = Direction.Right;
-                return true;
-            }
-        } 
         return false;
         
-    }*/
+    }
 }
