@@ -14,7 +14,7 @@ public class AIController implements Controller {
     private int droppedBomb = 0;
     
     public AIController(){
-        currentDirection = Direction.Right;
+        currentDirection = null;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class AIController implements Controller {
         Direction randomDirection;
         for (int i = 0; i < 10 && !turned; i++) {
             randomDirection = Direction.getRandomDirection();
-            if(randomDirection != dir && !world.getMap().isCollidable(position.neighbor(randomDirection))){
+            if(randomDirection != dir && isEmpty(position.neighbor(randomDirection))){
                 currentDirection = randomDirection;
                 turned = true;
             }
@@ -128,8 +128,12 @@ public class AIController implements Controller {
         return true;
     }
     
+    private boolean isEmpty(GridCoordinates gc) {
+        return !world.getMap().isCollidable(gc) && !world.getMap().hasBomb(gc);
+    }
+    
     private boolean isEmptyAndSafe(GridCoordinates gc) {
-        return !world.getMap().isCollidable(gc) && isSafe(gc);
+        return isEmpty(gc) && isSafe(gc);
     }
     
     public boolean readyToBomb(){
