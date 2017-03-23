@@ -47,7 +47,9 @@ public class AIController implements Controller {
     public void update() {
         aiLocation = world.getMap().toGridCoordinates((int)aiPlayer.getX(),(int)aiPlayer.getY());
         if(readyToBomb()){
+            currentDirection = null;
             bombing = true;
+            return;
         }
         
         //Si sa position est sans danger mais que tous ses voisins sont soit des murs, soit dangereux alors ne bouge pas
@@ -56,7 +58,7 @@ public class AIController implements Controller {
            !isEmptyAndSafe(aiLocation.neighbor(Direction.Down)) &&
            !isEmptyAndSafe(aiLocation.neighbor(Direction.Left)) &&
            !isEmptyAndSafe(aiLocation.neighbor(Direction.Right))){
-            aiPlayer.setDirection(null);
+            currentDirection = null;
         }
         else if(aiPlayer.getSpeed() == 0 || (!(isSafe(aiLocation.neighbor(currentDirection))) && isSafe(aiLocation))){
             turn(currentDirection,aiLocation);
@@ -135,9 +137,6 @@ public class AIController implements Controller {
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) ||
                    isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right))) {
-                    currentDirection = Direction.Up;
-                    System.out.println(currentDirection);
-                    droppedBomb = world.getTimeElapsed();
                     return true;
                 }
             }
@@ -146,9 +145,6 @@ public class AIController implements Controller {
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Down))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) ||
                    isEmptyAndSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right))) {
-                    currentDirection = Direction.Down;
-                    System.out.println(currentDirection);
-                    droppedBomb = world.getTimeElapsed();
                     return true;
                 }
             }
@@ -157,9 +153,6 @@ public class AIController implements Controller {
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Left))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) ||
                    isEmptyAndSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down))) {
-                    currentDirection = Direction.Left;
-                    System.out.println(currentDirection);
-                    droppedBomb = world.getTimeElapsed();
                     return true;
                 }
             }
@@ -168,9 +161,6 @@ public class AIController implements Controller {
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Right))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) ||
                    isEmptyAndSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down))) {
-                    currentDirection = Direction.Right;
-                    System.out.println(currentDirection);
-                    droppedBomb = world.getTimeElapsed();
                     return true;
                 }
             }
