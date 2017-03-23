@@ -245,14 +245,16 @@ public class Player extends Entity {
         
         //Update Marche sur une case en Explosion (diminuer le nb de vie du joueur touché + vérification du Shield)
         
-        if(this.world.getMap().isExploding(this.x, this.y) && getInvulnerability() == 0){ // On vérifie si la case où se trouve le CENTRE du joueur explose et qu'il n'est pas invulnérable
-            if(playerAbilities.get(PlayerAbility.Shield.ordinal()) == true){
-                playerAbilities.set(PlayerAbility.Shield.ordinal(), false); // On enlève le Shield
-            } else {
-                decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
+        if(this.world.getMap().isExploding(this.x, this.y)) { // On vérifie si la case où se trouve le CENTRE du joueur explose
+            if (getInvulnerability() == 0) { //S'il n'est pas invulnérable
+                if(playerAbilities.get(PlayerAbility.Shield.ordinal()) == true){
+                    playerAbilities.set(PlayerAbility.Shield.ordinal(), false); // On enlève le Shield
+                } else {
+                    decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
+                }
             }
-            
-            setInvulnerability((int) (World.EXPLOSION_DURATION*world.getFps())+1);
+        
+            setInvulnerability(Math.max(invulnerability, world.getFps()+1));
         }
         else
             decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0
