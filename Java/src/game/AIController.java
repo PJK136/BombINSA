@@ -91,7 +91,8 @@ public class AIController implements Controller {
         Direction randomDirection;
         for (int i = 0; i < 10 && !turned; i++) {
             randomDirection = Direction.getRandomDirection();
-            if(randomDirection != dir && isEmpty(position.neighbor(randomDirection))){
+            //if(randomDirection != dir && isEmpty(position.neighbor(randomDirection))){
+            if(randomDirection != dir && !aiPlayer.isColliding(randomDirection, aiPlayer.getSpeed())){
                 currentDirection = randomDirection;
                 turned = true;
             }
