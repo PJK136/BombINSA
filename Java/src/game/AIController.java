@@ -71,17 +71,9 @@ public class AIController implements Controller {
         }
         else if(!isSafe(aiLocation)){
             for(Direction dir : Direction.values()){
-                if((dir == Direction.Left || dir == Direction.Left) && Math.abs(aiPlayer.getY()% 0.5*world.getMap().getTileSize()) < 0.5){
-                    if(isEmptyAndSafe(aiLocation.neighbor(dir))){
-                        currentDirection = dir;
-                        System.out.println("third turn");
-                    }
-                }
-                if((dir == Direction.Up || dir == Direction.Down) && Math.abs(aiPlayer.getY()% 0.5*world.getMap().getTileSize()) < 0.5){
-                    if(isEmptyAndSafe(aiLocation.neighbor(dir))){
-                        currentDirection = dir;
-                        System.out.println("third turn");
-                    } 
+                if(isEmptyAndSafe(aiLocation.neighbor(dir)) && !aiPlayer.isColliding(dir, aiPlayer.getSpeed())){
+                    currentDirection = dir;
+                    System.out.println("third turn");
                 }
             }
         }
@@ -138,7 +130,7 @@ public class AIController implements Controller {
     }
     
     public boolean readyToBomb(){
-        if((world.getTimeElapsed() - droppedBomb)>3*world.getFps() && world.getTimeRemaining()>0){
+        if((world.getTimeElapsed() - droppedBomb)>3*world.getFps() && world.getTimeRemaining()>0 && isSafe(aiLocation)){
             //check up
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) ||
