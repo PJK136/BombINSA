@@ -115,31 +115,27 @@ public abstract class Entity {
     }
 
 
-    @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
-    void update() {
-        double offset = world.getMap().getTileSize()*OFFSET_PERCENTAGE;
+    public boolean isColliding(Direction direction, double move) {
+        final double offset = world.getMap().getTileSize()*OFFSET_PERCENTAGE;
         
         switch (direction) {
         case Left:
-            while (this.speed >= 0 && (canCollide(getBorderLeft()-this.speed, getBorderTop()+offset) || 
-                                 canCollide(getBorderLeft()-this.speed, getBorderDown()-offset)))
-                this.speed -= 1;
-            break;
+            return canCollide(getBorderLeft()-move, getBorderTop()+offset) || canCollide(getBorderLeft()-move, getBorderDown()-offset);
         case Right:
-            while (this.speed >= 0 && (canCollide(getBorderRight()+this.speed, getBorderTop()+offset) || 
-                                 canCollide(getBorderRight()+this.speed, getBorderDown()-offset)))
-                this.speed -= 1;
-            break;
+            return canCollide(getBorderRight()+move, getBorderTop()+offset) || canCollide(getBorderRight()+move, getBorderDown()-offset);
         case Up:
-            while (this.speed >= 0 && (canCollide(getBorderLeft()+offset, getBorderTop()-this.speed) || 
-                                 canCollide(getBorderRight()-offset, getBorderTop()-this.speed)))
-                this.speed -= 1;
-            break;
+            return canCollide(getBorderLeft()+offset, getBorderTop()-move) || canCollide(getBorderRight()-offset, getBorderTop()-move);
         case Down:
-            while (this.speed >= 0 && (canCollide(getBorderLeft()+offset, getBorderDown()+this.speed) || 
-                                 canCollide(getBorderRight()-offset, getBorderDown()+this.speed)))
-                this.speed -= 1;
-            break;
+            return canCollide(getBorderLeft()+offset, getBorderDown()+move) || canCollide(getBorderRight()-offset, getBorderDown()+move);
+        }
+        
+        return false;
+    }
+    
+    @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
+    void update() {
+        while (this.speed >= 0 && isColliding(this.direction, this.speed)) {
+            this.speed--;
         }
         
         this.speed = Math.max(0, this.speed);
