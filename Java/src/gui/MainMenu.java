@@ -25,6 +25,8 @@ public class MainMenu extends JPanel implements ActionListener {
     @objid ("a8f404a7-a099-4fdc-b955-5012e1502ee4")
     private JButton btnCreator;
 
+    private JButton btnSettings;
+    
     @objid ("954b1ba0-6aed-4f56-a7c5-e04330ffdfdf")
     private JButton btnQuit;
 
@@ -62,6 +64,7 @@ public class MainMenu extends JPanel implements ActionListener {
         
         btnPlay = addButton("Jouer",buttonPanel);
         btnCreator = addButton("Créateur de carte",buttonPanel);
+        btnSettings = addButton("Paramètres",buttonPanel);
         btnQuit = addButton("Quitter",buttonPanel);
         
         buttonPanel.add(Box.createVerticalGlue());
@@ -91,6 +94,9 @@ public class MainMenu extends JPanel implements ActionListener {
         }
         else if (event.getSource() == btnCreator) {
             mainWindow.startCreator();
+        }
+        else if (event.getSource() == btnSettings) {
+            mainWindow.setPage(new SettingsMenu(mainWindow));
         }
         else if (event.getSource() == btnQuit) {
             System.exit(0);
