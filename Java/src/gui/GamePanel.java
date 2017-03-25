@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements ActionListener {
         playerStateGroup.setLayout(new WrapLayout(WrapLayout.LEFT));
         topBar.add(playerStateGroup);
         
-        Component horizontalGlue = Box.createHorizontalGlue();
+        Component horizontalGlue = Box.createHorizontalStrut(10);
         topBar.add(horizontalGlue);
         
         timeRemaining = new JLabel("9:99 ");

@@ -123,7 +123,7 @@ public class GameWorker implements Runnable {
                             message = ((Player)world.getPlayers().get(0)).getController().getName() + " gagne !";
                             color = colors[((Player)world.getPlayers().get(0)).getPlayerID() % colors.length].toColor();
                         } else {
-                            message = "Pas de vainqueur pour ce round…";
+                            message = "Égalité !";
                             color = Color.black;
                         }
                         
