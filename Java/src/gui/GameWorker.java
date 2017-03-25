@@ -51,12 +51,10 @@ public class GameWorker implements Runnable {
                 }
             };
             
-            viewer.drawWorld(world);
+            viewer.drawMap(world.getMap());
             SwingUtilities.invokeAndWait(updateGamePanel);
             setGameState(GameState.Init);
             
-            int frame = 0;
-            long lastDisplay = System.nanoTime();
             final long timeStep = 1000000000/settings.fps;
             
             for (int round = 0; round < settings.roundCount && !stop; round++)
@@ -79,9 +77,13 @@ public class GameWorker implements Runnable {
                 mainWindow.clearMessage();
                     
                 setGameState(GameState.Playing);
-                
+                              
                 long offset = 0;
                 long start = System.nanoTime();
+                
+                int frame = 0;
+                long lastDisplay = System.nanoTime();
+                
                 while (!stop && !doesRoundEnded())
                 {              
                     world.update();

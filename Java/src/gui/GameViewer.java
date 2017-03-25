@@ -201,7 +201,7 @@ public class GameViewer extends JPanel {
         }
         
         final int colorCount = PlayerColor.values().length;
-        //Dessine les joueurs en dernier
+        //Dessine les joueurs ensuite
         for (Entity entity : worldView.getEntities()) {
             if (entity instanceof Player) {
                 int invulnerability = ((Player)entity).getInvulnerability();
@@ -211,8 +211,20 @@ public class GameViewer extends JPanel {
                         drawEntity(g, entity, players[color].getStandingPlayer(entity.getDirection()));
                     else
                         drawEntity(g, entity, players[color].getMovingPlayer(entity.getDirection(), 10*Math.abs(worldView.getTimeRemaining())/worldView.getFps()%2));
-                    }
                 }
+            }
+        }
+        
+        if (settings.tags) {
+            //Dessine les noms en dernier
+            for (Entity entity : worldView.getEntities()) {
+                if (entity instanceof Player) {
+                    drawCenteredString(g,
+                                       ((Player)entity).getController().getName(),
+                                       (int)settings.scale(entity.getX()),
+                                       (int)settings.scale(entity.getBorderTop()-worldView.getMap().getTileSize()/5));
+                }
+            }
         }
     }
     
