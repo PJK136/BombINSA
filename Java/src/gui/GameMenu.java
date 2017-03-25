@@ -37,7 +37,7 @@ public class GameMenu extends JPanel implements ActionListener {
     private JButton btnPlay;
 
     @objid ("91fe7324-e7a9-4479-9307-8183fa44e192")
-    private JButton btnReturn;
+    private JButton btnBack;
 
     @objid ("276bf142-216c-48e8-b35b-b3b22b2bca83")
     private JComboBox<GameType> gameType;
@@ -199,10 +199,10 @@ public class GameMenu extends JPanel implements ActionListener {
         Component horizontalStrut_1 = Box.createHorizontalStrut(20);
         panel.add(horizontalStrut_1);
         
-        btnReturn = new JButton("Retour");
-        settings.scaleFont(btnReturn);
-        btnReturn.addActionListener(this);
-        panel.add(btnReturn);
+        btnBack = new JButton("Retour");
+        settings.scaleFont(btnBack);
+        btnBack.addActionListener(this);
+        panel.add(btnBack);
         
         Component horizontalStrut = Box.createHorizontalStrut(20);
         panel.add(horizontalStrut);
@@ -253,7 +253,7 @@ public class GameMenu extends JPanel implements ActionListener {
     @objid ("3c87a9f3-8dd6-480e-a2ae-5e1534c8c5a2")
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (event.getSource() == btnReturn || event.getSource() == btnPlay) {
+        if (event.getSource() == btnBack || event.getSource() == btnPlay) {
             updateGameSettings();
             try {
                 settings.save();
@@ -264,7 +264,7 @@ public class GameMenu extends JPanel implements ActionListener {
                         JOptionPane.ERROR_MESSAGE);
             }
             
-            if (event.getSource() == btnReturn)
+            if (event.getSource() == btnBack)
                 mainWindow.showMenu();
             else
                 mainWindow.startGame();
