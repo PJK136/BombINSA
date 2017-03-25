@@ -166,4 +166,9 @@ public class AIController implements Controller {
         return false;
         
     }
+
+    @Override
+    public String getName() {
+        return "IA";
+    }
 }

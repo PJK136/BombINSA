@@ -50,13 +50,15 @@ public class GameSettings {
     
     public double scale;
 
+    public boolean tags;
+    
     @objid ("c6740cfb-642c-4bbc-82c0-d26fc0f5b072")
     private GameSettings() {
         //Configuration par défaut
         gameType = GameType.Local;
         mapName = "default";
         playerCount = 1;
-        aiCount = 0;
+        aiCount = 1;
         roundCount = 1;
         duration = 180;
         tileSize = 32;
@@ -65,7 +67,9 @@ public class GameSettings {
         controls.add(ControlSettings.defaultControls(0));
         controls.add(ControlSettings.defaultControls(1));
         controls.add(ControlSettings.defaultControls(2));
+        controls.add(ControlSettings.defaultControls(3));
         scale = 1;
+        tags = true;
     }
     
     public int scale(int size) {

@@ -5,6 +5,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("a9e520e6-c602-4e73-9fe6-390ff4f5fabb")
 public class ControlSettings {
+    public String name;
+    
     @objid ("ef47dcfe-ed1a-44b1-ab68-df9640e77ce1")
     public int up;
 
@@ -25,6 +27,7 @@ public class ControlSettings {
         ControlSettings controls = new ControlSettings();
         switch (i) {
         case 0:
+            controls.name = "Joueur 1";
             controls.up = KeyEvent.VK_Z;
             controls.down = KeyEvent.VK_S;
             controls.left = KeyEvent.VK_Q;
@@ -32,6 +35,7 @@ public class ControlSettings {
             controls.plantBomb = KeyEvent.VK_SPACE;
             break;
         case 1:
+            controls.name = "Joueur 2";
             controls.up = KeyEvent.VK_UP;
             controls.down = KeyEvent.VK_DOWN;
             controls.left = KeyEvent.VK_LEFT;
@@ -39,11 +43,20 @@ public class ControlSettings {
             controls.plantBomb = KeyEvent.VK_ENTER;
             break;
         case 2:
+            controls.name = "Joueur 3";
             controls.up = KeyEvent.VK_NUMPAD8;
             controls.down = KeyEvent.VK_NUMPAD5;
             controls.left = KeyEvent.VK_NUMPAD4;
             controls.right = KeyEvent.VK_NUMPAD6;
             controls.plantBomb = KeyEvent.VK_NUMPAD0;
+            break;
+        case 3:
+            controls.name = "Joueur 4";
+            controls.up = KeyEvent.VK_I;
+            controls.down = KeyEvent.VK_K;
+            controls.left = KeyEvent.VK_J;
+            controls.right = KeyEvent.VK_L;
+            controls.plantBomb = KeyEvent.VK_N;
             break;
         default:
             return null;
