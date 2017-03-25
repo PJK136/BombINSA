@@ -59,14 +59,9 @@ public class GameWorker implements Runnable {
             
             for (int round = 0; round < settings.roundCount && !stop; round++)
             {
-                for (String message : new String[]{"À vos marques.", "Prêts.", "Jouez !"}) {
+                for (final String message : new String[]{"À vos marques.", "Prêts.", "Jouez !"}) {
                     for (int i = 0; i <= 3; i++) {
-                        String total = message.substring(0, message.length()-1);
-                        for (int j = 0; j < i; j++)
-                            total = total + message.substring(message.length()-1);
-                        
-                        final String x = total;
-                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(x, Color.black));
+                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(message, Color.black));
 
                         try {
                             Thread.sleep(100, 0);
@@ -119,22 +114,33 @@ public class GameWorker implements Runnable {
                 }
                 setGameState(GameState.EndRound);
                 
-                if (world.getPlayerAliveCount() == 1) {
-                    PlayerColor[] colors = PlayerColor.values();
-                    PlayerColor color = colors[((Player)world.getPlayers().get(0)).getPlayerID() % colors.length];
+                if (!stop) {
+                    if (settings.gameType == GameType.Local) {
+                        String message = null;
+                        Color color = null;
+                        if (world.getPlayerAliveCount() == 1) {
+                            PlayerColor[] colors = PlayerColor.values();
+                            message = ((Player)world.getPlayers().get(0)).getController().getName() + " gagne !";
+                            color = colors[((Player)world.getPlayers().get(0)).getPlayerID() % colors.length].toColor();
+                        } else {
+                            message = "Pas de vainqueur pour ce round…";
+                            color = Color.black;
+                        }
+                        
+                        final String x = message; 
+                        final Color y = color;
+                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(x, y)) ;
+                     
+                        try {
+                            Thread.sleep(5000, 0);
+                        } catch (InterruptedException e) {  }
+                        
+                        mainWindow.clearMessage();
+                    }
                     
-                    final String message = "Le joueur " + color.toString() + " gagne !";
-                    SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(message, color.toColor())) ;
-                 
-                    try {
-                        Thread.sleep(5000, 0);
-                    } catch (InterruptedException e) {  }
-                    
-                    mainWindow.clearMessage();
-                }
-                
-                if (!stop && round < settings.roundCount-1) {
-                    world.restart();
+                    if (round < settings.roundCount-1) {
+                        world.restart();
+                    }
                 }
             }
             setGameState(GameState.End);
