@@ -21,10 +21,8 @@ import javax.swing.JCheckBox;
 
 public class SettingsMenu extends JPanel implements ActionListener {
 
-    @objid ("a39767d1-eca3-41c4-85d7-7d0bde3a14cc")
     private MainWindow mainWindow;
 
-    @objid ("0b5dea46-9866-4b4e-9ccb-f30bb706f360")
     private GameSettings settings;
     
     private JSpinner fps;
