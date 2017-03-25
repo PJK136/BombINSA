@@ -47,7 +47,7 @@ public class GameViewer extends JPanel {
     boolean showSpawningLocations;
     
     public static final double BOMB_BLINK_INTERVAL_MIN = 0.1;
-    public static final double BOMB_BLINK_INTERVAL_MAX = 0.5;
+    public static final double BOMB_BLINK_INTERVAL_MAX = 0.75;
     public static final double HIT_BLINK_INTERVAL = 0.05;
     
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
