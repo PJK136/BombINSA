@@ -6,7 +6,7 @@ import javax.swing.SwingUtilities;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.AIController;
 import game.Player;
-import game.Server;
+import game.Local;
 import game.World;
 
 @objid ("0352607c-7ee6-4aa1-839f-fc6a174af9fd")
@@ -159,7 +159,7 @@ public class GameWorker implements Runnable {
     @objid ("b5e7e42e-c73b-4130-bed6-7aa32aa55eb3")
     void createWorld() throws Exception {
         if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox)) {
-            world = new Server(settings.mapName+".map", settings.tileSize, settings.fps, settings.duration*settings.fps);
+            world = new Local(settings.mapName+".map", settings.tileSize, settings.fps, settings.duration*settings.fps);
             for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
                 KeyboardController kbController = new KeyboardController(settings.controls.get(i));
                 viewer.addKeyListener(kbController);

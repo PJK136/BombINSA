@@ -8,11 +8,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 
 @objid ("8d1e22ca-441c-437e-83a3-fee76166baff")
-public class Server extends World {
+public class Local extends World {
     @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")
      String mapFileName = new String();
 
@@ -30,14 +31,18 @@ public class Server extends World {
 
     @objid ("d09dce2a-6ccc-4d37-838d-8a1f201d7b56")
      Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
-
+    
     @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
-    public Server(String mapFilename, int tileSize, int fps, int duration) throws Exception {
-        map = new Map(tileSize);
+    public Local(String mapFilename, int tileSize, int fps, int duration) throws Exception {
+        createMap(tileSize);
         loadMap(mapFilename);
         setFps(fps);
         setDuration(duration);
         setTimeRemaining(duration);
+    }
+    
+    void createMap(int tileSize) {
+        map = new Map(tileSize);
     }
 
     @objid ("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
