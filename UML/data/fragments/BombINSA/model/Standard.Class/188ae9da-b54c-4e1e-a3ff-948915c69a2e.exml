@@ -182,20 +182,6 @@
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="a3c8970e-051b-4fbc-9084-55208b7d65f1"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Point d'accès pour l'instance unique du singleton]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="34940978-ca21-4dbd-a824-cbbb6fe6d936"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return SingletonHolder.instance;]]></ATT>
@@ -718,7 +704,7 @@ if (image == null) {
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="32f31146-8959-4e68-810e-43f1f1c7211f"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="8bc2a44f-c238-49fe-9e85-7595c4b874a8"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -795,7 +781,7 @@ if (image == null) {
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a18e9fbd-f99c-461f-ae0f-1533d134ddd4"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="fc66ed67-fe8d-45b9-8d55-35510a69bb95"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -883,80 +869,6 @@ if (image == null) {
       <LINK relation="Extension">
         <FOREIGNID name="JavaClass" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0258-0000-000000000000"/>
       </LINK>
-      <COMP relation="Descriptor">
-        <OBJECT>
-          <ID name="" mc="Infrastructure.Note" uid="80c50926-64e8-4ec6-898c-f55324f31f17"/>
-          <ATTRIBUTES>
-            <ATT name="Content"><![CDATA[/* For test purposes
-
-    private Color toColor(TileType type) {
-        switch (type) {
-        case Arrow:
-            return Color.GREEN;
-        case Bonus:
-            return Color.YELLOW;
-        case Breakable:
-            return Color.GRAY;
-        case Empty:
-            return Color.WHITE;
-        case Unbreakable:
-            return Color.BLACK;
-        default:
-            return Color.RED;
-        }
-    }
-    
-    private BufferedImage stringInSquare(int size, int thickness, String str, Color color) {
-        BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = image.createGraphics();
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setColor(Color.white);
-        g.fillRect(0, 0, size, size);
-        for (int i = 0; i < thickness; i++)
-            g.drawRect(i, i, size-i, size-i);
-        g.setColor(color);
-        g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, (int) (((size-2*(thickness+1)))*0.8))); 
-        drawCenteredString(g, str, size/2, size/2);
-        return image;
-    }
-    
-    private BufferedImage stringInSquare(int size, int thickness, String str) {
-        return stringInSquare(size, thickness, str, Color.black);
-    }
-    
-    private BufferedImage getDefaultTileImage(TileType type) {
-        if (type == TileType.Bonus) {
-            return stringInSquare(256, 4, "B?");
-        }
-        else if (type == TileType.Arrow) {
-            return stringInSquare(256, 4, "");
-        }
-        else {
-            BufferedImage tile = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
-            Graphics2D g = tile.createGraphics();
-            g.setColor(toColor(type));
-            g.fillRect(0, 0, 256, 256);
-            g.dispose();
-            return tile;
-        }
-    }
-    
-    public static void drawCenteredString(Graphics g, String str, int centerX, int centerY) {
-        int height = g.getFontMetrics().getHeight();
-        int width = g.getFontMetrics().stringWidth(str);
-        g.drawString(str, centerX-width/2, centerY+height/4);
-    } */]]></ATT>
-            <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Model">
-              <FOREIGNID name="JavaMembers" mc="Infrastructure.NoteType" uid="003800a8-0000-015b-0000-000000000000"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-      </COMP>
     </DEPENDENCIES>
   </OBJECT>
 </EXT>

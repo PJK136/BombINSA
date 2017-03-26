@@ -1004,7 +1004,7 @@ for(Direction dir : Direction.values()){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="16b53e9f-04b0-4e13-92d0-7a840dec0b6f"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="ddfaad50-f505-41c2-a01f-a770923cf81c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1153,7 +1153,7 @@ for(Direction dir : Direction.values()){
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="90e8910a-079d-482c-ba41-1303766b11aa"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="6a29d113-68e8-49a8-85fd-33f8f8d27f6c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1228,7 +1228,7 @@ for(Direction dir : Direction.values()){
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="8d4deed2-57a0-424f-bb6b-82448646382e"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="2e31beee-045d-40a6-b0db-570ab81efa59"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1303,7 +1303,7 @@ for(Direction dir : Direction.values()){
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="dd3eb5da-af1e-48c6-b3eb-ce7ab90c5371"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="8561d1be-fc11-4ff8-90d9-d690581c2717"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

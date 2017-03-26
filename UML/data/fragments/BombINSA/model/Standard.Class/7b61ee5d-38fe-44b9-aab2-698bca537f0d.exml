@@ -91,20 +91,6 @@
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="e762157c-5059-4aef-bff3-0fc776d5c2fb"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Instance unique non préinitialisée]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="4ac8ec39-3a69-425e-a1da-06cabe133dd0"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[load()]]></ATT>

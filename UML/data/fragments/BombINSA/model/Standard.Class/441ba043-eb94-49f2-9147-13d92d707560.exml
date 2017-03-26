@@ -101,7 +101,7 @@ alignment and a default 5-unit horizontal and vertical gap.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="c9b857ec-8064-4903-83e5-19d93a2fd273"/>
+                      <ID name="" mc="Infrastructure.Note" uid="e295f3a8-84f7-4ae6-ab45-5b38dfcbf990"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the alignment value]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -193,7 +193,7 @@ or <code>WrapLayout</code>.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="0ff56487-4ae3-4397-9793-b146f6228069"/>
+                      <ID name="" mc="Infrastructure.Note" uid="c2a08968-ada7-4b0a-980a-b8be072c9bb9"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the alignment value]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -231,7 +231,7 @@ or <code>WrapLayout</code>.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="8785b4b7-a9c1-466f-b951-ee2250193157"/>
+                      <ID name="" mc="Infrastructure.Note" uid="870117b5-b62b-4dcc-8ff0-ad6840486ed1"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the horizontal gap between components]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -269,7 +269,7 @@ or <code>WrapLayout</code>.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="a6bc257d-3131-4e04-b890-cd7187671c56"/>
+                      <ID name="" mc="Infrastructure.Note" uid="7be9374d-2c72-469f-b737-1adcac925601"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the vertical gap between components]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -362,7 +362,7 @@ or <code>WrapLayout</code>.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="ee483afb-b9ad-4149-85d1-c9f888556d59"/>
+                      <ID name="" mc="Infrastructure.Note" uid="8cc6f9f1-327a-42b6-ab4e-bb8006acc737"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the component which needs to be laid out]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -402,7 +402,7 @@ or <code>WrapLayout</code>.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="5b2daea3-c75e-445a-a4ec-00af2ba4ddfb"/>
+                      <ID name="" mc="Infrastructure.Note" uid="6ac204c5-8588-4e41-985c-15944f9598af"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the preferred dimensions to lay out the
 subcomponents of the specified container]]></ATT>
@@ -503,7 +503,7 @@ subcomponents of the specified container]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="2e14b3ac-d697-4e1e-aefd-2ab9ce374be2"/>
+                      <ID name="" mc="Infrastructure.Note" uid="2a1e7a82-2db9-4e04-83b0-3aa8c2adfc81"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the component which needs to be laid out]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -543,7 +543,7 @@ subcomponents of the specified container]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="61c7645a-4e0b-4881-b2e1-272c3080cd71"/>
+                      <ID name="" mc="Infrastructure.Note" uid="01855e4f-f107-4903-8470-df1ef6168d19"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the minimum dimensions to lay out the
 subcomponents of the specified container]]></ATT>
@@ -660,7 +660,7 @@ minimum.width -= (getHgap() + 1);
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="a04668d3-0251-4bfe-a994-89b558a9a755"/>
+                      <ID name="" mc="Infrastructure.Note" uid="c4cf98ed-d73a-4cd1-b5d6-2d9558153bf4"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[target to get layout size for]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -698,7 +698,7 @@ minimum.width -= (getHgap() + 1);
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="434576d1-a866-4423-9845-267126257781"/>
+                      <ID name="" mc="Infrastructure.Note" uid="3539e401-3d8c-4fd3-8136-ede8cadb766f"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[should preferred size be calculated]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -738,7 +738,7 @@ minimum.width -= (getHgap() + 1);
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="6e820033-d742-4a2d-8a80-a4ae2cf74c38"/>
+                      <ID name="" mc="Infrastructure.Note" uid="8fe37bb2-bd49-4287-8ee0-4fc5ff52b26f"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the dimension to layout the target container]]></ATT>
                         <ATT name="MimeType"></ATT>

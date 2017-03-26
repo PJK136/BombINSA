@@ -607,7 +607,7 @@ if (cache == null || cache.getWidth(null) != size || cache.getHeight(null) != si
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="193b2a9b-71b9-4247-ab9e-eedfdef9a7df"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="33c323e3-ee31-48d8-8190-bda50851765a"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -682,7 +682,7 @@ if (cache == null || cache.getWidth(null) != size || cache.getHeight(null) != si
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="3efcf2b0-22d0-4c1f-8c30-935e1bea6c83"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="f52f509e-187d-439f-b51a-c01e25a32cb9"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

@@ -517,7 +517,7 @@ case Server:
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="e99456a2-5982-4946-88fc-72410e99a325"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="b23a8b96-8887-4414-ad51-0521b53948f6"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -594,7 +594,7 @@ case Server:
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b33222c2-12ea-4fa4-bdd3-084901ec3691"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="884b3b21-0eed-4d73-9e6f-fb766e6d5eb5"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -669,7 +669,7 @@ case Server:
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="90b8d094-17bb-4a3a-8b19-1e0e6a9c9278"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="6025b4c8-c9dd-48ac-8271-79dc06dfeb8e"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -744,7 +744,7 @@ case Server:
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="42d0384a-0bef-41ad-8c4e-b5327c649cd0"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="5588269e-ce97-457c-9ed9-495bfd2036a2"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -819,7 +819,7 @@ case Server:
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="34362938-b01b-48d5-9827-488c15e6c06c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="55b59089-f9ba-43a2-ad7a-0dbbda80a4b0"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -894,7 +894,7 @@ case Server:
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="88652172-394b-4456-8b39-c8b4605d7b74"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a42ef4c6-7008-4242-8146-43efdae47d39"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

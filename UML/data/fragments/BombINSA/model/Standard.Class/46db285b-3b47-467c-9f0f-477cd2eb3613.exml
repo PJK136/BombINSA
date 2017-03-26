@@ -265,7 +265,7 @@ for (int i = 0; i < playerAbilities.size(); i++) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="25bcd052-4f7f-4ebf-a555-9c6e1fddc886"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="7e471e34-bebe-49dd-8b37-c9957855bdf3"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -340,7 +340,7 @@ for (int i = 0; i < playerAbilities.size(); i++) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b10f0f01-54f8-427e-879c-4b515ae281b8"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="10951fb8-29ef-4ad6-bb7b-e9fece379028"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -415,7 +415,7 @@ for (int i = 0; i < playerAbilities.size(); i++) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="865b4a7b-114d-461a-bada-a11f952808b0"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="fe149cd5-1b16-4d10-95e9-76b8b1bd162d"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -512,7 +512,7 @@ for (int i = 0; i < playerAbilities.size(); i++) {
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="bc9e5e2e-d3c3-41ae-8f34-b63c65845428"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="b84a3fc9-092c-496c-8bff-a592daf1a69b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -587,7 +587,7 @@ for (int i = 0; i < playerAbilities.size(); i++) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="9db7bd25-d6a0-419b-ab44-c8086a59442e"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="45d221c0-83f9-41cd-8828-fafd0814058c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

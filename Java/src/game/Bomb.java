@@ -48,8 +48,7 @@ public class Bomb extends Entity {
     }
 
     @objid ("16747d9c-2fc0-4547-b27a-f292f80c9a19")
-    int getDuration() {
-        // Automatically generated method. Please delete this comment before entering specific code.
+    public int getDuration() {
         return this.duration;
     }
 

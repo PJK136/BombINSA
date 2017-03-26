@@ -337,7 +337,7 @@ for (int i = 0; i < directions.length; i++) {
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="974c62f0-cb82-406c-a08c-9ae1fb0cf25e"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="266e773d-69c8-4bab-98c5-4ecca99f67bd"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

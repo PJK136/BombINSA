@@ -91,20 +91,6 @@
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="5e8ced9f-c998-4f89-a377-6da6faa2aa26"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Instance unique non préinitialisée]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="dbd306be-d90a-4eb0-a63c-914681be3e47"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[new SpriteFactory()]]></ATT>
@@ -143,7 +129,66 @@
         <OBJECT>
           <ID name="" mc="Infrastructure.Note" uid="f5db3e2e-c963-4349-913d-1414aaec8968"/>
           <ATTRIBUTES>
-            <ATT name="Content"><![CDATA[// http://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java]]></ATT>
+            <ATT name="Content"><![CDATA[/* For test purposes
+
+    private Color toColor(TileType type) {
+        switch (type) {
+        case Arrow:
+            return Color.GREEN;
+        case Bonus:
+            return Color.YELLOW;
+        case Breakable:
+            return Color.GRAY;
+        case Empty:
+            return Color.WHITE;
+        case Unbreakable:
+            return Color.BLACK;
+        default:
+            return Color.RED;
+        }
+    }
+    
+    private BufferedImage stringInSquare(int size, int thickness, String str, Color color) {
+        BufferedImage image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = image.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g.setColor(Color.white);
+        g.fillRect(0, 0, size, size);
+        for (int i = 0; i < thickness; i++)
+            g.drawRect(i, i, size-i, size-i);
+        g.setColor(color);
+        g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, (int) (((size-2*(thickness+1)))*0.8))); 
+        drawCenteredString(g, str, size/2, size/2);
+        return image;
+    }
+    
+    private BufferedImage stringInSquare(int size, int thickness, String str) {
+        return stringInSquare(size, thickness, str, Color.black);
+    }
+    
+    private BufferedImage getDefaultTileImage(TileType type) {
+        if (type == TileType.Bonus) {
+            return stringInSquare(256, 4, "B?");
+        }
+        else if (type == TileType.Arrow) {
+            return stringInSquare(256, 4, "");
+        }
+        else {
+            BufferedImage tile = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g = tile.createGraphics();
+            g.setColor(toColor(type));
+            g.fillRect(0, 0, 256, 256);
+            g.dispose();
+            return tile;
+        }
+    }
+    
+    public static void drawCenteredString(Graphics g, String str, int centerX, int centerY) {
+        int height = g.getFontMetrics().getHeight();
+        int width = g.getFontMetrics().stringWidth(str);
+        g.drawString(str, centerX-width/2, centerY+height/4);
+    } */
+// http://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java]]></ATT>
             <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
             <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>

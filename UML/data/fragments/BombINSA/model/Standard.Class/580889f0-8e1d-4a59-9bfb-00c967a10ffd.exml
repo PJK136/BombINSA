@@ -617,7 +617,7 @@ frame.getGlassPane().setVisible(false);
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ee543d63-acf5-4f44-8c9c-ad8fe3f33820"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="64cbc9cd-88ed-45da-81dc-9efc1608e94c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -770,7 +770,7 @@ frame.getGlassPane().setVisible(false);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="941a4119-80d5-4b64-a644-374780d59f25"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="eaa89357-7f32-4732-a256-ae9d9b7b796b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -845,7 +845,7 @@ frame.getGlassPane().setVisible(false);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="03f04396-01bd-4831-96d7-4d963a206120"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="d75977b8-c68c-4378-b931-54de4f0fb1e4"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -920,7 +920,7 @@ frame.getGlassPane().setVisible(false);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="8e2ae088-e55b-4c8f-91f3-c55bb908b6c5"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="37b9d50c-174f-4062-b1eb-1398ff6f7d96"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -995,7 +995,7 @@ frame.getGlassPane().setVisible(false);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="fa9748e1-fa11-42e3-acaa-37d71924483a"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="d07803a4-f545-46cd-9277-40fc5043bf78"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1070,7 +1070,7 @@ frame.getGlassPane().setVisible(false);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="899a12a7-7777-40a6-acc9-4a3bdf4e3b1c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="2fe4cb1a-8217-4796-b3b6-82a20549f336"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

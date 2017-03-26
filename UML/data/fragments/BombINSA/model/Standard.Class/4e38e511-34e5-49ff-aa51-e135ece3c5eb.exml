@@ -343,7 +343,8 @@
                   <ATT name="Content"><![CDATA[//Thread-safety
         synchronized (entities) {
             return new LinkedList<Entity>(entities);            
-        }]]></ATT>
+        }
+]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1271,7 +1272,7 @@ int interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7d085620-4ece-48a6-b047-69367c334134"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="cda71926-ac0c-451b-8500-46586ef9ffa7"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1309,7 +1310,7 @@ int interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="fa4a0da0-7b23-4ce2-bdb5-b7b331a6430c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a6a018e6-02f5-4a9a-a2e8-4ccf25288cf9"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1347,7 +1348,7 @@ int interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="17764611-a06d-4c99-8d7c-c973a2513efc"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1c15f5aa-e6f3-42ec-8f57-21e36ae25288"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1668,7 +1669,7 @@ int interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d0b08d5d-2d9e-4016-8ca0-b3f885e79c88"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="505ac8ab-a2d7-467d-915d-dc7eb89acf1c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

@@ -588,20 +588,6 @@ printWriter.close();
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="03d6c35f-aa32-45ad-8a91-ebfe3e2baa06"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Point d'accès pour l'instance unique du singleton]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="60eb43d9-08f7-4514-9493-d81fb00baebf"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return SingletonHolder.instance;]]></ATT>
@@ -646,7 +632,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d6af4fe9-c937-4560-bdc6-ba1f015edad1"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="159e74ad-fbca-4191-a5ed-bbe0df5f7163"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -684,7 +670,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="6a9eb5c5-5812-4bf9-9526-3e5758011402"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="2547a748-bcea-4fb5-a5bf-3ff6f3dd12ad"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -722,7 +708,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a666d345-4a86-42fb-a760-01760e7e1e7c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0d1da3ce-7f89-42db-a32e-5bfd6fc97374"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -760,7 +746,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="edabdd18-f49b-4b82-8467-55359f5b0ae2"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="6f67b900-7809-46a5-8846-d773c63cb7a8"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -798,7 +784,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="69327ca1-e865-4fc5-9e58-d874d8241cdb"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="2c76b43d-23b4-4ea1-947f-c67d5e4007bd"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -836,7 +822,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ec6e4bb5-f734-447b-8a62-b0fa90bfacd2"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="3ae4425d-b676-40e0-993e-de9c463cf89b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -874,7 +860,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="93081ac1-6613-41df-ba53-2bfd317939f1"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0ad013cb-b394-4479-884d-47b08e574019"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -912,7 +898,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ad12870f-3398-4e4e-8b1c-2d6fb1d3ad59"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="94b0a8b5-00f5-4e15-8a9d-ba67b85ca1a8"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -988,7 +974,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ae612263-5f7b-488e-a266-778ce071f7b3"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="76989891-163a-40a7-b260-6cab219ae363"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1026,7 +1012,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="fd649b82-8fbc-4bbb-86b2-b57c5cedee22"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="060e398c-8cfe-4c1b-a291-f2d0278bc031"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1125,7 +1111,7 @@ printWriter.close();
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="9c5885cd-7bc5-4987-b5de-357fa1868baf"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="59f85078-e72e-446b-a5fd-4d0581a9cb64"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

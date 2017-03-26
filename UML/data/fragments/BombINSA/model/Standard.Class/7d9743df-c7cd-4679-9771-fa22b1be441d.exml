@@ -324,7 +324,7 @@ for (int i = 0; i < pa.length; i++)
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[getPlayerID]]></ATT>
@@ -379,24 +379,10 @@ for (int i = 0; i < pa.length; i++)
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="b1409141-b24e-48a4-9c96-9cd1ed9d931c"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
-                  <ATT name="MimeType"></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="2137b621-17d2-4230-b27e-55906dc305b7"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.playerID;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -2143,7 +2129,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="74cc58aa-1f31-43ee-b58c-20227c8c8648"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="35a875fc-7376-4593-a788-663d1df3e6aa"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2181,7 +2167,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="81784fc0-d4dd-45ed-8d89-c5bb8544b31d"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="facd70bd-5ad5-4cfb-93a0-e969afec041f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2219,7 +2205,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="535b682e-0ad0-4f9d-a831-6c9798598a6b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="3f6f29dd-1a5a-4799-821a-c3401a2aa19f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2257,7 +2243,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="9e3d4776-7412-4301-be19-ceb8363d6d19"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="709ead40-ee90-411e-9099-3d4221c7f07d"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2295,7 +2281,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="42637670-8baa-4edd-9479-2343f1486206"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="d59cf958-ceb0-4a97-a154-3f07da5eb398"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2367,7 +2353,7 @@ if(isAlive() == false){
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d18c374d-c767-4900-a3c7-e6baee75a1e7"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="f08b28e7-8f11-472c-a1cd-ffe721fdaeb5"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2405,7 +2391,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="3f963d6e-a2ce-4399-a787-ac4ec47ed424"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1cd6431f-56fe-4c13-8d04-4bac3f9fc02e"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2536,7 +2522,7 @@ if(isAlive() == false){
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="e8310cbe-9484-4e07-bc50-1972affd8295"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0b85f2e4-ba93-4bfb-8af4-f61ba8ee144c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

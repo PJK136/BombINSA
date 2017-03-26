@@ -412,7 +412,7 @@ for (int i = 0; i < TOTAL_MOVES; i++)
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="5691284e-ccf8-41ec-929b-35bfa103b6ac"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0c386315-2b21-4802-822e-d3ab32fac722"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -509,7 +509,7 @@ for (int i = 0; i < TOTAL_MOVES; i++)
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a54057a3-f741-43ae-ab75-f2ffdf738ae3"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="06531e4a-96db-42d1-b46d-351fe9bbd681"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

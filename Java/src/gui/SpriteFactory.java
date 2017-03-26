@@ -74,9 +74,7 @@ public class SpriteFactory {
         return new ImageIcon(getScaledImage(name, size));
     }
 
-
 /* For test purposes
-
     private Color toColor(TileType type) {
         switch (type) {
         case Arrow:

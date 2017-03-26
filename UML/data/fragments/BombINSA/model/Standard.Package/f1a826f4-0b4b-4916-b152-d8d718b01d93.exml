@@ -632,7 +632,7 @@ this.color = color;
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="422d3257-fc61-4a58-ade0-f282e6e3681d"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="7b502b8c-ffd9-4c9e-b013-0c24be14add9"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -709,7 +709,7 @@ this.color = color;
                   </COMP>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="39766fec-a286-47a6-a75a-281f4d48bc3b"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="40a87cb1-fafc-4872-9282-7fdaa54c09a0"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -735,6 +735,33 @@ this.color = color;
         <COMPID name="MapCreatorPanel" mc="Standard.Class" uid="79589b62-c371-4298-9764-59fe82333d18"/>
         <COMPID name="WrapLayout" mc="Standard.Class" uid="441ba043-eb94-49f2-9147-13d92d707560"/>
         <COMPID name="SpriteFactory" mc="Standard.Class" uid="188ae9da-b54c-4e1e-a3ff-948915c69a2e"/>
+        <OBJECT>
+          <ID name="GameProperty" mc="Standard.Enumeration" uid="af34afb0-a47c-4a94-8ca7-f0a91f64a8b0"/>
+          <ATTRIBUTES>
+            <ATT name="IsElementary">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">true</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[GameProperty]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Value">
+              <OBJECT>
+                <ID name="GameState" mc="Standard.EnumerationLiteral" uid="59a90ca4-5df3-4455-878b-9e079437e25f"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[GameState]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaEnumeration" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0262-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

@@ -57,8 +57,7 @@ public class Player extends Entity {
     }
 
     @objid ("401f78c6-974d-49a0-a7f6-56cd8c9e9a01")
-    int getPlayerID() {
-        // Automatically generated method. Please delete this comment before entering specific code.
+    public int getPlayerID() {
         return this.playerID;
     }
 

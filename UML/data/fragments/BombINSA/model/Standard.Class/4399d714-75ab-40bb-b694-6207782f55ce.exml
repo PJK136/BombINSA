@@ -413,7 +413,7 @@ this.owner = owner;
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[getDuration]]></ATT>
@@ -468,24 +468,10 @@ this.owner = owner;
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="e37e154d-8ea9-455e-afdf-e8aec8662681"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
-                  <ATT name="MimeType"></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="87763c5b-cb24-40f1-8c7c-134e87125877"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return this.duration;]]></ATT>
-                  <ATT name="MimeType"></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -896,7 +882,7 @@ if (this.timeRemaining == 0) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="327ea652-7aa9-4987-9b99-0fe650eac13f"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="ae3c17f7-66b9-432a-a6ef-63a75bcc1851"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -934,7 +920,7 @@ if (this.timeRemaining == 0) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="c3c36a73-6627-4dd3-aa49-1a7a64a47541"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0a492cd6-76df-45ba-bdcb-747ee1e714b9"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -972,7 +958,7 @@ if (this.timeRemaining == 0) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="13e88acd-e67c-46fa-8440-eae090ff6a51"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="9e184dc8-593c-4738-930b-e17955ebd8b5"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1103,7 +1089,7 @@ if (this.timeRemaining == 0) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d5144aab-172a-418f-86c7-4ce9d7844e65"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="6fa9f7e5-701d-4c02-b15e-cd19d9e5b87e"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
