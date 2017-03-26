@@ -7,8 +7,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("7d9743df-c7cd-4679-9771-fa22b1be441d")
 public class Player extends Entity {
-    int playerID;
-    
+    @objid ("0188c626-9d00-48cc-821f-2cd2188664fc")
+     int playerID;
+
     @objid ("c10c97b4-7ea2-4021-aff7-4c0b87aac71b")
      int lives;
 
@@ -25,12 +26,13 @@ public class Player extends Entity {
      List<Boolean> playerAbilities;
 
     @objid ("efe71f6e-6ac1-4f9a-bb96-98975b970b23")
-     int invulnerability; 
+     int invulnerability;
+
+    @objid ("5b4c8db6-08b3-4215-8a96-4348f89623df")
+    public static final double PLAYER_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
     protected Controller controller;
-    
-    public static final double PLAYER_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
     public Player(World world, double x, double y, Controller controller, int playerID, int lives, int bombMax, int range, int invulnerability) {
@@ -48,14 +50,16 @@ public class Player extends Entity {
         for (int i = 0; i < pa.length; i++)
             this.playerAbilities.add(false);
     }
-    
-    public int getPlayerID() {
-        return playerID;
-    }
 
     @objid ("d8c3c2ca-78cd-4d35-8d4a-df8c6f1cbe55")
     public boolean isAlive() {
         return lives > 0;
+    }
+
+    @objid ("401f78c6-974d-49a0-a7f6-56cd8c9e9a01")
+    int getPlayerID() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.playerID;
     }
 
     @objid ("007b7078-5eba-4ff5-a413-43e779f00b19")
@@ -178,12 +182,14 @@ public class Player extends Entity {
     void decreaseInvulnerability() {
         this.invulnerability = Math.max(0, this.invulnerability-1);
     }
-    
+
+    @objid ("4713a141-cd5b-4b52-aed7-d3a781156555")
     void removeShield() {
         this.playerAbilities.set(PlayerAbility.Shield.ordinal(), false);
     }
-    
-    boolean canCollide(double x, double y){
+
+    @objid ("19e970e7-cbf2-4148-99bc-6828a561f8de")
+    boolean canCollide(double x, double y) {
         if (!super.canCollide(x, y)) {
             return !world.getMap().toGridCoordinates(this.x, this.y).equals(world.getMap().toGridCoordinates(x, y))
                     && world.getMap().hasBomb(x, y);
@@ -192,7 +198,7 @@ public class Player extends Entity {
     }
 
     @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
-    void update() {       
+    void update() {
         controller.update();
         Direction nextDirection = controller.getDirection();
         if (nextDirection != null) {
@@ -233,7 +239,7 @@ public class Player extends Entity {
             if (world.getMap().isInsideMap(footX, footY) &&
                 !world.getMap().toGridCoordinates(footX, footY).equals(world.getMap().toGridCoordinates(x, y))) {
                 Bomb target = world.getMap().getFirstBomb(footX, footY);
-
+        
                 if(target != null){
                     this.world.kickBomb(target, nextDirection);
                 }
@@ -269,8 +275,9 @@ public class Player extends Entity {
             remove(); // On indique qu'il faut enlever le player qui a perdu toutes ses vies
         }
     }
-    
-    private void updateBonusMalus(){
+
+    @objid ("e8cbd4f6-a55d-4030-8e99-752530c9845d")
+    private void updateBonusMalus() {
         if(this.world.getMap().getTileType(this.x , this.y) == TileType.Bonus){
             BonusType b = this.world.getMap().getBonusType(this.x, this.y);
             while (b == BonusType.Random) {
@@ -323,6 +330,7 @@ public class Player extends Entity {
             }
             
             this.world.pickUpBonus(this.x, this.y);
-        }     
+        }
     }
+
 }

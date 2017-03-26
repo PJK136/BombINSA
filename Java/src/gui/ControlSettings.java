@@ -5,8 +5,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("a9e520e6-c602-4e73-9fe6-390ff4f5fabb")
 public class ControlSettings {
-    public String name;
-    
     @objid ("ef47dcfe-ed1a-44b1-ab68-df9640e77ce1")
     public int up;
 
@@ -21,6 +19,9 @@ public class ControlSettings {
 
     @objid ("9f725747-d404-44fa-b88e-dffb549e8f13")
     public int plantBomb;
+
+    @objid ("e181df30-4e8b-41cf-9d1e-ae5d5bc698d9")
+    public String name;
 
     @objid ("948d2cb4-d3f5-4e61-a924-4b263d52c766")
     public static ControlSettings defaultControls(int i) {

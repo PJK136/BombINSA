@@ -14,4 +14,5 @@ public class UnbreakableTile extends Tile {
     public boolean isCollidable() {
         return true;
     }
+
 }

@@ -18,11 +18,12 @@ public abstract class Entity {
 
     @objid ("46bbc37c-9300-456a-87b3-a7774a36e395")
      double speed = 0;
-    
+
+    @objid ("1ab8e8c1-d2ac-4a08-8450-ac9ccdd49749")
+     static final double OFFSET_PERCENTAGE = 1./3.;
+
     @objid ("83945ddf-99e1-4a55-8f7c-5f7a2c89a534")
      World world;
-    
-    static final double OFFSET_PERCENTAGE = 1./3.;
 
     @objid ("2482ca74-f651-4b89-8f4e-b25e74535a33")
     Entity(World world, double x, double y) {
@@ -50,44 +51,47 @@ public abstract class Entity {
 
     @objid ("78c63e54-9035-40d2-ae0a-99cdbbcc8788")
     void setX(double value) {
-    	if(value >= world.getMap().getTileSize()/2. &&
-    	   value < world.getMap().getWidth()-(world.getMap().getTileSize()/2.)) {
-    		this.x = value;
-    	} else {
-    		throw new RuntimeException("x = " + value + " can't be outside of the map");
-    	}
+        if(value >= world.getMap().getTileSize()/2. &&
+           value < world.getMap().getWidth()-(world.getMap().getTileSize()/2.)) {
+            this.x = value;
+        } else {
+            throw new RuntimeException("x = " + value + " can't be outside of the map");
+        }
     }
 
     @objid ("9c402d71-f604-49ca-ac91-079aa3515974")
     public double getY() {
         return this.y;
     }
-    
-    public double getBorderLeft() {
-        return this.x-(world.getMap().getTileSize()/2.);
-    }
-
-    public double getBorderRight() {
-        return this.x+(world.getMap().getTileSize()/2.);
-    }
-    
-    public double getBorderTop() {
-        return this.y-(world.getMap().getTileSize()/2.);
-    }
-    
-    public double getBorderDown() {
-        return this.y+(world.getMap().getTileSize()/2.);
-    }
-    
 
     @objid ("08e29169-aac4-43a6-9bc5-02f2282fe480")
     void setY(double value) {
         if(value >= world.getMap().getTileSize()/2. &&
            value < world.getMap().getHeight()-(world.getMap().getTileSize()/2.)) {
              this.y = value;
-    	} else {
-    		throw new RuntimeException("y = " + value + " can't be outside of the map");
-    	}
+        } else {
+            throw new RuntimeException("y = " + value + " can't be outside of the map");
+        }
+    }
+
+    @objid ("c44ec029-8944-4621-901f-9f6845993143")
+    public double getBorderLeft() {
+        return this.x-(world.getMap().getTileSize()/2.);
+    }
+
+    @objid ("96c78566-87ca-4712-9fcf-f75c5e760b2a")
+    public double getBorderRight() {
+        return this.x+(world.getMap().getTileSize()/2.);
+    }
+
+    @objid ("b0821d6c-a85b-421a-bbad-44f70980b9e3")
+    public double getBorderTop() {
+        return this.y-(world.getMap().getTileSize()/2.);
+    }
+
+    @objid ("997b8ff6-1fcb-46af-bdcc-78c446121e9e")
+    public double getBorderDown() {
+        return this.y+(world.getMap().getTileSize()/2.);
     }
 
     @objid ("002e3653-fdf9-4157-9a2b-ffcf9d5fc685")
@@ -97,11 +101,11 @@ public abstract class Entity {
 
     @objid ("00edac08-fa82-4b44-aa6f-c993f59649f3")
     void setSpeed(double value) {
-    	if(value >= 0){
-    		this.speed = value;
-    	} else {
-    		throw new RuntimeException("Speed can't be negative");
-    	}
+        if(value >= 0){
+            this.speed = value;
+        } else {
+            throw new RuntimeException("Speed can't be negative");
+        }
     }
 
     @objid ("b37c2cf9-7059-4677-bd3a-15fe9a906e34")
@@ -114,7 +118,7 @@ public abstract class Entity {
         this.direction = value;
     }
 
-
+    @objid ("41800255-bf3a-456d-a83a-101f7454243e")
     public boolean isColliding(Direction direction, double move) {
         final double offset = world.getMap().getTileSize()*OFFSET_PERCENTAGE;
         
@@ -128,10 +132,9 @@ public abstract class Entity {
         case Down:
             return canCollide(getBorderLeft()+offset, getBorderDown()+move) || canCollide(getBorderRight()-offset, getBorderDown()+move);
         }
-        
         return false;
     }
-    
+
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
         while (this.speed >= 0 && isColliding(this.direction, this.speed)) {
@@ -144,11 +147,12 @@ public abstract class Entity {
         
         updatePosition();
     }
-    
+
+    @objid ("30b55b46-96bb-4d8b-9810-6ccdaa97d7db")
     private void updatePosition() {
         if (this.speed == 0)
             return;
-
+        
         switch (direction) {
         case Left:
             this.x -= this.speed;
@@ -176,10 +180,11 @@ public abstract class Entity {
             break;
         }
     }
-    
-    
-    boolean canCollide(double x, double y){
+
+    @objid ("94f5132c-0a18-4827-bebd-451cd306edff")
+    boolean canCollide(double x, double y) {
         //Il faut aussi vérifier la collision dans les sous classes
         return this.world.getMap().isCollidable(x, y);
     }
+
 }

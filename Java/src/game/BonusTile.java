@@ -37,15 +37,17 @@ public class BonusTile extends ExplodableTile {
     void setBonusType(BonusType value) {
         this.bonusType = value;
     }
-    
+
+    @objid ("78fbf9a6-83ae-474b-9040-5c9e25f3769d")
     @Override
     Tile postExplosion() {
         EmptyTile tile = new EmptyTile();
         tile.setEntities(entities);
         return tile;
     }
-    
-    public static BonusType randomBonus(){
+
+    @objid ("06b379a9-5529-4a67-a73c-9ab4058c8da7")
+    public static BonusType randomBonus() {
         double random = Math.random();
         double summ = 0;
         BonusType[] bonusList = BonusType.values();
@@ -58,7 +60,6 @@ public class BonusTile extends ExplodableTile {
         }
         System.err.println("Problème bonus " + summ);
         return BonusType.Random;
-        
     }
 
 }

@@ -2,24 +2,33 @@ package gui;
 
 import java.awt.Dimension;
 import java.util.List;
-
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-
+import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.BonusType;
 import game.Player;
 import game.PlayerAbility;
 
+@objid ("46db285b-3b47-467c-9f0f-477cd2eb3613")
 public class PlayerStatePanel extends JPanel {
+    @objid ("a93c2a2a-7d08-409f-8eff-a00ecdf4e7ae")
+     JLabel lives;
 
-    JLabel lives;
-    JLabel bombMax;
-    JLabel range;
-    JLabel[] abilities;
-    JSeparator separator;
-    
+    @objid ("3719b0d6-ed48-4e64-a269-e35145d82253")
+     JLabel bombMax;
+
+    @objid ("3a94a784-a738-4e02-ba1d-acc59d9a4fb1")
+     JLabel range;
+
+    @objid ("07d17f65-c576-4265-87c8-7e4c20174627")
+     JLabel[] abilities;
+
+    @objid ("cc0439d1-6524-42e4-ae85-4fba137c27d9")
+     JSeparator separator;
+
+    @objid ("e8dc4fa0-32c2-4b8c-90c6-df91088eba72")
     PlayerStatePanel(int playerID, int size) {
         SpriteFactory factory = SpriteFactory.getInstance();
         
@@ -66,7 +75,8 @@ public class PlayerStatePanel extends JPanel {
         separator.setMaximumSize(new Dimension(1, Integer.MAX_VALUE));
         add(separator);
     }
-    
+
+    @objid ("8536a41a-23a7-444d-8f96-1adeb430eee3")
     void updatePlayerState(Player player) {
         lives.setText("×" + player.getLives() + "  ");
         bombMax.setText("×" + player.getBombMax() + "  ");
@@ -76,4 +86,5 @@ public class PlayerStatePanel extends JPanel {
             abilities[i].setVisible(playerAbilities.get(i));
         }
     }
+
 }

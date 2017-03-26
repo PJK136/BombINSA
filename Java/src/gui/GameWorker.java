@@ -1,12 +1,9 @@
 package gui;
 
 import java.awt.Color;
-
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-
 import game.AIController;
 import game.Player;
 import game.Server;
@@ -15,22 +12,24 @@ import sun.misc.Cleaner;
 
 @objid ("0352607c-7ee6-4aa1-839f-fc6a174af9fd")
 public class GameWorker implements Runnable {
-
-    @objid ("f996874c-1764-42a2-867d-851bf61a9f40")
-    private World world;
+    @objid ("261a2da6-2f7b-4394-83a1-d38b8510f2cb")
+    private boolean stop;
 
     @objid ("e6c9ac41-77db-49aa-b718-1530b3eebbcd")
     private GameSettings settings;
 
+    @objid ("60d0171f-8216-483d-bb98-ccb1fb946a53")
     private MainWindow mainWindow;
-    
+
+    @objid ("f996874c-1764-42a2-867d-851bf61a9f40")
+    private World world;
+
+    @objid ("26747bae-5549-4449-8fc3-6aaccd6d8bf3")
     private GamePanel panel;
-    
+
     @objid ("0c0b3418-de2f-49f0-91d2-008a02cea763")
     private GameViewer viewer;
 
-    private boolean stop;
-    
     @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
     public GameWorker(MainWindow mainWindow, GamePanel panel) throws Exception {
         this.settings = GameSettings.getInstance();
@@ -62,7 +61,7 @@ public class GameWorker implements Runnable {
                 for (final String message : new String[]{"À vos marques.", "Prêts.", "Jouez !"}) {
                     for (int i = 0; i <= 3; i++) {
                         SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(message, Color.black));
-
+        
                         try {
                             Thread.sleep(100, 0);
                         } catch (InterruptedException e) {  }
@@ -157,25 +156,6 @@ public class GameWorker implements Runnable {
             });
         }
     }
-    
-    private boolean doesRoundEnded() {
-        switch (settings.gameType) {
-        case Client:
-            break;
-        case Local:
-            return world.getPlayerAliveCount() <= 1;
-        case Sandbox:
-            return world.getPlayerAliveCount() <= 0;
-        case Server:
-            break;
-        }
-        
-        return false;
-    }
-    
-    public void stop() {
-        this.stop = true;
-    }
 
     @objid ("b5e7e42e-c73b-4130-bed6-7aa32aa55eb3")
     void createWorld() throws Exception {
@@ -204,4 +184,25 @@ public class GameWorker implements Runnable {
     void setGameState(GameState state) {
         System.err.println(state);
     }
+
+    @objid ("f93e9dfd-7368-492f-a48a-e8abc1215e4c")
+    private boolean doesRoundEnded() {
+        switch (settings.gameType) {
+        case Client:
+            break;
+        case Local:
+            return world.getPlayerAliveCount() <= 1;
+        case Sandbox:
+            return world.getPlayerAliveCount() <= 0;
+        case Server:
+            break;
+        }
+        return false;
+    }
+
+    @objid ("9f94bd39-ac7e-4e2f-8f19-afc50b48f9ad")
+    public void stop() {
+        this.stop = true;
+    }
+
 }

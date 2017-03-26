@@ -4,12 +4,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("b8264f8e-49d1-4a58-ad20-06ceafdee906")
 public class Client extends World {
-    /*@objid ("390d28b1-0e27-40f4-9b21-b0c8ba9b97c1")
+/*@objid ("390d28b1-0e27-40f4-9b21-b0c8ba9b97c1")
     @Override
     void plantBomb(double x, double y, int range) {
         // TODO Auto-generated method stub
     }*/
-
     @objid ("2116c198-f003-4fbb-8e6b-4ccf16f7f093")
     @Override
     void plantBomb(Player player) {
@@ -46,10 +45,10 @@ public class Client extends World {
         // TODO Auto-generated method stub
     }
 
+    @objid ("9cc03884-80cf-4f76-8510-8f2ca2035eef")
     @Override
     void kickBomb(Bomb bomb, Direction direction) {
         // TODO Auto-generated method stub
-        
     }
 
 }

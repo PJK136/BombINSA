@@ -4,9 +4,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("96719cc7-626b-4b48-9f90-aeab79c12c54")
 public class BreakableTile extends ExplodableTile {
-    
+    @objid ("0f97109a-7ddc-4f5f-916d-aa2c1e51cc55")
     public static final double LOOT_RATE = 0.33;
-    
+
     @objid ("b437dbbe-08da-431d-a157-4f630122bbfa")
     @Override
     public TileType getType() {
@@ -17,7 +17,8 @@ public class BreakableTile extends ExplodableTile {
     public boolean isCollidable() {
         return true;
     }
-    
+
+    @objid ("0fab6260-7a9c-4a9e-adda-5a7b5f0d0098")
     @Override
     Tile postExplosion() {
         Tile ret;
@@ -29,6 +30,7 @@ public class BreakableTile extends ExplodableTile {
          }
          
          ret.setEntities(entities);
-         return ret;
+        return ret;
     }
+
 }

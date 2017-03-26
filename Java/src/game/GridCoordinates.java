@@ -20,11 +20,13 @@ public class GridCoordinates {
         this.x = x;
         this.y = y;
     }
-    
+
+    @objid ("889a1224-d7a7-4db2-a352-70f6a96311b9")
     public GridCoordinates(GridCoordinates gc) {
         this(gc.x, gc.y);
     }
-    
+
+    @objid ("e332b11d-704a-4500-8511-2ed4f8fa73e5")
     @Override
     public boolean equals(Object obj) {
         if (obj == null)
@@ -35,15 +37,16 @@ public class GridCoordinates {
             return false;
         
         GridCoordinates gc = (GridCoordinates)obj;
-        
         return x == gc.x && y == gc.y;
     }
-    
+
+    @objid ("7142fd4e-32d2-4852-aacc-41cd953691cd")
     @Override
     public String toString() {
         return "("+x+";"+y+")";
     }
-    
+
+    @objid ("596006a8-a08a-41ff-8cb2-d06326c79d55")
     public GridCoordinates neighbor(Direction direction) {
         switch (direction) {
         case Left:
@@ -58,7 +61,9 @@ public class GridCoordinates {
         return null;
     }
 
+    @objid ("ce3d5110-3070-4817-acff-fb933af76cca")
     public static int distance(GridCoordinates gc1, GridCoordinates gc2) {
         return Math.abs(gc2.x-gc1.x) + Math.abs(gc2.y-gc1.y); //Norme 1 #Maths 2A
     }
+
 }

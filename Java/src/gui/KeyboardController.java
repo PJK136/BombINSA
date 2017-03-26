@@ -3,7 +3,6 @@ package gui;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.Controller;
 import game.Direction;
@@ -12,16 +11,17 @@ import game.World;
 
 @objid ("0a274714-4157-430f-bba3-fe0b0286cf2f")
 public class KeyboardController implements Controller, KeyListener {
-    /* Objectif : que l'on sache où on est en train d'appuyer (doit conserver une variable car java n'a pas de methode*
+    @objid ("551f145c-09ad-4538-86bc-5b9129d34274")
+    private LinkedList<Direction> keysPressed;
+
+    @objid ("821786a6-3f54-48d5-8e4d-f8425ef62c20")
+    private boolean bombing;
+
+/* Objectif : que l'on sache où on est en train d'appuyer (doit conserver une variable car java n'a pas de methode*
      * qui lit si on est appuyé, seulement si on appuie et si on relâche)
      */
-    
     @objid ("a93e8c2e-c054-4934-923f-acac72ff257c")
     private ControlSettings settings;
-    
-    private LinkedList<Direction> keysPressed;
-    
-    private boolean bombing;
 
     @objid ("2c9abb5b-b9fc-4226-bee5-6df775a5d20d")
     public KeyboardController(ControlSettings settings) {
@@ -56,17 +56,11 @@ public class KeyboardController implements Controller, KeyListener {
         } else {
             return false;
         }
-
     }
 
     @objid ("257910dc-1922-4e33-8c1b-78cf3a30f0b4")
     @Override
     public void update() {
-    }
-    
-    @Override
-    public String getName() {
-        return settings.name;
     }
 
     @objid ("3d5514a6-86cc-49d2-8723-289056c0be41")
@@ -107,4 +101,11 @@ public class KeyboardController implements Controller, KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
     }
+
+    @objid ("14a6233f-161d-4025-8deb-1e4f0c79b1a1")
+    @Override
+    public String getName() {
+        return settings.name;
+    }
+
 }

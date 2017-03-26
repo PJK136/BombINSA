@@ -7,16 +7,18 @@ public class Bomb extends Entity {
     @objid ("7cf845bf-dacd-4f1f-9c63-46ad9d0e478b")
      int range;
 
-    int duration;
-    
+    @objid ("feedcc52-db18-461f-912f-aafb9559d01a")
+     int duration;
+
     @objid ("57ad54f8-e371-4980-8fcc-383afd09c461")
      int timeRemaining;
+
+    @objid ("2b3b069c-a6aa-42ef-a7d3-54482e395b63")
+    public static final double BOMB_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("d663f27d-b4de-411a-b687-8ae5d439ab48")
     protected Player owner;
 
-    public static final double BOMB_DEFAULT_SPEED = 4; // tile/sec
-    
     @objid ("f9841259-647d-4cd7-9bb7-f10aea5a4794")
     public Bomb(World world, GridCoordinates gc, int range, int duration) {
         super(world, world.getMap().toCenterX(gc), world.getMap().toCenterY(gc));
@@ -45,8 +47,10 @@ public class Bomb extends Entity {
         }
     }
 
-    public int getDuration() {
-        return duration;
+    @objid ("16747d9c-2fc0-4547-b27a-f292f80c9a19")
+    int getDuration() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.duration;
     }
 
     @objid ("8568627a-17f2-49d3-a8e6-c690ecf21ab1")
@@ -58,21 +62,20 @@ public class Bomb extends Entity {
             throw new RuntimeException("Duration cannot be negative");
         }
     }
-    
+
     @objid ("46c24a88-c0e7-42af-aa08-f2217f450044")
     public int getTimeRemaining() {
         return this.timeRemaining;
     }
 
     @objid ("ce00607d-3c72-45ea-b3e1-5a3ac0315b22")
-    
     void update() {
         // Decrease TimeRemaining
         timeRemaining -= 1;
-
+        
         // Update Position
         super.update();
-
+        
         // Update Marche sur une flèche (Déplacement dans la direction de la
         // flèche d'un nombre de case déterminé)
         if (this.world.getMap().getTileType(this.x, this.y) == TileType.Arrow) {
@@ -107,7 +110,8 @@ public class Bomb extends Entity {
             remove();
         }
     }
-    
+
+    @objid ("6ed55b50-6182-4e9f-9274-183b0145eacf")
     @Override
     boolean canCollide(double x, double y) {
         if (!super.canCollide(x, y)) {
@@ -120,4 +124,5 @@ public class Bomb extends Entity {
         }
         return true;
     }
+
 }

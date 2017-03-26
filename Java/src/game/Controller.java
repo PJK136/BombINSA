@@ -19,5 +19,7 @@ public interface Controller {
     @objid ("99886342-ec39-44a9-aae1-581d9aa251df")
     void update();
 
+    @objid ("ca776232-1a17-4e2e-a7a6-eeffe4a104e4")
     String getName();
+
 }

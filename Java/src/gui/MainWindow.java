@@ -4,32 +4,38 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
-
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("580889f0-8e1d-4a59-9bfb-00c967a10ffd")
 public class MainWindow {
+    @objid ("b7100b61-40ce-4a3b-bc84-213a61d275d0")
+    private String message;
+
+    @objid ("3e3265a5-358a-47b3-a2b4-e7aefe04df03")
+    private static final int START_WIDTH = 640;
+
+    @objid ("4bf8129e-77ea-44b3-b213-ea9b537b9eee")
+    private static final int START_HEIGHT = 480;
+
     @objid ("d7d0818d-1589-4942-982c-1a9cbfa0f600")
     private JFrame frame;
-    
+
+    @objid ("3adeebc1-fc0c-491c-ab18-955b04cdfba4")
     private JPanel glassPanel;
-    
+
+    @objid ("7604bbda-b462-466b-b8a4-680fae86a454")
     private GameSettings settings;
 
     @objid ("294a7f1e-7ead-4bc6-bf80-c970a68ae918")
     private GameWorker gameWorker;
-    
-    private String message;
+
+    @objid ("6a4c9e53-d41c-4237-99b1-a540a0004898")
     private Color messageColor;
-    
-    private static final int START_WIDTH = 640;
-    private static final int START_HEIGHT = 480;
 
     @objid ("c0396266-731f-4131-9df4-3e1a8c55ed3a")
     public static void main(String[] args) {
@@ -120,23 +126,28 @@ public class MainWindow {
         frame.revalidate();
     }
 
+    @objid ("c6c9afec-5bba-4a55-ab6c-14848f545c6c")
     void pack() {
         frame.pack();
     }
-    
+
+    @objid ("4219eb02-4dcd-45fd-88cf-b6c685cc8d32")
     void showMessage(String message, Color color) {
         this.message = message;
         this.messageColor = color;
         frame.getGlassPane().setVisible(true);
         frame.repaint();
     }
-    
+
+    @objid ("2b490ea0-a3a0-4f8a-979a-8c20574e3a60")
     void clearMessage() {
         this.message = null;
         frame.getGlassPane().setVisible(false);
     }
 
+    @objid ("d3f6e6d9-3541-4526-8433-d7a080952a55")
     public static void setFontSize(JComponent component, float size) {
         component.setFont(component.getFont().deriveFont((float)size));
     }
+
 }

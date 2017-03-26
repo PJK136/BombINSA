@@ -10,34 +10,35 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-
 import game.Player;
 import game.WorldView;
 
 @objid ("edc89ef6-b498-483e-875c-befa52d629f4")
 public class GamePanel extends JPanel implements ActionListener {
-    @objid ("1630e521-8ea4-48df-9278-b85be1fba591")
-    private GameViewer gameViewer;
-
-    private GameSettings settings;
-    
     @objid ("74e92561-a1a0-467e-a74c-be5e17aa47d1")
     private MainWindow mainWindow;
 
+    @objid ("a8a9fdd6-1773-4e49-a16d-eb3c08adad30")
+    private GameSettings settings;
+
+    @objid ("1630e521-8ea4-48df-9278-b85be1fba591")
+    private GameViewer gameViewer;
+
+    @objid ("d499b26b-6b62-4665-bcd7-7b8d480cf409")
     private JPanel topBar;
-    
+
+    @objid ("d71ae60b-862a-46ad-89eb-7faf069d8025")
     private JPanel playerStateGroup;
-    
-    HashMap<Player, PlayerStatePanel> playerStates;
-    
+
+    @objid ("3ace71d3-e6f1-4997-a200-b55f6b20c619")
+     HashMap<Player, PlayerStatePanel> playerStates;
+
     @objid ("dbd6f5cb-8848-4a03-9b74-402de0479e51")
     private JLabel timeRemaining;
 
@@ -87,7 +88,8 @@ public class GamePanel extends JPanel implements ActionListener {
             mainWindow.showMenu();
         }
     }
-    
+
+    @objid ("45932752-17aa-44c7-8689-4c86cb06b683")
     public void showGameStatus(WorldView view) {
         final int size = settings.scale((int) (view.getMap().getTileSize()*0.75));
         boolean updateSize = false;
@@ -110,7 +112,7 @@ public class GamePanel extends JPanel implements ActionListener {
             }
             pState.updatePlayerState(player);
         }
-
+        
         Iterator<Entry<Player, PlayerStatePanel>> iterator = playerStates.entrySet().iterator();
         Entry<Player, PlayerStatePanel> player;
         while (iterator.hasNext()) {
@@ -125,7 +127,7 @@ public class GamePanel extends JPanel implements ActionListener {
         if (updateSize)
             updateGameSize();
     }
-    
+
     @objid ("28945b2a-0dba-494d-8e43-6992d3e5b089")
     void updateGameSize() {
         mainWindow.pack();
@@ -139,7 +141,7 @@ public class GamePanel extends JPanel implements ActionListener {
         setVisible(true);
         gameViewer.requestFocusInWindow();
     }
-    
+
     @objid ("4eda1677-dd51-4090-9ffa-956332a2fc44")
     private void updateTimeRemaining(WorldView view, int size) {
         if (timeRemaining.getFont().getSize() != size)
@@ -165,4 +167,5 @@ public class GamePanel extends JPanel implements ActionListener {
         text.append("  ");
         timeRemaining.setText(text.toString());
     }
+
 }

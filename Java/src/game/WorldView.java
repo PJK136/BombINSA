@@ -13,7 +13,8 @@ public interface WorldView {
 
     @objid ("39ec082e-e21c-4225-b905-acf6c47cbd9b")
     int getTimeRemaining();
-    
+
+    @objid ("bc316acb-cee6-4310-b233-3a4264b07c74")
     int getTimeElapsed();
 
     @objid ("32dcdef1-5a7a-4722-92ad-5d4d0aa3f197")
@@ -28,5 +29,7 @@ public interface WorldView {
     @objid ("3c9c020a-4bd5-424b-9d90-1bdda21519a4")
     int getPlayerAliveCount();
 
+    @objid ("28429dd0-b782-48e7-992e-64beab6a4e61")
     List<Player> getPlayers();
+
 }

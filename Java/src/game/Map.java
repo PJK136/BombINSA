@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringJoiner;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("828d0eae-528b-43df-a33e-799c03f4c5af")
@@ -61,14 +60,6 @@ public class Map implements MapView {
     public int getHeight() {
         return getRowCount() * tileSize;
     }
-    
-    public boolean isInsideMap(GridCoordinates gc) {
-        return gc.x >= 0 && gc.x < getColumnCount() && gc.y >= 0 && gc.y < getRowCount();
-    }
-    
-    public boolean isInsideMap(double x, double y) {
-        return x >= 0 && x < getWidth() && y >= 0 && y < getHeight();
-    }
 
     @objid ("48cfdc63-3e7d-49fd-9aa2-20e0e732aea2")
     public int getTileSize() {
@@ -81,21 +72,33 @@ public class Map implements MapView {
         int Y = (int) (y/tileSize);
         return new GridCoordinates(X, Y);
     }
-    
+
+    @objid ("4151f8ea-6949-420a-886a-66adc95b23fb")
+    public boolean isInsideMap(GridCoordinates gc) {
+        return gc.x >= 0 && gc.x < getColumnCount() && gc.y >= 0 && gc.y < getRowCount();
+    }
+
+    @objid ("bfd982db-56e0-466a-981b-dee20325090f")
+    public boolean isInsideMap(double x, double y) {
+        return x >= 0 && x < getWidth() && y >= 0 && y < getHeight();
+    }
+
+    @objid ("769bfd83-2dfe-4fc2-aa3a-06b2a4806dbe")
     @Override
     public double toCenterX(GridCoordinates gc) {
         return (gc.x+0.5)*tileSize;
     }
-    
+
+    @objid ("fb5149cf-0408-4f27-a18c-3828d8c2386a")
     @Override
     public double toCenterY(GridCoordinates gc) {
         return (gc.y+0.5)*tileSize;
     }
-    
+
+    @objid ("3ed406fe-5645-4b43-b8f8-a0e5817927cb")
     public boolean isCollidable(GridCoordinates gc) {
         if (!isInsideMap(gc))
             return true;
-
         return tiles[gc.x][gc.y].isCollidable();
     }
 
@@ -107,10 +110,13 @@ public class Map implements MapView {
         GridCoordinates gc = toGridCoordinates(x, y);
         return tiles[gc.x][gc.y].isCollidable();
     }
-    
+
+    @objid ("8d2e2de6-5922-4edf-8979-6ef98656181f")
     public boolean isExplodable(GridCoordinates gc) {
         return tiles[gc.x][gc.y] instanceof ExplodableTile;
     }
+
+    @objid ("8d4f1c72-903c-4ac1-9060-afa363586d02")
     @Override
     public boolean isExploding(GridCoordinates gc) {
         return isExplodable(gc) && ((ExplodableTile)tiles[gc.x][gc.y]).isExploding();
@@ -122,30 +128,33 @@ public class Map implements MapView {
         return isExploding(gc);
     }
 
+    @objid ("a05afb07-63de-463f-a27f-cced107ac186")
     @Override
     public ExplosionType getExplosionType(GridCoordinates gc) {
         return ((ExplodableTile)tiles[gc.x][gc.y]).getExplosionType();
     }
-    
-    
+
+    @objid ("630dae37-2032-49d6-9549-d1c0609926ef")
     @Override
     public Direction getExplosionDirection(GridCoordinates gc) {
         return ((ExplodableTile)tiles[gc.x][gc.y]).getExplosionDirection();
     }
-    
+
+    @objid ("188ecbd8-c984-4187-93b4-8a4d4e9a8432")
     public TileType getTileType(GridCoordinates gc) {
         return tiles[gc.x][gc.y].getType();
     }
-    
+
     @objid ("8591210d-fb9c-463e-b84f-c0fa935ec9c0")
     public TileType getTileType(double x, double y) {
         return getTileType(toGridCoordinates(x, y));
     }
 
+    @objid ("2efbc97a-e7b9-4735-ac17-8224ecb97cf4")
     public BonusType getBonusType(GridCoordinates gc) {
         return(((BonusTile)(tiles[gc.x][gc.y])).getBonusType());
     }
-    
+
     @objid ("47c42a8c-d080-4066-9144-20a8fe58cd67")
     public BonusType getBonusType(double x, double y) {
         return getBonusType(toGridCoordinates(x, y));
@@ -155,12 +164,12 @@ public class Map implements MapView {
     public Direction getArrowDirection(GridCoordinates gc) {
         return(((ArrowTile)(tiles[gc.x][gc.y])).getDirection());
     }
-    
+
+    @objid ("98ce126b-8f36-4e0d-aeaf-31889dffe57f")
     public Direction getArrowDirection(double x, double y) {
         return getArrowDirection(toGridCoordinates(x, y));
     }
 
-    
     @objid ("d303d2cc-982c-4eb4-bb9f-9cead2bfc564")
     public List<GridCoordinates> getSpawningLocations() {
         return Collections.unmodifiableList(spawningLocations);
@@ -191,7 +200,8 @@ public class Map implements MapView {
             }
         }
     }
-    
+
+    @objid ("37a9da32-d0c2-4570-a1d5-c73972f7f508")
     public void setsize(int columns, int rows) {
         if (columns <= 0)
             throw new RuntimeException("Nombre de colonnes négatif ou nul : " + columns);
@@ -219,18 +229,6 @@ public class Map implements MapView {
         tiles = newTiles;
     }
 
-    public void loadMap(String map) throws InputMismatchException {
-        loadMap(new Scanner(map));
-    }
-    
-    public void loadMap(Path path) throws InputMismatchException, IOException {
-        loadMap(new Scanner(path));
-    }
-    
-    public void loadMap(InputStream map) throws InputMismatchException {
-        loadMap(new Scanner(map));
-    }
-    
     @objid ("81317f24-599b-4128-9480-5c1f6c0859f2")
     private void loadMap(Scanner sc) throws InputMismatchException {
         int columnCount = sc.nextInt();
@@ -261,6 +259,21 @@ public class Map implements MapView {
         sc.close();
         
         tiles = newTiles;
+    }
+
+    @objid ("bdc6a78b-39d3-412e-a529-57ef1ba3f624")
+    public void loadMap(String map) throws InputMismatchException {
+        loadMap(new Scanner(map));
+    }
+
+    @objid ("95994401-6979-4fce-ad9e-c9521f3c0ba8")
+    public void loadMap(Path path) throws IOException, InputMismatchException {
+        loadMap(new Scanner(path));
+    }
+
+    @objid ("853ca821-8f56-41f8-9469-20ffaecb7bcb")
+    public void loadMap(InputStream map) throws InputMismatchException {
+        loadMap(new Scanner(map));
     }
 
     @objid ("8960c7a3-87e7-4b1b-8f9a-1858808c9349")
@@ -294,7 +307,8 @@ public class Map implements MapView {
     public void setTileType(TileType type, GridCoordinates gc) {
         setTileType(tiles, type, gc);
     }
-    
+
+    @objid ("b4267492-9246-4c92-88ab-4a9b72c99691")
     private void setTileType(Tile[][] tiles, TileType type, GridCoordinates gc) {
         Tile newTile = null;
         switch(type){
@@ -319,7 +333,12 @@ public class Map implements MapView {
             newTile.setEntities(tiles[gc.x][gc.y].getEntities());
         tiles[gc.x][gc.y] = newTile;
     }
-    
+
+    @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
+    void setBonusType(BonusType type, double x, double y) {
+        GridCoordinates gc = toGridCoordinates(x, y);
+        ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
+    }
 
     @objid ("af2aa240-e83a-4b08-9641-56c0dfe48630")
     public void setArrowDirection(Direction direction, double x, double y) {
@@ -331,27 +350,24 @@ public class Map implements MapView {
     void setExplosion(int duration, ExplosionType type, Direction direction, GridCoordinates gc) {
         ((ExplodableTile)tiles[gc.x][gc.y]).explode(duration, type, direction);
     }
-    
+
+    @objid ("7337dc7b-1357-4b21-85e4-e8cbc369eadd")
     void setExplosionEnd(GridCoordinates gc) {
         ((ExplodableTile)tiles[gc.x][gc.y]).setLastExplosionEnd();
     }
 
-    @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
-    void setBonusType(BonusType type, double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
-        ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
-    }
-
+    @objid ("297782bf-dc7a-4125-886d-042609080629")
     @Override
     public List<Entity> getEntities(GridCoordinates gc) {
         return Collections.unmodifiableList(tiles[gc.x][gc.y].getEntities());
     }
-    
+
     @objid ("c15e0882-3eff-4467-ac1f-4152e69db4f1")
     public List<Entity> getEntities(double x, double y) {
         return getEntities(toGridCoordinates(x, y));
     }
 
+    @objid ("1fa8688b-750c-48b5-93cc-ea3506952b91")
     @Override
     public boolean hasBomb(GridCoordinates gc) {
         List<Entity> entities = getEntities(gc);
@@ -361,11 +377,13 @@ public class Map implements MapView {
         }
         return false;
     }
-    
+
+    @objid ("167b8715-dca1-4ec4-a321-26d6a3542a83")
     public boolean hasBomb(double x, double y) {
         return hasBomb(toGridCoordinates(x, y));
     }
-    
+
+    @objid ("e26edc3c-eed7-4e0a-b81c-4ac0e19c73e6")
     @Override
     public Bomb getFirstBomb(GridCoordinates gc) {
         List<Entity> entities = getEntities(gc);
@@ -375,12 +393,13 @@ public class Map implements MapView {
         }
         return null;
     }
-    
+
+    @objid ("a99f9f30-6491-40e4-abbd-00a91910a893")
     @Override
     public Bomb getFirstBomb(double x, double y) {
         return getFirstBomb(toGridCoordinates(x, y));
     }
-    
+
     @objid ("e0d1831e-0655-4b4d-a0d8-d282ff461427")
     Tile[][] getTiles() {
         return this.tiles;
@@ -391,7 +410,7 @@ public class Map implements MapView {
         GridCoordinates gc = toGridCoordinates(entity.getX(), entity.getY());
         tiles[gc.x][gc.y].addEntity(entity);
     }
-    
+
     @objid ("0812769a-5d2b-489d-9bf4-f782cb16fbef")
     void update() {
         GridCoordinates gc = new GridCoordinates();
@@ -402,10 +421,10 @@ public class Map implements MapView {
                updateEntities(gc);
             }
         }
-        
     }
-    
-    private void updateEntities(GridCoordinates gc){
+
+    @objid ("6bc80ea5-bafc-4ca1-86f2-9d861e475c10")
+    private void updateEntities(GridCoordinates gc) {
         Iterator<Entity> iterator = tiles[gc.x][gc.y].entities.iterator();
         while(iterator.hasNext()){
             //parcours les entités pour virer ceux qui sont à remove
@@ -424,4 +443,5 @@ public class Map implements MapView {
             //TODO : Mettre à jour les "bouts" des explosions
         }
     }
+
 }

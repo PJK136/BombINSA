@@ -8,7 +8,8 @@ public enum Direction {
     Up,
     Left,
     Down;
-    
+
+    @objid ("0a70e5cc-0ca6-4f98-b031-b505f443e474")
     public static boolean isSameAxis(Direction d1, Direction d2) {
         if (d1 == null || d2 == null)
             return false;
@@ -19,8 +20,10 @@ public enum Direction {
                (d1 == Direction.Left && d2 == Direction.Right) ||
                (d2 == Direction.Left && d1 == Direction.Right);
     }
-    
-    public static Direction getRandomDirection(){
+
+    @objid ("f4ed90fa-af83-4ad9-b923-b5d10355cfbc")
+    public static Direction getRandomDirection() {
         return values()[(int)(Math.random()*values().length)];
     }
+
 }

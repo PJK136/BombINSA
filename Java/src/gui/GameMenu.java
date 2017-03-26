@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,12 +20,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("1792b20d-e79e-4f35-8f63-20089eca61f0")
 public class GameMenu extends JPanel implements ActionListener {
-
     @objid ("a39767d1-eca3-41c4-85d7-7d0bde3a14cc")
     private MainWindow mainWindow;
 

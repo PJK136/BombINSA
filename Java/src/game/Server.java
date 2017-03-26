@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("8d1e22ca-441c-437e-83a3-fee76166baff")
@@ -16,18 +15,20 @@ public class Server extends World {
     @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")
      String mapFileName = new String();
 
+    @objid ("bea83389-bb33-4211-97c6-1b6fc49e23eb")
+     HashMap<Bomb, Direction> queueKickBomb = new HashMap<>();
+
+    @objid ("f4f3efa0-82ed-4a6e-a844-a5b784ab690e")
+     int nextPlayerID = 0;
+
     @objid ("a6755987-9eb6-4703-a202-cad2bb6345a4")
      Queue<Player> queuePlayer = new LinkedList<Player>();
 
     @objid ("8f67b398-0aba-4beb-872c-590118673a03")
      Queue<Bomb> queueBomb = new LinkedList<Bomb>();
 
-    HashMap<Bomb, Direction> queueKickBomb = new HashMap<>();
-    
     @objid ("d09dce2a-6ccc-4d37-838d-8a1f201d7b56")
      Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
-    
-    int nextPlayerID = 0;
 
     @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
     public Server(String mapFilename, int tileSize, int fps, int duration) throws Exception {
@@ -99,7 +100,7 @@ public class Server extends World {
     void newPlayer(Controller controller) {
         if (map.spawningLocations.size() == 0)
             return;
-
+        
         int spawnIndex = nextPlayerID % map.spawningLocations.size();
         Player player = new Player(this, map.toCenterX(map.spawningLocations.get(spawnIndex)),
                                          map.toCenterY(map.spawningLocations.get(spawnIndex)),
@@ -140,7 +141,7 @@ public class Server extends World {
                     bombPlanted = true;
                 }
             }
-
+        
             for (Entity entity : entities) {
                 if (entity instanceof Player) {
                     ((Player)entity).setLives(1);
@@ -216,12 +217,11 @@ public class Server extends World {
         loadMap(mapFileName);
     }
 
-    /*@objid ("b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e")
+/*@objid ("b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e")
     @Override
     void plantBomb(double x, double y, int range) {
         not really necessary for the moment
     }*/
-
     @objid ("b13fef2c-1897-428c-871d-8a201627e755")
     @Override
     void plantBomb(Player player) {
@@ -239,7 +239,8 @@ public class Server extends World {
     void pickUpBonus(double x, double y) {
         queueBonus.add(map.toGridCoordinates(x,y));
     }
-    
+
+    @objid ("cd4f1181-89bd-4537-a370-4d025098310e")
     @Override
     void kickBomb(Bomb bomb, Direction direction) {
         if (queueKickBomb.containsKey(bomb)) {
@@ -249,7 +250,8 @@ public class Server extends World {
         } else
             queueKickBomb.put(bomb, direction);
     }
-    
+
+    @objid ("27111301-80b0-479b-af73-bb78da106041")
     private void addEntity(Entity entity) {
         entities.add(entity);
         map.addEntity(entity);
