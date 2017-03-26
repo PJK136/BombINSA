@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import game.BonusType;
 import game.Player;
 import game.PlayerAbility;
 

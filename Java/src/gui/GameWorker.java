@@ -8,7 +8,6 @@ import game.AIController;
 import game.Player;
 import game.Server;
 import game.World;
-import sun.misc.Cleaner;
 
 @objid ("0352607c-7ee6-4aa1-839f-fc6a174af9fd")
 public class GameWorker implements Runnable {
