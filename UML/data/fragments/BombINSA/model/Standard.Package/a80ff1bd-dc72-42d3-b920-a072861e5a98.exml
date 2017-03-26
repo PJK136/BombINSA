@@ -25,6 +25,11 @@
         <COMPID name="Iterator" mc="Standard.Interface" uid="2f3a16b7-1d4e-4c5e-aa84-bc68d9b43b51"/>
         <COMPID name="LinkedList" mc="Standard.Class" uid="61466974-b16c-442d-a727-6c40adbbf374"/>
         <COMPID name="Scanner" mc="Standard.Class" uid="8951cb64-b606-4958-b951-faec8e56b8af"/>
+        <COMPID name="Enumeration" mc="Standard.Interface" uid="831bcb8d-7ff7-4f44-8b21-99a604e63363"/>
+        <COMPID name="Map" mc="Standard.Interface" uid="3fc2ce87-3a0f-46bd-9fe1-296ddf832c04"/>
+        <COMPID name="HashMap" mc="Standard.Class" uid="5a076b9e-394f-44f7-830e-fe638807685e"/>
+        <COMPID name="concurrent" mc="Standard.Package" uid="25eb3968-16c6-4574-8b0d-9427e1051c0e"/>
+        <COMPID name="Arrays" mc="Standard.Class" uid="17007b75-bad2-45f1-8e59-d3b4f8071474"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

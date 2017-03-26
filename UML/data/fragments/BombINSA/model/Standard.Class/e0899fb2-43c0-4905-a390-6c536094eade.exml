@@ -36,7 +36,7 @@
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="cc769cc4-88c7-4409-a05e-ae839ef3d82c"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[bonusType = BonusType.Random;]]></ATT>
+                  <ATT name="Content"><![CDATA[bonusType = randomBonus();]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -405,45 +405,21 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="explode" mc="Standard.Operation" uid="55ed5042-47f7-40c9-95b1-ed6022b386c1"/>
+          <ID name="postExplosion" mc="Standard.Operation" uid="78fbf9a6-83ae-474b-9040-5c9e25f3769d"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Public</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[explode]]></ATT>
+            <ATT name="Name"><![CDATA[postExplosion]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
-            <COMP relation="IO">
-              <OBJECT>
-                <ID name="duration" mc="Standard.Parameter" uid="87c58475-aa2a-42bd-976a-8a014ffc8cca"/>
-                <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[duration]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
             <COMP relation="Return">
               <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="07d104cd-ebe6-4c16-856b-a7614f153e5a"/>
+                <ID name="" mc="Standard.Parameter" uid="0daa47e8-8694-4dae-98d8-0024e3a5ea60"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
@@ -467,9 +443,23 @@
             </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="b2216a04-83c6-4e53-88e3-78e4e288ef56"/>
+                <ID name="" mc="Infrastructure.Note" uid="d78b8f9b-da19-4973-becc-e2fe0fabc01d"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[return emptyTile;]]></ATT>
+                  <ATT name="Content"><![CDATA[@Override]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="000c0b48-0000-3aa1-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="b00b9b74-d600-47b7-8eba-5ed72bac3d22"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return tile;]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -481,10 +471,92 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="a8778689-9478-45b1-a8e0-aa90b585edb4"/>
+                <ID name="" mc="Infrastructure.Note" uid="eb289853-01f0-44b0-bc25-f66d57091d0f"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Tile emptyTile = new EmptyTile();
-emptyTile.explosionTimeRemaining = duration;
+                  <ATT name="Content"><![CDATA[EmptyTile tile = new EmptyTile();
+tile.setEntities(entities);
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="randomBonus" mc="Standard.Operation" uid="06b379a9-5529-4a67-a73c-9ab4058c8da7"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[randomBonus]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Return">
+              <OBJECT>
+                <ID name="" mc="Standard.Parameter" uid="21f06b21-84e0-414f-a409-85f2c8a69dbb"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <REFOBJ>
+                      <ID name="BonusType" mc="Standard.Enumeration" uid="7787b9db-abdc-433d-863e-9ffee325df12"/>
+                    </REFOBJ>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="2798bb5b-9f6e-407c-9369-aede62539b3e"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return BonusType.Random;]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="b7621518-e785-47ca-a68c-b010ec4e625e"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[double random = Math.random();
+double summ = 0;
+BonusType[] bonusList = BonusType.values();
+for (int i=0; i<bonusList.length; i++){
+    if(random<summ+bonusList[i].getLootRate()){
+        return bonusList[i];
+    } else {
+        summ = summ + bonusList[i].getLootRate();
+    }
+}
+System.err.println("Problème bonus " + summ);
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
@@ -527,7 +599,7 @@ emptyTile.explosionTimeRemaining = duration;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="cf8dc660-bd45-4cbb-ab6f-2a3110254331"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="ac6ce205-02e5-4995-b475-afef0ec43bb8"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -544,15 +616,15 @@ emptyTile.explosionTimeRemaining = duration;
       </COMP>
       <COMP relation="Parent">
         <OBJECT>
-          <ID name="Generalization" mc="Standard.Generalization" uid="d826c11a-103e-48b1-ad14-2c0e05da71d8"/>
+          <ID name="" mc="Standard.Generalization" uid="145f9e43-930c-4419-a155-fa6b6946f223"/>
           <ATTRIBUTES>
             <ATT name="Discriminator"></ATT>
-            <ATT name="Name"><![CDATA[Generalization]]></ATT>
+            <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="SuperType">
-              <ID name="Tile" mc="Standard.Class" uid="0a4b4bbc-6c10-4d09-9d5f-ebe94f0193bd"/>
+              <ID name="ExplodableTile" mc="Standard.Class" uid="01912cfd-22a7-41a2-b251-b8a95ee24494"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

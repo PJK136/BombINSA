@@ -28,6 +28,13 @@
         <COMPID name="GridLayout" mc="Standard.Class" uid="098f7268-929c-4e3f-943f-ce81d8e53c95"/>
         <COMPID name="GridBagConstraints" mc="Standard.Class" uid="91878312-107b-4ba7-a5da-4af1e6bf7b3a"/>
         <COMPID name="Insets" mc="Standard.Class" uid="ab54ab1b-d238-4ec8-b8e2-3ab8c8dd7c9e"/>
+        <COMPID name="GraphicsConfiguration" mc="Standard.Class" uid="654de7fb-128c-428d-929b-25acbe994efb"/>
+        <COMPID name="FlowLayout" mc="Standard.Class" uid="1e197cf1-8be6-4bab-842b-27058477b831"/>
+        <COMPID name="RenderingHints" mc="Standard.Class" uid="ad850ab3-4cd4-4462-ae31-8b24c7e1c0d3"/>
+        <COMPID name="Image" mc="Standard.Class" uid="ac6029d7-a001-43aa-b9f9-b3bdcb5e2c55"/>
+        <COMPID name="Transparency" mc="Standard.Interface" uid="f1d73a3b-dd41-4e4c-9dab-8340a370eb9a"/>
+        <COMPID name="GraphicsEnvironment" mc="Standard.Class" uid="35a0be30-2696-41fc-8426-fad61438039a"/>
+        <COMPID name="Container" mc="Standard.Class" uid="0d4a7b54-9699-4d76-a71d-14fe6b956a1c"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

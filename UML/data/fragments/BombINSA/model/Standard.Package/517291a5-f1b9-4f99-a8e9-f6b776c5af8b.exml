@@ -20,10 +20,25 @@
         <COMPID name="JButton" mc="Standard.Class" uid="2a016c9e-c53c-48e1-b8b1-496035a3aadf"/>
         <COMPID name="Box" mc="Standard.Class" uid="8b696f09-6374-494c-a63f-582eb4e296f5"/>
         <COMPID name="BoxLayout" mc="Standard.Class" uid="c8c17e0e-e098-4f02-a56d-0f985667f59c"/>
-        <COMPID name="SwingWorker" mc="Standard.Class" uid="488d8703-f412-4273-9bee-1e6202ae121d"/>
         <COMPID name="JComboBox" mc="Standard.Class" uid="62a5e05f-f4b9-471e-9795-cd68e6a5f1e4"/>
         <COMPID name="SpinnerNumberModel" mc="Standard.Class" uid="2bfdd9d3-c134-4c30-98c9-d54457d4cf01"/>
         <COMPID name="JSpinner" mc="Standard.Class" uid="88d21b55-a190-4e42-9032-cedb4684af1f"/>
+        <COMPID name="ButtonGroup" mc="Standard.Class" uid="a89d6571-bf00-4b97-92d5-ff0f767ddccc"/>
+        <COMPID name="JFileChooser" mc="Standard.Class" uid="4a955da8-d177-4738-944c-a7845c0ab819"/>
+        <COMPID name="JToolBar" mc="Standard.Class" uid="02bec7bd-9f19-484f-8ab8-5a2d35d890b9"/>
+        <COMPID name="JOptionPane" mc="Standard.Class" uid="3b607fed-af56-4f6f-9ff0-e9e4766bf2c1"/>
+        <COMPID name="JCheckBox" mc="Standard.Class" uid="876b1e1b-e023-4a8c-9d1d-467f923df33f"/>
+        <COMPID name="UIManager" mc="Standard.Class" uid="4938cbdd-8f0b-4438-85b7-d7d89f7a289a"/>
+        <COMPID name="AbstractButton" mc="Standard.Class" uid="54061e80-d4d2-4f39-9281-2eb60bac99c8"/>
+        <COMPID name="event" mc="Standard.Package" uid="75660a50-ad23-4e3f-9dfd-1b89cc8a0363"/>
+        <COMPID name="JComponent" mc="Standard.Class" uid="9dfb038c-82bf-4ff2-b71f-3ddd732e41f1"/>
+        <COMPID name="ImageIcon" mc="Standard.Class" uid="949b70bd-1f5a-42e8-a706-0afe091122b9"/>
+        <COMPID name="JSeparator" mc="Standard.Class" uid="c09deb7e-a09b-4aa1-ad89-25c3e9910b90"/>
+        <COMPID name="filechooser" mc="Standard.Package" uid="c4c5fae4-4a3b-4fc5-b10c-aa65d5fa7650"/>
+        <COMPID name="JScrollPane" mc="Standard.Class" uid="cac72268-b03c-4b25-a339-c33539612d8d"/>
+        <COMPID name="JTextField" mc="Standard.Class" uid="d0cf6332-8e14-4ce5-bc86-21a3556917e8"/>
+        <COMPID name="SwingUtilities" mc="Standard.Class" uid="8896e602-d377-4312-8b8d-abcde839d9a5"/>
+        <COMPID name="JToggleButton" mc="Standard.Class" uid="61f82306-ed0d-4ef3-b072-63ebe57f5532"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

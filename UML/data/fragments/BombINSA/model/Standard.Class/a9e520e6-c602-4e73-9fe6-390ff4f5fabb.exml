@@ -29,6 +29,30 @@
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="i" mc="Standard.Parameter" uid="6de48af5-4a88-417f-b7da-d677acc5bf9b"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[i]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
             <COMP relation="Return">
               <OBJECT>
                 <ID name="" mc="Standard.Parameter" uid="10ff5feb-20af-42bb-9db0-badbe5e78b24"/>
@@ -72,11 +96,42 @@
                 <ID name="" mc="Infrastructure.Note" uid="b38e7ef1-4ec6-441f-bced-d6c56dc3e118"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[ControlSettings controls = new ControlSettings();
-controls.up = KeyEvent.VK_Z;
-controls.down = KeyEvent.VK_S;
-controls.left = KeyEvent.VK_Q;
-controls.right = KeyEvent.VK_D;
-controls.plantBomb = KeyEvent.VK_SPACE;
+switch (i) {
+case 0:
+    controls.name = "Joueur 1";
+    controls.up = KeyEvent.VK_Z;
+    controls.down = KeyEvent.VK_S;
+    controls.left = KeyEvent.VK_Q;
+    controls.right = KeyEvent.VK_D;
+    controls.plantBomb = KeyEvent.VK_SPACE;
+    break;
+case 1:
+    controls.name = "Joueur 2";
+    controls.up = KeyEvent.VK_UP;
+    controls.down = KeyEvent.VK_DOWN;
+    controls.left = KeyEvent.VK_LEFT;
+    controls.right = KeyEvent.VK_RIGHT;
+    controls.plantBomb = KeyEvent.VK_ENTER;
+    break;
+case 2:
+    controls.name = "Joueur 3";
+    controls.up = KeyEvent.VK_NUMPAD8;
+    controls.down = KeyEvent.VK_NUMPAD5;
+    controls.left = KeyEvent.VK_NUMPAD4;
+    controls.right = KeyEvent.VK_NUMPAD6;
+    controls.plantBomb = KeyEvent.VK_NUMPAD0;
+    break;
+case 3:
+    controls.name = "Joueur 4";
+    controls.up = KeyEvent.VK_I;
+    controls.down = KeyEvent.VK_K;
+    controls.left = KeyEvent.VK_J;
+    controls.right = KeyEvent.VK_L;
+    controls.plantBomb = KeyEvent.VK_N;
+    break;
+default:
+    return null;
+}
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
@@ -117,7 +172,7 @@ controls.plantBomb = KeyEvent.VK_SPACE;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="5eb41733-2ba9-42e3-bab6-e47cae775190"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="14811099-6971-4257-8129-7ef22cff2964"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -155,7 +210,7 @@ controls.plantBomb = KeyEvent.VK_SPACE;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="c049e172-1011-4ad1-85e8-b78a74f49714"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="4451659b-4a18-484d-bb0a-18f37cb75121"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -193,7 +248,7 @@ controls.plantBomb = KeyEvent.VK_SPACE;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a913fac2-0cb5-46b4-8942-9a240fed2fe3"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="4e3d6882-f253-412c-846e-6f6a33006d21"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -231,7 +286,7 @@ controls.plantBomb = KeyEvent.VK_SPACE;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="42ea3601-ace0-47f0-981e-03e3ddec2894"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="226113a4-bc43-4308-8cff-d82f14f49a98"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -269,7 +324,45 @@ controls.plantBomb = KeyEvent.VK_SPACE;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="c0e20b5c-0fe0-4427-bcfc-e97cae7ef3a6"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="ed910901-d303-44cf-b6d3-6eb8c86af1b7"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="name" mc="Standard.Attribute" uid="e181df30-4e8b-41cf-9d1e-ae5d5bc698d9"/>
+          <ATTRIBUTES>
+            <ATT name="TypeConstraint"></ATT>
+            <ATT name="Value"></ATT>
+            <ATT name="TargetIsClass">false</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[name]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Type">
+              <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
+            </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="3ac87f75-2b90-4bca-ba11-5ecdfb613923"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

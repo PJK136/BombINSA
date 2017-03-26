@@ -16,6 +16,7 @@
       <COMP relation="OwnedElement">
         <COMPID name="Paths" mc="Standard.Class" uid="48da3fcf-e615-4900-a209-15917165a04e"/>
         <COMPID name="Files" mc="Standard.Class" uid="5fbdabb2-f169-4437-ad8d-02af0595199f"/>
+        <COMPID name="Path" mc="Standard.Interface" uid="bb7942ed-63b3-4e66-8a7b-7f85cbeea645"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

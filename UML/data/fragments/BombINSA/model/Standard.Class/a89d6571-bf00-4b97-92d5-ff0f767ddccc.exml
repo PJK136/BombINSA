@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="SwingWorker" version="4">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ButtonGroup" version="4">
   <OBJECT>
-    <ID name="SwingWorker" mc="Standard.Class" uid="488d8703-f412-4273-9bee-1e6202ae121d"/>
+    <ID name="ButtonGroup" mc="Standard.Class" uid="a89d6571-bf00-4b97-92d5-ff0f767ddccc"/>
     <PID name="swing" mc="Standard.Package" uid="517291a5-f1b9-4f99-a8e9-f6b776c5af8b"/>
     <ATTRIBUTES>
       <ATT name="IsActive">false</ATT>
@@ -11,7 +11,7 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[SwingWorker]]></ATT>
+      <ATT name="Name"><![CDATA[ButtonGroup]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
@@ -20,7 +20,7 @@
       </LINK>
       <COMP relation="Tag">
         <OBJECT>
-          <ID name="" mc="Infrastructure.TaggedValue" uid="4b23f877-5539-4546-8bf8-95bccec37962"/>
+          <ID name="" mc="Infrastructure.TaggedValue" uid="bb4c6dde-7465-4d59-ba9c-6e9020a4a369"/>
           <ATTRIBUTES>
             <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>

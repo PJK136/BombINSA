@@ -14,7 +14,8 @@
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="OwnedElement">
-        <COMPID name="BufferedImage" mc="Standard.Class" uid="5a1cac41-5558-44aa-a0ec-dd20a35e4ff1"/>
+        <COMPID name="VolatileImage" mc="Standard.Class" uid="ffd3a411-083b-4d39-aa6c-b8bb7ca6f875"/>
+        <COMPID name="BufferedImage" mc="Standard.Class" uid="69ef5205-d8d6-44eb-a11f-254094657270"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

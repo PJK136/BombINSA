@@ -141,15 +141,15 @@
       </COMP>
       <COMP relation="Parent">
         <OBJECT>
-          <ID name="Generalization" mc="Standard.Generalization" uid="567b8fc4-7c7a-41f7-8f59-21237a993833"/>
+          <ID name="" mc="Standard.Generalization" uid="37f5acff-1197-4018-9efa-c737d80a9fb9"/>
           <ATTRIBUTES>
             <ATT name="Discriminator"></ATT>
-            <ATT name="Name"><![CDATA[Generalization]]></ATT>
+            <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="SuperType">
-              <ID name="Tile" mc="Standard.Class" uid="0a4b4bbc-6c10-4d09-9d5f-ebe94f0193bd"/>
+              <ID name="ExplodableTile" mc="Standard.Class" uid="01912cfd-22a7-41a2-b251-b8a95ee24494"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

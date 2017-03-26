@@ -18,6 +18,9 @@
         <COMPID name="ActionEvent" mc="Standard.Class" uid="67f98ab1-a118-4cbf-b41f-addfcf24eb61"/>
         <COMPID name="KeyEvent" mc="Standard.Class" uid="3cf571c0-be32-49c4-9401-f2d76ed80f34"/>
         <COMPID name="KeyListener" mc="Standard.Interface" uid="d635e2ad-3c07-4eca-bbf8-c162bee0fd5f"/>
+        <COMPID name="MouseMotionListener" mc="Standard.Interface" uid="48ebe9ac-58ce-446f-9450-caa4602e5abf"/>
+        <COMPID name="MouseListener" mc="Standard.Interface" uid="945a7432-459e-4ec7-9ef6-95bee9fc209c"/>
+        <COMPID name="MouseEvent" mc="Standard.Class" uid="19022e3a-3a24-4724-a2a2-9ea79145018e"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

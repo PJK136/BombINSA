@@ -119,6 +119,28 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
+                <ID name="playerID" mc="Standard.Parameter" uid="412b9a47-c115-4fdf-9ac2-77191699b2ab"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[playerID]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
                 <ID name="lives" mc="Standard.Parameter" uid="5515fa41-3865-4f29-8192-ed74c93d1b35"/>
                 <ATTRIBUTES>
                   <ATT name="ParameterPassing">In</ATT>
@@ -216,12 +238,17 @@
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[super(world, x, y);
 this.controller = controller;
+this.playerID = playerID;
 this.lives = lives;
 this.bombMax = bombMax;
 this.range = range;
 this.invulnerability = invulnerability;
 this.bombCount = 0;
-this.playerAbilities = new ArrayList<Boolean>(PlayerAbility.values().length);
+
+PlayerAbility[] pa = PlayerAbility.values();
+this.playerAbilities = new ArrayList<Boolean>(pa.length);
+for (int i = 0; i < pa.length; i++)
+    this.playerAbilities.add(false);
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
@@ -279,6 +306,97 @@ this.playerAbilities = new ArrayList<Boolean>(PlayerAbility.values().length);
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return lives > 0;]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="getPlayerID" mc="Standard.Operation" uid="401f78c6-974d-49a0-a7f6-56cd8c9e9a01"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[getPlayerID]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Return">
+              <OBJECT>
+                <ID name="" mc="Standard.Parameter" uid="ea4c6075-0135-44b0-ad6c-7e58798f45bc"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaGetter" mc="Infrastructure.Stereotype" uid="01ec25e8-0000-00f0-0000-000000000000"/>
+            </LINK>
+            <COMP relation="DependsOnDependency">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Dependency" uid="d0835a6c-5832-4466-8447-2bea758698d6"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="DependsOn">
+                    <REFOBJ>
+                      <ID name="playerID" mc="Standard.Attribute" uid="0188c626-9d00-48cc-821f-2cd2188664fc"/>
+                    </REFOBJ>
+                  </LINK>
+                  <LINK relation="Extension">
+                    <FOREIGNID name="JavaGetter" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-012b-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="b1409141-b24e-48a4-9c96-9cd1ed9d931c"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[// Automatically generated method. Please delete this comment before entering specific code.]]></ATT>
+                  <ATT name="MimeType"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="2137b621-17d2-4230-b27e-55906dc305b7"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return this.playerID;]]></ATT>
+                  <ATT name="MimeType"></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
@@ -1640,8 +1758,157 @@ this.playerAbilities = new ArrayList<Boolean>(PlayerAbility.values().length);
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="34d709c4-b9af-4314-8387-5971de64fc2f"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[//Méthode nouvelle
-        this.invulnerability = Math.max(0, this.invulnerability-1);]]></ATT>
+                  <ATT name="Content"><![CDATA[this.invulnerability = Math.max(0, this.invulnerability-1);]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="removeShield" mc="Standard.Operation" uid="4713a141-cd5b-4b52-aed7-d3a781156555"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[removeShield]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="8f252d18-382f-4b2e-acc5-1f96d64cd362"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[this.playerAbilities.set(PlayerAbility.Shield.ordinal(), false);]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="canCollide" mc="Standard.Operation" uid="19e970e7-cbf2-4148-99bc-6828a561f8de"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[canCollide]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="IO">
+              <OBJECT>
+                <ID name="x" mc="Standard.Parameter" uid="5517c8ab-4c3a-48aa-8328-db8d03e4ff0d"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[x]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="double" mc="Standard.DataType" uid="00000004-0000-0010-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="y" mc="Standard.Parameter" uid="4df32e3b-139a-4aad-8b0a-d8c01c7ef55a"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"><![CDATA[y]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="double" mc="Standard.DataType" uid="00000004-0000-0010-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Return">
+              <OBJECT>
+                <ID name="" mc="Standard.Parameter" uid="ac0ba0a6-c4b1-4650-b814-b8d6be3f7d4f"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="boolean" mc="Standard.DataType" uid="00000004-0000-0005-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="abe49d7d-025e-4793-aff7-12a3740d04fe"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return true;]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="8409a314-2fae-4ff7-b995-bedb2fefaba8"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[if (!super.canCollide(x, y)) {
+    return !world.getMap().toGridCoordinates(this.x, this.y).equals(world.getMap().toGridCoordinates(x, y))
+            && world.getMap().hasBomb(x, y);
+}
+]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1677,21 +1944,164 @@ this.playerAbilities = new ArrayList<Boolean>(PlayerAbility.values().length);
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="fc90c6cd-df23-4a34-b8ab-75f8d4d90837"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[super.update();
+                  <ATT name="Content"><![CDATA[controller.update();
+Direction nextDirection = controller.getDirection();
+if (nextDirection != null) {
+    direction = nextDirection;
+    speed = PLAYER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
+    if (playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()))
+        speed *= 1.5;
+    else if (playerAbilities.get(PlayerAbility.LessSpeed.ordinal())) 
+        speed /= 2;
+} else
+    speed = 0.;
+
+super.update();
+//Kick
+if (playerAbilities.get(PlayerAbility.Kick.ordinal()) && nextDirection != null) {
+    double footX = -1;
+    double footY = -1;
+    
+    switch (direction) {
+    case Left:
+        footX = getBorderLeft()-1;
+        footY = this.y;
+        break;
+    case Right:
+        footX = getBorderRight()+1;
+        footY = this.y;
+        break;
+    case Up:
+        footX = this.x;
+        footY = getBorderTop()-1;
+        break;
+    case Down:
+        footX = this.x;
+        footY = getBorderDown()+1;
+        break;
+    }         
+    
+    if (world.getMap().isInsideMap(footX, footY) &&
+        !world.getMap().toGridCoordinates(footX, footY).equals(world.getMap().toGridCoordinates(x, y))) {
+        Bomb target = world.getMap().getFirstBomb(footX, footY);
+
+        if(target != null){
+            this.world.kickBomb(target, nextDirection);
+        }
+    }
+}
 
 //Update acquisition Bonus/Malus (Random, More/Less Bomb, More/Less Range, More/Less Speed, Shield, Kick)
+updateBonusMalus();
 
-//Update Marche sur une case en Explosion (diminuer le nb de vie du joueur touché)
-if(this.world.getMap().isExploding(this.x, this.y) && getInvulnerability() == 0){ // On vérifie si la case où se trouve le CENTRE du joueur explose et qu'il n'est pas invulnérable
-    decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
-    this.invulnerability = 100; //Pour pas que le joueur perde des vies en continue en marchant sur une case qui explose, Chiffre à changer
-} else {
-    decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0; ici toute les 100 update, à affinner;
+//Update Marche sur une case en Explosion (diminuer le nb de vie du joueur touché + vérification du Shield)
+
+if(this.world.getMap().isExploding(this.x, this.y)) { // On vérifie si la case où se trouve le CENTRE du joueur explose
+    if (getInvulnerability() == 0) { //S'il n'est pas invulnérable
+        if(playerAbilities.get(PlayerAbility.Shield.ordinal()) == true){
+            playerAbilities.set(PlayerAbility.Shield.ordinal(), false); // On enlève le Shield
+        } else {
+            decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
+        }
+    }
+
+    setInvulnerability(Math.max(invulnerability, world.getFps()+1));
+}
+else
+    decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0
+
+if (controller.isPlantingBomb() && bombCount < bombMax && !world.getMap().isExploding(x, y) && !world.getMap().hasBomb(x,y)) {
+    bombCount++;
+    world.plantBomb(this);
 }
 
 // Vérifier si le joueur est encore vivant
 if(isAlive() == false){
-    remove();
+    remove(); // On indique qu'il faut enlever le player qui a perdu toutes ses vies
+}
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="updateBonusMalus" mc="Standard.Operation" uid="e8cbd4f6-a55d-4030-8e99-752530c9845d"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[updateBonusMalus]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="c84e243a-1cf1-4936-bf63-28e0fd8ddff3"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[if(this.world.getMap().getTileType(this.x , this.y) == TileType.Bonus){
+    BonusType b = this.world.getMap().getBonusType(this.x, this.y);
+    while (b == BonusType.Random) {
+        b = BonusTile.randomBonus();
+    }
+    
+    switch(b){ 
+    case Random:
+        break;
+        
+    case MoreBomb:
+        increaseBombMax();
+        break;
+        
+    case LessBomb:
+        decreaseBombMax();
+        break;
+        
+    case MoreRange:
+        increaseRange();
+        break;
+        
+    case LessRange:
+        decreaseRange();
+        break;
+        
+    case MoreSpeed:
+        if(playerAbilities.get(PlayerAbility.LessSpeed.ordinal()) == true){
+            playerAbilities.set(PlayerAbility.LessSpeed.ordinal(), false);
+        } else {
+            playerAbilities.set(PlayerAbility.MoreSpeed.ordinal(), true);
+        }
+        break;
+        
+    case LessSpeed:
+        if(playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()) == true){
+            playerAbilities.set(PlayerAbility.MoreSpeed.ordinal(), false);
+        } else {
+            playerAbilities.set(PlayerAbility.LessSpeed.ordinal(), true);
+        }
+        break;
+        
+    case Shield:
+        playerAbilities.set(PlayerAbility.Shield.ordinal(), true);
+        break;
+        
+    case Kick:
+        playerAbilities.set(PlayerAbility.Kick.ordinal(), true);
+        break;
+    }
+    
+    this.world.pickUpBonus(this.x, this.y);
 }
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
@@ -1709,6 +2119,44 @@ if(isAlive() == false){
         </OBJECT>
       </COMP>
       <COMP relation="OwnedAttribute">
+        <OBJECT>
+          <ID name="playerID" mc="Standard.Attribute" uid="0188c626-9d00-48cc-821f-2cd2188664fc"/>
+          <ATTRIBUTES>
+            <ATT name="TypeConstraint"></ATT>
+            <ATT name="Value"></ATT>
+            <ATT name="TargetIsClass">false</ATT>
+            <ATT name="Changeable">Read</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[playerID]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Type">
+              <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
+            </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="74cc58aa-1f31-43ee-b58c-20227c8c8648"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
         <OBJECT>
           <ID name="lives" mc="Standard.Attribute" uid="c10c97b4-7ea2-4021-aff7-4c0b87aac71b"/>
           <ATTRIBUTES>
@@ -1733,7 +2181,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="6e9466a7-1db1-4646-ac05-19dea1b2fb95"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="81784fc0-d4dd-45ed-8d89-c5bb8544b31d"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1771,7 +2219,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b79027d9-dad4-40e5-a45f-1b5bca91c272"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="535b682e-0ad0-4f9d-a831-6c9798598a6b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1809,7 +2257,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="9f69ce2a-6ce1-46df-aef6-7e30f82fc5b8"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="9e3d4776-7412-4301-be19-ceb8363d6d19"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1847,7 +2295,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="78d5efbe-cee2-4772-abb6-441d5e0b2e38"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="42637670-8baa-4edd-9479-2343f1486206"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1919,7 +2367,7 @@ if(isAlive() == false){
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="96d62971-a53d-4b9e-b7a1-80433724ad12"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="d18c374d-c767-4900-a3c7-e6baee75a1e7"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1957,7 +2405,7 @@ if(isAlive() == false){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b7e0b9d2-7d4d-400b-8a66-8250c8df8a83"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="3f963d6e-a2ce-4399-a787-ac4ec47ed424"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1965,6 +2413,60 @@ if(isAlive() == false){
                 <DEPENDENCIES>
                   <LINK relation="Definition">
                     <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="PLAYER_DEFAULT_SPEED" mc="Standard.Attribute" uid="5b4c8db6-08b3-4215-8a96-4348f89623df"/>
+          <ATTRIBUTES>
+            <ATT name="TypeConstraint"></ATT>
+            <ATT name="Value"><![CDATA[4]]></ATT>
+            <ATT name="TargetIsClass">false</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[PLAYER_DEFAULT_SPEED]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Type">
+              <FOREIGNID name="double" mc="Standard.DataType" uid="00000004-0000-0010-0000-000000000000"/>
+            </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="014cf020-b5ad-4215-9417-f6533829ca2f"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaFinal" mc="Infrastructure.TagType" uid="003800a8-0000-0161-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="70085a42-38ea-4061-8967-6754d9ea24ca"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[tile/sec]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaInitValueComment" mc="Infrastructure.NoteType" uid="eb8c06dc-0000-0f67-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -2034,7 +2536,7 @@ if(isAlive() == false){
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d6bb3074-cd2a-4849-8451-7028325131e7"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="e8310cbe-9484-4e07-bc50-1972affd8295"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

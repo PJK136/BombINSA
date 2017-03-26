@@ -15,6 +15,7 @@
     <DEPENDENCIES>
       <COMP relation="OwnedElement">
         <COMPID name="swing" mc="Standard.Package" uid="517291a5-f1b9-4f99-a8e9-f6b776c5af8b"/>
+        <COMPID name="imageio" mc="Standard.Package" uid="2c369afa-9847-482d-ba0c-bce0851d07e2"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
