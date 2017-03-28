@@ -32,17 +32,22 @@ public class Player extends Entity {
     public static final double PLAYER_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
-    protected Controller controller;
+    protected transient Controller controller;
 
+    private Player() {
+        super(null, 0, 0);
+        setController(null);
+    }
+    
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
     public Player(World world, double x, double y, Controller controller, int playerID, int lives, int bombMax, int range, int invulnerability) {
         super(world, x, y);
-        this.controller = controller;
+        setController(controller);
         this.playerID = playerID;
-        this.lives = lives;
-        this.bombMax = bombMax;
-        this.range = range;
-        this.invulnerability = invulnerability;
+        setLives(lives);
+        setBombMax(bombMax);
+        setRange(range);
+        setInvulnerability(invulnerability);
         this.bombCount = 0;
         
         PlayerAbility[] pa = PlayerAbility.values();
@@ -144,9 +149,21 @@ public class Player extends Entity {
 
     @objid ("79de1afe-e6c2-4c96-ae54-f3d57da135dc")
     void setController(Controller value) {
-        this.controller = value;
+        if (value != null)
+            this.controller = value;
+        else
+            this.controller = new DummyController();
+        
+        this.controller.setPlayer(this);
+        this.controller.setWorldView(world);
     }
 
+    @Override
+    void setWorld(World world) {
+        super.setWorld(world);
+        this.controller.setWorldView(world);
+    }
+    
     @objid ("8cb4ed00-b6b9-4918-86a9-6a90e6368f8f")
     void decreaseLives() {
         this.lives = Math.max(0, this.lives-1);
@@ -333,4 +350,18 @@ public class Player extends Entity {
         }
     }
 
+    @Override
+    void updateFrom(Entity entity) {
+        super.updateFrom(entity);
+        if (entity instanceof Player) {
+            Player player = (Player)entity;
+            this.playerID = player.playerID;
+            this.lives = player.lives;
+            this.bombCount = player.bombCount;
+            this.bombMax = player.bombMax;
+            this.range = player.range;
+            this.playerAbilities = player.playerAbilities;
+            this.invulnerability = player.invulnerability;
+        }
+    }
 }

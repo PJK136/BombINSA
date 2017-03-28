@@ -17,11 +17,15 @@ public class Bomb extends Entity {
     public static final double BOMB_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("d663f27d-b4de-411a-b687-8ae5d439ab48")
-    protected Player owner;
+    protected transient Player owner;
 
+    private Bomb() {
+        super(null, 0, 0);
+    }
+    
     @objid ("f9841259-647d-4cd7-9bb7-f10aea5a4794")
-    public Bomb(World world, GridCoordinates gc, int range, int duration) {
-        super(world, world.getMap().toCenterX(gc), world.getMap().toCenterY(gc));
+    public Bomb(World world, double x, double y, int range, int duration) {
+        super(world, x, y);
         this.range = range;
         this.duration = duration;
         this.timeRemaining = duration;
@@ -29,7 +33,7 @@ public class Bomb extends Entity {
 
     @objid ("37d6734c-0f78-448a-a2c5-6fa8930b3233")
     public Bomb(World world, Player owner, int duration) {
-        this(world, world.getMap().toGridCoordinates(owner.getX(), owner.getY()), owner.getRange(), duration);
+        this(world, world.getMap().toCenterX(owner.getX()), world.getMap().toCenterX(owner.getY()), owner.getRange(), duration);
         this.owner = owner;
     }
 
@@ -124,4 +128,14 @@ public class Bomb extends Entity {
         return true;
     }
 
+    @Override
+    void updateFrom(Entity entity) {
+        super.updateFrom(entity);
+        if (entity instanceof Bomb) {
+            Bomb bomb = (Bomb)entity;
+            this.range = bomb.range;
+            this.duration = bomb.duration;
+            this.timeRemaining = bomb.timeRemaining;
+        }
+    }
 }

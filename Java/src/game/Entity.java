@@ -4,6 +4,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("c2a5ec32-8fb5-4eea-beff-33ee327f4352")
 public abstract class Entity {
+     int id;
+     
     @objid ("5ce64a3c-e0c0-4de4-b322-183a2e6a4c25")
      boolean toRemove;
 
@@ -23,7 +25,7 @@ public abstract class Entity {
      static final double OFFSET_PERCENTAGE = 1./3.;
 
     @objid ("83945ddf-99e1-4a55-8f7c-5f7a2c89a534")
-     World world;
+     transient World world;
 
     @objid ("2482ca74-f651-4b89-8f4e-b25e74535a33")
     Entity(World world, double x, double y) {
@@ -34,6 +36,14 @@ public abstract class Entity {
         this.direction = Direction.Down;
     }
 
+    void setID(int id) {
+        this.id = id;
+    }
+    
+    int getID() {
+        return id;
+    }
+    
     @objid ("012ef32d-c8e8-44f7-9f8f-11c1d0092657")
     boolean isToRemove() {
         return this.toRemove;
@@ -118,6 +128,10 @@ public abstract class Entity {
         this.direction = value;
     }
 
+    void setWorld(World world) {
+        this.world = world;
+    }
+    
     @objid ("41800255-bf3a-456d-a83a-101f7454243e")
     public boolean isColliding(Direction direction, double move) {
         final double offset = world.getMap().getTileSize()*OFFSET_PERCENTAGE;
@@ -187,4 +201,11 @@ public abstract class Entity {
         return this.world.getMap().isCollidable(x, y);
     }
 
+    void updateFrom(Entity entity) {
+        this.id = entity.id;
+        this.x = entity.x;
+        this.y = entity.y;
+        this.direction = entity.direction;
+        this.speed = entity.speed;
+    }
 }
