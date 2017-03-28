@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+
 @objid ("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Server extends World {
     @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")
@@ -131,6 +132,9 @@ public class Server extends World {
         //update of the map
         map.update();
         
+        if(timeRemaining == 0){
+            fireEvent(Event.SuddenDeath);
+        }
         //sudden death case
         if(timeRemaining<0 && timeRemaining%(0.750*fps) == 0){
             boolean bombPlanted = false;
@@ -191,6 +195,13 @@ public class Server extends World {
                 entry.getKey().setDirection(entry.getValue());
                 entry.getKey().setSpeed(Bomb.BOMB_DEFAULT_SPEED*map.getTileSize()/getFps());
             }
+        }
+        
+        if(!queueBomb.isEmpty()){  
+            fireEvent(Event.Explosion);
+        }
+        if(!queueBonus.isEmpty()){
+            fireEvent(Event.PickUp);
         }
         
         //clearing all the queue lists

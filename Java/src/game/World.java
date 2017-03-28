@@ -40,9 +40,11 @@ public abstract class World implements WorldView {
 
     @objid ("ea256a0b-ce0d-4498-ac24-bd5ea8fb8825")
      List<Entity> entities = Collections.synchronizedList(new LinkedList<Entity> ());
-
+    
     @objid ("20f367fb-bcb4-4389-912c-a406baff8d4e")
     public List<Controller> controllers = new ArrayList<Controller> ();
+    
+    List<GameListener> listeners = new LinkedList<GameListener>();
 
     @objid ("9aa33376-6f71-4b5f-a0af-9fcba7c1a5cd")
     public int getFps() {
@@ -126,6 +128,16 @@ public abstract class World implements WorldView {
             }
         }
         return playerList;
+    }
+    
+    public void addGameListener(GameListener listener){
+        listeners.add(listener);
+    }
+    
+    void fireEvent(Event e){
+        for(GameListener listener : listeners){
+            listener.processEvent(e);
+        }
     }
 
 //http://answers.unity3d.com/questions/150347/what-exactly-does-timetime-do-in-mathfpingpong.html
