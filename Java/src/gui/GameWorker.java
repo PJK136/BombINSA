@@ -30,6 +30,8 @@ public class GameWorker implements Runnable {
 
     @objid ("0c0b3418-de2f-49f0-91d2-008a02cea763")
     private GameViewer viewer;
+    
+    private Audio audio;
 
     @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
     public GameWorker(MainWindow mainWindow, GamePanel panel) throws Exception {
@@ -212,6 +214,9 @@ public class GameWorker implements Runnable {
         } else {
             throw new Exception("Non implémenté !");
         }
+        
+        audio = new Audio();
+        world.addGameListener(audio);
     }
     
     private void addKeyboardControllers() {

@@ -101,6 +101,7 @@ public class Local extends World {
         if(timeRemaining == 0){
             fireEvent(Event.SuddenDeath);
         }
+        
         //sudden death case
         if(timeRemaining<0 && timeRemaining%(0.750*fps) == 0){
             boolean bombPlanted = false;

@@ -1,17 +1,17 @@
-package game;
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
+package gui;
+
+import java.io.InputStream;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+import game.Event;
+import game.GameListener;
+
 public class Audio implements GameListener
 {
-     private Clip bombe, bonus, coup, suddenDeath;
+    private Clip bombe, bonus, coup, suddenDeath;
   
     public Audio()
     {
@@ -48,43 +48,34 @@ public class Audio implements GameListener
             System.err.println(e.getMessage());
           }
     }
-     
-    public void playExplosion(){
-        bombe.setFramePosition(0);
-        bombe.start();
-        }
     
-    public void playBonus(){
-        bonus.setFramePosition(0);
-        bonus.start();
-        }
+    void stop() {
+    }
     
-    public void playHit(){
-        coup.setFramePosition(0);
-        coup.start();
+    void play(Clip clip) {
+        if (clip.isRunning()) {
+            clip.stop();
+            clip.flush();
         }
-    
-    public void playSuddenDeath(){
-        suddenDeath.setFramePosition(0);
-        suddenDeath.start();
+        clip.setFramePosition(0);
+        clip.start();
     }
 
     @Override
     public void processEvent(Event e) {
-        // TODO Auto-generated method stub
-        int i = e.ordinal();
-        switch(i){
-        case 0 :
-            playHit();
+        switch(e){
+        case Hit:
+            play(coup);
             break;
-        case 1 :
-            playExplosion();
+        case Explosion:
+            play(bombe);
             break;
-        case 2 :
-            playBonus();
+        case PickUp:
+            play(bonus);
             break;
-        case 3 :
-            playSuddenDeath();
+        case SuddenDeath:
+            play(suddenDeath);
+            break;
         }
         
     }
