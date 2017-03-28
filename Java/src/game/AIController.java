@@ -26,6 +26,10 @@ public class AIController implements Controller {
 
     @objid ("6acb90de-974c-4546-a93e-0b8cc35a6bd2")
     private GridCoordinates aiLocation;
+    
+    /*private Direction nextDirection;
+    
+    private boolean escape = false;*/
 
     @objid ("3d3cd868-87c6-4b1c-b1b2-335b1d2eb3e3")
     public AIController() {
@@ -64,10 +68,11 @@ public class AIController implements Controller {
     @objid ("2960c0e0-6a89-4208-87eb-888ae75547e6")
     @Override
     public void update() {
+        System.out.println(currentDirection);
         aiLocation = world.getMap().toGridCoordinates((int)aiPlayer.getX(),(int)aiPlayer.getY());
         if(readyToBomb()){
             droppedBomb = world.getTimeElapsed();
-            currentDirection = null;
+            //currentDirection = null;
             bombing = true;
             return;
         }
@@ -82,17 +87,14 @@ public class AIController implements Controller {
         }
         else if(aiPlayer.getSpeed() == 0 || (!(isSafe(aiLocation.neighbor(currentDirection))) && isSafe(aiLocation))){
             turn(currentDirection,aiLocation);
-            System.out.println("first turn");
         }
         else if(aiPlayer.getSpeed() == 0){
             turn(currentDirection,aiLocation);
-            System.out.println("second turn");
         }
         else if(!isSafe(aiLocation)){
             for(Direction dir : Direction.values()){
                 if(isEmptyAndSafe(aiLocation.neighbor(dir)) && !aiPlayer.isColliding(dir, aiPlayer.getSpeed())){
                     currentDirection = dir;
-                    System.out.println("third turn");
                 }
             }
         }
@@ -102,8 +104,14 @@ public class AIController implements Controller {
     public void turn(Direction dir, GridCoordinates position) {
         Direction randomDirection;
         for (int i = 0; i < 10 && !turned; i++) {
+            /*if(escape){
+                currentDirection = nextDirection;
+                System.out.println(currentDirection);
+            }
+            if(escape && (world.getTimeElapsed() - droppedBomb)>30*world.getFps()){
+                escape = false;
+            }*/
             randomDirection = Direction.getRandomDirection();
-            //if(randomDirection != dir && isEmpty(position.neighbor(randomDirection))){
             if(randomDirection != dir && !aiPlayer.isColliding(randomDirection, aiPlayer.getSpeed())){
                 currentDirection = randomDirection;
                 turned = true;
@@ -158,6 +166,7 @@ public class AIController implements Controller {
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) ||
                    isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right))) {
+                    currentDirection = Direction.Up;
                     return true;
                 }
             }
@@ -166,6 +175,7 @@ public class AIController implements Controller {
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Down))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) ||
                    isEmptyAndSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right))) {
+                    currentDirection = Direction.Down;
                     return true;
                 }
             }
@@ -174,6 +184,7 @@ public class AIController implements Controller {
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Left))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) ||
                    isEmptyAndSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down))) {
+                    currentDirection = Direction.Left;
                     return true;
                 }
             }
@@ -182,6 +193,7 @@ public class AIController implements Controller {
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Right))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) ||
                    isEmptyAndSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down))) {
+                    currentDirection = Direction.Right;
                     return true;
                 }
             }
