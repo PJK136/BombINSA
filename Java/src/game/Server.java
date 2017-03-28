@@ -111,8 +111,10 @@ public class Server extends Local implements Listener {
         List<DummyController> controllers = gConnection.getControllers();
         ToRemove message = new ToRemove(controllers.size());
         for (DummyController controller : controllers) {
-            message.toRemove.add(controller.getPlayer().getID());
-            controller.getPlayer().remove();
+            if (controller.getPlayer() != null) {
+                message.toRemove.add(controller.getPlayer().getID());
+                controller.getPlayer().remove();
+            }
         }
         
         network.sendToAllTCP(message);

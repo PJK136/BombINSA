@@ -71,6 +71,9 @@ public class Local extends World {
 
     @objid ("3201955a-ab70-48b8-b676-a53ca4da06a7")
     void newPlayer(Controller controller) {
+        if (timeRemaining < 0) //N'ajoute pas de joueur en mort subite
+            return;
+        
         if (map.spawningLocations.size() == 0)
             return;
         
