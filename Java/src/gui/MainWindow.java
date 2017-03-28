@@ -110,6 +110,7 @@ public class MainWindow {
                                          e.getMessage(),
                                          "Une erreur est survenue...",
                                          JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 
