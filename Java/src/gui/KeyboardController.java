@@ -6,38 +6,28 @@ import java.util.LinkedList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.Controller;
 import game.Direction;
-import game.Player;
-import game.World;
 
 @objid ("0a274714-4157-430f-bba3-fe0b0286cf2f")
-public class KeyboardController implements Controller, KeyListener {
+public class KeyboardController extends Controller implements KeyListener {
     @objid ("551f145c-09ad-4538-86bc-5b9129d34274")
     private LinkedList<Direction> keysPressed;
 
     @objid ("821786a6-3f54-48d5-8e4d-f8425ef62c20")
     private boolean bombing;
 
+    @objid ("a93e8c2e-c054-4934-923f-acac72ff257c")
+    private ControlSettings settings;
+    
 /* Objectif : que l'on sache où on est en train d'appuyer (doit conserver une variable car java n'a pas de methode*
      * qui lit si on est appuyé, seulement si on appuie et si on relâche)
      */
-    @objid ("a93e8c2e-c054-4934-923f-acac72ff257c")
-    private ControlSettings settings;
 
     @objid ("2c9abb5b-b9fc-4226-bee5-6df775a5d20d")
     public KeyboardController(ControlSettings settings) {
+        setName(settings.name);
         this.settings = settings;
         keysPressed = new LinkedList<Direction>();
         bombing = false;
-    }
-
-    @objid ("5da90aab-5452-4e19-8f6e-f4c0ad78b77d")
-    @Override
-    public void setPlayer(Player player) {
-    }
-
-    @objid ("5dc0c3b2-7578-45d3-9b5e-6192853ef07e")
-    @Override
-    public void setWorldView(World world) {
     }
 
     @objid ("c62f96ab-e6cf-42ce-921b-370655bdf461")
@@ -101,11 +91,4 @@ public class KeyboardController implements Controller, KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
     }
-
-    @objid ("14a6233f-161d-4025-8deb-1e4f0c79b1a1")
-    @Override
-    public String getName() {
-        return settings.name;
-    }
-
 }

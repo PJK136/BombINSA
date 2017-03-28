@@ -5,7 +5,7 @@ import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("cbe503f7-eb4d-4747-9547-3001ad190b16")
-public class AIController implements Controller {
+public class AIController extends Controller {
     @objid ("b3611ff7-8085-4126-9180-545efad68da8")
     private Direction currentDirection;
 
@@ -18,12 +18,6 @@ public class AIController implements Controller {
     @objid ("a517c478-aa58-42fc-bf09-0687c8d3e721")
     private int droppedBomb = 0;
 
-    @objid ("2a62ecd6-114d-4fb9-8b1d-14b826963658")
-    private WorldView world;
-
-    @objid ("81d4dca1-b16d-4247-96f1-d35f172be4c3")
-    private Player aiPlayer;
-
     @objid ("6acb90de-974c-4546-a93e-0b8cc35a6bd2")
     private GridCoordinates aiLocation;
     
@@ -33,19 +27,8 @@ public class AIController implements Controller {
 
     @objid ("3d3cd868-87c6-4b1c-b1b2-335b1d2eb3e3")
     public AIController() {
+        setName("IA");
         currentDirection = null;
-    }
-
-    @objid ("b58b228f-36e7-44df-b4ab-525989724476")
-    @Override
-    public void setPlayer(Player player) {
-        aiPlayer = player;
-    }
-
-    @objid ("b9d8617a-93c3-42c9-9cd8-fdd04230d457")
-    @Override
-    public void setWorldView(World world) {
-        this.world = world;
     }
 
     @objid ("a6dfdad3-f290-4e15-ba75-694888e5d4c2")
@@ -69,7 +52,7 @@ public class AIController implements Controller {
     @Override
     public void update() {
         System.out.println(currentDirection);
-        aiLocation = world.getMap().toGridCoordinates((int)aiPlayer.getX(),(int)aiPlayer.getY());
+        aiLocation = world.getMap().toGridCoordinates((int)player.getX(),(int)player.getY());
         if(readyToBomb()){
             droppedBomb = world.getTimeElapsed();
             //currentDirection = null;
@@ -85,15 +68,15 @@ public class AIController implements Controller {
            !isEmptyAndSafe(aiLocation.neighbor(Direction.Right))){
             currentDirection = null;
         }
-        else if(aiPlayer.getSpeed() == 0 || (!(isSafe(aiLocation.neighbor(currentDirection))) && isSafe(aiLocation))){
+        else if(player.getSpeed() == 0 || (!(isSafe(aiLocation.neighbor(currentDirection))) && isSafe(aiLocation))){
             turn(currentDirection,aiLocation);
         }
-        else if(aiPlayer.getSpeed() == 0){
+        else if(player.getSpeed() == 0){
             turn(currentDirection,aiLocation);
         }
         else if(!isSafe(aiLocation)){
             for(Direction dir : Direction.values()){
-                if(isEmptyAndSafe(aiLocation.neighbor(dir)) && !aiPlayer.isColliding(dir, aiPlayer.getSpeed())){
+                if(isEmptyAndSafe(aiLocation.neighbor(dir)) && !player.isColliding(dir, player.getSpeed())){
                     currentDirection = dir;
                 }
             }
@@ -112,7 +95,7 @@ public class AIController implements Controller {
                 escape = false;
             }*/
             randomDirection = Direction.getRandomDirection();
-            if(randomDirection != dir && !aiPlayer.isColliding(randomDirection, aiPlayer.getSpeed())){
+            if(randomDirection != dir && !player.isColliding(randomDirection, player.getSpeed())){
                 currentDirection = randomDirection;
                 turned = true;
             }
@@ -200,11 +183,4 @@ public class AIController implements Controller {
         }
         return false;
     }
-
-    @objid ("33761719-0d5d-423b-b723-36b0a60391e8")
-    @Override
-    public String getName() {
-        return "IA";
-    }
-
 }
