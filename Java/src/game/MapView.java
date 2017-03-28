@@ -28,6 +28,10 @@ public interface MapView {
 
     @objid ("2ce864ec-0e38-41f7-9821-124bb535dade")
     double toCenterY(GridCoordinates gc);
+    
+    double toCenterX(double x);
+    
+    double toCenterY(double y);
 
     @objid ("05760269-1145-4d38-ab1c-e72a84c8cb3f")
     boolean isInsideMap(GridCoordinates gc);

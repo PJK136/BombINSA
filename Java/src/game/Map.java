@@ -27,6 +27,7 @@ public class Map implements MapView {
     public Map(int tileSize) {
         this.tileSize = tileSize;
         this.spawningLocations = new ArrayList<GridCoordinates>();
+        this.tiles = new Tile[0][0];
     }
 
     @objid ("a4436290-1f67-4588-b3bc-fa90f4f58cfa")
@@ -48,7 +49,10 @@ public class Map implements MapView {
 
     @objid ("1e8f0325-d975-49b2-92d6-e878e9254352")
     public int getRowCount() {
-        return tiles[0].length;
+        if (getColumnCount() > 0)
+            return tiles[0].length;
+        else
+            return 0;
     }
 
     @objid ("b23f3caa-604b-4104-bb57-0dd034b39302")
@@ -93,6 +97,14 @@ public class Map implements MapView {
     @Override
     public double toCenterY(GridCoordinates gc) {
         return (gc.y+0.5)*tileSize;
+    }
+    
+    public double toCenterX(double x) {
+        return (((int)(x/tileSize))+0.5)*tileSize;
+    }
+    
+    public double toCenterY(double y) {
+        return (((int)(y/tileSize))+0.5)*tileSize;
     }
 
     @objid ("3ed406fe-5645-4b43-b8f8-a0e5817927cb")
@@ -230,7 +242,7 @@ public class Map implements MapView {
     }
 
     @objid ("81317f24-599b-4128-9480-5c1f6c0859f2")
-    private void loadMap(Scanner sc) throws InputMismatchException {
+    void loadMap(Scanner sc) throws InputMismatchException {
         int columnCount = sc.nextInt();
         int rowCount = sc.nextInt();
         
@@ -242,6 +254,7 @@ public class Map implements MapView {
             spawningLocations.add(new GridCoordinates(sc.nextInt(), sc.nextInt()));
         
         TileType[] types = TileType.values();
+        BonusType[] bonuses = BonusType.values();
         Direction[] directions = Direction.values();
         
         GridCoordinates grid = new GridCoordinates();
@@ -251,7 +264,9 @@ public class Map implements MapView {
                 TileType type = types[sc.nextInt()];
                 setTileType(newTiles, type, grid);
                 
-                if (type == TileType.Arrow)
+                if (type == TileType.Bonus)
+                    ((BonusTile)newTiles[grid.x][grid.y]).setBonusType(bonuses[sc.nextInt()]);
+                else if (type == TileType.Arrow)
                     ((ArrowTile)newTiles[grid.x][grid.y]).setDirection(directions[sc.nextInt()]);
             }
         }
@@ -291,21 +306,23 @@ public class Map implements MapView {
                 TileType type = tiles[i][j].getType();
                 content.add(String.valueOf(type.ordinal()));
                 
-                if (type == TileType.Arrow)
+                if (type == TileType.Bonus)
+                    content.add(String.valueOf(((BonusTile)tiles[i][j]).getBonusType().ordinal()));
+                else if (type == TileType.Arrow)
                     content.add(String.valueOf(((ArrowTile)tiles[i][j]).getDirection().ordinal()));
             }
         }
         return content.toString();
     }
 
-    @objid ("78a5a0ad-2342-4f09-8a8b-06386dbe2797")
-    public void setTileType(TileType type, double x, double y) {
-        setTileType(type, toGridCoordinates(x, y));
-    }
-
     @objid ("33e1123b-fd64-4e1d-96ea-0813d9ffac7d")
     public void setTileType(TileType type, GridCoordinates gc) {
         setTileType(tiles, type, gc);
+    }
+    
+    @objid ("78a5a0ad-2342-4f09-8a8b-06386dbe2797")
+    public void setTileType(TileType type, double x, double y) {
+        setTileType(type, toGridCoordinates(x, y));
     }
 
     @objid ("b4267492-9246-4c92-88ab-4a9b72c99691")
@@ -333,17 +350,24 @@ public class Map implements MapView {
             newTile.setEntities(tiles[gc.x][gc.y].getEntities());
         tiles[gc.x][gc.y] = newTile;
     }
-
-    @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
-    void setBonusType(BonusType type, double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
+    
+    public void setBonusType(BonusType type, GridCoordinates gc) {
         ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
     }
 
+    @objid ("3ec5e6c1-3f55-4edd-8324-02193ad30b88")
+    public void setBonusType(BonusType type, double x, double y) {
+        setBonusType(type, toGridCoordinates(x, y));
+    }
+
+    @objid ("af2aa240-e83a-4b08-9641-56c0dfe48630")
+    public void setArrowDirection(Direction direction, GridCoordinates gc) {
+        ((ArrowTile)(tiles[gc.x][gc.y])).setDirection(direction);
+    }
+    
     @objid ("af2aa240-e83a-4b08-9641-56c0dfe48630")
     public void setArrowDirection(Direction direction, double x, double y) {
-        GridCoordinates gc = toGridCoordinates(x, y);
-        ((ArrowTile)(tiles[gc.x][gc.y])).setDirection(direction);
+        setArrowDirection(direction, toGridCoordinates(x, y));
     }
 
     @objid ("3197c6a7-683c-41b2-8d78-dc1d8b6b0f8a")
@@ -355,7 +379,7 @@ public class Map implements MapView {
     void setExplosionEnd(GridCoordinates gc) {
         ((ExplodableTile)tiles[gc.x][gc.y]).setLastExplosionEnd();
     }
-
+    
     @objid ("297782bf-dc7a-4125-886d-042609080629")
     @Override
     public List<Entity> getEntities(GridCoordinates gc) {
@@ -417,12 +441,16 @@ public class Map implements MapView {
         for(gc.x=0; gc.x<getColumnCount(); gc.x++){
             for(gc.y=0; gc.y<getRowCount(); gc.y++){
                 //on parcours le tableau et on update les cases
-               tiles[gc.x][gc.y] = tiles[gc.x][gc.y].update();
+               setTile(tiles[gc.x][gc.y].update(), gc);
                updateEntities(gc);
             }
         }
     }
 
+    void setTile(Tile tile, GridCoordinates gc) {
+        tiles[gc.x][gc.y] = tile;
+    }
+    
     @objid ("6bc80ea5-bafc-4ca1-86f2-9d861e475c10")
     private void updateEntities(GridCoordinates gc) {
         Iterator<Entity> iterator = tiles[gc.x][gc.y].entities.iterator();
@@ -439,8 +467,6 @@ public class Map implements MapView {
                     iterator.remove();
                 }
             }
-            
-            //TODO : Mettre à jour les "bouts" des explosions
         }
     }
 
