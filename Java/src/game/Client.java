@@ -1,6 +1,9 @@
 package game;
 
 import java.net.InetAddress;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.esotericsoftware.kryonet.Connection;
@@ -19,10 +22,14 @@ import network.Network.ToRemove;
 public class Client extends World implements Listener {
     com.esotericsoftware.kryonet.Client network;
     
+    List<CommandMap> commands;
+    
     boolean init;
     
     public Client() throws Exception {
         map = new Map(32);
+        
+        commands = Collections.synchronizedList(new LinkedList<CommandMap>());
         
         init = false;
         
@@ -70,6 +77,11 @@ public class Client extends World implements Listener {
     public void update() {
         for (int i = 0; i < controllers.size(); i++) {
             network.sendUDP(new ControllerUpdate(i, controllers.get(i)));
+        }
+        
+        synchronized (commands) {
+            DeltaMap.executeDeltas(commands, map);
+            commands.clear();
         }
         
         super.update();
@@ -131,7 +143,7 @@ public class Client extends World implements Listener {
             return;
                 
         if (object instanceof CommandMap) {
-            DeltaMap.executeDelta((CommandMap)object, map);
+            commands.add((CommandMap)object);
         } else if (object instanceof Entity) {           
             addEntity((Entity) object, ((Entity)object).getID());
         } else if (object instanceof PlayerName) {
@@ -159,7 +171,7 @@ public class Client extends World implements Listener {
                 return;
             
             if (((List)object).get(0) instanceof CommandMap)
-                DeltaMap.executeDeltas((List<CommandMap>) object, map);
+                commands.addAll((List<CommandMap>) object);
             else if (((List)object).get(0) instanceof Entity) {
                 for (Entity entity : (List<Entity>)object) {
                     addEntity(entity, entity.getID());
