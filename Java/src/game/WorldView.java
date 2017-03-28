@@ -16,6 +16,10 @@ public interface WorldView {
 
     @objid ("bc316acb-cee6-4310-b233-3a4264b07c74")
     int getTimeElapsed();
+    
+    int getWarmupDuration();
+    
+    int getWarmupTimeRemaining();
 
     @objid ("32dcdef1-5a7a-4722-92ad-5d4d0aa3f197")
     List<Entity> getEntities();
@@ -32,4 +36,5 @@ public interface WorldView {
     @objid ("28429dd0-b782-48e7-992e-64beab6a4e61")
     List<Player> getPlayers();
 
+    GameInfo getGameInfo();
 }

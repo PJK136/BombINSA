@@ -2,6 +2,8 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -15,7 +17,13 @@ public abstract class World implements WorldView {
      int timeRemaining;
 
     @objid ("ed497149-29e3-423f-aa53-4d59e7f2d0a9")
-     int duration; // En secondes
+     int duration;
+
+     int warmupDuration;
+    
+     int warmupTimeRemaining;
+    
+    private int nextID = 1;
 
     @objid ("d4ef51fc-99a1-4469-a144-395b415f38c6")
     public static final int START_LIVES = 3;
@@ -39,8 +47,8 @@ public abstract class World implements WorldView {
      Map map;
 
     @objid ("ea256a0b-ce0d-4498-ac24-bd5ea8fb8825")
-     List<Entity> entities = Collections.synchronizedList(new LinkedList<Entity> ());
-    
+     java.util.Map<Integer,Entity> entities = Collections.synchronizedMap(new HashMap<Integer, Entity> ());
+
     @objid ("20f367fb-bcb4-4389-912c-a406baff8d4e")
     public List<Controller> controllers = new ArrayList<Controller> ();
     
@@ -66,12 +74,22 @@ public abstract class World implements WorldView {
     public int getTimeElapsed() {
         return duration-timeRemaining;
     }
+    
+    @Override
+    public int getWarmupDuration() {
+        return warmupDuration;
+    }
+    
+    @Override
+    public int getWarmupTimeRemaining() {
+        return warmupTimeRemaining;
+    }
 
     @objid ("83167709-dc8e-456e-b787-b9a4ed0d8113")
     public List<Entity> getEntities() {
         //Thread-safety
                 synchronized (entities) {
-                    return new LinkedList<Entity>(entities);            
+            return new LinkedList<Entity>(entities.values());            
                 }
     }
 
@@ -96,6 +114,48 @@ public abstract class World implements WorldView {
         return sum;
     }
 
+    @objid ("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
+    public void setFps(int fps) {
+        if (fps <= 0) {
+            throw new RuntimeException("fps not positive");
+        } else {
+            this.fps = fps;
+        }
+    }
+
+    @objid ("3b2131f9-67d7-42dd-b764-55a156072456")
+    public void setDuration(int duration) {
+        if (duration < 0) {
+            throw new RuntimeException("duration not positive");
+        } else {
+            this.duration = duration;
+            if (timeRemaining > duration)
+                timeRemaining = duration;
+        }
+    }
+
+    @objid ("77769968-3eb5-4133-880a-e74cedee78ae")
+    public void setTimeRemaining(int time) {
+        if (timeRemaining < 0)
+            throw new RuntimeException("time remaining not positive");
+        else
+            this.timeRemaining = time;
+    }
+    
+    public void setWarmupDuration(int warmup) {
+        if (warmup < 0)
+            throw new RuntimeException("warmup not positive");
+        else {
+            this.warmupDuration = warmup;
+            this.warmupTimeRemaining = warmup;
+        }
+    }
+
+    @objid ("739ccd1c-6053-48a2-a809-596cf4134d36")
+    public void setTileSize(int tileSize) {
+        map.setTileSize(tileSize);
+    }
+
 /*@objid ("7f0207e3-fb26-4a93-8d10-c12f9c0735f1")
     abstract void plantBomb(double x, double y, int range);*/
     @objid ("9c563a21-9aa5-4a46-9bc7-944623f9796c")
@@ -114,10 +174,40 @@ public abstract class World implements WorldView {
     public abstract void newController(Controller controller);
 
     @objid ("30c7a359-b727-428f-8ef4-493db313017c")
-    public abstract void update();
+    public void update() {
+        if (warmupTimeRemaining > 0) {
+            warmupTimeRemaining--;
+            return;
+        }
+        
+        //update of timeRemaining
+        timeRemaining -= 1;
+        
+        synchronized (entities) {
+            //update of Entities
+            Iterator<Entity> iterator = entities.values().iterator();
+            while(iterator.hasNext()){
+                Entity entity = iterator.next();
+                entity.update();
+                if(entity.isToRemove()){
+                    iterator.remove();
+                }
+            }
+        }
+        
+        //update of the map
+        map.update();
+    }
 
     @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
-    public abstract void restart() throws Exception;
+    public void restart() throws Exception {
+      //time remaining back to beginning
+        timeRemaining = duration;
+        warmupTimeRemaining = warmupDuration;
+
+        //reinitialize entities 
+        entities.clear();
+    }
 
     @objid ("0b9057d7-eb96-4376-92be-bfb39cef93ff")
     public List<Player> getPlayers() {
@@ -129,7 +219,19 @@ public abstract class World implements WorldView {
         }
         return playerList;
     }
+
+    public GameInfo getGameInfo() {
+        return new GameInfo(fps, duration, timeRemaining,
+                            warmupDuration, warmupTimeRemaining,
+                            map.getTileSize(), map.saveMap());
+    }
     
+    public abstract boolean isReady();
+    
+    public abstract boolean isRoundEnded();
+
+    public void stop() { }
+
     public void addGameListener(GameListener listener){
         listeners.add(listener);
     }
@@ -138,6 +240,19 @@ public abstract class World implements WorldView {
         for(GameListener listener : listeners){
             listener.processEvent(e);
         }
+    }
+    
+    void addEntity(Entity entity, int id) {
+        entity.setID(id);
+        entity.setWorld(this);
+        entities.put(id, entity);
+        map.addEntity(entity);
+    }
+    
+    @objid ("27111301-80b0-479b-af73-bb78da106041")
+    void addEntity(Entity entity) {
+        addEntity(entity, nextID);
+        nextID++;
     }
 
 //http://answers.unity3d.com/questions/150347/what-exactly-does-timetime-do-in-mathfpingpong.html

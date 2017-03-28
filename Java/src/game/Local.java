@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
@@ -19,7 +18,7 @@ public class Local extends World {
 
     @objid ("bea83389-bb33-4211-97c6-1b6fc49e23eb")
      HashMap<Bomb, Direction> queueKickBomb = new HashMap<>();
-
+    
     @objid ("f4f3efa0-82ed-4a6e-a844-a5b784ab690e")
      int nextPlayerID = 0;
 
@@ -33,49 +32,17 @@ public class Local extends World {
      Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
     
     @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
-    public Local(String mapFilename, int tileSize, int fps, int duration) throws Exception {
+    public Local(String mapFilename, int tileSize, int fps, int duration, int warmup) throws Exception {
         createMap(tileSize);
         loadMap(mapFilename);
         setFps(fps);
         setDuration(duration);
         setTimeRemaining(duration);
+        setWarmupDuration(warmup);
     }
     
     void createMap(int tileSize) {
         map = new Map(tileSize);
-    }
-
-    @objid ("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
-    public void setFps(int fps) {
-        if (fps <= 0) {
-            throw new RuntimeException("fps not positive");
-        } else {
-            this.fps = fps;
-        }
-    }
-
-    @objid ("3b2131f9-67d7-42dd-b764-55a156072456")
-    public void setDuration(int duration) {
-        if (duration < 0) {
-            throw new RuntimeException("duration not positive");
-        } else {
-            this.duration = duration;
-            if (timeRemaining > duration)
-                timeRemaining = duration;
-        }
-    }
-
-    @objid ("77769968-3eb5-4133-880a-e74cedee78ae")
-    public void setTimeRemaining(int time) {
-        if (timeRemaining < 0)
-            throw new RuntimeException("time remaining not positive");
-        else
-            this.timeRemaining = time;
-    }
-
-    @objid ("739ccd1c-6053-48a2-a809-596cf4134d36")
-    public void setTileSize(int tileSize) {
-        map.setTileSize(tileSize);
     }
 
     @objid ("4164c416-9e5c-461f-a7dc-1758c0f94d36")
@@ -108,34 +75,25 @@ public class Local extends World {
             return;
         
         int spawnIndex = nextPlayerID % map.spawningLocations.size();
-        Player player = new Player(this, map.toCenterX(map.spawningLocations.get(spawnIndex)),
-                                         map.toCenterY(map.spawningLocations.get(spawnIndex)),
-                                         controller,
-                                         nextPlayerID,
-                                         START_LIVES,
-                                         START_BOMB_MAX,
-                                         START_RANGE,
-                                         (int)(START_INVULNERABITY_DURATION*fps));
+        Player player = new Player(this,
+                                   map.toCenterX(map.spawningLocations.get(spawnIndex)),
+                                   map.toCenterY(map.spawningLocations.get(spawnIndex)),
+                                   controller,
+                                   nextPlayerID,
+                                   START_LIVES,
+                                   START_BOMB_MAX,
+                                   START_RANGE,
+                                   (int)(START_INVULNERABITY_DURATION*fps));
         addEntity(player);
         nextPlayerID++;
-        controller.setPlayer(player);
-        controller.setWorldView(this);
     }
 
     @objid ("15f9ba61-54f9-4783-8bd0-923098e480d7")
     public void update() {
-        //update of Entities
-        Iterator<Entity> iterator = entities.iterator();
-        while(iterator.hasNext()){
-            Entity entity = iterator.next();
-            entity.update();
-            if(entity.isToRemove()){
-                iterator.remove();
-            }
-        }
+        super.update();
         
-        //update of the map
-        map.update();
+        if (warmupTimeRemaining > 0)
+            return;
         
         if(timeRemaining == 0){
             fireEvent(Event.SuddenDeath);
@@ -144,14 +102,15 @@ public class Local extends World {
         if(timeRemaining<0 && timeRemaining%(0.750*fps) == 0){
             boolean bombPlanted = false;
             while(!bombPlanted){
-                GridCoordinates gcRnd = new GridCoordinates((int)(Math.random()*map.getColumnCount()), (int)(Math.random()*map.getRowCount()));
-                if(map.getTileType(gcRnd) == TileType.Empty){
-                    addEntity(new Bomb(this,gcRnd,4,(int)(TIME_BEFORE_EXPLOSION*fps)));
+                double x = Math.random()*map.getWidth();
+                double y = Math.random()*map.getHeight();
+                if(!map.isCollidable(x, y)) {
+                    addEntity(new Bomb(this, map.toCenterX(x), map.toCenterY(y), 4,(int)(TIME_BEFORE_EXPLOSION*fps)));
                     bombPlanted = true;
                 }
             }
         
-            for (Entity entity : entities) {
+            for (Entity entity : entities.values()) {
                 if (entity instanceof Player) {
                     ((Player)entity).setLives(1);
                     ((Player)entity).removeShield();
@@ -214,21 +173,15 @@ public class Local extends World {
         queueBomb.clear();
         queueBonus.clear();
         queueKickBomb.clear();
-        
-        //update of timeRemaining
-        timeRemaining -= 1;
     }
 
     @objid ("a193a9c9-e032-4940-953b-5923c9da849e")
     public void restart() throws Exception {
-        //reinitialize entities 
-        entities.clear();
+        super.restart();
         //renew players
         for(Controller controller : controllers){
             newPlayer(controller);
         }
-        //time remaining back to beginning
-        timeRemaining = duration;
         //reload map
         loadMap(mapFileName);
     }
@@ -267,10 +220,17 @@ public class Local extends World {
             queueKickBomb.put(bomb, direction);
     }
 
-    @objid ("27111301-80b0-479b-af73-bb78da106041")
-    private void addEntity(Entity entity) {
-        entities.add(entity);
-        map.addEntity(entity);
+    @Override
+    public boolean isReady() {
+        return true;
     }
-
+    
+    @Override
+    public boolean isRoundEnded() {
+        if (getPlayerCount() > 1) {
+            return getPlayerAliveCount() <= 1;
+        } else {
+            return getPlayerAliveCount() <= 0;
+        }
+    }
 }
