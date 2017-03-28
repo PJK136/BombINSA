@@ -5,8 +5,10 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.AIController;
+import game.Client;
 import game.Player;
 import game.Local;
+import game.Server;
 import game.World;
 
 @objid ("0352607c-7ee6-4aa1-839f-fc6a174af9fd")
@@ -42,6 +44,13 @@ public class GameWorker implements Runnable {
     public void run() {
         try {
             this.stop = false;
+            
+            while (!world.isReady()) {
+                try {
+                    Thread.sleep(1000/settings.fps, 0);
+                } catch (InterruptedException e) {  }
+            }
+            
             final Runnable updateGamePanel = new Runnable() {
                 @Override
                 public void run() {
@@ -55,20 +64,8 @@ public class GameWorker implements Runnable {
             
             final long timeStep = 1000000000/settings.fps;
             
-            for (int round = 0; round < settings.roundCount && !stop; round++)
-            {
-                for (final String message : new String[]{"À vos marques.", "Prêts.", "Jouez !"}) {
-                    for (int i = 0; i <= 3; i++) {
-                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(message, Color.black));
-        
-                        try {
-                            Thread.sleep(100, 0);
-                        } catch (InterruptedException e) {  }
-                    }
-                }
-                    
-                mainWindow.clearMessage();
-                    
+            int round = 0;
+            while (!stop) {       
                 setGameState(GameState.Playing);
                               
                 long offset = 0;
@@ -77,17 +74,24 @@ public class GameWorker implements Runnable {
                 int frame = 0;
                 long lastDisplay = System.nanoTime();
                 
-                while (!stop && !doesRoundEnded())
-                {              
+                while (!stop && !world.isRoundEnded())
+                {          
+                    if (world.getWarmupTimeRemaining() == 1)
+                        mainWindow.clearMessage();
+                    
                     world.update();
+                    
                     SwingUtilities.invokeLater(updateGamePanel);
                     viewer.drawWorld(world);
                     
-                    if (world.getTimeRemaining() == 0) {
+                    if (world.getWarmupTimeRemaining() > 0) {
+                        final String[] messages = new String[]{"À vos marques.", "Prêts.", "Jouez !"};
+                        int i = 3*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
+                        SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black));
+                    } else if (world.getTimeRemaining() == 0) {
                         setGameState(GameState.SuddenDeath);
                         SwingUtilities.invokeLater(() -> mainWindow.showMessage("Mort subite !", Color.red));
-                    }
-                    else if (world.getTimeRemaining() == (int)(-0.75 * world.getFps())) {
+                    } else if (world.getTimeRemaining() == (int)(-0.75 * world.getFps())) {
                         SwingUtilities.invokeLater(() -> mainWindow.clearMessage());
                     }
                     
@@ -113,9 +117,16 @@ public class GameWorker implements Runnable {
                 setGameState(GameState.EndRound);
                 
                 if (!stop) {
-                    if (settings.gameType == GameType.Local) {
+                    if (settings.gameType == GameType.Client && !((Client)world).isConnected())
+                    {
+                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage("Déconnecté.", Color.darkGray));
+                        try {
+                            Thread.sleep(5000, 0);
+                        } catch (InterruptedException e) {  }
+                    } else if (settings.gameType != GameType.Sandbox) {
                         String message = null;
                         Color color = null;
+                        
                         if (world.getPlayerAliveCount() == 1) {
                             PlayerColor[] colors = PlayerColor.values();
                             message = ((Player)world.getPlayers().get(0)).getController().getName() + " gagne !";
@@ -128,18 +139,28 @@ public class GameWorker implements Runnable {
                         final String x = message; 
                         final Color y = color;
                         SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(x, y)) ;
-                     
-                        try {
-                            Thread.sleep(5000, 0);
-                        } catch (InterruptedException e) {  }
-                        
-                        mainWindow.clearMessage();
                     }
                     
-                    if (round < settings.roundCount-1) {
-                        world.restart();
+                    if (settings.gameType != GameType.Client) {
+                        if (round < settings.roundCount-1)
+                            world.restart();
+                        else
+                            stop = true;
+                    } else {
+                        Client client = (Client)world;
+                        while (client.isConnected() && client.isRoundEnded()) {
+                            try {
+                                Thread.sleep(1000/settings.fps, 0);
+                            } catch (InterruptedException e) {  }
+                        }
+                        
+                        stop = !client.isConnected();
                     }
+                    
+                    mainWindow.clearMessage();
                 }
+                
+                round++;
             }
             setGameState(GameState.End);
         } catch (Exception e) {
@@ -153,20 +174,31 @@ public class GameWorker implements Runnable {
                                                   JOptionPane.ERROR_MESSAGE);
                 }
             });
+        } finally {
+            world.stop();
         }
     }
 
     @objid ("b5e7e42e-c73b-4130-bed6-7aa32aa55eb3")
     void createWorld() throws Exception {
-        if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox)) {
-            world = new Local(settings.mapName+".map", settings.tileSize, settings.fps, settings.duration*settings.fps);
-            for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
-                KeyboardController kbController = new KeyboardController(settings.controls.get(i));
-                viewer.addKeyListener(kbController);
-                world.newController(kbController);
+        if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox) || settings.gameType.equals(GameType.Server)) {
+            
+            if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox)) {
+                world = new Local(settings.mapName+".map",
+                                  settings.tileSize,
+                                  settings.fps,
+                                  settings.duration*settings.fps,
+                                  (int)(settings.warmupDuration*settings.fps));
+            } else {
+                world = new Server(settings.mapName+".map",
+                                   settings.tileSize,
+                                   settings.fps,
+                                   settings.duration*settings.fps,
+                                   (int)(settings.warmupDuration*settings.fps));
             }
             
-            //TODO : Ajout des ias etc.
+            addKeyboardControllers();
+            
             for (int i = 0; i < settings.aiCount; i++) {
                 AIController iaController = new AIController();
                 world.newController(iaController);
@@ -174,31 +206,27 @@ public class GameWorker implements Runnable {
             
             if (settings.gameType.equals(GameType.Local) && world.getPlayerCount() <= 1)
                 throw new Exception("Il faut au moins deux joueurs !");
-        }
-        else
+        } else if (settings.gameType.equals(GameType.Client)) {
+            world = new Client();
+            addKeyboardControllers();
+        } else {
             throw new Exception("Non implémenté !");
+        }
+    }
+    
+    private void addKeyboardControllers() {
+        for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
+            KeyboardController kbController = new KeyboardController(settings.controls.get(i));
+            viewer.addKeyListener(kbController);
+            world.newController(kbController);
+        }
     }
 
     @objid ("df3a5c13-59cb-491e-811a-ea1af7e23cda")
     void setGameState(GameState state) {
         System.err.println(state);
     }
-
-    @objid ("f93e9dfd-7368-492f-a48a-e8abc1215e4c")
-    private boolean doesRoundEnded() {
-        switch (settings.gameType) {
-        case Client:
-            break;
-        case Local:
-            return world.getPlayerAliveCount() <= 1;
-        case Sandbox:
-            return world.getPlayerAliveCount() <= 0;
-        case Server:
-            break;
-        }
-        return false;
-    }
-
+    
     @objid ("9f94bd39-ac7e-4e2f-8f19-afc50b48f9ad")
     public void stop() {
         this.stop = true;

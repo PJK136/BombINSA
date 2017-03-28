@@ -135,7 +135,7 @@ public class GameViewer extends JPanel {
             GraphicsConfiguration gc = getGraphicsConfiguration();
             if (gc == null)
                 gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-            draw = gc.createCompatibleVolatileImage(width, height, Transparency.OPAQUE);
+            draw = gc.createCompatibleVolatileImage(Math.max(1, width), Math.max(1, height), Transparency.OPAQUE);
         }
     }
 
@@ -271,8 +271,11 @@ public class GameViewer extends JPanel {
             repaint();
         }
         else {
-            boolean toRevalidate = wait.getWidth(null) != draw.getWidth(null) || wait.getHeight(null) != draw.getHeight(null);
+            boolean toRevalidate = false;
+            
             synchronized (wait) {
+                toRevalidate = wait.getWidth(null) != draw.getWidth(null) || wait.getHeight(null) != draw.getHeight(null);
+            
                 VolatileImage cache = wait;
                 wait = draw;
                 draw = cache;
@@ -300,6 +303,9 @@ public class GameViewer extends JPanel {
 
     @objid ("6739bd4e-1437-4897-b494-45f4309b8971")
     public static void drawCenteredString(Graphics g, String str, int centerX, int centerY) {
+        if (str == null)
+            return;
+        
         int height = g.getFontMetrics().getHeight();
         int width = g.getFontMetrics().stringWidth(str);
         g.drawString(str, centerX-width/2, centerY+height/4);

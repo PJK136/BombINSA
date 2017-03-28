@@ -31,6 +31,8 @@ public class GameSettings {
 
     @objid ("3d89f7ec-1b8b-4c83-ac61-bb0fcabae609")
     public int duration;
+    
+    public double warmupDuration;
 
     @objid ("23a2dc78-69f4-4cfb-9196-282f0059da01")
     public int playerCount;
@@ -62,6 +64,7 @@ public class GameSettings {
         aiCount = 1;
         roundCount = 1;
         duration = 180;
+        warmupDuration = 1;
         tileSize = 32;
         fps = 60;
         controls = new ArrayList<ControlSettings> ();
