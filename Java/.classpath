@@ -6,5 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/gson-2.8.0.jar"/>
 	<classpathentry kind="lib" path="lib/jlfgr-1_0.jar"/>
+	<classpathentry kind="lib" path="/home/paul/Projects/BombINSA/Java/lib/kryonet-3.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
