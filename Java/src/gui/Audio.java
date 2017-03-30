@@ -1,84 +1,47 @@
 package gui;
 
-import java.io.InputStream;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import kuusisto.tinysound.Music;
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
 
 import game.Event;
 import game.GameListener;
 
 public class Audio implements GameListener
 {
-    private Clip bombe, bonus, coup, suddenDeath;
+    private Sound bombe, bonus, hit;
+    private Music suddenDeath;
   
     public Audio()
     {
-        try {
-            bombe = AudioSystem.getClip();
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-            Audio.class.getResourceAsStream("/audio/Explosion.wav"));
-            bombe.open(inputStream); 
-          } catch (Exception e) {
-            System.err.println(e.getMessage());
-          } 
-        try {
-            bonus = AudioSystem.getClip();
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-              Audio.class.getResourceAsStream("/audio/Bonus.wav"));
-            bonus.open(inputStream); 
-          } catch (Exception e) {
-            System.err.println(e.getMessage());
-          }
-        try {
-            coup = AudioSystem.getClip();
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-              Audio.class.getResourceAsStream("/audio/Hit.wav"));
-            coup.open(inputStream); 
-          } catch (Exception e) {
-            System.err.println(e.getMessage());
-          }
-        try {
-            suddenDeath = AudioSystem.getClip();
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-              Audio.class.getResourceAsStream("/audio/SuddenDeath.wav"));
-            suddenDeath.open(inputStream); 
-          } catch (Exception e) {
-            System.err.println(e.getMessage());
-          }
+        TinySound.init();
+        bombe = TinySound.loadSound("/audio/Explosion.ogg");
+        bonus = TinySound.loadSound("/audio/Bonus.ogg");
+        hit = TinySound.loadSound("/audio/Hit.ogg");
+        suddenDeath = TinySound.loadMusic("/audio/SuddenDeath.ogg");
     }
     
     void stop() {
+        hit.stop();
         bombe.stop();
         bonus.stop();
-        coup.stop();
         suddenDeath.stop();
-    }
-    
-    void play(Clip clip) {
-        if (clip.isRunning()) {
-            clip.stop();
-            clip.flush();
-        }
-        clip.setFramePosition(0);
-        clip.start();
     }
 
     @Override
     public void processEvent(Event e) {
         switch(e){
         case Hit:
-            play(coup);
+            hit.play();
             break;
         case Explosion:
-            play(bombe);
+            bombe.play();
             break;
         case PickUp:
-            play(bonus);
+            bonus.play();
             break;
         case SuddenDeath:
-            play(suddenDeath);
+            suddenDeath.play(true);
             break;
         }
         
