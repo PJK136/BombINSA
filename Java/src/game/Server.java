@@ -116,6 +116,9 @@ public class Server extends Local implements Listener {
     public void disconnected(Connection connection) {
         GameConnection gConnection = (GameConnection)connection;
         List<DummyController> controllers = gConnection.getControllers();
+        if (controllers.isEmpty())
+             return;
+        
         ToRemove message = new ToRemove(controllers.size());
         for (DummyController controller : controllers) {
             if (controller.getPlayer() != null) {

@@ -183,6 +183,10 @@ public abstract class World implements WorldView {
         //update of timeRemaining
         timeRemaining -= 1;
         
+        if(timeRemaining == 0) {
+            fireEvent(Event.SuddenDeath);
+        }
+        
         synchronized (entities) {
             //update of Entities
             Iterator<Entity> iterator = entities.values().iterator();

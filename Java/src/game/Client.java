@@ -1,7 +1,6 @@
 package game;
 
 import java.net.InetAddress;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,13 +23,18 @@ public class Client extends World implements Listener {
     com.esotericsoftware.kryonet.Client network;
     
     List<CommandMap> commands;
+    List<Event> events;
     
     boolean init;
+    
+    boolean pickUp;
+    boolean explosion;
     
     public Client() throws Exception {
         map = new Map(32);
         
         commands = Collections.synchronizedList(new LinkedList<CommandMap>());
+        events = Collections.synchronizedList(new LinkedList<Event>());
         
         init = false;
         
@@ -57,13 +61,13 @@ public class Client extends World implements Listener {
     @objid ("bd713b54-d5d8-4ff5-a65a-113198425a75")
     @Override
     void createExplosion(Bomb bomb) {
-        // TODO Auto-generated method stub
+        explosion = true;
     }
 
     @objid ("269ca09e-9010-4afc-ac4f-aa1b040e55f1")
     @Override
     void pickUpBonus(double x, double y) {
-        // TODO Auto-generated method stub
+        pickUp = true;
     }
 
     @objid ("162a4f81-a941-4f21-aaaf-afd832486f5b")
@@ -85,7 +89,25 @@ public class Client extends World implements Listener {
             commands.clear();
         }
         
+        synchronized (events) {
+            for (Event event : events) {
+                fireEvent(event);
+            }
+            
+            events.clear();
+        }
+        
         super.update();
+        
+        if (pickUp) {
+            fireEvent(Event.PickUp);
+            pickUp = false;
+        }
+        
+        if (explosion) {
+            fireEvent(Event.Explosion);
+            explosion = false;
+        }
     }
 
     @objid ("9cc03884-80cf-4f76-8510-8f2ca2035eef")
@@ -165,6 +187,8 @@ public class Client extends World implements Listener {
             ToRemove message = (ToRemove)object;
             for (Integer id : message.toRemove)
                 entities.remove(id);
+        } else if (object instanceof Event) {
+            events.add((Event)object);
         }
         
         if (object instanceof List<?>) {
