@@ -144,6 +144,9 @@ public class GameWorker implements Runnable {
                     }
                     
                     if (settings.gameType != GameType.Client) {
+                        try {
+                            Thread.sleep(5000, 0);
+                        } catch (InterruptedException e) {  }
                         if (round < settings.roundCount-1)
                             world.restart();
                         else
@@ -160,6 +163,7 @@ public class GameWorker implements Runnable {
                     }
                     
                     mainWindow.clearMessage();
+                    audio.stop();
                 }
                 
                 round++;
@@ -178,6 +182,7 @@ public class GameWorker implements Runnable {
             });
         } finally {
             world.stop();
+            audio.stop();
         }
     }
 

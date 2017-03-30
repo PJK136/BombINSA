@@ -50,6 +50,10 @@ public class Audio implements GameListener
     }
     
     void stop() {
+        bombe.stop();
+        bonus.stop();
+        coup.stop();
+        suddenDeath.stop();
     }
     
     void play(Clip clip) {
