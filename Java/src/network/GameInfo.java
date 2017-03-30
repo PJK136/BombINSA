@@ -1,4 +1,4 @@
-package game;
+package network;
 
 public class GameInfo {
     public int fps;

@@ -219,12 +219,6 @@ public abstract class World implements WorldView {
         }
         return playerList;
     }
-
-    public GameInfo getGameInfo() {
-        return new GameInfo(fps, duration, timeRemaining,
-                            warmupDuration, warmupTimeRemaining,
-                            map.getTileSize(), map.saveMap());
-    }
     
     public abstract boolean isReady();
     

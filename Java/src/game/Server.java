@@ -8,6 +8,7 @@ import com.esotericsoftware.kryonet.Listener;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 import network.GameConnection;
+import network.GameInfo;
 import network.Network;
 import network.Network.AddController;
 import network.Network.ControllerUpdate;
@@ -80,6 +81,12 @@ public class Server extends Local implements Listener {
         network.sendToAllTCP(entity);
         if (entity instanceof Player)
             network.sendToAllTCP(new PlayerName(entity.getID(), ((Player)entity).getController().getName()));
+    }
+    
+    public GameInfo getGameInfo() {
+        return new GameInfo(fps, duration, timeRemaining,
+                            warmupDuration, warmupTimeRemaining,
+                            map.getTileSize(), map.saveMap());
     }
     
     @Override

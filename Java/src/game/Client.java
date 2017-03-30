@@ -10,6 +10,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+import network.GameInfo;
 import network.Network;
 import network.Network.CommandMap;
 import network.Network.ControllerUpdate;

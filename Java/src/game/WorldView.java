@@ -35,6 +35,4 @@ public interface WorldView {
 
     @objid ("28429dd0-b782-48e7-992e-64beab6a4e61")
     List<Player> getPlayers();
-
-    GameInfo getGameInfo();
 }

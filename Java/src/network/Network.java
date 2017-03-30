@@ -12,7 +12,6 @@ import game.BonusType;
 import game.Controller;
 import game.Direction;
 import game.ExplosionType;
-import game.GameInfo;
 import game.GridCoordinates;
 import game.Player;
 import game.PlayerAbility;
