@@ -63,6 +63,7 @@ public class GamePanel extends JPanel implements ActionListener {
         topBar.add(horizontalGlue);
         
         timeRemaining = new JLabel("9:99 ");
+        timeRemaining.setIcon(SpriteFactory.getInstance().getImageIcon("hourglass", settings.scale(settings.tileSize)));
         topBar.add(timeRemaining);
         
         btnExit = new JButton();
@@ -154,7 +155,7 @@ public class GamePanel extends JPanel implements ActionListener {
             timeRemaining.setForeground(Color.red);
         else
             timeRemaining.setForeground(Color.black);
-        StringBuilder text = new StringBuilder("⌛ ");
+        StringBuilder text = new StringBuilder("");
         if (view.getTimeRemaining() < 0)
             text.append("-");
         text.append(Math.abs(remaining/60));
