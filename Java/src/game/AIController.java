@@ -20,10 +20,6 @@ public class AIController extends Controller {
 
     @objid ("6acb90de-974c-4546-a93e-0b8cc35a6bd2")
     private GridCoordinates aiLocation;
-    
-    /*private Direction nextDirection;
-    
-    private boolean escape = false;*/
 
     @objid ("3d3cd868-87c6-4b1c-b1b2-335b1d2eb3e3")
     public AIController() {
@@ -51,11 +47,9 @@ public class AIController extends Controller {
     @objid ("2960c0e0-6a89-4208-87eb-888ae75547e6")
     @Override
     public void update() {
-        System.out.println(currentDirection);
         aiLocation = world.getMap().toGridCoordinates((int)player.getX(),(int)player.getY());
         if(readyToBomb()){
             droppedBomb = world.getTimeElapsed();
-            //currentDirection = null;
             bombing = true;
             return;
         }
@@ -87,13 +81,6 @@ public class AIController extends Controller {
     public void turn(Direction dir, GridCoordinates position) {
         Direction randomDirection;
         for (int i = 0; i < 10 && !turned; i++) {
-            /*if(escape){
-                currentDirection = nextDirection;
-                System.out.println(currentDirection);
-            }
-            if(escape && (world.getTimeElapsed() - droppedBomb)>30*world.getFps()){
-                escape = false;
-            }*/
             randomDirection = Direction.getRandomDirection();
             if(randomDirection != dir && !player.isColliding(randomDirection, player.getSpeed())){
                 currentDirection = randomDirection;
@@ -144,7 +131,7 @@ public class AIController extends Controller {
 
     @objid ("abcfe8f8-3507-4b7c-a175-d63eebfae72c")
     public boolean readyToBomb() {
-        if((world.getTimeElapsed() - droppedBomb)>3*world.getFps() && world.getTimeRemaining()>0 && isSafe(aiLocation)){
+        if((world.getTimeElapsed() - droppedBomb)>3*world.getFps() && world.getTimeRemaining()>0 && isSafe(aiLocation) && Math.random()<0.02){
             //check up
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) ||
