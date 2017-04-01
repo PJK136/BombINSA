@@ -311,7 +311,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("2949aafd-f13a-4c7a-a4bc-750ccef814a4")
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnNew && isSaved()) {
+        if (e.getSource() == btnNew && checkSaved()) {
             newMap(true);
         }
         if (e.getSource() == btnOpen)
@@ -320,13 +320,13 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             saveToFile();     
         else if (e.getSource() == btnExit)
         {
-            if (isSaved())
+            if (checkSaved())
                 mainWindow.showMenu();
         }
     }
 
     @objid ("0d4a0b27-2c68-4e19-af8c-4959d1c79097")
-    private boolean isSaved() {
+    public boolean checkSaved() {
         if (saved)
             return true;
         return JOptionPane.showConfirmDialog(this,
@@ -338,7 +338,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
 
     @objid ("2b651672-46d6-4d34-8cb8-b75257bc894e")
     private void openFile() {
-        if (!isSaved())
+        if (!checkSaved())
             return;
         
         int ret = fileChooser.showOpenDialog(this);
@@ -350,7 +350,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 rowCount.setValue(map.getRowCount());
                 updateMap();
                 mainWindow.pack();
-            } catch (InputMismatchException | IOException e) {
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,
                         "Impossible de lire le fichier demandé !",
                         "Erreur lors de la lecture",
