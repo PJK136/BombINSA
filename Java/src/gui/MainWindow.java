@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.FileNotFoundException;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,7 +16,7 @@ import javax.swing.UIManager;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("580889f0-8e1d-4a59-9bfb-00c967a10ffd")
-public class MainWindow {
+public class MainWindow implements WindowListener {
     @objid ("b7100b61-40ce-4a3b-bc84-213a61d275d0")
     private String message;
 
@@ -33,6 +37,8 @@ public class MainWindow {
 
     @objid ("294a7f1e-7ead-4bc6-bf80-c970a68ae918")
     private GameWorker gameWorker;
+    
+    private Thread gameWorkerThread;
 
     @objid ("6a4c9e53-d41c-4237-99b1-a540a0004898")
     private Color messageColor;
@@ -63,8 +69,9 @@ public class MainWindow {
     private void initialize() {
         frame = new JFrame();
         frame.setSize(settings.scale(START_WIDTH), settings.scale(START_HEIGHT));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("BombINSA");
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.addWindowListener(this);
         
         Font defaultFont = settings.scale((Font)UIManager.get("OptionPane.font"));
         for (String font : new String[]{"OptionPane.font", "OptionPane.messageFont", "OptionPane.buttonFont"}) {
@@ -104,7 +111,9 @@ public class MainWindow {
             GamePanel gamePanel = new GamePanel(this);
             gameWorker = new GameWorker(this, gamePanel);
             setPage(gamePanel);
-            new Thread(gameWorker).start();
+            gameWorkerThread = new Thread(gameWorker);
+            gameWorkerThread.start();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this.frame,
                                          e.getMessage(),
@@ -149,6 +158,67 @@ public class MainWindow {
     @objid ("d3f6e6d9-3541-4526-8433-d7a080952a55")
     public static void setFontSize(JComponent component, float size) {
         component.setFont(component.getFont().deriveFont((float)size));
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        if (frame.getContentPane() instanceof MapCreatorPanel) {
+            if (!((MapCreatorPanel)frame.getContentPane()).checkSaved())
+                return;
+        }
+        
+        if (gameWorker != null) {
+            gameWorker.stop();
+            try {
+                gameWorkerThread.join();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+        }
+        
+        try {
+            settings.save();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        
+        frame.dispose();
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        // TODO Auto-generated method stub
+        
     }
 
 }
