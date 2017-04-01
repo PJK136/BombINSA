@@ -1,18 +1,12 @@
 package game;
 
-import network.Network.ControllerUpdate;
-
 public class DummyController extends Controller {
 
-    Direction direction;
-    boolean bombing;
+    protected Direction direction;
+    protected boolean bombing;
 
     public DummyController() { }
     
-    public DummyController(String name) {
-        setName(name);
-    }
-
     @Override
     public Direction getDirection() {
         return direction;
@@ -31,10 +25,5 @@ public class DummyController extends Controller {
     public void update() {
         // TODO Auto-generated method stub
 
-    }
-    
-    public void update(ControllerUpdate update) {
-        direction = update.direction;
-        bombing = update.bombing;
     }
 }

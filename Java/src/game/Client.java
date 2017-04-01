@@ -12,6 +12,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import network.GameInfo;
 import network.Network;
 import network.Network.CommandMap;
+import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
 import network.Network.PlayerName;
 import network.Network.Restart;
@@ -138,7 +139,7 @@ public class Client extends World implements Listener {
         } else {
             if (entity instanceof Player) {
                 Player player = ((Player)entity);
-                player.setController(new FollowController(player));
+                player.setController(new FollowController());
             }
             
             super.addEntity(entity, id);
@@ -174,7 +175,13 @@ public class Client extends World implements Listener {
             Entity entity = entities.get(message.entityId);
             if (entity != null && entity instanceof Player) {
                 ((Player)entity).getController().setName(message.name);
-            }    
+            }
+        } else if (object instanceof ControllerPlayer) {
+            ControllerPlayer cP = (ControllerPlayer) object;
+            Entity entity = entities.get(cP.entityId);
+            if (entity != null && entity instanceof Player && cP.controllerId >= 0 && cP.controllerId < controllers.size()) {
+                ((Player)entity).setController(controllers.get(cP.controllerId));
+            }
         } else if (object instanceof TimeRemaining) {
             timeRemaining = ((TimeRemaining)object).timeRemaining;
         } else if (object instanceof Restart) {

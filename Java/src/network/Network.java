@@ -45,6 +45,7 @@ public class Network {
         kryo.register(AddController.class);
         kryo.register(ControllerUpdate.class);
         kryo.register(PlayerName.class);
+        kryo.register(ControllerPlayer.class);
         kryo.register(TimeRemaining.class);
         kryo.register(Restart.class);
         kryo.register(ToRemove.class);
@@ -102,6 +103,17 @@ public class Network {
         public PlayerName(int entityId, String name) {
             this.entityId = entityId;
             this.name = name;
+        }
+    }
+    
+    public static class ControllerPlayer {
+        public int controllerId;
+        public int entityId;
+        
+        public ControllerPlayer() {}
+        public ControllerPlayer(int controllerId, int entityId) {
+            this.controllerId = controllerId;
+            this.entityId = entityId;
         }
     }
     

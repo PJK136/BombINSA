@@ -5,20 +5,19 @@ import java.util.List;
 
 import com.esotericsoftware.kryonet.Connection;
 
-import game.DummyController;
 import network.Network.AddController;
 import network.Network.ControllerUpdate;
 
 public class GameConnection extends Connection {
-    List<DummyController> controllers;
+    List<NetworkController> controllers;
     
     public GameConnection() {
         super();
-        controllers = new ArrayList<DummyController>();
+        controllers = new ArrayList<NetworkController>();
     }
     
-    public DummyController addController(AddController message) {
-        DummyController controller = new DummyController(message.name);
+    public NetworkController addController(AddController message) {
+        NetworkController controller = new NetworkController(this, controllers.size(), message.name);
         controllers.add(controller);
         return controller;
     }
@@ -28,7 +27,7 @@ public class GameConnection extends Connection {
             controllers.get(update.id).update(update);
     }
 
-    public List<DummyController> getControllers() {
+    public List<NetworkController> getControllers() {
         return controllers;
     }
 }

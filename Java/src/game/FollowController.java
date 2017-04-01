@@ -3,10 +3,6 @@ package game;
 public class FollowController extends Controller {
     
     public FollowController() { }
-    
-    public FollowController(Player player) {
-        setPlayer(player);
-    }
 
     @Override
     public Direction getDirection() {

@@ -13,8 +13,10 @@ import network.Network;
 import network.Network.AddController;
 import network.Network.ControllerUpdate;
 import network.Network.PlayerName;
+import network.Network.ControllerPlayer;
 import network.Network.TimeRemaining;
 import network.Network.ToRemove;
+import network.NetworkController;
 import network.Network.Restart;
 
 public class Server extends Local implements Listener {
@@ -79,8 +81,14 @@ public class Server extends Local implements Listener {
     void addEntity(Entity entity) {
         super.addEntity(entity);
         network.sendToAllTCP(entity);
-        if (entity instanceof Player)
-            network.sendToAllTCP(new PlayerName(entity.getID(), ((Player)entity).getController().getName()));
+        if (entity instanceof Player) {
+            Controller controller = ((Player) entity).getController();
+            network.sendToAllTCP(new PlayerName(entity.getID(), controller.getName()));
+            if (controller instanceof NetworkController) {
+                NetworkController networkController = (NetworkController)controller;
+                networkController.getConnection().sendTCP(new ControllerPlayer(networkController.getID(), entity.getID()));
+            }
+        }
     }
     
     public GameInfo getGameInfo() {
@@ -115,12 +123,12 @@ public class Server extends Local implements Listener {
     @Override
     public void disconnected(Connection connection) {
         GameConnection gConnection = (GameConnection)connection;
-        List<DummyController> controllers = gConnection.getControllers();
+        List<NetworkController> controllers = gConnection.getControllers();
         if (controllers.isEmpty())
              return;
         
         ToRemove message = new ToRemove(controllers.size());
-        for (DummyController controller : controllers) {
+        for (NetworkController controller : controllers) {
             if (controller.getPlayer() != null) {
                 message.toRemove.add(controller.getPlayer().getID());
                 controller.getPlayer().remove();
