@@ -84,7 +84,12 @@ public class GameWorker implements Runnable {
                     viewer.drawWorld(world);
                     
                     if (world.getWarmupTimeRemaining() > 0) {
-                        final String[] messages = new String[]{"Round " + world.getRound(), "À vos marques.", "Prêts.", "Jouez !"};
+                        final String[] messages = new String[]{"Round " + world.getRound(), //Ralongement du temps
+                                                               "Round " + world.getRound(), //d'affichage
+                                                               "Round " + world.getRound(), //du round
+                                                               "À vos marques.",
+                                                               "Prêts.",
+                                                               "Jouez !"};
                         int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
                         SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black));
                     } else if (world.getTimeRemaining() == 0) {
