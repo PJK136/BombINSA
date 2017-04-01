@@ -23,13 +23,13 @@ public class BreakableTile extends ExplodableTile {
     Tile postExplosion() {
         Tile ret;
         double drop = (Math.random());
-         if(drop<LOOT_RATE){
-             ret = new BonusTile();
-         } else {
-             ret = new EmptyTile();
-         }
+        if(drop<LOOT_RATE){
+            ret = new BonusTile(BonusTile.randomBonus());
+        } else {
+            ret = new EmptyTile();
+        }
          
-         ret.setEntities(entities);
+        ret.setEntities(entities);
         return ret;
     }
 
