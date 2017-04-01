@@ -64,7 +64,6 @@ public class GameWorker implements Runnable {
             
             final long timeStep = 1000000000/settings.fps;
             
-            int round = 0;
             while (!stop) {       
                 setGameState(GameState.Playing);
                               
@@ -85,8 +84,8 @@ public class GameWorker implements Runnable {
                     viewer.drawWorld(world);
                     
                     if (world.getWarmupTimeRemaining() > 0) {
-                        final String[] messages = new String[]{"À vos marques.", "Prêts.", "Jouez !"};
-                        int i = 3*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
+                        final String[] messages = new String[]{"Round " + world.getRound(), "À vos marques.", "Prêts.", "Jouez !"};
+                        int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
                         SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black));
                     } else if (world.getTimeRemaining() == 0) {
                         setGameState(GameState.SuddenDeath);
@@ -145,7 +144,7 @@ public class GameWorker implements Runnable {
                         try {
                             Thread.sleep(5000, 0);
                         } catch (InterruptedException e) {  }
-                        if (round < settings.roundCount-1)
+                        if (world.getRound() < settings.roundCount)
                             world.restart();
                         else
                             stop = true;
@@ -163,8 +162,6 @@ public class GameWorker implements Runnable {
                     mainWindow.clearMessage();
                     Audio.getInstance().stop();
                 }
-                
-                round++;
             }
             setGameState(GameState.End);
         } catch (Exception e) {

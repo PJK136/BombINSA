@@ -80,6 +80,9 @@ public class Client extends World implements Listener {
     @objid ("463bec21-830d-412a-8728-f570ba668f52")
     @Override
     public void update() {
+        if (!init)
+            return;
+        
         for (int i = 0; i < controllers.size(); i++) {
             network.sendUDP(new ControllerUpdate(i, controllers.get(i)));
         }
@@ -151,8 +154,11 @@ public class Client extends World implements Listener {
             this.timeRemaining = info.timeRemaining;
             this.warmupDuration = info.warmupDuration;
             this.warmupTimeRemaining = info.warmupTimeRemaining;
+            this.round = info.round;
             this.map.setTileSize(info.tileSize);
             this.map.loadMap(info.map);
+            if (this.timeRemaining < 0)
+                fireEvent(Event.SuddenDeath);
             init = true;
         } else if (!init)
             return;

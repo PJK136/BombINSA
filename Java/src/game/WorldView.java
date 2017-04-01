@@ -39,6 +39,8 @@ public interface WorldView {
      * @return le temps restant avant la fin de l'échauffement en nombre d'images
      */
     int getWarmupTimeRemaining();
+    
+    int getRound();
 
     @objid ("32dcdef1-5a7a-4722-92ad-5d4d0aa3f197")
     List<Entity> getEntities();

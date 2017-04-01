@@ -22,6 +22,8 @@ public abstract class World implements WorldView {
      int warmupDuration;
     
      int warmupTimeRemaining;
+     
+     int round = 1;
     
     private int nextID = 1;
 
@@ -85,6 +87,11 @@ public abstract class World implements WorldView {
         return warmupTimeRemaining;
     }
 
+    @Override
+    public int getRound() {
+        return round;
+    }
+    
     @objid ("83167709-dc8e-456e-b787-b9a4ed0d8113")
     public List<Entity> getEntities() {
         //Thread-safety
@@ -238,6 +245,7 @@ public abstract class World implements WorldView {
       //time remaining back to beginning
         timeRemaining = duration;
         warmupTimeRemaining = warmupDuration;
+        round++;
 
         //reinitialize entities 
         entities.clear();

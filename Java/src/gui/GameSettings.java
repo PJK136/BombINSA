@@ -64,7 +64,7 @@ public class GameSettings {
         aiCount = 1;
         roundCount = 1;
         duration = 180;
-        warmupDuration = 1;
+        warmupDuration = 2;
         tileSize = 32;
         fps = 60;
         controls = new ArrayList<ControlSettings> ();

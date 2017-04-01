@@ -95,9 +95,8 @@ public class Server extends Local implements Listener {
     }
     
     public GameInfo getGameInfo() {
-        return new GameInfo(fps, duration, timeRemaining,
-                            warmupDuration, warmupTimeRemaining,
-                            map.getTileSize(), map.saveMap());
+        return new GameInfo(fps, duration, timeRemaining, warmupDuration, warmupTimeRemaining,
+                            round, map.getTileSize(), map.saveMap());
     }
     
     @Override
