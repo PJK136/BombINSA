@@ -18,8 +18,8 @@ import game.PlayerAbility;
 import game.TileType;
 
 public class Network {
-    static public final int tcpPort = 54555;
-    static public final int udpPort = 54555;
+    static public final int tcpPort = 7373;
+    static public final int udpPort = 7373;
 
     // This registers objects that are going to be sent over the network.
     static public void register (EndPoint endPoint) {
