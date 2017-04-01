@@ -25,7 +25,6 @@ public class Client extends World implements Listener {
     com.esotericsoftware.kryonet.Client network;
     
     List<CommandMap> commands;
-    List<Event> events;
     
     boolean init;
     
@@ -36,7 +35,6 @@ public class Client extends World implements Listener {
         map = new Map(32);
         
         commands = Collections.synchronizedList(new LinkedList<CommandMap>());
-        events = Collections.synchronizedList(new LinkedList<Event>());
         
         init = false;
         
@@ -89,14 +87,6 @@ public class Client extends World implements Listener {
         synchronized (commands) {
             DeltaMap.executeDeltas(commands, map);
             commands.clear();
-        }
-        
-        synchronized (events) {
-            for (Event event : events) {
-                fireEvent(event);
-            }
-            
-            events.clear();
         }
         
         super.update();
@@ -197,8 +187,6 @@ public class Client extends World implements Listener {
             ToRemove message = (ToRemove)object;
             for (Integer id : message.toRemove)
                 entities.remove(id);
-        } else if (object instanceof Event) {
-            events.add((Event)object);
         }
         
         if (object instanceof List<?>) {
