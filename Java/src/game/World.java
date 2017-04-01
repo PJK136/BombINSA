@@ -113,7 +113,7 @@ public abstract class World implements WorldView {
         }
         return sum;
     }
-
+    
     @objid ("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
     public void setFps(int fps) {
         if (fps <= 0) {
@@ -156,23 +156,49 @@ public abstract class World implements WorldView {
         map.setTileSize(tileSize);
     }
 
-/*@objid ("7f0207e3-fb26-4a93-8d10-c12f9c0735f1")
-    abstract void plantBomb(double x, double y, int range);*/
+    /**
+     * définit qu'un joueur pose une bombe sur la map
+     * @param player le joueur qui veut poser une bombe
+     */
     @objid ("9c563a21-9aa5-4a46-9bc7-944623f9796c")
     abstract void plantBomb(Player player);
-
+    
+    /**
+     * définit qu'une bombe explose sur la map
+     * @param bomb la bombe qui explose
+     */
     @objid ("df2bc239-ca9f-42a9-b92a-6255de4d5c86")
     abstract void createExplosion(Bomb bomb);
-
+    
+    /**
+     * définit qu'un bonus se fait ramasser par un joueur
+     * @param x la coordonnée en x du joueur en pixel
+     * @param y la coordonnée en y du joueur en pixel
+     */
     @objid ("15006b09-55e2-4635-b9b7-f4cee5978c5d")
     abstract void pickUpBonus(double x, double y);
-
+    
+    /**
+     * définit qu'une bombe se fait pousser dans une direction
+     * @param bomb la bomb qui se fait pousser
+     * @param direction la direction vers laquelle elle est poussée
+     */
     @objid ("d2244540-1a9f-4ec7-bee2-e5b2a2c83862")
     abstract void kickBomb(Bomb bomb, Direction direction);
-
+    
+    /**
+     * construit un nouveau controlleur à partir d'un controlleur préexistant
+     * @param controller le controlleur préexistant
+     */
     @objid ("d65622a5-0611-42cd-87a7-975a15931e59")
     public abstract void newController(Controller controller);
-
+    
+    /**
+     * met à jour le monde en controllant :
+     * - s'il faut enclencher la mort subite
+     * - s'il faut supprimer des entités
+     * puis en mettant la carte à jour
+     */
     @objid ("30c7a359-b727-428f-8ef4-493db313017c")
     public void update() {
         if (warmupTimeRemaining > 0) {
@@ -202,7 +228,11 @@ public abstract class World implements WorldView {
         //update of the map
         map.update();
     }
-
+    
+    /**
+     * permet de relancer la partie
+     * @throws Exception problème lié au chargement de la carte
+     */
     @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
     public void restart() throws Exception {
       //time remaining back to beginning
@@ -224,10 +254,21 @@ public abstract class World implements WorldView {
         return playerList;
     }
     
+    /**
+     * indique si la partie est prête à être commencée
+     * @return true si oui, false sinon
+     */
     public abstract boolean isReady();
     
+    /**
+     * indique si le round est terminé
+     * @return true si oui, false sinon
+     */
     public abstract boolean isRoundEnded();
-
+    
+    /**
+     * met fin à la partie
+     */
     public void stop() { }
 
     public void addGameListener(GameListener listener){
@@ -240,6 +281,11 @@ public abstract class World implements WorldView {
         }
     }
     
+    /**
+     * ajoute une entité à la partie
+     * @param entity l'entité qui doit être ajoutée
+     * @param id l'identité de l'entité
+     */
     void addEntity(Entity entity, int id) {
         entity.setID(id);
         entity.setWorld(this);

@@ -20,13 +20,16 @@ public class AIController extends Controller {
 
     @objid ("6acb90de-974c-4546-a93e-0b8cc35a6bd2")
     private GridCoordinates aiLocation;
-
+    
+    /**
+     * Crée un nouveau controlleur de type intelligence artificielle
+     */
     @objid ("3d3cd868-87c6-4b1c-b1b2-335b1d2eb3e3")
     public AIController() {
         setName("IA");
         currentDirection = null;
     }
-
+    
     @objid ("a6dfdad3-f290-4e15-ba75-694888e5d4c2")
     @Override
     public Direction getDirection() {
@@ -43,7 +46,13 @@ public class AIController extends Controller {
             return false;
         }
     }
-
+    
+    /**
+     * Met à jour le controlleur de type intelligence artificielle en faisant les actions suivantes :
+     * - si l'IA peut poser und bombe, elle le fait
+     * - arrête de bouger si elle est cernée
+     * - tourne ou pas en fonction de sa situation
+     */
     @objid ("2960c0e0-6a89-4208-87eb-888ae75547e6")
     @Override
     public void update() {
@@ -77,6 +86,11 @@ public class AIController extends Controller {
         }
     }
 
+    /**
+     * Fait tourner l'IA dans une direction différente de l'actuelle
+     * @param dir La direction actuelle de l'IA
+     * @param position La position actuelle de l'IA
+     */
     @objid ("e87291f0-a8c8-4d07-99ba-b34fa92d336b")
     public void turn(Direction dir, GridCoordinates position) {
         Direction randomDirection;
@@ -89,7 +103,12 @@ public class AIController extends Controller {
         }
         turned = false;
     }
-
+    
+    /**
+     * Controle la dangerosité d'une tuile 
+     * @param target La tuile qu'il faut controller
+     * @return true Si la tuile est sécurisée, false sinon
+     */
     @objid ("cc20da1a-09e2-4259-b21e-47277450e318")
     public boolean isSafe(GridCoordinates target) {
         if(world.getMap().isExploding(target)){
@@ -118,17 +137,31 @@ public class AIController extends Controller {
         }
         return true;
     }
-
+    
+    /**
+     * Teste si une tuile est vide
+     * @param gc les coordonnées de grille de la tuile
+     * @return true si oui, false sinon
+     */
     @objid ("83a5286c-60c1-409c-9714-d0a4f224cdf5")
     private boolean isEmpty(GridCoordinates gc) {
         return !world.getMap().isCollidable(gc) && !world.getMap().hasBomb(gc);
     }
-
+    
+    /**
+     * Teste si une tuile est vide et sécurisée
+     * @param gc les coordonnées de grille de la tuile
+     * @return true si oui, false sinon
+     */
     @objid ("64edb969-c16b-4556-a23e-edffa2de598d")
     private boolean isEmptyAndSafe(GridCoordinates gc) {
         return isEmpty(gc) && isSafe(gc);
     }
-
+    
+    /**
+     * Détermine si l'IA peut poser une bombe dans la situation actuelle
+     * @return true si oui, false sinon
+     */
     @objid ("abcfe8f8-3507-4b7c-a175-d63eebfae72c")
     public boolean readyToBomb() {
         if((world.getTimeElapsed() - droppedBomb)>3*world.getFps() && world.getTimeRemaining()>0 && isSafe(aiLocation) && Math.random()<0.02){

@@ -14,18 +14,30 @@ public class GridCoordinates {
     public GridCoordinates() {
         this(0, 0);
     }
-
+    
+    /**
+     * Crée des coordonnées de grille à partir de coordonnées en pixel
+     * @param x la coordonée en x en pixel
+     * @param y la coordonée en y en pixel
+     */
     @objid ("d62a41d0-01a8-4763-9f1e-d0184f9572e2")
     public GridCoordinates(int x, int y) {
         this.x = x;
         this.y = y;
     }
-
+    
+    /**
+     * Crée une copie de coordonnées de grilles préexistantes
+     * @param gc les cooronnées préexistantes
+     */
     @objid ("889a1224-d7a7-4db2-a352-70f6a96311b9")
     public GridCoordinates(GridCoordinates gc) {
         this(gc.x, gc.y);
     }
-
+    
+    /**
+     * Teste l'égalité de 2 objets
+     */
     @objid ("e332b11d-704a-4500-8511-2ed4f8fa73e5")
     @Override
     public boolean equals(Object obj) {
@@ -45,7 +57,12 @@ public class GridCoordinates {
     public String toString() {
         return "("+x+";"+y+")";
     }
-
+    
+    /**
+     * Récupère les coordonnées d'une case voisine
+     * @param direction La direction dans laquelle on cherche la voisine
+     * @return Les coordonnées de la case voisine
+     */
     @objid ("596006a8-a08a-41ff-8cb2-d06326c79d55")
     public GridCoordinates neighbor(Direction direction) {
         switch (direction) {
@@ -60,7 +77,13 @@ public class GridCoordinates {
         }
         return null;
     }
-
+    
+    /**
+     * Mesure la distance entre 2 coordonnées de grille à partir d'une norme de type 1
+     * @param gc1 Les premières coordonnées
+     * @param gc2 Les secondes coordonnées
+     * @return La distance entre les 2 coordonnées
+     */
     @objid ("ce3d5110-3070-4817-acff-fb933af76cca")
     public static int distance(GridCoordinates gc1, GridCoordinates gc2) {
         return Math.abs(gc2.x-gc1.x) + Math.abs(gc2.y-gc1.y); //Norme 1 #Maths 2A

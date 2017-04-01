@@ -31,6 +31,15 @@ public class Local extends World {
     @objid ("d09dce2a-6ccc-4d37-838d-8a1f201d7b56")
      Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
     
+    /**
+     * Construit une partie de jeu en local
+     * @param mapFilename Nom du ficher de la carte
+     * @param tileSize Taille des tuiles
+     * @param fps Nombre d'images par secondes
+     * @param duration Durée d'un round en images
+     * @param warmup Durée du temps d'échauffement en images
+     * @throws Exception Erreur liée au chargement de la carte
+     */
     @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
     public Local(String mapFilename, int tileSize, int fps, int duration, int warmup) throws Exception {
         createMap(tileSize);
@@ -41,10 +50,19 @@ public class Local extends World {
         setWarmupDuration(warmup);
     }
     
+    /**
+     * Crée une carte
+     * @param tileSize taille des tuiles de la carte
+     */
     void createMap(int tileSize) {
         map = new Map(tileSize);
     }
-
+    
+    /**
+     * Charge une carte qui existe déjà
+     * @param filename Nom du fichier de la carte
+     * @throws Exception Erreur liée au chargement de la carte
+     */
     @objid ("4164c416-9e5c-461f-a7dc-1758c0f94d36")
     public void loadMap(String filename) throws Exception {
         if (filename == null || filename.isEmpty())
@@ -68,7 +86,11 @@ public class Local extends World {
         newPlayer(controller);
         controllers.add(controller);
     }
-
+    
+    /**
+     * Crée un joueur à partir de son controlleur
+     * @param controller le controlleur rataché au nouveau joueur
+     */
     @objid ("3201955a-ab70-48b8-b676-a53ca4da06a7")
     void newPlayer(Controller controller) {
         if (timeRemaining < 0) //N'ajoute pas de joueur en mort subite
@@ -90,7 +112,15 @@ public class Local extends World {
         addEntity(player);
         nextPlayerID++;
     }
-
+    
+    /**
+     * Met à jour la partie locale en faisant les actions supplémentaires suivantes :
+     * - fait apparaitre des bombes aléatoirement et rend les joueurs "fragiles" en cas de mort subite
+     * - crée toutes les bombes que les joueurs plantent
+     * - supprime tous les bonus qui ont été ramassés
+     * - fait exploser toutes les bombes qui doivent exploser
+     * - déplace toutes les bombes qui ont étés poussées
+     */
     @objid ("15f9ba61-54f9-4783-8bd0-923098e480d7")
     public void update() {
         super.update();
@@ -186,11 +216,6 @@ public class Local extends World {
         loadMap(mapFileName);
     }
 
-/*@objid ("b9fb0ddd-3cff-4226-9167-0e4f94ea4d9e")
-    @Override
-    void plantBomb(double x, double y, int range) {
-        not really necessary for the moment
-    }*/
     @objid ("b13fef2c-1897-428c-871d-8a201627e755")
     @Override
     void plantBomb(Player player) {
