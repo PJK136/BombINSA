@@ -87,6 +87,8 @@ public class GameMenu extends JPanel implements ActionListener {
         for (GameType type : GameType.values())
             gameType.addItem(type);
         
+        gameType.setSelectedItem(settings.gameType);
+        
         JLabel lblHumain = new JLabel("Nombre de joueurs :");
         settings.scaleFont(lblHumain);
         GridBagConstraints gbc_lblHumain = new GridBagConstraints();
