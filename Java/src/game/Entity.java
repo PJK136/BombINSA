@@ -134,6 +134,9 @@ public abstract class Entity {
     
     @objid ("41800255-bf3a-456d-a83a-101f7454243e")
     public boolean isColliding(Direction direction, double move) {
+        if (direction == null)
+            return false;
+        
         final double offset = world.getMap().getTileSize()*OFFSET_PERCENTAGE;
         
         switch (direction) {

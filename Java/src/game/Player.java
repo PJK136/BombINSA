@@ -127,6 +127,15 @@ public class Player extends Entity {
     void setPlayerAbilities(List<Boolean> value) {
         this.playerAbilities = value;
     }
+    
+    public double getMaxSpeed() {
+        double maxSpeed = PLAYER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
+        if (playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()))
+            maxSpeed *= 1.5;
+        else if (playerAbilities.get(PlayerAbility.LessSpeed.ordinal())) 
+            maxSpeed /= 2;
+        return maxSpeed;
+    }
 
     @objid ("1c7621e2-784f-4508-933f-55ea6bea5b83")
     public int getInvulnerability() {
@@ -220,11 +229,7 @@ public class Player extends Entity {
         Direction nextDirection = controller.getDirection();
         if (nextDirection != null) {
             direction = nextDirection;
-            speed = PLAYER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
-            if (playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()))
-                speed *= 1.5;
-            else if (playerAbilities.get(PlayerAbility.LessSpeed.ordinal())) 
-                speed /= 2;
+            speed = getMaxSpeed();
         } else
             speed = 0.;
         
