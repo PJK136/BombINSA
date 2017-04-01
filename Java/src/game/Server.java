@@ -15,6 +15,7 @@ import network.Network.ControllerUpdate;
 import network.Network.PlayerName;
 import network.Network.ControllerPlayer;
 import network.Network.TimeRemaining;
+import network.Network.WarmupTimeRemaining;
 import network.Network.ToRemove;
 import network.NetworkController;
 import network.Network.Restart;
@@ -57,7 +58,9 @@ public class Server extends Local implements Listener {
             network.sendToAllUDP(entity);
         }
         
-        if (timeRemaining % fps == 0)
+        if (warmupTimeRemaining > 0 && timeRemaining % (fps/2) == 0) {
+            network.sendToAllUDP(new WarmupTimeRemaining(warmupTimeRemaining));
+        } else if (timeRemaining % fps == 0)
             network.sendToAllUDP(new TimeRemaining(timeRemaining));
         
         network.sendToAllTCP(((DeltaMap)map).deltas);

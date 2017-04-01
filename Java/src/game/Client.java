@@ -18,6 +18,7 @@ import network.Network.PlayerName;
 import network.Network.Restart;
 import network.Network.TimeRemaining;
 import network.Network.ToRemove;
+import network.Network.WarmupTimeRemaining;
 
 @objid ("b8264f8e-49d1-4a58-ad20-06ceafdee906")
 public class Client extends World implements Listener {
@@ -184,6 +185,8 @@ public class Client extends World implements Listener {
             }
         } else if (object instanceof TimeRemaining) {
             timeRemaining = ((TimeRemaining)object).timeRemaining;
+        } else if (object instanceof WarmupTimeRemaining) {
+            warmupTimeRemaining = ((WarmupTimeRemaining)object).warmupTimeRemaining;
         } else if (object instanceof Restart) {
             try {
                 restart();

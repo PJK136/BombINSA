@@ -47,6 +47,7 @@ public class Network {
         kryo.register(PlayerName.class);
         kryo.register(ControllerPlayer.class);
         kryo.register(TimeRemaining.class);
+        kryo.register(WarmupTimeRemaining.class);
         kryo.register(Restart.class);
         kryo.register(ToRemove.class);
     }
@@ -122,6 +123,13 @@ public class Network {
         
         public TimeRemaining() {}
         public TimeRemaining(int timeRemaining) { this.timeRemaining = timeRemaining; }
+    }
+    
+    public static class WarmupTimeRemaining {
+        public int warmupTimeRemaining;
+        
+        public WarmupTimeRemaining() {}
+        public WarmupTimeRemaining(int warmupTimeRemaining) { this.warmupTimeRemaining = warmupTimeRemaining; }
     }
     
     public static class ToRemove {
