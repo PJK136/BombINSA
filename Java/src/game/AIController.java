@@ -7,16 +7,13 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("cbe503f7-eb4d-4747-9547-3001ad190b16")
 public class AIController extends Controller {
     @objid ("b3611ff7-8085-4126-9180-545efad68da8")
-    private Direction currentDirection;
+    private Direction currentDirection = null;
 
     @objid ("b6acfd1f-3b8b-4e90-80e7-cbe3d3afb0a9")
     private boolean turned = false;
 
     @objid ("946744c7-3ebf-45d8-bab5-f2533cd24562")
     private boolean bombing = false;
-
-    @objid ("a517c478-aa58-42fc-bf09-0687c8d3e721")
-    private int droppedBomb = 0;
 
     @objid ("6acb90de-974c-4546-a93e-0b8cc35a6bd2")
     private GridCoordinates aiLocation;
@@ -27,19 +24,21 @@ public class AIController extends Controller {
     @objid ("3d3cd868-87c6-4b1c-b1b2-335b1d2eb3e3")
     public AIController() {
         setName("IA");
-        currentDirection = null;
     }
     
     @objid ("a6dfdad3-f290-4e15-ba75-694888e5d4c2")
     @Override
     public Direction getDirection() {
-        return currentDirection;
+        if (!bombing) //Avance que si elle ne pose pas de bombe
+            return currentDirection;
+        else
+            return null;
     }
 
     @objid ("9603acc0-4525-461e-a093-393a85378044")
     @Override
     public boolean isPlantingBomb() {
-        if (bombing){
+        if (bombing) {
             bombing = false;
             return true;
         } else {
@@ -58,7 +57,6 @@ public class AIController extends Controller {
     public void update() {
         aiLocation = world.getMap().toGridCoordinates((int)player.getX(),(int)player.getY());
         if(readyToBomb()){
-            droppedBomb = world.getTimeElapsed();
             bombing = true;
             return;
         }
@@ -70,16 +68,13 @@ public class AIController extends Controller {
            !isEmptyAndSafe(aiLocation.neighbor(Direction.Left)) &&
            !isEmptyAndSafe(aiLocation.neighbor(Direction.Right))){
             currentDirection = null;
-        }
-        else if(player.getSpeed() == 0 || (!(isSafe(aiLocation.neighbor(currentDirection))) && isSafe(aiLocation))){
-            turn(currentDirection,aiLocation);
-        }
-        else if(player.getSpeed() == 0){
-            turn(currentDirection,aiLocation);
-        }
-        else if(!isSafe(aiLocation)){
+        } else if(currentDirection == null || player.isColliding(currentDirection, player.getMaxSpeed())){ //Si l'IA rencontre un obstacle
+            turn();
+        } else if (!(isSafe(aiLocation.neighbor(currentDirection))) && isSafe(aiLocation)) { //Si l'IA va atteindre une case dangereuse
+            turn();
+        } else if(!isSafe(aiLocation)){ //Si l'IA est en danger
             for(Direction dir : Direction.values()){
-                if(isEmptyAndSafe(aiLocation.neighbor(dir)) && !player.isColliding(dir, player.getSpeed())){
+                if(isEmptyAndSafe(aiLocation.neighbor(dir)) && !player.isColliding(dir, player.getMaxSpeed())){
                     currentDirection = dir;
                 }
             }
@@ -89,14 +84,13 @@ public class AIController extends Controller {
     /**
      * Fait tourner l'IA dans une direction différente de l'actuelle
      * @param dir La direction actuelle de l'IA
-     * @param position La position actuelle de l'IA
      */
     @objid ("e87291f0-a8c8-4d07-99ba-b34fa92d336b")
-    public void turn(Direction dir, GridCoordinates position) {
+    public void turn() {
         Direction randomDirection;
         for (int i = 0; i < 10 && !turned; i++) {
             randomDirection = Direction.getRandomDirection();
-            if(randomDirection != dir && !player.isColliding(randomDirection, player.getSpeed())){
+            if(randomDirection != currentDirection && !player.isColliding(randomDirection, player.getMaxSpeed())){
                 currentDirection = randomDirection;
                 turned = true;
             }
@@ -111,9 +105,13 @@ public class AIController extends Controller {
      */
     @objid ("cc20da1a-09e2-4259-b21e-47277450e318")
     public boolean isSafe(GridCoordinates target) {
+        if (world.getMap().isCollidable(target))
+            return true;
+            
         if(world.getMap().isExploding(target)){
             return false;
         }
+        
         GridCoordinates temp = new GridCoordinates(target);
         List<Entity> tileEntities = new ArrayList<Entity>();
         Bomb bomb = null;
@@ -164,7 +162,7 @@ public class AIController extends Controller {
      */
     @objid ("abcfe8f8-3507-4b7c-a175-d63eebfae72c")
     public boolean readyToBomb() {
-        if((world.getTimeElapsed() - droppedBomb)>3*world.getFps() && world.getTimeRemaining()>0 && isSafe(aiLocation) && Math.random()<0.02){
+        if(player.getBombCount() < player.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation) && Math.random() < 1./world.getFps()) {
             //check up
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up))) {
                 if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) ||
