@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 import game.Bomb;
 import game.BonusType;
 import game.Entity;
@@ -233,7 +234,8 @@ public class GameViewer extends JPanel {
         for (Entity entity : worldView.getEntities()) {
             if (entity instanceof Player) {
                 int invulnerability = ((Player)entity).getInvulnerability();
-                if (invulnerability == 0 || invulnerability % (2*HIT_BLINK_INTERVAL*worldView.getFps()) >= HIT_BLINK_INTERVAL*worldView.getFps()) {
+                if (worldView.getWarmupTimeRemaining() != 0 || invulnerability == 0 ||
+                    invulnerability % (2*HIT_BLINK_INTERVAL*worldView.getFps()) >= HIT_BLINK_INTERVAL*worldView.getFps()) {
                     int color = ((Player)entity).getPlayerID() % colorCount;
                     if (entity.getSpeed() == 0.)
                         drawEntity(g, entity, players[color].getStandingPlayer(entity.getDirection()));
