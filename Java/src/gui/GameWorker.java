@@ -75,15 +75,12 @@ public class GameWorker implements Runnable {
                 
                 while (!stop && !world.isRoundEnded())
                 {          
-                    if (world.getWarmupTimeRemaining() == 1)
-                        mainWindow.clearMessage();
-                    
                     world.update();
                     
                     SwingUtilities.invokeLater(updateGamePanel);
                     viewer.drawWorld(world);
                     
-                    if (world.getWarmupTimeRemaining() > 0) {
+                    if (world.getWarmupTimeRemaining() > 1) {
                         final String[] messages = new String[]{"Round " + world.getRound(), //Ralongement du temps
                                                                "Round " + world.getRound(), //d'affichage
                                                                "Round " + world.getRound(), //du round
@@ -92,7 +89,10 @@ public class GameWorker implements Runnable {
                                                                "Jouez !"};
                         int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
                         SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black));
-                    } else if (world.getTimeRemaining() == 0) {
+                    } else if (world.getWarmupTimeRemaining() == 1)
+                        SwingUtilities.invokeLater(() -> mainWindow.clearMessage());
+                    
+                    if (world.getTimeRemaining() == 0) {
                         setGameState(GameState.SuddenDeath);
                         SwingUtilities.invokeLater(() -> mainWindow.showMessage("Mort subite !", Color.red));
                     } else if (world.getTimeRemaining() == (int)(-0.75 * world.getFps())) {
