@@ -14,15 +14,12 @@ public class Audio implements GameListener
     private Sound bombe, bonus, hit;
     private Music suddenDeath;
     
-    @objid ("42057e54-8e3a-42ba-ae75-06870b71ee27")
     public static Audio getInstance() {
         return SingletonHolder.instance;
     }
 
     // http://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java
-    @objid ("7b61ee5d-38fe-44b9-aab2-698bca537f0d")
     private static class SingletonHolder {
-        @objid ("15ea41c0-58a7-4cb8-981d-2b3565ad3981")
         private static final Audio instance = new Audio();
 
     }

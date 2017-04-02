@@ -360,7 +360,6 @@ public class Map implements MapView {
         setBonusType(type, toGridCoordinates(x, y));
     }
 
-    @objid ("af2aa240-e83a-4b08-9641-56c0dfe48630")
     public void setArrowDirection(Direction direction, GridCoordinates gc) {
         ((ArrowTile)(tiles[gc.x][gc.y])).setDirection(direction);
     }
