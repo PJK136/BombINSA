@@ -5,7 +5,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("96719cc7-626b-4b48-9f90-aeab79c12c54")
 public class BreakableTile extends ExplodableTile {
     @objid ("0f97109a-7ddc-4f5f-916d-aa2c1e51cc55")
-    public static final double LOOT_RATE = 0.50;
+    public static final double LOOT_RATE = 0.40;
 
     @objid ("b437dbbe-08da-431d-a157-4f630122bbfa")
     @Override
