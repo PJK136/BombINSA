@@ -259,8 +259,8 @@ public class Local extends World {
             return true;
         } else if (getHumanCount() >= 1) {
             return getHumanAliveCount() <= 0;
-        } else {
-            return getPlayerAliveCount() <= 1;
         }
+        
+        return false;
     }
 }
