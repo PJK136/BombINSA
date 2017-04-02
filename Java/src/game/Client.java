@@ -4,13 +4,10 @@ import java.net.InetAddress;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-
 import network.GameInfo;
-import network.Network;
 import network.Network.CommandMap;
 import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
@@ -20,19 +17,29 @@ import network.Network.RoundEnded;
 import network.Network.TimeRemaining;
 import network.Network.ToRemove;
 import network.Network.WarmupTimeRemaining;
+import network.Network;
 
 @objid ("b8264f8e-49d1-4a58-ad20-06ceafdee906")
 public class Client extends World implements Listener {
-    com.esotericsoftware.kryonet.Client network;
-    
-    List<CommandMap> commands;
-    
-    boolean init;
-    boolean roundEnded;
-    
-    boolean pickUp;
-    boolean explosion;
-    
+    @objid ("07603ddf-f608-4cd6-8206-fe5e7ed74af2")
+     boolean init;
+
+    @objid ("dfe866bc-4673-4e51-a1c6-849dc4b42e49")
+     boolean roundEnded;
+
+    @objid ("69b14909-1260-4d7a-8292-5d025967581b")
+     boolean pickUp;
+
+    @objid ("e75ff67a-fbd6-46ab-b982-d0131ef1a0c4")
+     boolean explosion;
+
+    @objid ("a6a97511-69d5-4a0d-8b2f-046814038a98")
+     com.esotericsoftware.kryonet.Client network;
+
+    @objid ("b3107df3-29f9-4537-a5c5-7a34ae3f36b4")
+     List<CommandMap> commands;
+
+    @objid ("63d8fe40-31e8-480c-82ff-640b5412de27")
     public Client(InetAddress address) throws Exception {
         map = new Map(32);
         
@@ -46,20 +53,21 @@ public class Client extends World implements Listener {
         network.addListener(this);
         
         network.start();
-
+        
         if (address == null)
             address = network.discoverHost(Network.udpPort, 2500);
-
+        
         if (address != null)
             network.connect(1500, address, Network.tcpPort, Network.udpPort);
         else
             throw new Exception("Pas de serveur trouvé...");
     }
-    
+
+    @objid ("a0b86d60-e56c-4c1c-900d-85fb1d6cd53c")
     public Client() throws Exception {
         this(null);
     }
-    
+
     @objid ("2116c198-f003-4fbb-8e6b-4ccf16f7f093")
     @Override
     void plantBomb(Player player) {
@@ -120,21 +128,25 @@ public class Client extends World implements Listener {
     void kickBomb(Bomb bomb, Direction direction) {
         // TODO Auto-generated method stub
     }
-    
+
+    @objid ("21a09aee-03f8-43e6-9cbe-72aeaccddf27")
     @Override
     public boolean isReady() {
         return init;
     }
-    
+
+    @objid ("2ce88ea4-d683-46a3-be3f-2cd53554bdb0")
     @Override
     public boolean isRoundEnded() {
         return roundEnded || !network.isConnected();
     }
-    
+
+    @objid ("78cbc042-3577-4058-a504-77bad8d090c9")
     public boolean isConnected() {
         return network.isConnected();
     }
-    
+
+    @objid ("690dc1ec-de6c-4bf8-953d-857fdd810841")
     @Override
     void addEntity(Entity entity, int id) {
         Entity existing = entities.get(id);
@@ -151,18 +163,21 @@ public class Client extends World implements Listener {
             }
         }
     }
-    
+
+    @objid ("9ad97afa-1570-4a4a-8ef4-09bfb11ff449")
     @Override
     public void stop() {
         network.close();
     }
-    
+
+    @objid ("b9510250-2586-427f-88f4-0ef51d2c9232")
     @Override
     public void restart() throws Exception {
         super.restart();
         roundEnded = false;
     }
-    
+
+    @objid ("3114b1af-c101-4ac6-bf27-c61d6175cac7")
     @Override
     public void received(Connection connection, Object object) {
         if (object instanceof GameInfo) {
@@ -226,6 +241,7 @@ public class Client extends World implements Listener {
                     addEntity(entity, entity.getID());
                 }
             }
-        } 
+        }
     }
+
 }

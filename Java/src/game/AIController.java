@@ -17,7 +17,7 @@ public class AIController extends Controller {
 
     @objid ("6acb90de-974c-4546-a93e-0b8cc35a6bd2")
     private GridCoordinates aiLocation;
-    
+
     /**
      * Crée un nouveau controlleur de type intelligence artificielle
      */
@@ -25,7 +25,7 @@ public class AIController extends Controller {
     public AIController() {
         setName("IA");
     }
-    
+
     @objid ("a6dfdad3-f290-4e15-ba75-694888e5d4c2")
     @Override
     public Direction getDirection() {
@@ -45,7 +45,7 @@ public class AIController extends Controller {
             return false;
         }
     }
-    
+
     /**
      * Met à jour le controlleur de type intelligence artificielle en faisant les actions suivantes :
      * - si l'IA peut poser und bombe, elle le fait
@@ -97,9 +97,9 @@ public class AIController extends Controller {
         }
         turned = false;
     }
-    
+
     /**
-     * Controle la dangerosité d'une tuile 
+     * Controle la dangerosité d'une tuile
      * @param target La tuile qu'il faut controller
      * @return true Si la tuile est sécurisée, false sinon
      */
@@ -135,7 +135,7 @@ public class AIController extends Controller {
         }
         return true;
     }
-    
+
     /**
      * Teste si une tuile est vide
      * @param gc les coordonnées de grille de la tuile
@@ -145,7 +145,7 @@ public class AIController extends Controller {
     private boolean isEmpty(GridCoordinates gc) {
         return !world.getMap().isCollidable(gc) && !world.getMap().hasBomb(gc);
     }
-    
+
     /**
      * Teste si une tuile est vide et sécurisée
      * @param gc les coordonnées de grille de la tuile
@@ -155,7 +155,7 @@ public class AIController extends Controller {
     private boolean isEmptyAndSafe(GridCoordinates gc) {
         return isEmpty(gc) && isSafe(gc);
     }
-    
+
     /**
      * Détermine si l'IA peut poser une bombe dans la situation actuelle
      * @return true si oui, false sinon
@@ -201,4 +201,5 @@ public class AIController extends Controller {
         }
         return false;
     }
+
 }

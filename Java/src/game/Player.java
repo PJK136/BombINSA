@@ -34,11 +34,12 @@ public class Player extends Entity {
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
     protected transient Controller controller;
 
+    @objid ("c346899f-0664-4813-bcc6-157babe0b50f")
     private Player() {
         super(null, 0, 0);
         setController(null);
     }
-    
+
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
     public Player(World world, double x, double y, Controller controller, int playerID, int lives, int bombMax, int range, int invulnerability) {
         super(world, x, y);
@@ -127,15 +128,6 @@ public class Player extends Entity {
     void setPlayerAbilities(List<Boolean> value) {
         this.playerAbilities = value;
     }
-    
-    public double getMaxSpeed() {
-        double maxSpeed = PLAYER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
-        if (playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()))
-            maxSpeed *= 1.5;
-        else if (playerAbilities.get(PlayerAbility.LessSpeed.ordinal())) 
-            maxSpeed /= 1.5;
-        return maxSpeed;
-    }
 
     @objid ("1c7621e2-784f-4508-933f-55ea6bea5b83")
     public int getInvulnerability() {
@@ -167,12 +159,23 @@ public class Player extends Entity {
         this.controller.setWorldView(world);
     }
 
+    @objid ("e2e7b5c2-c647-40b9-b8e3-d980b80dde0d")
+    public double getMaxSpeed() {
+        double maxSpeed = PLAYER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
+        if (playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()))
+            maxSpeed *= 1.5;
+        else if (playerAbilities.get(PlayerAbility.LessSpeed.ordinal())) 
+            maxSpeed /= 1.5;
+        return maxSpeed;
+    }
+
+    @objid ("f9b10d2c-72a9-4695-9fa2-07f2564fc175")
     @Override
     void setWorld(World world) {
         super.setWorld(world);
         this.controller.setWorldView(world);
     }
-    
+
     @objid ("8cb4ed00-b6b9-4918-86a9-6a90e6368f8f")
     void decreaseLives() {
         this.lives = Math.max(0, this.lives-1);
@@ -355,6 +358,7 @@ public class Player extends Entity {
         }
     }
 
+    @objid ("0574ac7a-1eb8-4298-ad3f-788efa878621")
     @Override
     void updateFrom(Entity entity) {
         super.updateFrom(entity);
@@ -369,4 +373,5 @@ public class Player extends Entity {
             this.invulnerability = player.invulnerability;
         }
     }
+
 }

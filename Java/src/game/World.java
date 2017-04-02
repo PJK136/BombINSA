@@ -19,12 +19,16 @@ public abstract class World implements WorldView {
     @objid ("ed497149-29e3-423f-aa53-4d59e7f2d0a9")
      int duration;
 
+    @objid ("179b51a3-de36-42d1-b4e7-5910602e3eb1")
      int warmupDuration;
-    
+
+    @objid ("7cc86e7d-355f-47e2-9db6-26e82b9e1684")
      int warmupTimeRemaining;
-     
+
+    @objid ("dd221d3c-d9db-4f3a-9a49-3a81e5cc95df")
      int round = 1;
-    
+
+    @objid ("6a5f65d2-9b0d-4b5a-a388-17ff14b96ca8")
     private int nextID = 1;
 
     @objid ("d4ef51fc-99a1-4469-a144-395b415f38c6")
@@ -49,12 +53,13 @@ public abstract class World implements WorldView {
      Map map;
 
     @objid ("ea256a0b-ce0d-4498-ac24-bd5ea8fb8825")
-     java.util.Map<Integer,Entity> entities = Collections.synchronizedMap(new HashMap<Integer, Entity> ());
+     java.util.Map<Integer, Entity> entities = Collections.synchronizedMap(new HashMap<Integer, Entity> ());
 
     @objid ("20f367fb-bcb4-4389-912c-a406baff8d4e")
     public List<Controller> controllers = new ArrayList<Controller> ();
-    
-    List<GameListener> listeners = new LinkedList<GameListener>();
+
+    @objid ("d409f763-e743-4545-b3b6-8c3aa8ce966a")
+     List<GameListener> listeners = new LinkedList<GameListener>();
 
     @objid ("9aa33376-6f71-4b5f-a0af-9fcba7c1a5cd")
     public int getFps() {
@@ -76,22 +81,25 @@ public abstract class World implements WorldView {
     public int getTimeElapsed() {
         return duration-timeRemaining;
     }
-    
+
+    @objid ("bb6812a0-7efd-4d61-91b2-aba3d64358c6")
     @Override
     public int getWarmupDuration() {
         return warmupDuration;
     }
-    
+
+    @objid ("6f6fa271-940b-4fe1-8dbb-f1f88d8555ab")
     @Override
     public int getWarmupTimeRemaining() {
         return warmupTimeRemaining;
     }
 
+    @objid ("a8a0c673-0be2-4b59-9a70-0b336383479c")
     @Override
     public int getRound() {
         return round;
     }
-    
+
     @objid ("83167709-dc8e-456e-b787-b9a4ed0d8113")
     public List<Entity> getEntities() {
         //Thread-safety
@@ -109,16 +117,6 @@ public abstract class World implements WorldView {
     public int getPlayerCount() {
         return controllers.size();
     }
-    
-    @Override
-    public int getHumanCount() {
-        int sum = 0;
-        for (Controller controller : controllers) {
-            if (!(controller instanceof AIController))
-                sum++;
-        }
-        return sum;
-    }
 
     @objid ("fe9b5eb2-5def-4f69-8e0e-49e6eaaa3315")
     public int getPlayerAliveCount() {
@@ -130,7 +128,19 @@ public abstract class World implements WorldView {
         }
         return sum;
     }
-    
+
+    @objid ("750bdf7a-3247-4d68-b7fc-a113033db70a")
+    @Override
+    public int getHumanCount() {
+        int sum = 0;
+        for (Controller controller : controllers) {
+            if (!(controller instanceof AIController))
+                sum++;
+        }
+        return sum;
+    }
+
+    @objid ("98c22605-3cc4-4413-9967-fcd03f4b00f1")
     @Override
     public int getHumanAliveCount() {
         int sum = 0;
@@ -141,7 +151,7 @@ public abstract class World implements WorldView {
         }
         return sum;
     }
-    
+
     @objid ("2aa100c7-ebde-4cd8-840f-24b2f13f54cd")
     public void setFps(int fps) {
         if (fps <= 0) {
@@ -169,7 +179,8 @@ public abstract class World implements WorldView {
         else
             this.timeRemaining = time;
     }
-    
+
+    @objid ("33e095d8-68dd-4046-b765-17ecc0fe4365")
     public void setWarmupDuration(int warmup) {
         if (warmup < 0)
             throw new RuntimeException("warmup not positive");
@@ -190,14 +201,14 @@ public abstract class World implements WorldView {
      */
     @objid ("9c563a21-9aa5-4a46-9bc7-944623f9796c")
     abstract void plantBomb(Player player);
-    
+
     /**
      * définit qu'une bombe explose sur la map
      * @param bomb la bombe qui explose
      */
     @objid ("df2bc239-ca9f-42a9-b92a-6255de4d5c86")
     abstract void createExplosion(Bomb bomb);
-    
+
     /**
      * définit qu'un bonus se fait ramasser par un joueur
      * @param x la coordonnée en x du joueur en pixel
@@ -205,7 +216,7 @@ public abstract class World implements WorldView {
      */
     @objid ("15006b09-55e2-4635-b9b7-f4cee5978c5d")
     abstract void pickUpBonus(double x, double y);
-    
+
     /**
      * définit qu'une bombe se fait pousser dans une direction
      * @param bomb la bomb qui se fait pousser
@@ -213,14 +224,28 @@ public abstract class World implements WorldView {
      */
     @objid ("d2244540-1a9f-4ec7-bee2-e5b2a2c83862")
     abstract void kickBomb(Bomb bomb, Direction direction);
-    
+
     /**
      * construit un nouveau controlleur à partir d'un controlleur préexistant
      * @param controller le controlleur préexistant
      */
     @objid ("d65622a5-0611-42cd-87a7-975a15931e59")
     public abstract void newController(Controller controller);
-    
+
+    /**
+     * indique si la partie est prête à être commencée
+     * @return true si oui, false sinon
+     */
+    @objid ("c1a7c8a0-32d1-41a0-a08a-d8fd2bbb79b0")
+    public abstract boolean isReady();
+
+    /**
+     * indique si le round est terminé
+     * @return true si oui, false sinon
+     */
+    @objid ("8573d9f6-2b91-46e8-815c-d1e296750608")
+    public abstract boolean isRoundEnded();
+
     /**
      * met à jour le monde en controllant :
      * - s'il faut enclencher la mort subite
@@ -256,20 +281,27 @@ public abstract class World implements WorldView {
         //update of the map
         map.update();
     }
-    
+
+    /**
+     * met fin à la partie
+     */
+    @objid ("ff6dfd59-975b-4d3b-af34-f38b4e3ac3b5")
+    public void stop() {
+    }
+
     /**
      * permet de relancer la partie
-     * @throws Exception problème lié au chargement de la carte
+     * @throws java.lang.Exception problème lié au chargement de la carte
      */
     @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
     public void restart() throws Exception {
-      //time remaining back to beginning
-        timeRemaining = duration;
-        warmupTimeRemaining = warmupDuration;
-        round++;
-
-        //reinitialize entities 
-        entities.clear();
+        //time remaining back to beginning
+          timeRemaining = duration;
+          warmupTimeRemaining = warmupDuration;
+          round++;
+        
+          //reinitialize entities 
+          entities.clear();
     }
 
     @objid ("0b9057d7-eb96-4376-92be-bfb39cef93ff")
@@ -282,46 +314,32 @@ public abstract class World implements WorldView {
         }
         return playerList;
     }
-    
-    /**
-     * indique si la partie est prête à être commencée
-     * @return true si oui, false sinon
-     */
-    public abstract boolean isReady();
-    
-    /**
-     * indique si le round est terminé
-     * @return true si oui, false sinon
-     */
-    public abstract boolean isRoundEnded();
-    
-    /**
-     * met fin à la partie
-     */
-    public void stop() { }
 
-    public void addGameListener(GameListener listener){
+    @objid ("a94d9c92-e103-47fc-85c2-8ec0e6be9521")
+    public void addGameListener(GameListener listener) {
         listeners.add(listener);
     }
-    
-    void fireEvent(Event e){
+
+    @objid ("4b33edc4-09ea-4366-aaed-a774e91e6c5a")
+    void fireEvent(Event e) {
         for(GameListener listener : listeners){
             listener.processEvent(e);
         }
     }
-    
+
     /**
      * ajoute une entité à la partie
      * @param entity l'entité qui doit être ajoutée
      * @param id l'identité de l'entité
      */
+    @objid ("6159a84b-d00e-47f9-a813-9b123a35ee27")
     void addEntity(Entity entity, int id) {
         entity.setID(id);
         entity.setWorld(this);
         entities.put(id, entity);
         map.addEntity(entity);
     }
-    
+
     @objid ("27111301-80b0-479b-af73-bb78da106041")
     void addEntity(Entity entity) {
         addEntity(entity, nextID);

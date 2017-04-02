@@ -14,7 +14,7 @@ public class GridCoordinates {
     public GridCoordinates() {
         this(0, 0);
     }
-    
+
     /**
      * Crée des coordonnées de grille à partir de coordonnées en pixel
      * @param x la coordonée en x en pixel
@@ -25,7 +25,7 @@ public class GridCoordinates {
         this.x = x;
         this.y = y;
     }
-    
+
     /**
      * Crée une copie de coordonnées de grilles préexistantes
      * @param gc les cooronnées préexistantes
@@ -34,7 +34,7 @@ public class GridCoordinates {
     public GridCoordinates(GridCoordinates gc) {
         this(gc.x, gc.y);
     }
-    
+
     /**
      * Teste l'égalité de 2 objets
      */
@@ -57,7 +57,7 @@ public class GridCoordinates {
     public String toString() {
         return "("+x+";"+y+")";
     }
-    
+
     /**
      * Récupère les coordonnées d'une case voisine
      * @param direction La direction dans laquelle on cherche la voisine
@@ -77,7 +77,7 @@ public class GridCoordinates {
         }
         return null;
     }
-    
+
     /**
      * Mesure la distance entre 2 coordonnées de grille à partir d'une norme de type 1
      * @param gc1 Les premières coordonnées

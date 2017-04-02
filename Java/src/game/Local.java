@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
-
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-
 
 @objid ("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Local extends World {
@@ -18,7 +16,7 @@ public class Local extends World {
 
     @objid ("bea83389-bb33-4211-97c6-1b6fc49e23eb")
      HashMap<Bomb, Direction> queueKickBomb = new HashMap<>();
-    
+
     @objid ("f4f3efa0-82ed-4a6e-a844-a5b784ab690e")
      int nextPlayerID = 0;
 
@@ -30,7 +28,7 @@ public class Local extends World {
 
     @objid ("d09dce2a-6ccc-4d37-838d-8a1f201d7b56")
      Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
-    
+
     /**
      * Construit une partie de jeu en local
      * @param mapFilename Nom du ficher de la carte
@@ -38,7 +36,7 @@ public class Local extends World {
      * @param fps Nombre d'images par secondes
      * @param duration Durée d'un round en images
      * @param warmup Durée du temps d'échauffement en images
-     * @throws Exception Erreur liée au chargement de la carte
+     * @throws java.lang.Exception Erreur liée au chargement de la carte
      */
     @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
     public Local(String mapFilename, int tileSize, int fps, int duration, int warmup) throws Exception {
@@ -49,19 +47,20 @@ public class Local extends World {
         setTimeRemaining(duration);
         setWarmupDuration(warmup);
     }
-    
+
     /**
      * Crée une carte
      * @param tileSize taille des tuiles de la carte
      */
+    @objid ("55de5f31-b530-41eb-b641-653b03d061c8")
     void createMap(int tileSize) {
         map = new Map(tileSize);
     }
-    
+
     /**
      * Charge une carte qui existe déjà
      * @param filename Nom du fichier de la carte
-     * @throws Exception Erreur liée au chargement de la carte
+     * @throws java.lang.Exception Erreur liée au chargement de la carte
      */
     @objid ("4164c416-9e5c-461f-a7dc-1758c0f94d36")
     public void loadMap(String filename) throws Exception {
@@ -86,7 +85,7 @@ public class Local extends World {
         newPlayer(controller);
         controllers.add(controller);
     }
-    
+
     /**
      * Crée un joueur à partir de son controlleur
      * @param controller le controlleur rataché au nouveau joueur
@@ -112,7 +111,7 @@ public class Local extends World {
         addEntity(player);
         nextPlayerID++;
     }
-    
+
     /**
      * Met à jour la partie locale en faisant les actions supplémentaires suivantes :
      * - fait apparaitre des bombes aléatoirement et rend les joueurs "fragiles" en cas de mort subite
@@ -246,11 +245,13 @@ public class Local extends World {
             queueKickBomb.put(bomb, direction);
     }
 
+    @objid ("d34bf143-a811-4bcf-abdb-39a06a2b3a43")
     @Override
     public boolean isReady() {
         return true;
     }
-    
+
+    @objid ("493bb64c-48a4-42ed-8eb7-3d1173089dfd")
     @Override
     public boolean isRoundEnded() {
         if (getPlayerCount() == 1) {
@@ -260,7 +261,7 @@ public class Local extends World {
         } else if (getHumanCount() >= 1) {
             return getHumanAliveCount() <= 0;
         }
-        
         return false;
     }
+
 }

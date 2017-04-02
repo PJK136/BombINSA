@@ -98,11 +98,13 @@ public class Map implements MapView {
     public double toCenterY(GridCoordinates gc) {
         return (gc.y+0.5)*tileSize;
     }
-    
+
+    @objid ("c30a410f-bbea-4328-8b8e-3678141b2856")
     public double toCenterX(double x) {
         return (((int)(x/tileSize))+0.5)*tileSize;
     }
-    
+
+    @objid ("9ab5caac-2fb4-413b-9180-c7bfab242b03")
     public double toCenterY(double y) {
         return (((int)(y/tileSize))+0.5)*tileSize;
     }
@@ -319,7 +321,7 @@ public class Map implements MapView {
     public void setTileType(TileType type, GridCoordinates gc) {
         setTileType(tiles, type, gc);
     }
-    
+
     @objid ("78a5a0ad-2342-4f09-8a8b-06386dbe2797")
     public void setTileType(TileType type, double x, double y) {
         setTileType(type, toGridCoordinates(x, y));
@@ -350,7 +352,8 @@ public class Map implements MapView {
             newTile.setEntities(tiles[gc.x][gc.y].getEntities());
         tiles[gc.x][gc.y] = newTile;
     }
-    
+
+    @objid ("1f195798-6c09-419d-ad11-a55fd90e3695")
     public void setBonusType(BonusType type, GridCoordinates gc) {
         ((BonusTile)(tiles[gc.x][gc.y])).setBonusType(type);
     }
@@ -360,10 +363,11 @@ public class Map implements MapView {
         setBonusType(type, toGridCoordinates(x, y));
     }
 
+    @objid ("85826084-3692-41da-b49d-cdd4373913b3")
     public void setArrowDirection(Direction direction, GridCoordinates gc) {
         ((ArrowTile)(tiles[gc.x][gc.y])).setDirection(direction);
     }
-    
+
     @objid ("af2aa240-e83a-4b08-9641-56c0dfe48630")
     public void setArrowDirection(Direction direction, double x, double y) {
         setArrowDirection(direction, toGridCoordinates(x, y));
@@ -378,7 +382,7 @@ public class Map implements MapView {
     void setExplosionEnd(GridCoordinates gc) {
         ((ExplodableTile)tiles[gc.x][gc.y]).setLastExplosionEnd();
     }
-    
+
     @objid ("297782bf-dc7a-4125-886d-042609080629")
     @Override
     public List<Entity> getEntities(GridCoordinates gc) {
@@ -446,10 +450,11 @@ public class Map implements MapView {
         }
     }
 
+    @objid ("ac8ff57c-755b-4ef6-8f4f-ac79fa4228f9")
     void setTile(Tile tile, GridCoordinates gc) {
         tiles[gc.x][gc.y] = tile;
     }
-    
+
     @objid ("6bc80ea5-bafc-4ca1-86f2-9d861e475c10")
     private void updateEntities(GridCoordinates gc) {
         Iterator<Entity> iterator = tiles[gc.x][gc.y].entities.iterator();

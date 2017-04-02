@@ -4,8 +4,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("c2a5ec32-8fb5-4eea-beff-33ee327f4352")
 public abstract class Entity {
+    @objid ("f7548ae8-0e8e-42f3-891e-e0d849b36c13")
      int id;
-     
+
     @objid ("5ce64a3c-e0c0-4de4-b322-183a2e6a4c25")
      boolean toRemove;
 
@@ -36,14 +37,16 @@ public abstract class Entity {
         this.direction = Direction.Down;
     }
 
-    void setID(int id) {
-        this.id = id;
-    }
-    
+    @objid ("ff542c4f-be42-4c9c-9cf1-02515984de0e")
     int getID() {
         return id;
     }
-    
+
+    @objid ("98f2341a-c9b8-44a2-8a9a-f623109cc56b")
+    void setID(int id) {
+        this.id = id;
+    }
+
     @objid ("012ef32d-c8e8-44f7-9f8f-11c1d0092657")
     boolean isToRemove() {
         return this.toRemove;
@@ -128,10 +131,11 @@ public abstract class Entity {
         this.direction = value;
     }
 
+    @objid ("2435a8a2-3b07-4ced-a559-84d0a5c80a48")
     void setWorld(World world) {
         this.world = world;
     }
-    
+
     @objid ("41800255-bf3a-456d-a83a-101f7454243e")
     public boolean isColliding(Direction direction, double move) {
         if (direction == null)
@@ -150,6 +154,12 @@ public abstract class Entity {
             return canCollide(getBorderLeft()+offset, getBorderDown()+move) || canCollide(getBorderRight()-offset, getBorderDown()+move);
         }
         return false;
+    }
+
+    @objid ("94f5132c-0a18-4827-bebd-451cd306edff")
+    boolean canCollide(double x, double y) {
+        //Il faut aussi vérifier la collision dans les sous classes
+        return this.world.getMap().isCollidable(x, y);
     }
 
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
@@ -198,12 +208,7 @@ public abstract class Entity {
         }
     }
 
-    @objid ("94f5132c-0a18-4827-bebd-451cd306edff")
-    boolean canCollide(double x, double y) {
-        //Il faut aussi vérifier la collision dans les sous classes
-        return this.world.getMap().isCollidable(x, y);
-    }
-
+    @objid ("ffa0dcae-9640-47ec-b23d-de519e7ed701")
     void updateFrom(Entity entity) {
         this.id = entity.id;
         this.x = entity.x;
@@ -211,4 +216,5 @@ public abstract class Entity {
         this.direction = entity.direction;
         this.speed = entity.speed;
     }
+
 }

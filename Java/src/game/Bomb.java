@@ -19,10 +19,11 @@ public class Bomb extends Entity {
     @objid ("d663f27d-b4de-411a-b687-8ae5d439ab48")
     protected transient Player owner;
 
+    @objid ("282df99d-8010-4cca-a7b1-e03cba0302ea")
     private Bomb() {
         super(null, 0, 0);
     }
-    
+
     @objid ("f9841259-647d-4cd7-9bb7-f10aea5a4794")
     public Bomb(World world, double x, double y, int range, int duration) {
         super(world, x, y);
@@ -128,6 +129,7 @@ public class Bomb extends Entity {
         return true;
     }
 
+    @objid ("0be4b6b6-bba8-473e-9fa7-d6e4dbe08226")
     @Override
     void updateFrom(Entity entity) {
         super.updateFrom(entity);
@@ -138,4 +140,5 @@ public class Bomb extends Entity {
             this.timeRemaining = bomb.timeRemaining;
         }
     }
+
 }
