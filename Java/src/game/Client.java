@@ -40,7 +40,7 @@ public class Client extends World implements Listener {
         
         init = false;
         
-        network = new com.esotericsoftware.kryonet.Client();
+        network = new com.esotericsoftware.kryonet.Client(16384, 8192);
         Network.register(network);
         
         network.addListener(this);
@@ -89,12 +89,14 @@ public class Client extends World implements Listener {
             network.sendUDP(new ControllerUpdate(i, controllers.get(i)));
         }
         
-        synchronized (commands) {
-            DeltaMap.executeDeltas(commands, map);
-            commands.clear();
-        }
+        synchronized (map) {
+            synchronized (commands) {
+                DeltaMap.executeDeltas(commands, map);
+                commands.clear();
+            }
         
-        super.update();
+            super.update();
+        }
         
         if (pickUp) {
             fireEvent(Event.PickUp);
@@ -138,7 +140,9 @@ public class Client extends World implements Listener {
                 player.setController(new FollowController());
             }
             
-            super.addEntity(entity, id);
+            synchronized (map) {
+                super.addEntity(entity, id);
+            }
         }
     }
     
