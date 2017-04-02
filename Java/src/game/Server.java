@@ -18,6 +18,7 @@ import network.Network.TimeRemaining;
 import network.Network.WarmupTimeRemaining;
 import network.Network.ToRemove;
 import network.NetworkController;
+import network.Network.RoundEnded;
 import network.Network.Restart;
 
 public class Server extends Local implements Listener {
@@ -65,6 +66,9 @@ public class Server extends Local implements Listener {
         
         network.sendToAllTCP(((DeltaMap)map).deltas);
         ((DeltaMap)map).deltas.clear();
+        
+        if (isRoundEnded())
+            network.sendToAllUDP(new RoundEnded());
     }
     
     public void stop() {

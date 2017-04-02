@@ -109,12 +109,33 @@ public abstract class World implements WorldView {
     public int getPlayerCount() {
         return controllers.size();
     }
+    
+    @Override
+    public int getHumanCount() {
+        int sum = 0;
+        for (Controller controller : controllers) {
+            if (!(controller instanceof AIController))
+                sum++;
+        }
+        return sum;
+    }
 
     @objid ("fe9b5eb2-5def-4f69-8e0e-49e6eaaa3315")
     public int getPlayerAliveCount() {
         int sum = 0;
         for(Entity entity : getEntities()){ //Thread-safety
             if(entity instanceof Player){
+                sum ++;
+            }       
+        }
+        return sum;
+    }
+    
+    @Override
+    public int getHumanAliveCount() {
+        int sum = 0;
+        for(Entity entity : getEntities()){ //Thread-safety
+            if(entity instanceof Player && !(((Player)entity).getController() instanceof AIController)){
                 sum ++;
             }       
         }
@@ -309,9 +330,9 @@ public abstract class World implements WorldView {
 
 //http://answers.unity3d.com/questions/150347/what-exactly-does-timetime-do-in-mathfpingpong.html
     @objid ("a2ce16fa-379a-4c02-be51-8541e80d6bac")
-    private static double pingPong(int time, int length) {
-        int l = 2 * length;
-        int t = time % l;
+    private static double pingPong(double time, double length) {
+        double l = 2 * length;
+        double t = time % l;
         
         if (0 <= t && t < length)
             return t;
@@ -320,9 +341,9 @@ public abstract class World implements WorldView {
     }
 
     @objid ("dd75a61f-a8f2-4638-b49e-8fc4e1a0c499")
-    public static boolean oscillate(int remaining, int duration, int intervalMin, int intervalMax) {
+    public static boolean oscillate(double remaining, double duration, double intervalMin, double intervalMax) {
         //http://answers.unity3d.com/questions/678855/trying-to-get-object-to-blink-speed-acording-to-ti.html
-        int interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
+        double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
         return pingPong(duration - remaining, interval) > interval/2; //Ping pong sur la durée écoulée
     }
 

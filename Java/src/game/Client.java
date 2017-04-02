@@ -16,6 +16,7 @@ import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
 import network.Network.PlayerName;
 import network.Network.Restart;
+import network.Network.RoundEnded;
 import network.Network.TimeRemaining;
 import network.Network.ToRemove;
 import network.Network.WarmupTimeRemaining;
@@ -27,6 +28,7 @@ public class Client extends World implements Listener {
     List<CommandMap> commands;
     
     boolean init;
+    boolean roundEnded;
     
     boolean pickUp;
     boolean explosion;
@@ -118,7 +120,7 @@ public class Client extends World implements Listener {
     
     @Override
     public boolean isRoundEnded() {
-        return getPlayerAliveCount() <= 1 || !network.isConnected();
+        return roundEnded || !network.isConnected();
     }
     
     public boolean isConnected() {
@@ -143,6 +145,12 @@ public class Client extends World implements Listener {
     @Override
     public void stop() {
         network.close();
+    }
+    
+    @Override
+    public void restart() throws Exception {
+        super.restart();
+        roundEnded = false;
     }
     
     @Override
@@ -183,6 +191,8 @@ public class Client extends World implements Listener {
             timeRemaining = ((TimeRemaining)object).timeRemaining;
         } else if (object instanceof WarmupTimeRemaining) {
             warmupTimeRemaining = ((WarmupTimeRemaining)object).warmupTimeRemaining;
+        } else if (object instanceof RoundEnded) {
+            roundEnded = true;
         } else if (object instanceof Restart) {
             try {
                 restart();

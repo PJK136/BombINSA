@@ -48,6 +48,7 @@ public class Network {
         kryo.register(ControllerPlayer.class);
         kryo.register(TimeRemaining.class);
         kryo.register(WarmupTimeRemaining.class);
+        kryo.register(RoundEnded.class);
         kryo.register(Restart.class);
         kryo.register(ToRemove.class);
     }
@@ -140,6 +141,10 @@ public class Network {
         public ToRemove(ArrayList<Integer> toRemove) { this.toRemove = toRemove; }
     }
     
+    public static class RoundEnded {
+        
+    }
+
     public static class Restart {
         
     }

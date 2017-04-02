@@ -129,24 +129,25 @@ public class Local extends World {
             return;
         
         //sudden death case
-        if(timeRemaining<0 && timeRemaining%(0.750*fps) == 0){
-            boolean bombPlanted = false;
-            while(!bombPlanted){
-                double x = Math.random()*map.getWidth();
-                double y = Math.random()*map.getHeight();
-                if(!map.isCollidable(x, y)) {
-                    addEntity(new Bomb(this, map.toCenterX(x), map.toCenterY(y), 4,(int)(TIME_BEFORE_EXPLOSION*fps)));
-                    bombPlanted = true;
-                }
-            }
-        
+        if (timeRemaining == 0) {
             for (Entity entity : entities.values()) {
                 if (entity instanceof Player) {
                     ((Player)entity).setLives(1);
                     ((Player)entity).removeShield();
                 }
             }
-            
+        } else if(timeRemaining<0) {
+            if (Math.abs(timeRemaining) >= 120.*fps || timeRemaining % (int)(((120.*fps+timeRemaining)/(120*fps))*fps) == 0) {
+                boolean bombPlanted = false;
+                while(!bombPlanted){
+                    double x = Math.random()*map.getWidth();
+                    double y = Math.random()*map.getHeight();
+                    if(!map.isCollidable(x, y)) {
+                        addEntity(new Bomb(this, map.toCenterX(x), map.toCenterY(y), 4,(int)(TIME_BEFORE_EXPLOSION*fps)));
+                        bombPlanted = true;
+                    }
+                }
+            }
         }
         
         //update of the new bombs
@@ -252,10 +253,12 @@ public class Local extends World {
     
     @Override
     public boolean isRoundEnded() {
-        if (getPlayerCount() > 1) {
-            return getPlayerAliveCount() <= 1;
-        } else {
+        if (getPlayerCount() == 1) {
             return getPlayerAliveCount() <= 0;
+        } else if (getHumanCount() >= 1) {
+            return getHumanAliveCount() <= 0;
+        } else {
+            return getPlayerAliveCount() <= 1;
         }
     }
 }

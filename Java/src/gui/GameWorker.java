@@ -89,10 +89,9 @@ public class GameWorker implements Runnable {
                                                                "Jouez !"};
                         int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
                         SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black));
-                    } else if (world.getWarmupTimeRemaining() == 1)
+                    } else if (world.getWarmupTimeRemaining() == 1) {
                         SwingUtilities.invokeLater(() -> mainWindow.clearMessage());
-                    
-                    if (world.getTimeRemaining() == 0) {
+                    } else if (world.getTimeRemaining() == 0) {
                         setGameState(GameState.SuddenDeath);
                         SwingUtilities.invokeLater(() -> mainWindow.showMessage("Mort subite !", Color.red));
                     } else if (world.getTimeRemaining() == (int)(-0.75 * world.getFps())) {
@@ -135,6 +134,9 @@ public class GameWorker implements Runnable {
                             PlayerColor[] colors = PlayerColor.values();
                             message = ((Player)world.getPlayers().get(0)).getController().getName() + " gagne !";
                             color = colors[((Player)world.getPlayers().get(0)).getPlayerID() % colors.length].toColor();
+                        } else if (world.getPlayerAliveCount() > 0){
+                            message = "IA gagne !";
+                            color = Color.black;
                         } else {
                             message = "Égalité !";
                             color = Color.black;
@@ -155,13 +157,13 @@ public class GameWorker implements Runnable {
                             stop = true;
                     } else {
                         Client client = (Client)world;
-                        while (client.isConnected() && client.isRoundEnded()) {
+                        while (client.isConnected() && client.isRoundEnded() && !stop) {
                             try {
                                 Thread.sleep(1000/settings.fps, 0);
                             } catch (InterruptedException e) {  }
                         }
                         
-                        stop = !client.isConnected();
+                        stop = stop || !client.isConnected();
                     }
                     
                     mainWindow.clearMessage();
