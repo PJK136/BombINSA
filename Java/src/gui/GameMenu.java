@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import javax.swing.JTextField;
 
 @objid ("1792b20d-e79e-4f35-8f63-20089eca61f0")
 public class GameMenu extends JPanel implements ActionListener {
@@ -39,20 +40,33 @@ public class GameMenu extends JPanel implements ActionListener {
     @objid ("276bf142-216c-48e8-b35b-b3b22b2bca83")
     private JComboBox<GameType> gameType;
 
+    private JLabel lblIpAddress;
+    
+    private JTextField ipAddress;
+    
+    private JLabel lblMaps;
+    
     @objid ("ef8d0d33-3c2b-4e50-92ff-ea79a7776078")
     private JComboBox<String> maps;
-
-    @objid ("0963e96d-06f3-4813-bcde-a4a9cc51afc3")
-    private JSpinner roundDuration;
 
     @objid ("6fac6104-5782-4732-9bde-7820184bba18")
     private JSpinner playerCount;
 
-    @objid ("e49ecd14-7c49-417a-95cd-2a58b03e06a7")
-    private JSpinner roundCount;
-
+    private JLabel lblAiCount;
+    
     @objid ("0a56b5ff-f7dd-4db3-b7ce-44218221a273")
     private JSpinner aiCount;
+    
+    private JLabel lblRoundCount;
+    
+    @objid ("e49ecd14-7c49-417a-95cd-2a58b03e06a7")
+    private JSpinner roundCount;
+    
+    private JLabel lblRoundDuration;
+    
+    @objid ("0963e96d-06f3-4813-bcde-a4a9cc51afc3")
+    private JSpinner roundDuration;
+
 
     @objid ("9b4377fe-7088-4d49-ac76-20f2e508013d")
     public GameMenu(MainWindow mainWindow) {
@@ -88,6 +102,7 @@ public class GameMenu extends JPanel implements ActionListener {
             gameType.addItem(type);
         
         gameType.setSelectedItem(settings.gameType);
+        gameType.addActionListener(this);
         
         JLabel lblHumain = new JLabel("Nombre de joueurs :");
         settings.scaleFont(lblHumain);
@@ -108,14 +123,33 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_playerCount.gridy = 1;
         add(playerCount, gbc_playerCount);
         
-        JLabel lblOrdinateur = new JLabel("Nombre d'IA :");
-        settings.scaleFont(lblOrdinateur);
+        lblIpAddress = new JLabel("Adresse IP :");
+        settings.scaleFont(lblIpAddress);
+        GridBagConstraints gbc_lblAdresseIp = new GridBagConstraints();
+        gbc_lblAdresseIp.anchor = GridBagConstraints.WEST;
+        gbc_lblAdresseIp.insets = new Insets(0, 0, 5, 5);
+        gbc_lblAdresseIp.gridx = 1;
+        gbc_lblAdresseIp.gridy = 2;
+        add(lblIpAddress, gbc_lblAdresseIp);
+        
+        ipAddress = new JTextField(settings.ipAddress);
+        settings.scaleFont(ipAddress);
+        GridBagConstraints gbc_ipAddress = new GridBagConstraints();
+        gbc_ipAddress.insets = new Insets(0, 0, 5, 5);
+        gbc_ipAddress.fill = GridBagConstraints.HORIZONTAL;
+        gbc_ipAddress.gridx = 2;
+        gbc_ipAddress.gridy = 2;
+        add(ipAddress, gbc_ipAddress);
+        ipAddress.setColumns(10);
+        
+        lblAiCount = new JLabel("Nombre d'IA :");
+        settings.scaleFont(lblAiCount);
         GridBagConstraints gbc_lblOrdinateur = new GridBagConstraints();
         gbc_lblOrdinateur.anchor = GridBagConstraints.WEST;
         gbc_lblOrdinateur.insets = new Insets(0, 0, 5, 5);
         gbc_lblOrdinateur.gridx = 4;
         gbc_lblOrdinateur.gridy = 2;
-        add(lblOrdinateur, gbc_lblOrdinateur);
+        add(lblAiCount, gbc_lblOrdinateur);
         
         aiCount = new JSpinner();
         aiCount.setModel(new SpinnerNumberModel(new Integer(settings.aiCount), new Integer(0), null, new Integer(1)));
@@ -127,14 +161,14 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_aiCount.gridy = 2;
         add(aiCount, gbc_aiCount);
         
-        JLabel lblCarte = new JLabel("Carte :");
-        settings.scaleFont(lblCarte);
+        lblMaps = new JLabel("Carte :");
+        settings.scaleFont(lblMaps);
         GridBagConstraints gbc_lblCarte = new GridBagConstraints();
         gbc_lblCarte.anchor = GridBagConstraints.WEST;
         gbc_lblCarte.insets = new Insets(0, 0, 5, 5);
         gbc_lblCarte.gridx = 1;
         gbc_lblCarte.gridy = 3;
-        add(lblCarte, gbc_lblCarte);
+        add(lblMaps, gbc_lblCarte);
         
         maps = new JComboBox<String>();
         settings.scaleFont(maps);
@@ -147,14 +181,14 @@ public class GameMenu extends JPanel implements ActionListener {
         updateMapList();
         maps.setSelectedItem(settings.mapName);
         
-        JLabel lblNombreDeRound = new JLabel("Nombre de round :");
-        settings.scaleFont(lblNombreDeRound);
+        lblRoundCount = new JLabel("Nombre de round :");
+        settings.scaleFont(lblRoundCount);
         GridBagConstraints gbc_lblNombreDeRound = new GridBagConstraints();
         gbc_lblNombreDeRound.anchor = GridBagConstraints.WEST;
         gbc_lblNombreDeRound.insets = new Insets(0, 0, 5, 5);
         gbc_lblNombreDeRound.gridx = 4;
         gbc_lblNombreDeRound.gridy = 3;
-        add(lblNombreDeRound, gbc_lblNombreDeRound);
+        add(lblRoundCount, gbc_lblNombreDeRound);
         
         roundCount = new JSpinner();
         roundCount.setModel(new SpinnerNumberModel(new Integer(settings.roundCount), new Integer(1), null, new Integer(1)));
@@ -166,14 +200,14 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_roundCount.gridy = 3;
         add(roundCount, gbc_roundCount);
         
-        JLabel lblDureeRound = new JLabel("Durée d'un round (s) :");
-        settings.scaleFont(lblDureeRound);
+        lblRoundDuration = new JLabel("Durée d'un round (s) :");
+        settings.scaleFont(lblRoundDuration);
         GridBagConstraints gbc_lblDureeRound = new GridBagConstraints();
         gbc_lblDureeRound.anchor = GridBagConstraints.WEST;
         gbc_lblDureeRound.insets = new Insets(0, 0, 5, 5);
         gbc_lblDureeRound.gridx = 4;
         gbc_lblDureeRound.gridy = 4;
-        add(lblDureeRound, gbc_lblDureeRound);
+        add(lblRoundDuration, gbc_lblDureeRound);
         
         roundDuration = new JSpinner();
         roundDuration.setModel(new SpinnerNumberModel(new Integer(settings.duration), new Integer(0), null, new Integer(1)));
@@ -210,6 +244,8 @@ public class GameMenu extends JPanel implements ActionListener {
         settings.scaleFont(btnPlay);
         btnPlay.addActionListener(this);
         panel.add(btnPlay);
+        
+        updateFields();
     }
 
     @objid ("774feb6e-66a6-4fc0-869a-297ed681852b")
@@ -239,9 +275,43 @@ public class GameMenu extends JPanel implements ActionListener {
         }
     }
 
+    private void updateFields() {
+        switch ((GameType)gameType.getSelectedItem()) {
+        case Client:
+            lblIpAddress.setVisible(true);
+            ipAddress.setVisible(true);
+            lblMaps.setVisible(false);
+            maps.setVisible(false);
+            lblAiCount.setVisible(false);
+            aiCount.setVisible(false);
+            lblRoundCount.setVisible(false);
+            roundCount.setVisible(false);
+            lblRoundDuration.setVisible(false);
+            roundDuration.setVisible(false);
+            break;
+        case Local:
+        case Sandbox:
+        case Server:
+            lblIpAddress.setVisible(false);
+            ipAddress.setVisible(false);
+            lblMaps.setVisible(true);
+            maps.setVisible(true);
+            lblAiCount.setVisible(true);
+            aiCount.setVisible(true);
+            lblRoundCount.setVisible(true);
+            roundCount.setVisible(true);
+            lblRoundDuration.setVisible(true);
+            roundDuration.setVisible(true);
+            break;
+        default:
+            break;
+        }
+    }
+    
     @objid ("d1e9ba38-aebd-4bc4-b6f9-a97681e13fe0")
     private void updateGameSettings() {
         settings.gameType = (GameType) gameType.getSelectedItem();
+        settings.ipAddress = ipAddress.getText();
         settings.mapName = (String) maps.getSelectedItem();
         settings.playerCount = (int) playerCount.getValue();
         settings.aiCount = (int) aiCount.getValue();
@@ -252,7 +322,9 @@ public class GameMenu extends JPanel implements ActionListener {
     @objid ("3c87a9f3-8dd6-480e-a2ae-5e1534c8c5a2")
     @Override
     public void actionPerformed(ActionEvent event) {
-        if (event.getSource() == btnBack || event.getSource() == btnPlay) {
+        if (event.getSource() == gameType) {
+            updateFields();
+        } else if (event.getSource() == btnBack || event.getSource() == btnPlay) {
             updateGameSettings();
             try {
                 settings.save();
@@ -269,5 +341,4 @@ public class GameMenu extends JPanel implements ActionListener {
                 mainWindow.startGame();
         }
     }
-
 }

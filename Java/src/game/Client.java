@@ -33,7 +33,7 @@ public class Client extends World implements Listener {
     boolean pickUp;
     boolean explosion;
     
-    public Client() throws Exception {
+    public Client(InetAddress address) throws Exception {
         map = new Map(32);
         
         commands = Collections.synchronizedList(new LinkedList<CommandMap>());
@@ -46,12 +46,18 @@ public class Client extends World implements Listener {
         network.addListener(this);
         
         network.start();
-        
-        InetAddress address = network.discoverHost(Network.udpPort, 2500);
+
+        if (address == null)
+            address = network.discoverHost(Network.udpPort, 2500);
+
         if (address != null)
             network.connect(1500, address, Network.tcpPort, Network.udpPort);
         else
             throw new Exception("Pas de serveur trouvé...");
+    }
+    
+    public Client() throws Exception {
+        this(null);
     }
     
     @objid ("2116c198-f003-4fbb-8e6b-4ccf16f7f093")

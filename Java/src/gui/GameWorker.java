@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.Color;
+import java.net.InetAddress;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -216,7 +218,10 @@ public class GameWorker implements Runnable {
             if (settings.gameType.equals(GameType.Local) && world.getPlayerCount() <= 1)
                 throw new Exception("Il faut au moins deux joueurs !");
         } else if (settings.gameType.equals(GameType.Client)) {
-            world = new Client();
+            if (settings.ipAddress.isEmpty())
+                world = new Client();
+            else
+                world = new Client(InetAddress.getByName(settings.ipAddress));
             addKeyboardControllers();
         } else {
             throw new Exception("Non implémenté !");

@@ -20,6 +20,8 @@ public class GameSettings {
     @objid ("59545b35-c143-4d23-81e7-cfa605a46f32")
     public GameType gameType;
 
+    public String ipAddress;
+    
     @objid ("97b01c6d-719e-40a4-a35e-4cf8ca0a1f5f")
     public String mapName;
 
@@ -59,6 +61,7 @@ public class GameSettings {
     private GameSettings() {
         //Configuration par défaut
         gameType = GameType.Local;
+        ipAddress = "";
         mapName = "default";
         playerCount = 1;
         aiCount = 1;
