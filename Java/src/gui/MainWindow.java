@@ -180,9 +180,12 @@ public class MainWindow implements WindowListener {
                 return;
         }
         
+        frame.dispose();
+        
         if (gameWorker != null) {
             gameWorker.stop();
             try {
+                gameWorkerThread.notifyAll();
                 gameWorkerThread.join();
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
@@ -194,8 +197,6 @@ public class MainWindow implements WindowListener {
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         }
-        
-        frame.dispose();
     }
 
     @Override
