@@ -422,7 +422,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7dab1eaf-2667-407e-96e8-2dac752eecb5"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="588e609a-3342-4008-a451-bfa76673530b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -497,7 +497,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ea7c5920-09b7-4473-abb9-85b07ef41ed1"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="08fcd029-967d-4399-8264-500daa1d15f1"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -572,7 +572,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a2d3fcb5-6854-43f6-be89-af94670c9dd4"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="9bf1a1c0-ee0a-4663-bec3-d24e96f08e39"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -647,7 +647,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="9788f6ac-8d04-49c8-81f4-09c4c297ab5b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0e2d570e-705e-4103-92e4-a1454cc8294b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -722,7 +722,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="4e385c82-0ba6-4e12-aa63-34d0d881ec06"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="56ce85da-69e1-4dc4-88cb-e3627ca6bb72"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -797,7 +797,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="2cfc6ddd-fac6-4fff-b841-d153d53c3942"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="185f4a64-2db3-4ec1-a7d8-304c34c5d543"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -872,7 +872,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="be394e89-7d99-4cd5-8aeb-cc5cfb7807a1"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="312f9f02-f830-4fdc-a240-6e76e7833c41"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -947,7 +947,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="eca84601-00d5-4a9d-8e4c-29108485470e"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="dedd08e4-dd7b-4870-a3ab-1b139a48c49c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1022,7 +1022,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="9d250a56-bc23-42ef-996f-801ef85ac35f"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0190b105-884e-4a13-9a10-70029f048e18"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1097,7 +1097,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="1441528b-f645-4eee-a802-669342da0397"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="d3507cf4-611d-492d-baeb-c95d86af347e"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1172,7 +1172,7 @@ settings.controls.get(3).name = name3.getText();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ed3016e7-073a-462f-89fb-2823e98df3f0"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="8c98a243-bd72-40c4-9295-7168acb07e02"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

@@ -177,16 +177,44 @@ add(separator);
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
+            <COMP relation="Return">
+              <OBJECT>
+                <ID name="" mc="Standard.Parameter" uid="5c976906-da04-40ba-b4f0-c7238ba243a6"/>
+                <ATTRIBUTES>
+                  <ATT name="ParameterPassing">In</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="TypeConstraint"></ATT>
+                  <ATT name="DefaultValue"></ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="IsException">false</ATT>
+                  <ATT name="IsStream">false</ATT>
+                  <ATT name="Effect">ReadEffect</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Type">
+                    <FOREIGNID name="boolean" mc="Standard.DataType" uid="00000004-0000-0005-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="26b460fe-83f9-4d45-8ab5-03921a85a2c7"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[lives.setText("×" + player.getLives() + "  ");
+                  <ATT name="Content"><![CDATA[boolean abilitiesChanged = false;
+lives.setText("×" + player.getLives() + "  ");
 bombMax.setText("×" + player.getBombMax() + "  ");
 range.setText("×" + player.getRange() + "  ");
 List<Boolean> playerAbilities = player.getPlayerAbilities();
 for (int i = 0; i < playerAbilities.size(); i++) {
-    abilities[i].setVisible(playerAbilities.get(i));
+    if (abilities[i].isVisible() != playerAbilities.get(i)) {
+        abilities[i].setVisible(playerAbilities.get(i));
+        abilitiesChanged = true;
+    }
 }
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
@@ -196,6 +224,20 @@ for (int i = 0; i < playerAbilities.size(); i++) {
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="9696680d-8fcd-4b92-97f5-2071137de386"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[return abilitiesChanged;]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -265,7 +307,7 @@ for (int i = 0; i < playerAbilities.size(); i++) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7e471e34-bebe-49dd-8b37-c9957855bdf3"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="08cd9fde-ea8d-4d50-8496-831707628ecf"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -340,7 +382,7 @@ for (int i = 0; i < playerAbilities.size(); i++) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="10951fb8-29ef-4ad6-bb7b-e9fece379028"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="64c574e9-55f4-4465-9e6b-7a24eb6958a9"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -415,7 +457,7 @@ for (int i = 0; i < playerAbilities.size(); i++) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="fe149cd5-1b16-4d10-95e9-76b8b1bd162d"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="631117cc-ed68-4cce-85ca-77a0b3ad8bcc"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -512,7 +554,7 @@ for (int i = 0; i < playerAbilities.size(); i++) {
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b84a3fc9-092c-496c-8bff-a592daf1a69b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="14624816-e343-40d2-a927-b05c8b4043f0"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -587,7 +629,7 @@ for (int i = 0; i < playerAbilities.size(); i++) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="45d221c0-83f9-41cd-8828-fafd0814058c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="9c7b3ad2-5dc1-4fb9-9101-29cefea2327b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -654,21 +696,6 @@ for (int i = 0; i < playerAbilities.size(); i++) {
           <DEPENDENCIES>
             <LINK relation="ImportedElement">
               <ID name="BoxLayout" mc="Standard.Class" uid="c8c17e0e-e098-4f02-a56d-0f985667f59c"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="65dae09c-e737-405e-b8f7-6b2f787a36eb"/>
-          <ATTRIBUTES>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="ImportedElement">
-              <REFOBJ>
-                <ID name="BonusType" mc="Standard.Enumeration" uid="7787b9db-abdc-433d-863e-9ffee325df12"/>
-              </REFOBJ>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

@@ -21,6 +21,8 @@
         <COMPID name="MouseMotionListener" mc="Standard.Interface" uid="48ebe9ac-58ce-446f-9450-caa4602e5abf"/>
         <COMPID name="MouseListener" mc="Standard.Interface" uid="945a7432-459e-4ec7-9ef6-95bee9fc209c"/>
         <COMPID name="MouseEvent" mc="Standard.Class" uid="19022e3a-3a24-4724-a2a2-9ea79145018e"/>
+        <COMPID name="WindowEvent" mc="Standard.Class" uid="5792e1ef-1fbf-4317-95d2-f3410ab0edeb"/>
+        <COMPID name="WindowListener" mc="Standard.Interface" uid="b1fcb3a9-486e-47a0-9c93-a16fb69e56f4"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

@@ -39,6 +39,7 @@
         <COMPID name="JTextField" mc="Standard.Class" uid="d0cf6332-8e14-4ce5-bc86-21a3556917e8"/>
         <COMPID name="SwingUtilities" mc="Standard.Class" uid="8896e602-d377-4312-8b8d-abcde839d9a5"/>
         <COMPID name="JToggleButton" mc="Standard.Class" uid="61f82306-ed0d-4ef3-b072-63ebe57f5532"/>
+        <COMPID name="SwingConstants" mc="Standard.Interface" uid="28903dfb-2832-4d1b-bc69-5e1204a2d1bd"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

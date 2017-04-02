@@ -15,6 +15,7 @@
     <DEPENDENCIES>
       <COMP relation="OwnedElement">
         <COMPID name="google" mc="Standard.Package" uid="f843bf2d-596f-4572-82c5-3b800c8ddc2f"/>
+        <COMPID name="esotericsoftware" mc="Standard.Package" uid="0984fd3f-6661-4190-9ee1-0f50538afadd"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

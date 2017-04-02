@@ -538,7 +538,7 @@
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="7f4192c5-3da8-459c-aaf5-e27c68f2d2ff"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="1c55bdb3-96d9-4b26-9478-8aaf71f2b9d0"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -741,10 +741,10 @@
                       <ID name="" mc="Infrastructure.Note" uid="86f52cbf-f538-4da8-b473-4d99b6c23567"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[return d1.equals(d2) ||
-               (d1 == Direction.Up && d2 == Direction.Down) ||
-               (d2 == Direction.Up && d1 == Direction.Down) ||
-               (d1 == Direction.Left && d2 == Direction.Right) ||
-               (d2 == Direction.Left && d1 == Direction.Right);]]></ATT>
+                       (d1 == Direction.Up && d2 == Direction.Down) ||
+                       (d2 == Direction.Up && d1 == Direction.Down) ||
+                       (d1 == Direction.Left && d2 == Direction.Right) ||
+                       (d2 == Direction.Left && d1 == Direction.Right);]]></ATT>
                         <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -889,12 +889,68 @@
           </DEPENDENCIES>
         </OBJECT>
         <COMPID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
-        <COMPID name="Server" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
+        <COMPID name="Local" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
         <COMPID name="Client" mc="Standard.Class" uid="b8264f8e-49d1-4a58-ad20-06ceafdee906"/>
         <COMPID name="WorldView" mc="Standard.Interface" uid="ef002ca0-7638-4d64-9860-1c30b5e5c688"/>
-        <COMPID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
         <COMPID name="MapView" mc="Standard.Interface" uid="27201ab7-2fd3-4c35-abb3-37155f6d5822"/>
         <COMPID name="AIController" mc="Standard.Class" uid="cbe503f7-eb4d-4747-9547-3001ad190b16"/>
+        <COMPID name="Controller" mc="Standard.Class" uid="435a3f56-662a-44c1-a8c7-b82ab53bd0e1"/>
+        <COMPID name="Server" mc="Standard.Class" uid="47364a1e-3fd0-4e56-8047-f80aca5b2b36"/>
+        <COMPID name="GameListener" mc="Standard.Interface" uid="4cfa9b4f-fbcd-4c9f-b802-38f0e10dca65"/>
+        <OBJECT>
+          <ID name="Event" mc="Standard.Enumeration" uid="0318a67f-53c8-43de-a366-7ee745ec96ad"/>
+          <ATTRIBUTES>
+            <ATT name="IsElementary">true</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">true</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[Event]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Value">
+              <OBJECT>
+                <ID name="Hit" mc="Standard.EnumerationLiteral" uid="e8062ecf-e700-42d9-adc5-46db0e2ce5ba"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Hit]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Explosion" mc="Standard.EnumerationLiteral" uid="8e9b19f1-1b82-438d-9021-964dc7420a10"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Explosion]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="PickUp" mc="Standard.EnumerationLiteral" uid="82412898-5ab4-4e27-948b-bedfa5fd6ed3"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[PickUp]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="SuddenDeath" mc="Standard.EnumerationLiteral" uid="e0df8ff3-b17d-444f-a000-50d8c249b0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[SuddenDeath]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <LINK relation="Extension">
+              <FOREIGNID name="JavaEnumeration" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0262-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <COMPID name="FollowController" mc="Standard.Class" uid="756f6969-df41-4003-83d3-def42ac8a49a"/>
+        <COMPID name="DeltaMap" mc="Standard.Class" uid="12a42e28-45db-4083-a2d6-44f180711817"/>
+        <COMPID name="DummyController" mc="Standard.Class" uid="74c3a922-a208-46bf-aca4-54cc99330dda"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

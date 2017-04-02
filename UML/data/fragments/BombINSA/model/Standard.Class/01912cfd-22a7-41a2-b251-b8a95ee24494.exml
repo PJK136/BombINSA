@@ -591,7 +591,7 @@ for (ExplosionState state : explosionStates) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="9286cd82-b06c-42d6-867f-bb689c13a637"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="ca8c8947-7016-4443-af68-77f5ac7a6518"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -631,7 +631,7 @@ for (ExplosionState state : explosionStates) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="25bd722e-6e6a-4d07-ae24-bcfe7dcd030b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0d05053e-443a-4a19-827f-fab834cefb6d"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -730,7 +730,7 @@ for (ExplosionState state : explosionStates) {
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="e3b10287-b395-4262-bede-52135c60444b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1db6d254-a8be-478d-b19f-d5573da168b8"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

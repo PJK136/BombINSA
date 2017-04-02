@@ -34,21 +34,6 @@
             </LINK>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="27254822-c7c3-40c3-be54-70c2e070bf24"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Constructs a new <code>WrapLayout</code> with a left
-alignment and a default 5-unit horizontal and vertical gap.]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="3235ac27-b6b5-46c7-bd2e-b55da7d78961"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[super();]]></ATT>
@@ -59,6 +44,21 @@ alignment and a default 5-unit horizontal and vertical gap.]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="2bef1d8e-1a67-4554-b5c1-99ae07a273af"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Constructs a new <code>WrapLayout</code> with a left
+alignment and a default 5-unit horizontal and vertical gap.]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -101,7 +101,7 @@ alignment and a default 5-unit horizontal and vertical gap.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="e295f3a8-84f7-4ae6-ab45-5b38dfcbf990"/>
+                      <ID name="" mc="Infrastructure.Note" uid="f7cc2851-32e2-4498-bd39-b099800ad87f"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the alignment value]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -110,7 +110,7 @@ alignment and a default 5-unit horizontal and vertical gap.]]></ATT>
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -123,7 +123,21 @@ alignment and a default 5-unit horizontal and vertical gap.]]></ATT>
             </LINK>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="e3efbb30-301a-4739-8a81-5fd0e7b61d0d"/>
+                <ID name="" mc="Infrastructure.Note" uid="6ffa906b-44ac-4023-865c-e65314594e1a"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[super(align);]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="81d0f317-a1f8-47f3-bcaf-b4bd93aedc3f"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[Constructs a new <code>FlowLayout</code> with the specified
 alignment and a default 5-unit horizontal and vertical gap.
@@ -136,21 +150,7 @@ or <code>WrapLayout</code>.]]></ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="6ffa906b-44ac-4023-865c-e65314594e1a"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[super(align);]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -193,7 +193,7 @@ or <code>WrapLayout</code>.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="c2a08968-ada7-4b0a-980a-b8be072c9bb9"/>
+                      <ID name="" mc="Infrastructure.Note" uid="d58561ba-35f6-4f41-8f27-26dd617b81ef"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the alignment value]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -202,7 +202,7 @@ or <code>WrapLayout</code>.]]></ATT>
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -231,7 +231,7 @@ or <code>WrapLayout</code>.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="870117b5-b62b-4dcc-8ff0-ad6840486ed1"/>
+                      <ID name="" mc="Infrastructure.Note" uid="a37dbcb7-8a1f-482a-b9f5-c332cb68a36b"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the horizontal gap between components]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -240,7 +240,7 @@ or <code>WrapLayout</code>.]]></ATT>
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -269,7 +269,7 @@ or <code>WrapLayout</code>.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="7be9374d-2c72-469f-b737-1adcac925601"/>
+                      <ID name="" mc="Infrastructure.Note" uid="f15c3f1d-9815-441b-ae07-e454bcb10e0e"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the vertical gap between components]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -278,7 +278,7 @@ or <code>WrapLayout</code>.]]></ATT>
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -291,7 +291,21 @@ or <code>WrapLayout</code>.]]></ATT>
             </LINK>
             <COMP relation="Descriptor">
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="832ee955-e13a-481e-81dd-c5043c61b1c4"/>
+                <ID name="" mc="Infrastructure.Note" uid="301e9959-3160-4c9f-aa0a-99b920d501f6"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[super(align, hgap, vgap);]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="2c4a8a1f-738d-49e5-b076-36354daf79ea"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[Creates a new flow layout manager with the indicated alignment
 and the indicated horizontal and vertical gaps.
@@ -305,21 +319,7 @@ or <code>WrapLayout</code>.]]></ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="301e9959-3160-4c9f-aa0a-99b920d501f6"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[super(align, hgap, vgap);]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -362,7 +362,7 @@ or <code>WrapLayout</code>.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="8cc6f9f1-327a-42b6-ab4e-bb8006acc737"/>
+                      <ID name="" mc="Infrastructure.Note" uid="9c29043d-c2ae-41af-bb22-5ce6ef486ebb"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the component which needs to be laid out]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -371,7 +371,7 @@ or <code>WrapLayout</code>.]]></ATT>
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -402,7 +402,7 @@ or <code>WrapLayout</code>.]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="6ac204c5-8588-4e41-985c-15944f9598af"/>
+                      <ID name="" mc="Infrastructure.Note" uid="8cfb5377-73c5-417c-a3a5-eb0b1c8f6d9b"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the preferred dimensions to lay out the
 subcomponents of the specified container]]></ATT>
@@ -412,7 +412,7 @@ subcomponents of the specified container]]></ATT>
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -436,21 +436,6 @@ subcomponents of the specified container]]></ATT>
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="426fadd6-c7b0-4821-963b-05ddb3fe6ece"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Returns the preferred dimensions for this layout given the
-<i>visible</i> components in the specified target container.]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="430acea6-40ee-4c29-b0c7-7fc0484fb351"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return layoutSize(target, true);]]></ATT>
@@ -461,6 +446,21 @@ subcomponents of the specified container]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="78cee25b-c0b2-451f-a700-f91609f5e60d"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Returns the preferred dimensions for this layout given the
+<i>visible</i> components in the specified target container.]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -503,7 +503,7 @@ subcomponents of the specified container]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="2a1e7a82-2db9-4e04-83b0-3aa8c2adfc81"/>
+                      <ID name="" mc="Infrastructure.Note" uid="9db21203-4335-44fc-8067-956143cc6cef"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the component which needs to be laid out]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -512,7 +512,7 @@ subcomponents of the specified container]]></ATT>
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -543,7 +543,7 @@ subcomponents of the specified container]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="01855e4f-f107-4903-8470-df1ef6168d19"/>
+                      <ID name="" mc="Infrastructure.Note" uid="23f47f9b-8aa4-496a-8519-b686ba94ccb8"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the minimum dimensions to lay out the
 subcomponents of the specified container]]></ATT>
@@ -553,7 +553,7 @@ subcomponents of the specified container]]></ATT>
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -573,21 +573,6 @@ subcomponents of the specified container]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="000c0b48-0000-3aa1-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="ebdc0fc7-ec5c-4e91-b521-05f18933f2ae"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Returns the minimum dimensions needed to layout the <i>visible</i>
-components contained in the specified target container.]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -618,6 +603,21 @@ minimum.width -= (getHgap() + 1);
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="43036545-4b5c-4df2-bcf8-729d45d0d3bf"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Returns the minimum dimensions needed to layout the <i>visible</i>
+components contained in the specified target container.]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -660,7 +660,7 @@ minimum.width -= (getHgap() + 1);
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="c4cf98ed-d73a-4cd1-b5d6-2d9558153bf4"/>
+                      <ID name="" mc="Infrastructure.Note" uid="bba551fa-6d0a-4b01-9d8b-66efaa3c3953"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[target to get layout size for]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -669,7 +669,7 @@ minimum.width -= (getHgap() + 1);
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -698,7 +698,7 @@ minimum.width -= (getHgap() + 1);
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="3539e401-3d8c-4fd3-8136-ede8cadb766f"/>
+                      <ID name="" mc="Infrastructure.Note" uid="a8eb11b4-e066-4342-a5ae-1971bc32f3a8"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[should preferred size be calculated]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -707,7 +707,7 @@ minimum.width -= (getHgap() + 1);
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -738,7 +738,7 @@ minimum.width -= (getHgap() + 1);
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="8fe37bb2-bd49-4287-8ee0-4fc5ff52b26f"/>
+                      <ID name="" mc="Infrastructure.Note" uid="64a52958-c460-4442-a481-157924aeae3c"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[the dimension to layout the target container]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -747,7 +747,7 @@ minimum.width -= (getHgap() + 1);
                       </ATTRIBUTES>
                       <DEPENDENCIES>
                         <LINK relation="Model">
-                          <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="01240268-0000-0044-0000-000000000000"/>
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                         </LINK>
                       </DEPENDENCIES>
                     </OBJECT>
@@ -756,21 +756,6 @@ minimum.width -= (getHgap() + 1);
               </OBJECT>
             </COMP>
             <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="7f07ecd7-7c6d-474e-ac02-2a94eac85c43"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[Returns the minimum or preferred dimension needed to layout the target
-container.]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015f-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="e67f6b1f-86cf-40d0-a30d-9c88994b5ebe"/>
                 <ATTRIBUTES>
@@ -863,6 +848,21 @@ container.]]></ATT>
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="3ba26446-431e-4138-b344-871adfced006"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Returns the minimum or preferred dimension needed to layout the target
+container.]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -1075,7 +1075,7 @@ dim.height += rowHeight;
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="" mc="Infrastructure.Note" uid="40ea824a-8b4e-4f21-80d8-0d009937df7c"/>
+          <ID name="" mc="Infrastructure.Note" uid="2736ead3-2469-4925-9deb-de9fe9a0393f"/>
           <ATTRIBUTES>
             <ATT name="Content"><![CDATA[FlowLayout subclass that fully supports wrapping of components.]]></ATT>
             <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
@@ -1084,7 +1084,7 @@ dim.height += rowHeight;
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Model">
-              <FOREIGNID name="Javadoc" mc="Infrastructure.NoteType" uid="003800a8-0000-015d-0000-000000000000"/>
+              <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

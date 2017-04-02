@@ -91,6 +91,13 @@ btnQuit = addButton("Quitter",buttonPanel);
 
 buttonPanel.add(Box.createVerticalGlue());
 
+JLabel credits = new JLabel("<html><div style=\"text-align: center;\">© 2017 Paul Du, Neil Borthwick,<br/>"
+                            + "Maxime Lutz et Bastien Jeannin</div></html>");
+settings.scaleFont(credits);
+credits.setHorizontalAlignment(SwingConstants.CENTER); //Texte par rapport au JLabel
+credits.setAlignmentX(Component.CENTER_ALIGNMENT); //JLabel par rapport au layout
+buttonPanel.add(credits);
+
 buttonPanel.setPreferredSize(new Dimension(settings.scale(250), buttonPanel.getPreferredSize().height));
 
 add(buttonPanel, BorderLayout.EAST);
@@ -435,7 +442,7 @@ super.paintComponent(g);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="229f6a2a-f0ef-4c8e-97e2-1ae20d73e851"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a21ad9bf-4816-4a8f-b094-923457207f7a"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -510,7 +517,7 @@ super.paintComponent(g);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a6e7c736-b2c6-40f8-8379-66d885925a27"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="fcdb1459-13bc-44f4-9583-41b05f94e2d2"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -585,7 +592,7 @@ super.paintComponent(g);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="6933d6cc-a7b9-46a8-bd49-95b689676d38"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0c6acc60-d304-4d29-92bb-4fe9d76653df"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -660,7 +667,7 @@ super.paintComponent(g);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b362f61e-c66e-4d2f-bc16-4f40ab52125f"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="85148efe-8a51-4f98-a0a6-41406ceedbbb"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -735,7 +742,7 @@ super.paintComponent(g);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="4dbbd1e7-bb7b-405a-8049-a09380dd70fb"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="727ff743-bbf6-40b5-8f12-a92a81fad3c3"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -810,7 +817,7 @@ super.paintComponent(g);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7f75c262-64f8-4893-9eb2-cd66f0b783d9"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="dd3fbab9-9e21-4cbe-89ab-c16e327e4474"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -885,7 +892,7 @@ super.paintComponent(g);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="56d8bafa-a667-4a34-a725-a18d1a85cd4a"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="d44450a1-1fd7-44a6-8f77-37a2f261f348"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -960,7 +967,7 @@ super.paintComponent(g);
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="847e4e6a-a094-410d-accb-a3f13f2dd565"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="5d26cd9f-9b06-4e81-a626-2113c7a2a606"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1093,6 +1100,19 @@ super.paintComponent(g);
           <DEPENDENCIES>
             <LINK relation="ImportedElement">
               <ID name="ImageIcon" mc="Standard.Class" uid="949b70bd-1f5a-42e8-a706-0afe091122b9"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="Standard.ElementImport" uid="216d401d-62e0-47a7-a83b-e9a9ba412854"/>
+          <ATTRIBUTES>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="ImportedElement">
+              <ID name="SwingConstants" mc="Standard.Interface" uid="28903dfb-2832-4d1b-bc69-5e1204a2d1bd"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

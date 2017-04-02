@@ -130,7 +130,6 @@
           <ID name="" mc="Infrastructure.Note" uid="f5db3e2e-c963-4349-913d-1414aaec8968"/>
           <ATTRIBUTES>
             <ATT name="Content"><![CDATA[/* For test purposes
-
     private Color toColor(TileType type) {
         switch (type) {
         case Arrow:

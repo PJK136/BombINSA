@@ -60,7 +60,8 @@
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="86d40dab-be1e-4b9c-af6c-86c80d6b16c8"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[this.settings = settings;
+                  <ATT name="Content"><![CDATA[setName(settings.name);
+this.settings = settings;
 keysPressed = new LinkedList<Direction>();
 bombing = false;
 ]]></ATT>
@@ -74,123 +75,19 @@ bombing = false;
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="setPlayer" mc="Standard.Operation" uid="5da90aab-5452-4e19-8f6e-f4c0ad78b77d"/>
-          <ATTRIBUTES>
-            <ATT name="Concurrency">false</ATT>
-            <ATT name="Final">false</ATT>
-            <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Public</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[setPlayer]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <COMP relation="IO">
               <OBJECT>
-                <ID name="player" mc="Standard.Parameter" uid="8451f5be-253d-4632-908b-5e53acb1d469"/>
+                <ID name="" mc="Infrastructure.Note" uid="6047fb6a-a38b-4921-b07e-a92cd132033b"/>
                 <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[player]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <ID name="Player" mc="Standard.Class" uid="7d9743df-c7cd-4679-9771-fa22b1be441d"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <LINK relation="Redefines">
-              <REFOBJ>
-                <ID name="setPlayer" mc="Standard.Operation" uid="2de0046a-fb4b-4667-ae22-fccfb9d3d853"/>
-              </REFOBJ>
-            </LINK>
-            <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="36611c3b-8b20-46e7-a27d-e100a1e9cf1b"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[@Override]]></ATT>
+                  <ATT name="Content"><![CDATA[/* Objectif : que l'on sache où on est en train d'appuyer (doit conserver une variable car java n'a pas de methode*
+     * qui lit si on est appuyé, seulement si on appuie et si on relâche)
+     */]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Model">
-                    <FOREIGNID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="000c0b48-0000-3aa1-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="setWorldView" mc="Standard.Operation" uid="5dc0c3b2-7578-45d3-9b5e-6192853ef07e"/>
-          <ATTRIBUTES>
-            <ATT name="Concurrency">false</ATT>
-            <ATT name="Final">false</ATT>
-            <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Public</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[setWorldView]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <COMP relation="IO">
-              <OBJECT>
-                <ID name="world" mc="Standard.Parameter" uid="1369a901-4dd1-44f6-9077-e656c2dfdd01"/>
-                <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[world]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <ID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <LINK relation="Redefines">
-              <REFOBJ>
-                <ID name="setWorldView" mc="Standard.Operation" uid="b4919637-6675-4e6b-bd27-a18c64057a48"/>
-              </REFOBJ>
-            </LINK>
-            <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="fc250529-ab18-4e04-9e0e-451b1120faeb"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[@Override]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="000c0b48-0000-3aa1-0000-000000000000"/>
+                    <FOREIGNID name="JavaComment" mc="Infrastructure.NoteType" uid="69ab88b5-741c-11e1-89e3-002564c97630"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -620,80 +517,6 @@ bombing = false;
             </COMP>
           </DEPENDENCIES>
         </OBJECT>
-        <OBJECT>
-          <ID name="getName" mc="Standard.Operation" uid="14a6233f-161d-4025-8deb-1e4f0c79b1a1"/>
-          <ATTRIBUTES>
-            <ATT name="Concurrency">false</ATT>
-            <ATT name="Final">false</ATT>
-            <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Public</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[getName]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <COMP relation="Return">
-              <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="e794ea1a-15fc-4ca6-8b6f-e2b1f052d39a"/>
-                <ATTRIBUTES>
-                  <ATT name="ParameterPassing">Out</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <LINK relation="Redefines">
-              <REFOBJ>
-                <ID name="getName" mc="Standard.Operation" uid="ca776232-1a17-4e2e-a7a6-eeffe4a104e4"/>
-              </REFOBJ>
-            </LINK>
-            <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="5f16396e-ce36-4257-ba5b-24ac337939c3"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[@Override]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="000c0b48-0000-3aa1-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="16d3e578-8a61-4d66-b67c-5ea6c82de0e3"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[return settings.name;]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
       </COMP>
       <COMP relation="OwnedAttribute">
         <OBJECT>
@@ -744,7 +567,7 @@ bombing = false;
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="dcd259d0-e4bb-4c22-8248-8b8b4a9dac0c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="f69e8754-0fbb-42d9-a286-1800f048accc"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -782,7 +605,7 @@ bombing = false;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a3f1b212-1cf6-478c-8331-144adef4a5da"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0054c417-06f9-4ad8-bf54-e9ed86ba87b4"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -859,7 +682,7 @@ bombing = false;
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="5ec25eab-7800-4308-88d5-05f91709e34a"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a6d2d1f6-8d8b-4c61-88c7-2f59664497fc"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -871,40 +694,25 @@ bombing = false;
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
-            <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="e6d4e900-64ec-46c6-8b1a-161c8e567a46"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[/* Objectif : que l'on sache où on est en train d'appuyer (doit conserver une variable car java n'a pas de methode*
-     * qui lit si on est appuyé, seulement si on appuie et si on relâche)
-     */]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaComment" mc="Infrastructure.NoteType" uid="69ab88b5-741c-11e1-89e3-002564c97630"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
           </DEPENDENCIES>
         </OBJECT>
       </COMP>
-      <COMP relation="Realized">
+      <COMP relation="Parent">
         <OBJECT>
-          <ID name="" mc="Standard.InterfaceRealization" uid="373932cd-7b6b-4541-9554-a42686472d5a"/>
+          <ID name="" mc="Standard.Generalization" uid="52b3d559-dda0-470f-bdc2-21fb6767b29a"/>
           <ATTRIBUTES>
+            <ATT name="Discriminator"></ATT>
             <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
-            <LINK relation="Implemented">
-              <ID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
+            <LINK relation="SuperType">
+              <ID name="Controller" mc="Standard.Class" uid="435a3f56-662a-44c1-a8c7-b82ab53bd0e1"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
+      </COMP>
+      <COMP relation="Realized">
         <OBJECT>
           <ID name="" mc="Standard.InterfaceRealization" uid="38ea01c0-ceee-4fe5-88cc-f40a7fd6f21e"/>
           <ATTRIBUTES>

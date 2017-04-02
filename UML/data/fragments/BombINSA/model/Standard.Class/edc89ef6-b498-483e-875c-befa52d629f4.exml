@@ -77,6 +77,7 @@ Component horizontalGlue = Box.createHorizontalStrut(10);
 topBar.add(horizontalGlue);
 
 timeRemaining = new JLabel("9:99 ");
+timeRemaining.setIcon(SpriteFactory.getInstance().getImageIcon("hourglass", settings.scale(settings.tileSize)));
 topBar.add(timeRemaining);
 
 btnExit = new JButton();
@@ -288,7 +289,9 @@ for (Player player : playerList) {
         playerStateGroup.add(pState);
         updateSize = true;
     }
-    pState.updatePlayerState(player);
+    
+    if (pState.updatePlayerState(player))
+        updateSize = true;
 }
 
 Iterator<Entry<Player, PlayerStatePanel>> iterator = playerStates.entrySet().iterator();
@@ -433,7 +436,7 @@ if (remaining <= 10 && remaining % 2 == 0) //Fait clignoter en rouge
     timeRemaining.setForeground(Color.red);
 else
     timeRemaining.setForeground(Color.black);
-StringBuilder text = new StringBuilder("⌛ ");
+StringBuilder text = new StringBuilder("");
 if (view.getTimeRemaining() < 0)
     text.append("-");
 text.append(Math.abs(remaining/60));
@@ -521,7 +524,7 @@ timeRemaining.setText(text.toString());
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="72da9de0-1f03-41ca-b0ca-2bdd48a21a90"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="6dce620b-5e47-40b2-8b3b-d0d602d36dad"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -596,7 +599,7 @@ timeRemaining.setText(text.toString());
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="bd1afaad-22dd-42a4-81c1-72fa8eeb17e0"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="fc09d5c4-6775-429f-863f-3b7be74dfb0c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -671,7 +674,7 @@ timeRemaining.setText(text.toString());
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7074c23d-7366-4fa7-80af-b4a53e716261"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="06f9340a-b161-4f72-bc32-9de4d65739c4"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -746,7 +749,7 @@ timeRemaining.setText(text.toString());
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="2c35f61b-46ef-472a-bf22-98936df9f06a"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1d9f5f26-3060-4bb9-a0a1-a31e10fe3163"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -821,7 +824,7 @@ timeRemaining.setText(text.toString());
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="0d9af879-10a5-492d-8d90-7d6bbd3524ac"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="d219d679-b01c-4b53-b133-e2b29d17b347"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -881,7 +884,7 @@ timeRemaining.setText(text.toString());
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="aecead79-faf3-4bf4-b8b6-6edb76042f1b"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="cd96f192-5321-4977-8edc-9509b6422a3d"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -958,7 +961,7 @@ timeRemaining.setText(text.toString());
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="dc8d3f17-e429-4244-b8ef-3a0a096a70fe"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="9c1d1845-aa6b-4742-980a-ad060bee2e66"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1033,7 +1036,7 @@ timeRemaining.setText(text.toString());
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d4eab330-b3e1-4969-a16b-c8f9cfd48b9e"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="7f493f4a-b75e-48ef-a723-60691ccfcf27"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1108,7 +1111,7 @@ timeRemaining.setText(text.toString());
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b2656aaf-2deb-46b0-826d-8e0c9a25b6ec"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="c0a4462a-aee9-4bd5-8c28-04c6ff23bee9"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1215,19 +1218,6 @@ timeRemaining.setText(text.toString());
           <DEPENDENCIES>
             <LINK relation="ImportedElement">
               <ID name="Color" mc="Standard.Class" uid="0b016977-cf9a-4c75-8fec-2e78fc50d5fa"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="e0e2d5c7-c53c-4e16-9223-8f9fbf5137a0"/>
-          <ATTRIBUTES>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="ImportedElement">
-              <ID name="Graphics" mc="Standard.Class" uid="d0704cb2-c61b-4585-af29-5999831ef650"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

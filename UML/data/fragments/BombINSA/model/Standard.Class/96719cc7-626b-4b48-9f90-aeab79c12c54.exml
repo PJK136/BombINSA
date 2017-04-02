@@ -223,13 +223,13 @@
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[Tile ret;
 double drop = (Math.random());
- if(drop<LOOT_RATE){
-     ret = new BonusTile();
- } else {
-     ret = new EmptyTile();
- }
+if(drop<LOOT_RATE){
+    ret = new BonusTile(BonusTile.randomBonus());
+} else {
+    ret = new EmptyTile();
+}
  
- ret.setEntities(entities);
+ret.setEntities(entities);
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
@@ -250,7 +250,7 @@ double drop = (Math.random());
           <ID name="LOOT_RATE" mc="Standard.Attribute" uid="0f97109a-7ddc-4f5f-916d-aa2c1e51cc55"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
-            <ATT name="Value"><![CDATA[0.33]]></ATT>
+            <ATT name="Value"><![CDATA[0.40]]></ATT>
             <ATT name="TargetIsClass">false</ATT>
             <ATT name="Changeable">AccesNone</ATT>
             <ATT name="IsDerived">false</ATT>

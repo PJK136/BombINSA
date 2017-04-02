@@ -984,7 +984,7 @@ if (getActualType() == TileType.Arrow && map.isInsideMap(x, y) && map.getTileTyp
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="95e99faf-eb3d-4b7c-86c3-57653782ecc3"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[if (e.getSource() == btnNew && isSaved()) {
+                  <ATT name="Content"><![CDATA[if (e.getSource() == btnNew && checkSaved()) {
     newMap(true);
 }
 if (e.getSource() == btnOpen)
@@ -993,7 +993,7 @@ else if (e.getSource() == btnSave)
     saveToFile();     
 else if (e.getSource() == btnExit)
 {
-    if (isSaved())
+    if (checkSaved())
         mainWindow.showMenu();
 }
 ]]></ATT>
@@ -1011,15 +1011,15 @@ else if (e.getSource() == btnExit)
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="isSaved" mc="Standard.Operation" uid="0d4a0b27-2c68-4e19-af8c-4959d1c79097"/>
+          <ID name="checkSaved" mc="Standard.Operation" uid="0d4a0b27-2c68-4e19-af8c-4959d1c79097"/>
           <ATTRIBUTES>
             <ATT name="Concurrency">false</ATT>
             <ATT name="Final">false</ATT>
             <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Private</ATT>
+            <ATT name="Visibility">Public</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[isSaved]]></ATT>
+            <ATT name="Name"><![CDATA[checkSaved]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
@@ -1052,10 +1052,10 @@ else if (e.getSource() == btnExit)
                 <ID name="" mc="Infrastructure.Note" uid="3d5b6159-77e1-4718-97e3-b64aa691fb3f"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return JOptionPane.showConfirmDialog(this,
-                        "Il y a des modifications non sauvegardées, êtes-vous sûr de vouloir continuer ?",
-                        "Modifications non sauvegardées",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;]]></ATT>
+                                "Il y a des modifications non sauvegardées, êtes-vous sûr de vouloir continuer ?",
+                                "Modifications non sauvegardées",
+                                JOptionPane.YES_NO_OPTION,
+                                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1102,7 +1102,7 @@ else if (e.getSource() == btnExit)
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="7831be63-9e8c-490e-869b-0a6055f2d995"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[if (!isSaved())
+                  <ATT name="Content"><![CDATA[if (!checkSaved())
     return;
 
 int ret = fileChooser.showOpenDialog(this);
@@ -1114,7 +1114,7 @@ if (ret == JFileChooser.APPROVE_OPTION) {
         rowCount.setValue(map.getRowCount());
         updateMap();
         mainWindow.pack();
-    } catch (InputMismatchException | IOException e) {
+    } catch (Exception e) {
         JOptionPane.showMessageDialog(this,
                 "Impossible de lire le fichier demandé !",
                 "Erreur lors de la lecture",
@@ -1332,7 +1332,7 @@ else if (e.getSource() == tileSize) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d125a8d7-30ed-42a4-b9a9-21406b473053"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="30709b56-55bb-42bc-ab66-055ba5bdb3b7"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1370,7 +1370,7 @@ else if (e.getSource() == tileSize) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="6b422d30-4883-4e0d-a0ef-f64c8949c996"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="94bae606-b1d3-4cd0-9de1-26ac3ab19f8f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1447,7 +1447,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="113169f9-e1e9-437b-b4a1-72b3d9ffddcf"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="168b513d-a8b5-4606-8679-a04edabac505"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1522,7 +1522,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="bbf7ffbc-a708-4235-81ec-169236ec9d0c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="ac67e850-3c05-47d6-babf-7e2b6224c7ba"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1597,7 +1597,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="f4d9fb51-db5a-43fa-994f-53890abaa3ea"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="57d306e4-4dac-440a-b0d5-26fbe403cf71"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1672,7 +1672,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="63a09d11-53a1-437d-bb35-577633d2f7e0"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="d495ab17-439d-47bb-ba69-3b3101db3b07"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1747,7 +1747,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="2da27a8c-a9dc-4157-b963-f79758087017"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0a7c4462-09f0-401e-8a1b-effa72d41b21"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1822,7 +1822,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="1e262620-07ce-46be-974f-6df7211c49ed"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="d8253215-b3a1-4eab-a8d7-b778aefae8c6"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1897,7 +1897,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="4fa22dfd-c04a-45e9-9576-b266a5a41526"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a3721a32-1a3f-49a0-8071-990de96ba590"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1972,7 +1972,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="50c73c88-9e0a-4118-bc90-0f1569dae4e6"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a4807c2d-c061-4835-8c24-a9f86098e63f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2047,7 +2047,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="da3005c7-384f-466d-b620-941959b4f45f"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="adac3a65-22a2-42ee-9589-e99951aa44e9"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2122,7 +2122,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="f3aaffb8-20df-47ee-82db-d7430f56a2e2"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="980c3f5f-7cb0-433e-b9d0-1306696de603"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2197,7 +2197,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="8e7b18aa-bb63-468e-ab66-6f954c23ff3b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="f2cfac2d-d241-4efc-81f7-3a5d1bac6396"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2272,7 +2272,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="5b66089e-f3e3-49e9-8fe7-948b25bb8238"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="6fad37ea-14c8-4c70-a794-2c9d9c457cd2"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2347,7 +2347,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="02bf1f13-17c6-4510-88e1-fadf6a500ffe"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1d790b05-e1ab-428f-b45c-db9098365f8d"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2422,7 +2422,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="412771b5-54e4-4ae3-96ab-456a5cae11a2"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="fa0c7379-b64b-449a-94c0-a6504c4ea92e"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2497,7 +2497,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="07d189c0-a46f-4c58-aeea-62c96e1de690"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="2dc26e02-3a3e-48af-a66c-cbbe3460f8f6"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2572,7 +2572,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="85dfca57-9980-4330-998b-70657095b289"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="bcb09aa0-7fff-4314-92e4-929d6ab17d2b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2647,7 +2647,7 @@ else if (e.getSource() == tileSize) {
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="3c25c194-6e0f-4e55-a329-07c7eba4f51b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="9eeadb8b-cda0-4a9b-8de2-8433ba226890"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2846,19 +2846,6 @@ else if (e.getSource() == tileSize) {
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="28010d98-2c11-488e-bf7d-0468c8372015"/>
-          <ATTRIBUTES>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="ImportedElement">
-              <ID name="IOException" mc="Standard.Class" uid="4a8b3e70-4703-4a8d-b273-b689c6ab0121"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
           <ID name="" mc="Standard.ElementImport" uid="f9070358-a517-4a34-b505-74daa913cb9d"/>
           <ATTRIBUTES>
             <ATT name="Visibility">Private</ATT>
@@ -2894,19 +2881,6 @@ else if (e.getSource() == tileSize) {
           <DEPENDENCIES>
             <LINK relation="ImportedElement">
               <ID name="Enumeration" mc="Standard.Interface" uid="831bcb8d-7ff7-4f44-8b21-99a604e63363"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="9366933a-419b-4483-8ab2-b2351b4c55d9"/>
-          <ATTRIBUTES>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="ImportedElement">
-              <ID name="InputMismatchException" mc="Standard.Class" uid="aa0082c8-127a-4e62-810a-37072fc49032"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

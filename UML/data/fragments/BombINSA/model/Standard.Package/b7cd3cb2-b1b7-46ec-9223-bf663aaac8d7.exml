@@ -17,6 +17,8 @@
         <COMPID name="Exception" mc="Standard.Class" uid="8bb6acb6-67ce-44e7-9937-96b418611b57"/>
         <COMPID name="Runnable" mc="Standard.Interface" uid="94d6d046-da62-42af-89e3-5249ea7c10be"/>
         <COMPID name="Object" mc="Standard.Class" uid="c530002d-8f95-4b04-8085-39685ac594cb"/>
+        <COMPID name="Throwable" mc="Standard.Class" uid="ea6199fe-17f9-494d-9fdd-61f740544a5a"/>
+        <COMPID name="Thread" mc="Standard.Class" uid="11ac212b-e775-4833-bdd1-2575286504c9"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

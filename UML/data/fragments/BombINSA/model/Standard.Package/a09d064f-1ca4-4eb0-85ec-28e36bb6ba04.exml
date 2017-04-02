@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="tinysound" version="4">
+  <OBJECT>
+    <ID name="tinysound" mc="Standard.Package" uid="a09d064f-1ca4-4eb0-85ec-28e36bb6ba04"/>
+    <PID name="kuusisto" mc="Standard.Package" uid="e38e5956-7ed6-44ce-b991-07e263cba979"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[tinysound]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="TinySound" mc="Standard.Class" uid="e96d1b2f-d2a7-48b3-b0ff-dff497f70537"/>
+        <COMPID name="Music" mc="Standard.Interface" uid="403763df-ac59-42cb-b92f-e5f737a0987b"/>
+        <COMPID name="Sound" mc="Standard.Interface" uid="bb9d0a55-2f46-4336-89c3-30aa192b0761"/>
+      </COMP>
+      <LINK relation="Extension">
+        <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
+      </LINK>
+      <COMP relation="Tag">
+        <OBJECT>
+          <ID name="" mc="Infrastructure.TaggedValue" uid="1ca69dae-7e09-4e4f-84aa-0fa63a4c8891"/>
+          <ATTRIBUTES>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Definition">
+              <FOREIGNID name="JavaExtern" mc="Infrastructure.TagType" uid="003800a8-0000-0197-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

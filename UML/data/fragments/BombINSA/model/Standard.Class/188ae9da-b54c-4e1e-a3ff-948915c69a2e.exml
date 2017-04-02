@@ -704,7 +704,7 @@ if (image == null) {
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="8bc2a44f-c238-49fe-9e85-7595c4b874a8"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="f475c8d1-6b30-4a17-af40-8c835ddbf63b"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -781,7 +781,7 @@ if (image == null) {
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="fc66ed67-fe8d-45b9-8d55-35510a69bb95"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="79dfd3ea-92de-47ba-9a20-34179f15880c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

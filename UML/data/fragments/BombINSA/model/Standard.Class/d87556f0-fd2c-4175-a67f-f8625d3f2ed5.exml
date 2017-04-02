@@ -84,6 +84,22 @@
                   <LINK relation="Type">
                     <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="adbdda61-fdc1-4244-ad53-d18d39a548ee"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[la coordonée en x en pixel]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
@@ -106,6 +122,22 @@
                   <LINK relation="Type">
                     <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="83a605fe-0d77-406d-8bfa-3d2d625e7a85"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[la coordonée en y en pixel]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -126,6 +158,20 @@ this.y = y;
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="0197d577-24e7-4aac-9c1f-62dcb74662e9"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Crée des coordonnées de grille à partir de coordonnées en pixel]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -166,6 +212,22 @@ this.y = y;
                   <LINK relation="Type">
                     <ID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="ceb1c158-1fc7-4bf3-a4d0-e64a41bee9d2"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[les cooronnées préexistantes]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -184,6 +246,20 @@ this.y = y;
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="cd97dc6a-b79c-41f9-8264-e8e0b18c4d47"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Crée une copie de coordonnées de grilles préexistantes]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -302,6 +378,20 @@ GridCoordinates gc = (GridCoordinates)obj;
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="a2442b4a-8fb4-47f4-a392-4b69acb4fad2"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Teste l'égalité de 2 objets]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>
@@ -410,6 +500,22 @@ GridCoordinates gc = (GridCoordinates)obj;
                       <ID name="Direction" mc="Standard.Enumeration" uid="4b1f3374-5785-401a-bd35-6347dc31d5a9"/>
                     </REFOBJ>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="48ff4409-bf9a-445b-ab0e-a56873533295"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[La direction dans laquelle on cherche la voisine]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -434,6 +540,22 @@ GridCoordinates gc = (GridCoordinates)obj;
                   <LINK relation="Type">
                     <ID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="be671c65-c4fc-4ca8-988c-adb79e8ec1f4"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[Les coordonnées de la case voisine]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -476,6 +598,20 @@ case Down:
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="8558d03b-4204-4b8d-a7ab-ff261e37fb6b"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Récupère les coordonnées d'une case voisine]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>
@@ -513,6 +649,22 @@ case Down:
                   <LINK relation="Type">
                     <ID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="86a6fa98-5009-4610-8d94-494e86dfd4cd"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[Les premières coordonnées]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
@@ -535,6 +687,22 @@ case Down:
                   <LINK relation="Type">
                     <ID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="1bbca32c-88c9-4556-94ad-cb23bf28c396"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[Les secondes coordonnées]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -559,6 +727,22 @@ case Down:
                   <LINK relation="Type">
                     <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="9524478f-e1e0-47b6-bb24-32d016747d33"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[La distance entre les 2 coordonnées]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -574,6 +758,20 @@ case Down:
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="40938c76-9ed2-49b4-aa34-18c34fb77be0"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Mesure la distance entre 2 coordonnées de grille à partir d'une norme de type 1]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -606,7 +804,7 @@ case Down:
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="c99365bf-0f30-4180-aa0e-1828e3a49e5e"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="bbf7746c-ba58-4954-8d0d-851ddaf4d6cc"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -644,7 +842,7 @@ case Down:
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="e60230f5-7f70-4b02-b058-03d0397084ff"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="9b1ca940-7b6b-4423-82e8-add9995be672"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

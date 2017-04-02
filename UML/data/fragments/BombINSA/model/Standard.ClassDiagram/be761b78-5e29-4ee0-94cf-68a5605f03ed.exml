@@ -140,9 +140,6 @@
           <ID name="save" mc="Standard.Operation" uid="a03739e2-2ae7-4c62-a7b3-0d2edbd4412a"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="doesRoundEnded" mc="Standard.Operation" uid="f93e9dfd-7368-492f-a48a-e8abc1215e4c"/>
-        </REFOBJ>
-        <REFOBJ>
           <ID name="stop" mc="Standard.Operation" uid="9f94bd39-ac7e-4e2f-8f19-afc50b48f9ad"/>
         </REFOBJ>
         <REFOBJ>

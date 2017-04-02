@@ -20,6 +20,8 @@
         <COMPID name="javax" mc="Standard.Package" uid="e4dc91fe-1ad0-4a36-b953-ba6cb759683d"/>
         <COMPID name="com" mc="Standard.Package" uid="65dc0da1-81e0-4b26-b68f-cc2ff19af6a0"/>
         <COMPID name="sun" mc="Standard.Package" uid="2887e0cf-ae9d-4ca3-a943-36982d54357f"/>
+        <COMPID name="kuusisto" mc="Standard.Package" uid="e38e5956-7ed6-44ce-b991-07e263cba979"/>
+        <COMPID name="network" mc="Standard.Package" uid="529a5719-e41d-4923-9325-f5e64e64880b"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>

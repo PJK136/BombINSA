@@ -91,6 +91,9 @@ add(gameType, gbc_gameType);
 for (GameType type : GameType.values())
     gameType.addItem(type);
 
+gameType.setSelectedItem(settings.gameType);
+gameType.addActionListener(this);
+
 JLabel lblHumain = new JLabel("Nombre de joueurs :");
 settings.scaleFont(lblHumain);
 GridBagConstraints gbc_lblHumain = new GridBagConstraints();
@@ -110,14 +113,33 @@ gbc_playerCount.gridx = 5;
 gbc_playerCount.gridy = 1;
 add(playerCount, gbc_playerCount);
 
-JLabel lblOrdinateur = new JLabel("Nombre d'IA :");
-settings.scaleFont(lblOrdinateur);
+lblIpAddress = new JLabel("Adresse IP :");
+settings.scaleFont(lblIpAddress);
+GridBagConstraints gbc_lblAdresseIp = new GridBagConstraints();
+gbc_lblAdresseIp.anchor = GridBagConstraints.WEST;
+gbc_lblAdresseIp.insets = new Insets(0, 0, 5, 5);
+gbc_lblAdresseIp.gridx = 1;
+gbc_lblAdresseIp.gridy = 2;
+add(lblIpAddress, gbc_lblAdresseIp);
+
+ipAddress = new JTextField(settings.ipAddress);
+settings.scaleFont(ipAddress);
+GridBagConstraints gbc_ipAddress = new GridBagConstraints();
+gbc_ipAddress.insets = new Insets(0, 0, 5, 5);
+gbc_ipAddress.fill = GridBagConstraints.HORIZONTAL;
+gbc_ipAddress.gridx = 2;
+gbc_ipAddress.gridy = 2;
+add(ipAddress, gbc_ipAddress);
+ipAddress.setColumns(10);
+
+lblAiCount = new JLabel("Nombre d'IA :");
+settings.scaleFont(lblAiCount);
 GridBagConstraints gbc_lblOrdinateur = new GridBagConstraints();
 gbc_lblOrdinateur.anchor = GridBagConstraints.WEST;
 gbc_lblOrdinateur.insets = new Insets(0, 0, 5, 5);
 gbc_lblOrdinateur.gridx = 4;
 gbc_lblOrdinateur.gridy = 2;
-add(lblOrdinateur, gbc_lblOrdinateur);
+add(lblAiCount, gbc_lblOrdinateur);
 
 aiCount = new JSpinner();
 aiCount.setModel(new SpinnerNumberModel(new Integer(settings.aiCount), new Integer(0), null, new Integer(1)));
@@ -129,14 +151,14 @@ gbc_aiCount.gridx = 5;
 gbc_aiCount.gridy = 2;
 add(aiCount, gbc_aiCount);
 
-JLabel lblCarte = new JLabel("Carte :");
-settings.scaleFont(lblCarte);
+lblMaps = new JLabel("Carte :");
+settings.scaleFont(lblMaps);
 GridBagConstraints gbc_lblCarte = new GridBagConstraints();
 gbc_lblCarte.anchor = GridBagConstraints.WEST;
 gbc_lblCarte.insets = new Insets(0, 0, 5, 5);
 gbc_lblCarte.gridx = 1;
 gbc_lblCarte.gridy = 3;
-add(lblCarte, gbc_lblCarte);
+add(lblMaps, gbc_lblCarte);
 
 maps = new JComboBox<String>();
 settings.scaleFont(maps);
@@ -149,14 +171,14 @@ add(maps, gbc_map);
 updateMapList();
 maps.setSelectedItem(settings.mapName);
 
-JLabel lblNombreDeRound = new JLabel("Nombre de round :");
-settings.scaleFont(lblNombreDeRound);
+lblRoundCount = new JLabel("Nombre de round :");
+settings.scaleFont(lblRoundCount);
 GridBagConstraints gbc_lblNombreDeRound = new GridBagConstraints();
 gbc_lblNombreDeRound.anchor = GridBagConstraints.WEST;
 gbc_lblNombreDeRound.insets = new Insets(0, 0, 5, 5);
 gbc_lblNombreDeRound.gridx = 4;
 gbc_lblNombreDeRound.gridy = 3;
-add(lblNombreDeRound, gbc_lblNombreDeRound);
+add(lblRoundCount, gbc_lblNombreDeRound);
 
 roundCount = new JSpinner();
 roundCount.setModel(new SpinnerNumberModel(new Integer(settings.roundCount), new Integer(1), null, new Integer(1)));
@@ -168,14 +190,14 @@ gbc_roundCount.gridx = 5;
 gbc_roundCount.gridy = 3;
 add(roundCount, gbc_roundCount);
 
-JLabel lblDureeRound = new JLabel("Durée d'un round (s) :");
-settings.scaleFont(lblDureeRound);
+lblRoundDuration = new JLabel("Durée d'un round (s) :");
+settings.scaleFont(lblRoundDuration);
 GridBagConstraints gbc_lblDureeRound = new GridBagConstraints();
 gbc_lblDureeRound.anchor = GridBagConstraints.WEST;
 gbc_lblDureeRound.insets = new Insets(0, 0, 5, 5);
 gbc_lblDureeRound.gridx = 4;
 gbc_lblDureeRound.gridy = 4;
-add(lblDureeRound, gbc_lblDureeRound);
+add(lblRoundDuration, gbc_lblDureeRound);
 
 roundDuration = new JSpinner();
 roundDuration.setModel(new SpinnerNumberModel(new Integer(settings.duration), new Integer(0), null, new Integer(1)));
@@ -212,6 +234,8 @@ btnPlay = new JButton("Jouer");
 settings.scaleFont(btnPlay);
 btnPlay.addActionListener(this);
 panel.add(btnPlay);
+
+updateFields();
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
@@ -298,6 +322,7 @@ try (BufferedReader br = new BufferedReader(new InputStreamReader(getClass().get
                 <ID name="" mc="Infrastructure.Note" uid="5340570d-8a33-4751-b7c2-0a643a82f095"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[settings.gameType = (GameType) gameType.getSelectedItem();
+settings.ipAddress = ipAddress.getText();
 settings.mapName = (String) maps.getSelectedItem();
 settings.playerCount = (int) playerCount.getValue();
 settings.aiCount = (int) aiCount.getValue();
@@ -372,7 +397,9 @@ settings.duration = (int) roundDuration.getValue();
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="1068b471-42b4-4b63-8b70-0877487cb580"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[if (event.getSource() == btnBack || event.getSource() == btnPlay) {
+                  <ATT name="Content"><![CDATA[if (event.getSource() == gameType) {
+    updateFields();
+} else if (event.getSource() == btnBack || event.getSource() == btnPlay) {
     updateGameSettings();
     try {
         settings.save();
@@ -387,6 +414,67 @@ settings.duration = (int) roundDuration.getValue();
         mainWindow.showMenu();
     else
         mainWindow.startGame();
+}
+]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="updateFields" mc="Standard.Operation" uid="35b7bee0-ae68-4ea1-9884-96a447867da6"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[updateFields]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Descriptor">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="6f3deca7-47e7-4860-9e89-3b94c1959157"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[switch ((GameType)gameType.getSelectedItem()) {
+case Client:
+    lblIpAddress.setVisible(true);
+    ipAddress.setVisible(true);
+    lblMaps.setVisible(false);
+    maps.setVisible(false);
+    lblAiCount.setVisible(false);
+    aiCount.setVisible(false);
+    lblRoundCount.setVisible(false);
+    roundCount.setVisible(false);
+    lblRoundDuration.setVisible(false);
+    roundDuration.setVisible(false);
+    break;
+case Local:
+case Sandbox:
+case Server:
+    lblIpAddress.setVisible(false);
+    ipAddress.setVisible(false);
+    lblMaps.setVisible(true);
+    maps.setVisible(true);
+    lblAiCount.setVisible(true);
+    aiCount.setVisible(true);
+    lblRoundCount.setVisible(true);
+    roundCount.setVisible(true);
+    lblRoundDuration.setVisible(true);
+    roundDuration.setVisible(true);
+    break;
+default:
+    break;
 }
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
@@ -465,7 +553,7 @@ settings.duration = (int) roundDuration.getValue();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="897a61e2-64de-416a-80b0-294226aff30b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a3ec252c-05df-431e-a774-a481f91e5102"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -540,7 +628,7 @@ settings.duration = (int) roundDuration.getValue();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="f0dd9fcf-445e-4d59-b90c-afca5cdb2005"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="2f4253d0-c072-43be-b715-ec3ea011cb0c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -615,7 +703,7 @@ settings.duration = (int) roundDuration.getValue();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="18f43811-aa64-49a8-8dfc-c15497e7290c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="dbd4d98d-5d84-48f5-9a21-bfc3b6387cad"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -690,7 +778,7 @@ settings.duration = (int) roundDuration.getValue();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="c9cd8fda-a78c-4b05-b0c1-fbd5891ab3ab"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="4a57ecdc-8034-41d5-be5a-e71d5a36c47e"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -787,7 +875,7 @@ settings.duration = (int) roundDuration.getValue();
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="4df8d46a-0bc1-4d81-ab00-eb9b8372f750"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="c7f2314f-a386-47ee-a9a3-fecc4fe08544"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -884,7 +972,7 @@ settings.duration = (int) roundDuration.getValue();
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="331ea7fb-33f5-4a2f-9dac-3edf801b0f3d"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="2a062795-62f8-4995-9e0e-dae48ee9c514"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -959,7 +1047,7 @@ settings.duration = (int) roundDuration.getValue();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="71b9eca2-0d7e-4e42-8093-69817f778954"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="e916d014-044f-46e2-b440-0f1fe6b47c72"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1034,7 +1122,7 @@ settings.duration = (int) roundDuration.getValue();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="e2b0c63b-c4ab-4ef6-b580-f137147d22bd"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="8eb232eb-87f0-4799-a7e4-773ab2e069a6"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1109,7 +1197,7 @@ settings.duration = (int) roundDuration.getValue();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b3248c5c-d4f6-4b9e-9b58-c2fd3b02f767"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="98cc39ff-7cce-430a-854c-dfdb25b58c8f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1184,7 +1272,457 @@ settings.duration = (int) roundDuration.getValue();
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="240e2eab-b117-4835-b51f-eb0443738df4"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="b063860b-ddd8-4ec2-91ce-c8b6af4bd176"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="lblIpAddress" mc="Standard.AssociationEnd" uid="ebe3be16-6c91-4185-ba20-e70709d440fc"/>
+          <ATTRIBUTES>
+            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="IsChangeable">true</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[lblIpAddress]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="JLabel" mc="Standard.Class" uid="9a1b7d92-6e45-4715-94d7-2d83e6b3ec0d"/>
+            </LINK>
+            <COMP relation="Opposite">
+              <OBJECT>
+                <ID name="" mc="Standard.AssociationEnd" uid="84e23426-2008-49fc-aadd-77b58765fa94"/>
+                <ATTRIBUTES>
+                  <ATT name="Aggregation">KindIsAssociation</ATT>
+                  <ATT name="IsChangeable">true</ATT>
+                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="IsDerived">false</ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="IsClass">false</ATT>
+                  <ATT name="IsAbstract">false</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Opposite">
+                    <COMPID name="lblIpAddress" mc="Standard.AssociationEnd" uid="ebe3be16-6c91-4185-ba20-e70709d440fc"/>
+                  </COMP>
+                  <COMP relation="Association">
+                    <OBJECT>
+                      <ID name="" mc="Standard.Association" uid="3fe6cf8f-63bb-4e90-b9b9-c8f5d2752a85"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Association">
+              <COMPID name="" mc="Standard.Association" uid="3fe6cf8f-63bb-4e90-b9b9-c8f5d2752a85"/>
+            </COMP>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="59632a45-e2eb-4c3e-a270-d0a5f884637f"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="ipAddress" mc="Standard.AssociationEnd" uid="6c5bd0c3-3cdf-4cb1-a9b1-3d89f281d2bb"/>
+          <ATTRIBUTES>
+            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="IsChangeable">true</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[ipAddress]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="JTextField" mc="Standard.Class" uid="d0cf6332-8e14-4ce5-bc86-21a3556917e8"/>
+            </LINK>
+            <COMP relation="Opposite">
+              <OBJECT>
+                <ID name="" mc="Standard.AssociationEnd" uid="4bb79479-1ff7-4245-a993-36f50577575a"/>
+                <ATTRIBUTES>
+                  <ATT name="Aggregation">KindIsAssociation</ATT>
+                  <ATT name="IsChangeable">true</ATT>
+                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="IsDerived">false</ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="IsClass">false</ATT>
+                  <ATT name="IsAbstract">false</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Opposite">
+                    <COMPID name="ipAddress" mc="Standard.AssociationEnd" uid="6c5bd0c3-3cdf-4cb1-a9b1-3d89f281d2bb"/>
+                  </COMP>
+                  <COMP relation="Association">
+                    <OBJECT>
+                      <ID name="" mc="Standard.Association" uid="4ea1fa25-23a5-4460-a269-d20a7c7d7ab0"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Association">
+              <COMPID name="" mc="Standard.Association" uid="4ea1fa25-23a5-4460-a269-d20a7c7d7ab0"/>
+            </COMP>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="b8c6256f-eafb-4a31-85ee-b68bbe29242e"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="lblMaps" mc="Standard.AssociationEnd" uid="64ebf216-7ad1-4240-aa13-9df4b6de28e0"/>
+          <ATTRIBUTES>
+            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="IsChangeable">true</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[lblMaps]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="JLabel" mc="Standard.Class" uid="9a1b7d92-6e45-4715-94d7-2d83e6b3ec0d"/>
+            </LINK>
+            <COMP relation="Opposite">
+              <OBJECT>
+                <ID name="" mc="Standard.AssociationEnd" uid="07e9885a-9b2c-48af-a466-5a0772d898a0"/>
+                <ATTRIBUTES>
+                  <ATT name="Aggregation">KindIsAssociation</ATT>
+                  <ATT name="IsChangeable">true</ATT>
+                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="IsDerived">false</ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="IsClass">false</ATT>
+                  <ATT name="IsAbstract">false</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Opposite">
+                    <COMPID name="lblMaps" mc="Standard.AssociationEnd" uid="64ebf216-7ad1-4240-aa13-9df4b6de28e0"/>
+                  </COMP>
+                  <COMP relation="Association">
+                    <OBJECT>
+                      <ID name="" mc="Standard.Association" uid="34ce7ccf-7746-4ce5-a875-b53642254fd7"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Association">
+              <COMPID name="" mc="Standard.Association" uid="34ce7ccf-7746-4ce5-a875-b53642254fd7"/>
+            </COMP>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="8eac9998-bdff-474f-94dd-6b49fe7b074b"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="lblAiCount" mc="Standard.AssociationEnd" uid="44ad3d3f-4c46-49fa-8722-811c1b65ab9b"/>
+          <ATTRIBUTES>
+            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="IsChangeable">true</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[lblAiCount]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="JLabel" mc="Standard.Class" uid="9a1b7d92-6e45-4715-94d7-2d83e6b3ec0d"/>
+            </LINK>
+            <COMP relation="Opposite">
+              <OBJECT>
+                <ID name="" mc="Standard.AssociationEnd" uid="7af2855c-c9c0-40d5-97b3-612a17b9e265"/>
+                <ATTRIBUTES>
+                  <ATT name="Aggregation">KindIsAssociation</ATT>
+                  <ATT name="IsChangeable">true</ATT>
+                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="IsDerived">false</ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="IsClass">false</ATT>
+                  <ATT name="IsAbstract">false</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Opposite">
+                    <COMPID name="lblAiCount" mc="Standard.AssociationEnd" uid="44ad3d3f-4c46-49fa-8722-811c1b65ab9b"/>
+                  </COMP>
+                  <COMP relation="Association">
+                    <OBJECT>
+                      <ID name="" mc="Standard.Association" uid="39267fff-f4ee-4444-9581-c6773877318f"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Association">
+              <COMPID name="" mc="Standard.Association" uid="39267fff-f4ee-4444-9581-c6773877318f"/>
+            </COMP>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="00f7c290-3dad-4194-b666-f5b22f981d0a"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="lblRoundCount" mc="Standard.AssociationEnd" uid="0ee42413-3d11-46fb-9f90-07cc6d282350"/>
+          <ATTRIBUTES>
+            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="IsChangeable">true</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[lblRoundCount]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="JLabel" mc="Standard.Class" uid="9a1b7d92-6e45-4715-94d7-2d83e6b3ec0d"/>
+            </LINK>
+            <COMP relation="Opposite">
+              <OBJECT>
+                <ID name="" mc="Standard.AssociationEnd" uid="c427db05-57e0-48e7-be7a-05b1c99ebcaa"/>
+                <ATTRIBUTES>
+                  <ATT name="Aggregation">KindIsAssociation</ATT>
+                  <ATT name="IsChangeable">true</ATT>
+                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="IsDerived">false</ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="IsClass">false</ATT>
+                  <ATT name="IsAbstract">false</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Opposite">
+                    <COMPID name="lblRoundCount" mc="Standard.AssociationEnd" uid="0ee42413-3d11-46fb-9f90-07cc6d282350"/>
+                  </COMP>
+                  <COMP relation="Association">
+                    <OBJECT>
+                      <ID name="" mc="Standard.Association" uid="d15510fa-414a-4f99-8da5-f5ff74e929e6"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Association">
+              <COMPID name="" mc="Standard.Association" uid="d15510fa-414a-4f99-8da5-f5ff74e929e6"/>
+            </COMP>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="4c3fb865-0d90-4310-9246-e7664d3ec5fa"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="lblRoundDuration" mc="Standard.AssociationEnd" uid="32c3be8d-7088-4d56-98ea-b4c79b8240a0"/>
+          <ATTRIBUTES>
+            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="IsChangeable">true</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Private</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[lblRoundDuration]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="JLabel" mc="Standard.Class" uid="9a1b7d92-6e45-4715-94d7-2d83e6b3ec0d"/>
+            </LINK>
+            <COMP relation="Opposite">
+              <OBJECT>
+                <ID name="" mc="Standard.AssociationEnd" uid="a9e2e554-72b5-4d39-8e70-2bb0f0f859eb"/>
+                <ATTRIBUTES>
+                  <ATT name="Aggregation">KindIsAssociation</ATT>
+                  <ATT name="IsChangeable">true</ATT>
+                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="IsDerived">false</ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="IsClass">false</ATT>
+                  <ATT name="IsAbstract">false</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Opposite">
+                    <COMPID name="lblRoundDuration" mc="Standard.AssociationEnd" uid="32c3be8d-7088-4d56-98ea-b4c79b8240a0"/>
+                  </COMP>
+                  <COMP relation="Association">
+                    <OBJECT>
+                      <ID name="" mc="Standard.Association" uid="382a5d9f-4ab3-44ad-8d4f-92bfc2ccb4fe"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Association">
+              <COMPID name="" mc="Standard.Association" uid="382a5d9f-4ab3-44ad-8d4f-92bfc2ccb4fe"/>
+            </COMP>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="05b8b0ba-6fa5-4182-bb08-9fddcd9fc946"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1278,19 +1816,6 @@ settings.duration = (int) roundDuration.getValue();
           <DEPENDENCIES>
             <LINK relation="ImportedElement">
               <ID name="File" mc="Standard.Class" uid="9bbfa2bb-0b01-4be6-90ef-ee1c047123a1"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="" mc="Standard.ElementImport" uid="f88015eb-4f2c-48c0-9804-3ca5fe4368c1"/>
-          <ATTRIBUTES>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="Name"></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="ImportedElement">
-              <ID name="JLabel" mc="Standard.Class" uid="9a1b7d92-6e45-4715-94d7-2d83e6b3ec0d"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

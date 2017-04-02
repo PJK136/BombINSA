@@ -36,7 +36,7 @@
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="0d6c7fc5-7a1e-481a-b7c0-945d416af86f"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[currentDirection = null;]]></ATT>
+                  <ATT name="Content"><![CDATA[setName("IA");]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -47,151 +47,17 @@
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="setPlayer" mc="Standard.Operation" uid="b58b228f-36e7-44df-b4ab-525989724476"/>
-          <ATTRIBUTES>
-            <ATT name="Concurrency">false</ATT>
-            <ATT name="Final">false</ATT>
-            <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Public</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[setPlayer]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <COMP relation="IO">
               <OBJECT>
-                <ID name="player" mc="Standard.Parameter" uid="8691a162-c12a-4f36-b680-7a6626354d3b"/>
+                <ID name="" mc="Infrastructure.Note" uid="6b6e06d6-e5fb-465f-a7d6-11f82800fdb4"/>
                 <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[player]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <ID name="Player" mc="Standard.Class" uid="7d9743df-c7cd-4679-9771-fa22b1be441d"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <LINK relation="Redefines">
-              <REFOBJ>
-                <ID name="setPlayer" mc="Standard.Operation" uid="2de0046a-fb4b-4667-ae22-fccfb9d3d853"/>
-              </REFOBJ>
-            </LINK>
-            <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="28ff3729-64fd-4622-81d6-ea54ae8e46d6"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[@Override]]></ATT>
+                  <ATT name="Content"><![CDATA[Crée un nouveau controlleur de type intelligence artificielle]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Model">
-                    <FOREIGNID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="000c0b48-0000-3aa1-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="fc4d926e-02c9-428c-9bc2-64e59e4f6ea5"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[aiPlayer = player;]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="setWorldView" mc="Standard.Operation" uid="b9d8617a-93c3-42c9-9cd8-fdd04230d457"/>
-          <ATTRIBUTES>
-            <ATT name="Concurrency">false</ATT>
-            <ATT name="Final">false</ATT>
-            <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Public</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[setWorldView]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <COMP relation="IO">
-              <OBJECT>
-                <ID name="world" mc="Standard.Parameter" uid="139ba90c-337f-41e7-a01c-c55b2e81350b"/>
-                <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[world]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <ID name="World" mc="Standard.Class" uid="4e38e511-34e5-49ff-aa51-e135ece3c5eb"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <LINK relation="Redefines">
-              <REFOBJ>
-                <ID name="setWorldView" mc="Standard.Operation" uid="b4919637-6675-4e6b-bd27-a18c64057a48"/>
-              </REFOBJ>
-            </LINK>
-            <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="831507fd-db5b-43bd-9492-f913cdc5c41f"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[@Override]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="000c0b48-0000-3aa1-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="8c2a6e5b-08cb-47d2-90d7-fc52aee79cc5"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[this.world = world;]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -258,16 +124,20 @@
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="36a1c3c6-79ab-4f93-a841-bf6c89efe8a7"/>
+                <ID name="" mc="Infrastructure.Note" uid="99440e0f-2890-4ebc-886a-e27ba113c2e1"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[return currentDirection;]]></ATT>
+                  <ATT name="Content"><![CDATA[if (!bombing) //Avance que si elle ne pose pas de bombe
+    return currentDirection;
+else
+    return null;
+]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Model">
-                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                    <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -334,7 +204,7 @@
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="c440577b-7332-43b3-aaa0-35f68675e0ca"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[if (bombing){
+                  <ATT name="Content"><![CDATA[if (bombing) {
     bombing = false;
     return true;
 } else {
@@ -390,10 +260,8 @@
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="4df804b2-326c-47fe-96ad-3e0c314823a2"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[aiLocation = world.getMap().toGridCoordinates((int)aiPlayer.getX(),(int)aiPlayer.getY());
+                  <ATT name="Content"><![CDATA[aiLocation = world.getMap().toGridCoordinates((int)player.getX(),(int)player.getY());
 if(readyToBomb()){
-    droppedBomb = world.getTimeElapsed();
-    currentDirection = null;
     bombing = true;
     return;
 }
@@ -405,20 +273,14 @@ if(isSafe(aiLocation) &&
    !isEmptyAndSafe(aiLocation.neighbor(Direction.Left)) &&
    !isEmptyAndSafe(aiLocation.neighbor(Direction.Right))){
     currentDirection = null;
-}
-else if(aiPlayer.getSpeed() == 0 || (!(isSafe(aiLocation.neighbor(currentDirection))) && isSafe(aiLocation))){
-    turn(currentDirection,aiLocation);
-    System.out.println("first turn");
-}
-else if(aiPlayer.getSpeed() == 0){
-    turn(currentDirection,aiLocation);
-    System.out.println("second turn");
-}
-else if(!isSafe(aiLocation)){
+} else if(currentDirection == null || player.isColliding(currentDirection, player.getMaxSpeed())){ //Si l'IA rencontre un obstacle
+    turn();
+} else if (!(isSafe(aiLocation.neighbor(currentDirection))) && isSafe(aiLocation)) { //Si l'IA va atteindre une case dangereuse
+    turn();
+} else if(!isSafe(aiLocation)){ //Si l'IA est en danger
     for(Direction dir : Direction.values()){
-        if(isEmptyAndSafe(aiLocation.neighbor(dir)) && !aiPlayer.isColliding(dir, aiPlayer.getSpeed())){
+        if(isEmptyAndSafe(aiLocation.neighbor(dir)) && !player.isColliding(dir, player.getMaxSpeed())){
             currentDirection = dir;
-            System.out.println("third turn");
         }
     }
 }
@@ -430,6 +292,23 @@ else if(!isSafe(aiLocation)){
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="641c42ee-ea72-4c7a-9e04-1084aecde10a"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Met à jour le controlleur de type intelligence artificielle en faisant les actions suivantes :
+- si l'IA peut poser und bombe, elle le fait
+- arrête de bouger si elle est cernée
+- tourne ou pas en fonction de sa situation]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -449,54 +328,6 @@ else if(!isSafe(aiLocation)){
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
-            <COMP relation="IO">
-              <OBJECT>
-                <ID name="dir" mc="Standard.Parameter" uid="622c91a1-74df-4600-bbe3-4b1cc06076b0"/>
-                <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[dir]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <REFOBJ>
-                      <ID name="Direction" mc="Standard.Enumeration" uid="4b1f3374-5785-401a-bd35-6347dc31d5a9"/>
-                    </REFOBJ>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="position" mc="Standard.Parameter" uid="3071a7fa-b30e-4835-875e-26f9fa522b39"/>
-                <ATTRIBUTES>
-                  <ATT name="ParameterPassing">In</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"><![CDATA[position]]></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <ID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
             <COMP relation="Descriptor">
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="95cc4624-bb7c-4558-a520-a9627ad6c13d"/>
@@ -504,8 +335,7 @@ else if(!isSafe(aiLocation)){
                   <ATT name="Content"><![CDATA[Direction randomDirection;
 for (int i = 0; i < 10 && !turned; i++) {
     randomDirection = Direction.getRandomDirection();
-    //if(randomDirection != dir && isEmpty(position.neighbor(randomDirection))){
-    if(randomDirection != dir && !aiPlayer.isColliding(randomDirection, aiPlayer.getSpeed())){
+    if(randomDirection != currentDirection && !player.isColliding(randomDirection, player.getMaxSpeed())){
         currentDirection = randomDirection;
         turned = true;
     }
@@ -519,6 +349,21 @@ turned = false;
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="e17815e2-9a70-4023-b949-9c185638b755"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Fait tourner l'IA dans une direction différente de l'actuelle
+@param dir La direction actuelle de l'IA]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -559,6 +404,22 @@ turned = false;
                   <LINK relation="Type">
                     <ID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="f9cb5b71-fd95-4d4e-a011-7919b44272e2"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[La tuile qu'il faut controller]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -583,6 +444,22 @@ turned = false;
                   <LINK relation="Type">
                     <FOREIGNID name="boolean" mc="Standard.DataType" uid="00000004-0000-0005-0000-000000000000"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="1ddd9f3a-1d73-456a-89c6-d36c2979a5ba"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[true Si la tuile est sécurisée, false sinon]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -604,9 +481,13 @@ turned = false;
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="ce023607-8368-4df4-bb57-1af75aceef16"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[if(world.getMap().isExploding(target)){
+                  <ATT name="Content"><![CDATA[if (world.getMap().isCollidable(target))
+    return true;
+    
+if(world.getMap().isExploding(target)){
     return false;
 }
+
 GridCoordinates temp = new GridCoordinates(target);
 List<Entity> tileEntities = new ArrayList<Entity>();
 Bomb bomb = null;
@@ -636,6 +517,20 @@ for(Direction dir : Direction.values()){
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaCode" mc="Infrastructure.NoteType" uid="003800a8-0000-018e-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="3ee98aa8-510c-4b2f-9a93-08ca21be8c24"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Controle la dangerosité d'une tuile]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -676,6 +571,22 @@ for(Direction dir : Direction.values()){
                   <LINK relation="Type">
                     <ID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="aa9e07a1-4b2d-468f-986b-fbcc5730fbb4"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[les coordonnées de grille de la tuile]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -700,6 +611,22 @@ for(Direction dir : Direction.values()){
                   <LINK relation="Type">
                     <FOREIGNID name="boolean" mc="Standard.DataType" uid="00000004-0000-0005-0000-000000000000"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="0f313a94-847c-4d04-a519-4cc77a5a8a66"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[true si oui, false sinon]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -715,6 +642,20 @@ for(Direction dir : Direction.values()){
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="83d5e2e8-3645-431e-be43-faab16d791be"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Teste si une tuile est vide]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -755,6 +696,22 @@ for(Direction dir : Direction.values()){
                   <LINK relation="Type">
                     <ID name="GridCoordinates" mc="Standard.Class" uid="d87556f0-fd2c-4175-a67f-f8625d3f2ed5"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="00e66f94-b6f0-4f72-b4e1-0f2b14f2b224"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[les coordonnées de grille de la tuile]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -779,6 +736,22 @@ for(Direction dir : Direction.values()){
                   <LINK relation="Type">
                     <FOREIGNID name="boolean" mc="Standard.DataType" uid="00000004-0000-0005-0000-000000000000"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="736952bb-d06a-44a7-9405-3315460dd45a"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[true si oui, false sinon]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -794,6 +767,20 @@ for(Direction dir : Direction.values()){
                 <DEPENDENCIES>
                   <LINK relation="Model">
                     <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="Infrastructure.Note" uid="2b5b1c6b-e3da-434b-9f33-c750778fd9d7"/>
+                <ATTRIBUTES>
+                  <ATT name="Content"><![CDATA[Teste si une tuile est vide et sécurisée]]></ATT>
+                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Model">
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -834,6 +821,22 @@ for(Direction dir : Direction.values()){
                   <LINK relation="Type">
                     <FOREIGNID name="boolean" mc="Standard.DataType" uid="00000004-0000-0005-0000-000000000000"/>
                   </LINK>
+                  <COMP relation="Descriptor">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.Note" uid="50a271ca-5904-4d74-8947-93eb9f81f8a1"/>
+                      <ATTRIBUTES>
+                        <ATT name="Content"><![CDATA[true si oui, false sinon]]></ATT>
+                        <ATT name="MimeType"></ATT>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Model">
+                          <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
@@ -855,11 +858,12 @@ for(Direction dir : Direction.values()){
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="f2fc3a7a-4ad6-4157-8272-4f85f0ac38c6"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[if((world.getTimeElapsed() - droppedBomb)>3*world.getFps() && world.getTimeRemaining()>0 && isSafe(aiLocation)){
+                  <ATT name="Content"><![CDATA[if(player.getBombCount() < player.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation) && Math.random() < 1./world.getFps()) {
     //check up
     if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up))) {
         if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) ||
            isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right))) {
+            currentDirection = Direction.Up;
             return true;
         }
     }
@@ -868,6 +872,7 @@ for(Direction dir : Direction.values()){
     if(isEmptyAndSafe(aiLocation.neighbor(Direction.Down))) {
         if(isEmptyAndSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) ||
            isEmptyAndSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right))) {
+            currentDirection = Direction.Down;
             return true;
         }
     }
@@ -876,6 +881,7 @@ for(Direction dir : Direction.values()){
     if(isEmptyAndSafe(aiLocation.neighbor(Direction.Left))) {
         if(isEmptyAndSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) ||
            isEmptyAndSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down))) {
+            currentDirection = Direction.Left;
             return true;
         }
     }
@@ -884,6 +890,7 @@ for(Direction dir : Direction.values()){
     if(isEmptyAndSafe(aiLocation.neighbor(Direction.Right))) {
         if(isEmptyAndSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) ||
            isEmptyAndSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down))) {
+            currentDirection = Direction.Right;
             return true;
         }
     }
@@ -899,77 +906,17 @@ for(Direction dir : Direction.values()){
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="getName" mc="Standard.Operation" uid="33761719-0d5d-423b-b723-36b0a60391e8"/>
-          <ATTRIBUTES>
-            <ATT name="Concurrency">false</ATT>
-            <ATT name="Final">false</ATT>
-            <ATT name="Passing">MethodOut</ATT>
-            <ATT name="Visibility">Public</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[getName]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <COMP relation="Return">
               <OBJECT>
-                <ID name="" mc="Standard.Parameter" uid="25f2c752-0443-43f8-8822-ce3c121c56d7"/>
+                <ID name="" mc="Infrastructure.Note" uid="50cd4fb8-5d9f-4e91-b3aa-a40998bd2c8c"/>
                 <ATTRIBUTES>
-                  <ATT name="ParameterPassing">Out</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="TypeConstraint"></ATT>
-                  <ATT name="DefaultValue"></ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="IsException">false</ATT>
-                  <ATT name="IsStream">false</ATT>
-                  <ATT name="Effect">ReadEffect</ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Type">
-                    <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <LINK relation="Redefines">
-              <REFOBJ>
-                <ID name="getName" mc="Standard.Operation" uid="ca776232-1a17-4e2e-a7a6-eeffe4a104e4"/>
-              </REFOBJ>
-            </LINK>
-            <COMP relation="Descriptor">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="77dd7a65-243f-4523-91ae-7d484c435fbe"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[@Override]]></ATT>
+                  <ATT name="Content"><![CDATA[Détermine si l'IA peut poser une bombe dans la situation actuelle]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
                   <LINK relation="Model">
-                    <FOREIGNID name="JavaAnnotation" mc="Infrastructure.NoteType" uid="000c0b48-0000-3aa1-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="" mc="Infrastructure.Note" uid="742c47a1-94cd-4362-99af-39445f683e36"/>
-                <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[return "IA";]]></ATT>
-                  <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Model">
-                    <FOREIGNID name="JavaReturned" mc="Infrastructure.NoteType" uid="003800a8-0000-0190-0000-000000000000"/>
+                    <FOREIGNID name="description" mc="Infrastructure.NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
                   </LINK>
                 </DEPENDENCIES>
               </OBJECT>
@@ -982,7 +929,7 @@ for(Direction dir : Direction.values()){
           <ID name="currentDirection" mc="Standard.Attribute" uid="b3611ff7-8085-4126-9180-545efad68da8"/>
           <ATTRIBUTES>
             <ATT name="TypeConstraint"></ATT>
-            <ATT name="Value"></ATT>
+            <ATT name="Value"><![CDATA[null]]></ATT>
             <ATT name="TargetIsClass">false</ATT>
             <ATT name="Changeable">AccesNone</ATT>
             <ATT name="IsDerived">false</ATT>
@@ -1002,20 +949,6 @@ for(Direction dir : Direction.values()){
                 <ID name="Direction" mc="Standard.Enumeration" uid="4b1f3374-5785-401a-bd35-6347dc31d5a9"/>
               </REFOBJ>
             </LINK>
-            <COMP relation="Tag">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ddfaad50-f505-41c2-a01f-a770923cf81c"/>
-                <ATTRIBUTES>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Definition">
-                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
@@ -1066,182 +999,8 @@ for(Direction dir : Direction.values()){
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
-        <OBJECT>
-          <ID name="droppedBomb" mc="Standard.Attribute" uid="a517c478-aa58-42fc-bf09-0687c8d3e721"/>
-          <ATTRIBUTES>
-            <ATT name="TypeConstraint"></ATT>
-            <ATT name="Value"><![CDATA[0]]></ATT>
-            <ATT name="TargetIsClass">false</ATT>
-            <ATT name="Changeable">AccesNone</ATT>
-            <ATT name="IsDerived">false</ATT>
-            <ATT name="IsOrdered">false</ATT>
-            <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[droppedBomb]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Type">
-              <FOREIGNID name="integer" mc="Standard.DataType" uid="00000004-0000-0009-0000-000000000000"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
       </COMP>
       <COMP relation="OwnedEnd">
-        <OBJECT>
-          <ID name="world" mc="Standard.AssociationEnd" uid="2a62ecd6-114d-4fb9-8b1d-14b826963658"/>
-          <ATTRIBUTES>
-            <ATT name="Aggregation">KindIsAssociation</ATT>
-            <ATT name="IsChangeable">true</ATT>
-            <ATT name="Changeable">AccesNone</ATT>
-            <ATT name="IsDerived">false</ATT>
-            <ATT name="IsOrdered">false</ATT>
-            <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[world]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Target">
-              <ID name="WorldView" mc="Standard.Interface" uid="ef002ca0-7638-4d64-9860-1c30b5e5c688"/>
-            </LINK>
-            <COMP relation="Opposite">
-              <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="a322880f-381c-4943-baa9-6932114531df"/>
-                <ATTRIBUTES>
-                  <ATT name="Aggregation">KindIsAssociation</ATT>
-                  <ATT name="IsChangeable">true</ATT>
-                  <ATT name="Changeable">ReadWrite</ATT>
-                  <ATT name="IsDerived">false</ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="Visibility">Public</ATT>
-                  <ATT name="IsClass">false</ATT>
-                  <ATT name="IsAbstract">false</ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <COMP relation="Opposite">
-                    <COMPID name="world" mc="Standard.AssociationEnd" uid="2a62ecd6-114d-4fb9-8b1d-14b826963658"/>
-                  </COMP>
-                  <COMP relation="Association">
-                    <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="28712193-69b3-424b-943a-4e1205f8641d"/>
-                      <ATTRIBUTES>
-                        <ATT name="Name"></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES></DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="28712193-69b3-424b-943a-4e1205f8641d"/>
-            </COMP>
-            <COMP relation="Tag">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="6a29d113-68e8-49a8-85fd-33f8f8d27f6c"/>
-                <ATTRIBUTES>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Definition">
-                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="aiPlayer" mc="Standard.AssociationEnd" uid="81d4dca1-b16d-4247-96f1-d35f172be4c3"/>
-          <ATTRIBUTES>
-            <ATT name="Aggregation">KindIsAssociation</ATT>
-            <ATT name="IsChangeable">true</ATT>
-            <ATT name="Changeable">AccesNone</ATT>
-            <ATT name="IsDerived">false</ATT>
-            <ATT name="IsOrdered">false</ATT>
-            <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Private</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[aiPlayer]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Target">
-              <ID name="Player" mc="Standard.Class" uid="7d9743df-c7cd-4679-9771-fa22b1be441d"/>
-            </LINK>
-            <COMP relation="Opposite">
-              <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="62e66d8b-f31a-42c1-9265-81c522dda6f6"/>
-                <ATTRIBUTES>
-                  <ATT name="Aggregation">KindIsAssociation</ATT>
-                  <ATT name="IsChangeable">true</ATT>
-                  <ATT name="Changeable">ReadWrite</ATT>
-                  <ATT name="IsDerived">false</ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="Visibility">Public</ATT>
-                  <ATT name="IsClass">false</ATT>
-                  <ATT name="IsAbstract">false</ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <COMP relation="Opposite">
-                    <COMPID name="aiPlayer" mc="Standard.AssociationEnd" uid="81d4dca1-b16d-4247-96f1-d35f172be4c3"/>
-                  </COMP>
-                  <COMP relation="Association">
-                    <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="9082a058-ab9a-44e0-a1f1-a856833faac7"/>
-                      <ATTRIBUTES>
-                        <ATT name="Name"></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES></DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="9082a058-ab9a-44e0-a1f1-a856833faac7"/>
-            </COMP>
-            <COMP relation="Tag">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="2e31beee-045d-40a6-b0db-570ab81efa59"/>
-                <ATTRIBUTES>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Definition">
-                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
         <OBJECT>
           <ID name="aiLocation" mc="Standard.AssociationEnd" uid="6acb90de-974c-4546-a93e-0b8cc35a6bd2"/>
           <ATTRIBUTES>
@@ -1303,7 +1062,7 @@ for(Direction dir : Direction.values()){
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="8561d1be-fc11-4ff8-90d9-d690581c2717"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="058bad5a-e20d-4057-b837-4f6ef3c39ba9"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1318,16 +1077,17 @@ for(Direction dir : Direction.values()){
           </DEPENDENCIES>
         </OBJECT>
       </COMP>
-      <COMP relation="Realized">
+      <COMP relation="Parent">
         <OBJECT>
-          <ID name="InterfaceRealization" mc="Standard.InterfaceRealization" uid="a160aa46-8754-4d2e-9ddb-32113cb09770"/>
+          <ID name="" mc="Standard.Generalization" uid="55cf6bde-569f-4115-980c-64ecef432976"/>
           <ATTRIBUTES>
-            <ATT name="Name"><![CDATA[InterfaceRealization]]></ATT>
+            <ATT name="Discriminator"></ATT>
+            <ATT name="Name"></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
-            <LINK relation="Implemented">
-              <ID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
+            <LINK relation="SuperType">
+              <ID name="Controller" mc="Standard.Class" uid="435a3f56-662a-44c1-a8c7-b82ab53bd0e1"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

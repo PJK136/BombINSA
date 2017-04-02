@@ -233,7 +233,7 @@
         <REFOBJ>
           <ID name="getTimeRemaining" mc="Standard.Operation" uid="181a1f7d-91b0-4a1e-8a77-235ba0c5dd0c"/>
         </REFOBJ>
-        <ID name="Server" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
+        <ID name="Local" mc="Standard.Class" uid="8d1e22ca-441c-437e-83a3-fee76166baff"/>
         <REFOBJ>
           <ID name="pickUpBonus" mc="Standard.Operation" uid="1883d42c-f691-41ab-acc6-c37fc049f80c"/>
         </REFOBJ>
@@ -241,7 +241,7 @@
           <ID name="setFps" mc="Standard.Operation" uid="2aa100c7-ebde-4cd8-840f-24b2f13f54cd"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="Server" mc="Standard.Operation" uid="560005cd-1e82-4dc8-8a17-39d3577463ae"/>
+          <ID name="Local" mc="Standard.Operation" uid="560005cd-1e82-4dc8-8a17-39d3577463ae"/>
         </REFOBJ>
         <REFOBJ>
           <ID name="loadMap" mc="Standard.Operation" uid="4164c416-9e5c-461f-a7dc-1758c0f94d36"/>
@@ -349,7 +349,6 @@
         <REFOBJ>
           <ID name="getMap" mc="Standard.Operation" uid="b3701478-0bf1-402b-98bd-a71cb1065097"/>
         </REFOBJ>
-        <ID name="Controller" mc="Standard.Interface" uid="510df795-41e1-4cc6-8d34-c2e51f231aeb"/>
         <REFOBJ>
           <ID name="setWorldView" mc="Standard.Operation" uid="b4919637-6675-4e6b-bd27-a18c64057a48"/>
         </REFOBJ>

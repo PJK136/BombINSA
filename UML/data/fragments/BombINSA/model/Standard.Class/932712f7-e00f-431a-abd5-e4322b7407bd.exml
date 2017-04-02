@@ -272,7 +272,7 @@ if (draw == null || draw.getWidth() != width || draw.getHeight() != height) {
     GraphicsConfiguration gc = getGraphicsConfiguration();
     if (gc == null)
         gc = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-    draw = gc.createCompatibleVolatileImage(width, height, Transparency.OPAQUE);
+    draw = gc.createCompatibleVolatileImage(Math.max(1, width), Math.max(1, height), Transparency.OPAQUE);
 }
 ]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
@@ -618,7 +618,8 @@ final int colorCount = PlayerColor.values().length;
 for (Entity entity : worldView.getEntities()) {
     if (entity instanceof Player) {
         int invulnerability = ((Player)entity).getInvulnerability();
-        if (invulnerability == 0 || invulnerability % (2*HIT_BLINK_INTERVAL*worldView.getFps()) >= HIT_BLINK_INTERVAL*worldView.getFps()) {
+        if (worldView.getWarmupTimeRemaining() != 0 || invulnerability == 0 ||
+            invulnerability % (2*HIT_BLINK_INTERVAL*worldView.getFps()) >= HIT_BLINK_INTERVAL*worldView.getFps()) {
             int color = ((Player)entity).getPlayerID() % colorCount;
             if (entity.getSpeed() == 0.)
                 drawEntity(g, entity, players[color].getStandingPlayer(entity.getDirection()));
@@ -777,8 +778,11 @@ if (settings.tags) {
     repaint();
 }
 else {
-    boolean toRevalidate = wait.getWidth(null) != draw.getWidth(null) || wait.getHeight(null) != draw.getHeight(null);
+    boolean toRevalidate = false;
+    
     synchronized (wait) {
+        toRevalidate = wait.getWidth(null) != draw.getWidth(null) || wait.getHeight(null) != draw.getHeight(null);
+    
         VolatileImage cache = wait;
         wait = draw;
         draw = cache;
@@ -974,7 +978,10 @@ cacheTileSize = size;
               <OBJECT>
                 <ID name="" mc="Infrastructure.Note" uid="c92256cf-f9f8-4a06-bbd0-0efdd3e1fead"/>
                 <ATTRIBUTES>
-                  <ATT name="Content"><![CDATA[int height = g.getFontMetrics().getHeight();
+                  <ATT name="Content"><![CDATA[if (str == null)
+    return;
+
+int height = g.getFontMetrics().getHeight();
 int width = g.getFontMetrics().stringWidth(str);
 g.drawString(str, centerX-width/2, centerY+height/4);
 ]]></ATT>
@@ -1172,7 +1179,7 @@ else
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="0621178e-00cf-4ba1-96f2-27a4673a9f28"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="31283503-e1a0-4331-bff3-62f158e52b2c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1210,7 +1217,7 @@ else
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a17fef93-0180-4bc5-8213-49df435e4e87"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="53501287-ed23-4dd2-84ac-b5d6c8e062ad"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1248,7 +1255,7 @@ else
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a232de26-1853-4567-8abc-08f99324d093"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="879e1ae7-fe16-434b-9b59-6e56eb18acfb"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1439,7 +1446,7 @@ else
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="444ab195-aa6d-4454-b7fb-71210442be8c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="e6c44dbf-2c81-43ce-8465-16ac90123223"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1514,7 +1521,7 @@ else
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d1fa51a7-0f62-4ec3-b195-0b68ab1ca78c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="e4b19a71-4818-420b-98ce-c0dfa1812e4a"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1589,7 +1596,7 @@ else
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7927aba3-2a31-42dd-82d7-335891e41308"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="254c2991-943f-4024-8332-36eb80d2e198"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1664,7 +1671,7 @@ else
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="3de5e7bd-9cdc-4f73-9b95-f2c7134ec4ae"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a026ad82-50df-482b-b7a3-dfc27578bbca"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1761,7 +1768,7 @@ else
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="4e44bb3f-8e17-44e5-ac63-938fc0864558"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="b2071d15-62a1-42a9-8392-15cfcb128b7d"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1858,7 +1865,7 @@ else
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="4d14d4be-cd9e-4813-8f67-31a6e2bba7b3"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0b9012b0-702d-4c59-8c92-a19946dad344"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1955,7 +1962,7 @@ else
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7aee2543-e995-4353-bbec-31ff8874927f"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="9673bf24-66be-4178-97fb-bf3195369631"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2052,7 +2059,7 @@ else
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="dbe51291-04ce-4a36-b06d-db3780fc6f91"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="325a7f9b-0f61-48d1-93dc-482813f36745"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2149,7 +2156,7 @@ else
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="e0becee4-37a0-4709-8226-34ff87657f44"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="b7909708-d1ea-4380-9ae2-80cb946f8f43"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

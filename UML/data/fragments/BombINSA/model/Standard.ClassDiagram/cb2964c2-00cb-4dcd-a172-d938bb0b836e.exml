@@ -521,9 +521,6 @@
           <ID name="GameWorker" mc="Standard.Operation" uid="5510e2b1-78a5-4452-a177-88e5ac8f1590"/>
         </REFOBJ>
         <REFOBJ>
-          <ID name="doesRoundEnded" mc="Standard.Operation" uid="f93e9dfd-7368-492f-a48a-e8abc1215e4c"/>
-        </REFOBJ>
-        <REFOBJ>
           <ID name="createWorld" mc="Standard.Operation" uid="b5e7e42e-c73b-4130-bed6-7aa32aa55eb3"/>
         </REFOBJ>
         <REFOBJ>

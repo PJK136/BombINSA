@@ -38,11 +38,13 @@
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[//Configuration par défaut
 gameType = GameType.Local;
+ipAddress = "";
 mapName = "default";
 playerCount = 1;
 aiCount = 1;
 roundCount = 1;
 duration = 180;
+warmupDuration = 2;
 tileSize = 32;
 fps = 60;
 controls = new ArrayList<ControlSettings> ();
@@ -632,7 +634,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="159e74ad-fbca-4191-a5ed-bbe0df5f7163"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="61abbb5c-dedc-4e15-aced-ff59ef7f7529"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -670,7 +672,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="2547a748-bcea-4fb5-a5bf-3ff6f3dd12ad"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="fbf4e68a-ab97-4017-9b48-407b476ca348"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -708,7 +710,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="0d1da3ce-7f89-42db-a32e-5bfd6fc97374"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="7c4e2f8d-10c4-4b40-a1c8-87ed33b7046b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -746,7 +748,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="6f67b900-7809-46a5-8846-d773c63cb7a8"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="aacb30b7-f8c5-4a9d-9c55-ede1d45db23f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -784,7 +786,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="2c76b43d-23b4-4ea1-947f-c67d5e4007bd"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="9a2ace00-338a-4cd4-bb0f-2c04fe80246b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -822,7 +824,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="3ae4425d-b676-40e0-993e-de9c463cf89b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="43e5f3e1-f6a6-4a3e-aa09-c4c857a8a92c"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -860,7 +862,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="0ad013cb-b394-4479-884d-47b08e574019"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="3baaed5e-1bdf-4a89-a713-d2c5a7828485"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -898,7 +900,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="94b0a8b5-00f5-4e15-8a9d-ba67b85ca1a8"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="ac02b00b-aab3-4c20-a80d-8e5ebc5d1c81"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -974,7 +976,7 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="76989891-163a-40a7-b260-6cab219ae363"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="49e342cd-a5f4-467f-9025-98b96aef727b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1012,7 +1014,83 @@ printWriter.close();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="060e398c-8cfe-4c1b-a291-f2d0278bc031"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="aa8f786e-ad73-453e-89d6-f354422220d8"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="ipAddress" mc="Standard.Attribute" uid="fa41dd97-8866-4dbf-b87c-372978447d09"/>
+          <ATTRIBUTES>
+            <ATT name="TypeConstraint"></ATT>
+            <ATT name="Value"></ATT>
+            <ATT name="TargetIsClass">false</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[ipAddress]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Type">
+              <FOREIGNID name="string" mc="Standard.DataType" uid="00000004-0000-000d-0000-000000000000"/>
+            </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0909e397-c688-421b-b8bb-d6754ca0580c"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Definition">
+                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="warmupDuration" mc="Standard.Attribute" uid="3b09f6d9-a7d8-4a9b-8d54-6343cf3bb343"/>
+          <ATTRIBUTES>
+            <ATT name="TypeConstraint"></ATT>
+            <ATT name="Value"></ATT>
+            <ATT name="TargetIsClass">false</ATT>
+            <ATT name="Changeable">AccesNone</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[warmupDuration]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Type">
+              <FOREIGNID name="double" mc="Standard.DataType" uid="00000004-0000-0010-0000-000000000000"/>
+            </LINK>
+            <COMP relation="Tag">
+              <OBJECT>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="511d0e8d-e433-4927-9edc-8f418803f3d7"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1111,7 +1189,7 @@ printWriter.close();
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="59f85078-e72e-446b-a5fd-4d0581a9cb64"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="7f16ed1b-8d0e-417d-b714-1d9f4132322d"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

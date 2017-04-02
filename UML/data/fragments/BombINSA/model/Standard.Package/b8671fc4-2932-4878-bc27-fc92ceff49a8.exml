@@ -20,6 +20,7 @@
         <COMPID name="nio" mc="Standard.Package" uid="4f55d2ce-8cff-467d-a195-216ba244e421"/>
         <COMPID name="beans" mc="Standard.Package" uid="4eca8c5d-0f10-4555-8e0a-60f03bbf5c10"/>
         <COMPID name="io" mc="Standard.Package" uid="b5401088-c822-4caf-924d-7584ce9c95e1"/>
+        <COMPID name="net" mc="Standard.Package" uid="eb21f42d-17f7-4ae8-afe4-23123e33d87b"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
