@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+import javax.swing.SwingConstants;
 
 @objid ("e22186a6-1bcc-48ec-a2ac-a88a3eb90491")
 public class MainMenu extends JPanel implements ActionListener {
@@ -73,6 +74,13 @@ public class MainMenu extends JPanel implements ActionListener {
         btnQuit = addButton("Quitter",buttonPanel);
         
         buttonPanel.add(Box.createVerticalGlue());
+        
+        JLabel credits = new JLabel("<html><div style=\"text-align: center;\">© 2017 Paul Du, Neil Borthwick,<br/>"
+                                    + "Maxime Lutz et Bastien Jeannin</div></html>");
+        settings.scaleFont(credits);
+        credits.setHorizontalAlignment(SwingConstants.CENTER); //Texte par rapport au JLabel
+        credits.setAlignmentX(Component.CENTER_ALIGNMENT); //JLabel par rapport au layout
+        buttonPanel.add(credits);
         
         buttonPanel.setPreferredSize(new Dimension(settings.scale(250), buttonPanel.getPreferredSize().height));
         
