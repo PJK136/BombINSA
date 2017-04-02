@@ -5,12 +5,12 @@ import java.util.LinkedList;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
-import com.sun.xml.internal.stream.Entity;
 
 import game.Bomb;
 import game.BonusType;
 import game.Controller;
 import game.Direction;
+import game.Entity;
 import game.ExplosionType;
 import game.GridCoordinates;
 import game.Player;
