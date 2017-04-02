@@ -174,7 +174,7 @@ public class MainWindow implements WindowListener {
     }
 
     @Override
-    public void windowClosing(WindowEvent e) {
+    public void windowClosing(WindowEvent event) {
         if (frame.getContentPane() instanceof MapCreatorPanel) {
             if (!((MapCreatorPanel)frame.getContentPane()).checkSaved())
                 return;
@@ -184,18 +184,22 @@ public class MainWindow implements WindowListener {
         
         if (gameWorker != null) {
             gameWorker.stop();
-            try {
-                gameWorkerThread.notifyAll();
-                gameWorkerThread.join();
-            } catch (InterruptedException e1) {
-                e1.printStackTrace();
-            }
+                try {
+                    gameWorkerThread.interrupt();
+                } catch (SecurityException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    gameWorkerThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
         }
         
         try {
             settings.save();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
