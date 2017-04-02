@@ -255,6 +255,8 @@ public class Local extends World {
     public boolean isRoundEnded() {
         if (getPlayerCount() == 1) {
             return getPlayerAliveCount() <= 0;
+        } else if (getPlayerAliveCount() <= 1) {
+            return true;
         } else if (getHumanCount() >= 1) {
             return getHumanAliveCount() <= 0;
         } else {
