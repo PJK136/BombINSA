@@ -6,10 +6,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("ef002ca0-7638-4d64-9860-1c30b5e5c688")
 public interface WorldView {
     
-    @objid ("d528a200-b69a-4233-8cd3-96e4aed92199")
     /**
      * @return le nombre d'images par secondes
      */
+    @objid ("d528a200-b69a-4233-8cd3-96e4aed92199")
     int getFps();
 
     /**
