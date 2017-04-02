@@ -133,7 +133,7 @@ public class Player extends Entity {
         if (playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()))
             maxSpeed *= 1.5;
         else if (playerAbilities.get(PlayerAbility.LessSpeed.ordinal())) 
-            maxSpeed /= 2;
+            maxSpeed /= 1.5;
         return maxSpeed;
     }
 
