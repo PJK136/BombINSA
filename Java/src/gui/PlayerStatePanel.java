@@ -76,14 +76,19 @@ public class PlayerStatePanel extends JPanel {
     }
 
     @objid ("8536a41a-23a7-444d-8f96-1adeb430eee3")
-    void updatePlayerState(Player player) {
+    boolean updatePlayerState(Player player) {
+        boolean abilitiesChanged = false;
         lives.setText("×" + player.getLives() + "  ");
         bombMax.setText("×" + player.getBombMax() + "  ");
         range.setText("×" + player.getRange() + "  ");
         List<Boolean> playerAbilities = player.getPlayerAbilities();
         for (int i = 0; i < playerAbilities.size(); i++) {
-            abilities[i].setVisible(playerAbilities.get(i));
+            if (abilities[i].isVisible() != playerAbilities.get(i)) {
+                abilities[i].setVisible(playerAbilities.get(i));
+                abilitiesChanged = true;
+            }
         }
+        return abilitiesChanged;
     }
 
 }

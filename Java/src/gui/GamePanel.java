@@ -110,7 +110,9 @@ public class GamePanel extends JPanel implements ActionListener {
                 playerStateGroup.add(pState);
                 updateSize = true;
             }
-            pState.updatePlayerState(player);
+            
+            if (pState.updatePlayerState(player))
+                updateSize = true;
         }
         
         Iterator<Entry<Player, PlayerStatePanel>> iterator = playerStates.entrySet().iterator();
