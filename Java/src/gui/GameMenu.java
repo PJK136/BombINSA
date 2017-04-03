@@ -19,9 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import javax.swing.JTextField;
 
 @objid ("1792b20d-e79e-4f35-8f63-20089eca61f0")
 public class GameMenu extends JPanel implements ActionListener {
@@ -40,33 +40,38 @@ public class GameMenu extends JPanel implements ActionListener {
     @objid ("276bf142-216c-48e8-b35b-b3b22b2bca83")
     private JComboBox<GameType> gameType;
 
+    @objid ("ebe3be16-6c91-4185-ba20-e70709d440fc")
     private JLabel lblIpAddress;
-    
+
+    @objid ("6c5bd0c3-3cdf-4cb1-a9b1-3d89f281d2bb")
     private JTextField ipAddress;
-    
+
+    @objid ("64ebf216-7ad1-4240-aa13-9df4b6de28e0")
     private JLabel lblMaps;
-    
+
     @objid ("ef8d0d33-3c2b-4e50-92ff-ea79a7776078")
     private JComboBox<String> maps;
 
     @objid ("6fac6104-5782-4732-9bde-7820184bba18")
     private JSpinner playerCount;
 
+    @objid ("44ad3d3f-4c46-49fa-8722-811c1b65ab9b")
     private JLabel lblAiCount;
-    
+
     @objid ("0a56b5ff-f7dd-4db3-b7ce-44218221a273")
     private JSpinner aiCount;
-    
+
+    @objid ("0ee42413-3d11-46fb-9f90-07cc6d282350")
     private JLabel lblRoundCount;
-    
+
     @objid ("e49ecd14-7c49-417a-95cd-2a58b03e06a7")
     private JSpinner roundCount;
-    
+
+    @objid ("32c3be8d-7088-4d56-98ea-b4c79b8240a0")
     private JLabel lblRoundDuration;
-    
+
     @objid ("0963e96d-06f3-4813-bcde-a4a9cc51afc3")
     private JSpinner roundDuration;
-
 
     @objid ("9b4377fe-7088-4d49-ac76-20f2e508013d")
     public GameMenu(MainWindow mainWindow) {
@@ -275,6 +280,7 @@ public class GameMenu extends JPanel implements ActionListener {
         }
     }
 
+    @objid ("35b7bee0-ae68-4ea1-9884-96a447867da6")
     private void updateFields() {
         switch ((GameType)gameType.getSelectedItem()) {
         case Client:
@@ -307,7 +313,7 @@ public class GameMenu extends JPanel implements ActionListener {
             break;
         }
     }
-    
+
     @objid ("d1e9ba38-aebd-4bc4-b6f9-a97681e13fe0")
     private void updateGameSettings() {
         settings.gameType = (GameType) gameType.getSelectedItem();
@@ -341,4 +347,5 @@ public class GameMenu extends JPanel implements ActionListener {
                 mainWindow.startGame();
         }
     }
+
 }

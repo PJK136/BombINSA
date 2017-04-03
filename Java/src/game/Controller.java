@@ -7,11 +7,11 @@ public abstract class Controller {
     @objid ("d1b9902a-8b0f-4eaa-95ee-934fea8da2a9")
      String name;
 
-    @objid ("6c06ee22-bc28-4f35-aa7a-56b57771f669")
-     Player player;
-
     @objid ("697c8788-0531-4864-9423-7c5e05988fad")
      WorldView world;
+
+    @objid ("bcdf68cd-860d-43c6-9164-a9abc315aa3b")
+    protected Player player;
 
     @objid ("ca776232-1a17-4e2e-a7a6-eeffe4a104e4")
     public String getName() {
@@ -23,14 +23,14 @@ public abstract class Controller {
         this.name = name;
     }
 
-    @objid ("f1ad4fb1-c0c9-41d7-83b7-3b7b702b734d")
+    @objid ("9eaf5dce-ffc6-4b09-b661-af4e199a78a9")
     public Player getPlayer() {
-        return player;
+        return this.player;
     }
 
-    @objid ("2de0046a-fb4b-4667-ae22-fccfb9d3d853")
-    public void setPlayer(Player player) {
-        this.player = player;
+    @objid ("9e16b8d9-71bf-40b2-9cbf-69f5e7bc8583")
+    public void setPlayer(Player value) {
+        this.player = value;
     }
 
     @objid ("b4919637-6675-4e6b-bd27-a18c64057a48")

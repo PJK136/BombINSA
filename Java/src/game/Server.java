@@ -106,7 +106,7 @@ public class Server extends Local implements Listener {
     @objid ("eddf6bd8-2e40-4c63-8435-f6ef11a69e01")
     public GameInfo getGameInfo() {
         return new GameInfo(fps, duration, timeRemaining, warmupDuration, warmupTimeRemaining,
-                                    round, map.getTileSize(), map.saveMap());
+                                            round, map.getTileSize(), map.saveMap());
     }
 
     @objid ("15d969ea-6190-4c81-8279-3ae9894b6ed4")

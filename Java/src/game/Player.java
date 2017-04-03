@@ -32,7 +32,7 @@ public class Player extends Entity {
     public static final double PLAYER_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
-    protected transient Controller controller;
+     transient Controller controller;
 
     @objid ("c346899f-0664-4813-bcc6-157babe0b50f")
     private Player() {

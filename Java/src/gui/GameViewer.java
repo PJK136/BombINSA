@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-
 import game.Bomb;
 import game.BonusType;
 import game.Entity;

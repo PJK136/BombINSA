@@ -13,8 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import javax.swing.SwingConstants;
+import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("e22186a6-1bcc-48ec-a2ac-a88a3eb90491")
 public class MainMenu extends JPanel implements ActionListener {

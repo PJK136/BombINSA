@@ -7,7 +7,6 @@ import java.awt.Graphics;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
-
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -35,9 +34,10 @@ public class MainWindow implements WindowListener {
     @objid ("7604bbda-b462-466b-b8a4-680fae86a454")
     private GameSettings settings;
 
-    @objid ("294a7f1e-7ead-4bc6-bf80-c970a68ae918")
+    @objid ("6f9005ce-2f9d-4803-8554-287fcdcbf2f2")
     private GameWorker gameWorker;
-    
+
+    @objid ("35798f9f-9fd3-4385-9f3f-509b51d00a92")
     private Thread gameWorkerThread;
 
     @objid ("6a4c9e53-d41c-4237-99b1-a540a0004898")
@@ -156,23 +156,19 @@ public class MainWindow implements WindowListener {
         frame.getGlassPane().setVisible(false);
     }
 
-    @objid ("d3f6e6d9-3541-4526-8433-d7a080952a55")
-    public static void setFontSize(JComponent component, float size) {
-        component.setFont(component.getFont().deriveFont((float)size));
-    }
-
+    @objid ("5770124d-d120-44f6-bf06-0f01379bd988")
     @Override
     public void windowActivated(WindowEvent e) {
         // TODO Auto-generated method stub
-        
     }
 
+    @objid ("1ddf2152-393e-4cd1-9eb4-f478156cc0f6")
     @Override
     public void windowClosed(WindowEvent e) {
         // TODO Auto-generated method stub
-        
     }
 
+    @objid ("a7b122f4-7115-4297-aeb1-d0f61ea62443")
     @Override
     public void windowClosing(WindowEvent event) {
         if (frame.getContentPane() instanceof MapCreatorPanel) {
@@ -203,28 +199,33 @@ public class MainWindow implements WindowListener {
         }
     }
 
+    @objid ("4e07e866-0b1f-4473-b006-464d93ac852c")
     @Override
     public void windowDeactivated(WindowEvent e) {
         // TODO Auto-generated method stub
-        
     }
 
+    @objid ("9fb421e2-3933-4a4f-a5ad-1d03117db053")
     @Override
     public void windowDeiconified(WindowEvent e) {
         // TODO Auto-generated method stub
-        
     }
 
+    @objid ("57f37abd-2147-47a4-9bf8-afa4a2e9cf40")
     @Override
     public void windowIconified(WindowEvent e) {
         // TODO Auto-generated method stub
-        
     }
 
+    @objid ("f39abcb1-4310-4e33-a286-4a9c79a80356")
     @Override
     public void windowOpened(WindowEvent e) {
         // TODO Auto-generated method stub
-        
+    }
+
+    @objid ("d3f6e6d9-3541-4526-8433-d7a080952a55")
+    public static void setFontSize(JComponent component, float size) {
+        component.setFont(component.getFont().deriveFont((float)size));
     }
 
 }

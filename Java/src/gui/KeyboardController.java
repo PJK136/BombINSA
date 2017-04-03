@@ -17,11 +17,10 @@ public class KeyboardController extends Controller implements KeyListener {
 
     @objid ("a93e8c2e-c054-4934-923f-acac72ff257c")
     private ControlSettings settings;
-    
+
 /* Objectif : que l'on sache où on est en train d'appuyer (doit conserver une variable car java n'a pas de methode*
      * qui lit si on est appuyé, seulement si on appuie et si on relâche)
      */
-
     @objid ("2c9abb5b-b9fc-4226-bee5-6df775a5d20d")
     public KeyboardController(ControlSettings settings) {
         setName(settings.name);
@@ -91,4 +90,5 @@ public class KeyboardController extends Controller implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
     }
+
 }

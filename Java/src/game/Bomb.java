@@ -17,7 +17,7 @@ public class Bomb extends Entity {
     public static final double BOMB_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("d663f27d-b4de-411a-b687-8ae5d439ab48")
-    protected transient Player owner;
+     transient Player owner;
 
     @objid ("282df99d-8010-4cca-a7b1-e03cba0302ea")
     private Bomb() {

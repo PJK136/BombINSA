@@ -2,14 +2,13 @@ package gui;
 
 import java.awt.Color;
 import java.net.InetAddress;
-
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.AIController;
 import game.Client;
-import game.Player;
 import game.Local;
+import game.Player;
 import game.Server;
 import game.World;
 
@@ -190,6 +189,11 @@ public class GameWorker implements Runnable {
         }
     }
 
+    @objid ("9f94bd39-ac7e-4e2f-8f19-afc50b48f9ad")
+    public void stop() {
+        this.stop = true;
+    }
+
     @objid ("b5e7e42e-c73b-4130-bed6-7aa32aa55eb3")
     void createWorld() throws Exception {
         if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox) || settings.gameType.equals(GameType.Server)) {
@@ -229,7 +233,8 @@ public class GameWorker implements Runnable {
         
         world.addGameListener(Audio.getInstance());
     }
-    
+
+    @objid ("9ce6b5e0-2241-473b-aafa-77d986bd3027")
     private void addKeyboardControllers() {
         for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
             KeyboardController kbController = new KeyboardController(settings.controls.get(i));
@@ -241,11 +246,6 @@ public class GameWorker implements Runnable {
     @objid ("df3a5c13-59cb-491e-811a-ea1af7e23cda")
     void setGameState(GameState state) {
         System.err.println(state);
-    }
-    
-    @objid ("9f94bd39-ac7e-4e2f-8f19-afc50b48f9ad")
-    public void stop() {
-        this.stop = true;
     }
 
 }

@@ -328,10 +328,10 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         if (saved)
             return true;
         return JOptionPane.showConfirmDialog(this,
-                                "Il y a des modifications non sauvegardées, êtes-vous sûr de vouloir continuer ?",
-                                "Modifications non sauvegardées",
-                                JOptionPane.YES_NO_OPTION,
-                                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
+                                                "Il y a des modifications non sauvegardées, êtes-vous sûr de vouloir continuer ?",
+                                                "Modifications non sauvegardées",
+                                                JOptionPane.YES_NO_OPTION,
+                                                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
     @objid ("2b651672-46d6-4d34-8cb8-b75257bc894e")

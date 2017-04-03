@@ -20,8 +20,9 @@ public class GameSettings {
     @objid ("59545b35-c143-4d23-81e7-cfa605a46f32")
     public GameType gameType;
 
+    @objid ("fa41dd97-8866-4dbf-b87c-372978447d09")
     public String ipAddress;
-    
+
     @objid ("97b01c6d-719e-40a4-a35e-4cf8ca0a1f5f")
     public String mapName;
 
@@ -33,7 +34,8 @@ public class GameSettings {
 
     @objid ("3d89f7ec-1b8b-4c83-ac61-bb0fcabae609")
     public int duration;
-    
+
+    @objid ("3b09f6d9-a7d8-4a9b-8d54-6343cf3bb343")
     public double warmupDuration;
 
     @objid ("23a2dc78-69f4-4cfb-9196-282f0059da01")
