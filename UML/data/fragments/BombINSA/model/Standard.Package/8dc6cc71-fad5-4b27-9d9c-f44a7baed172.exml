@@ -895,6 +895,8 @@
         <COMPID name="MapView" mc="Standard.Interface" uid="27201ab7-2fd3-4c35-abb3-37155f6d5822"/>
         <COMPID name="AIController" mc="Standard.Class" uid="cbe503f7-eb4d-4747-9547-3001ad190b16"/>
         <COMPID name="Controller" mc="Standard.Class" uid="435a3f56-662a-44c1-a8c7-b82ab53bd0e1"/>
+        <COMPID name="DummyController" mc="Standard.Class" uid="74c3a922-a208-46bf-aca4-54cc99330dda"/>
+        <COMPID name="FollowController" mc="Standard.Class" uid="756f6969-df41-4003-83d3-def42ac8a49a"/>
         <COMPID name="Server" mc="Standard.Class" uid="47364a1e-3fd0-4e56-8047-f80aca5b2b36"/>
         <COMPID name="GameListener" mc="Standard.Interface" uid="4cfa9b4f-fbcd-4c9f-b802-38f0e10dca65"/>
         <OBJECT>
@@ -948,9 +950,7 @@
             </LINK>
           </DEPENDENCIES>
         </OBJECT>
-        <COMPID name="FollowController" mc="Standard.Class" uid="756f6969-df41-4003-83d3-def42ac8a49a"/>
         <COMPID name="DeltaMap" mc="Standard.Class" uid="12a42e28-45db-4083-a2d6-44f180711817"/>
-        <COMPID name="DummyController" mc="Standard.Class" uid="74c3a922-a208-46bf-aca4-54cc99330dda"/>
       </COMP>
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
