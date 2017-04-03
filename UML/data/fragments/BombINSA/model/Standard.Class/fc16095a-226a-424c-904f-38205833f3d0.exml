@@ -118,7 +118,7 @@
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7ea18ee4-bd0b-43a5-bfb8-ef4468034781"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="07e03100-f366-40b7-9bc8-fb0038401c0f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

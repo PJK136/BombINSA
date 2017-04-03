@@ -143,7 +143,7 @@ this.bombing = controller.isPlantingBomb();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ba1aa3f6-1232-4a21-bab7-df26cd6b1361"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="f319db17-8585-4188-8c92-43593077d56e"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -183,7 +183,7 @@ this.bombing = controller.isPlantingBomb();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="757b072e-a10a-4af4-b04e-ca3c53eb4108"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="b1c928c5-532f-42ed-ae25-0e7de0c890ed"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -221,7 +221,7 @@ this.bombing = controller.isPlantingBomb();
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="994d8f0b-0fad-4591-a327-c29f6ce1b584"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="2d2db323-87b2-45df-b08e-8b244f9240b7"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

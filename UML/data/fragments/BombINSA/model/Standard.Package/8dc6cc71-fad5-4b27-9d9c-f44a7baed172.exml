@@ -538,7 +538,7 @@
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="1c55bdb3-96d9-4b26-9478-8aaf71f2b9d0"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="c3bf69be-d80b-459a-aab5-79532f4d0373"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -741,10 +741,10 @@
                       <ID name="" mc="Infrastructure.Note" uid="86f52cbf-f538-4da8-b473-4d99b6c23567"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[return d1.equals(d2) ||
-                       (d1 == Direction.Up && d2 == Direction.Down) ||
-                       (d2 == Direction.Up && d1 == Direction.Down) ||
-                       (d1 == Direction.Left && d2 == Direction.Right) ||
-                       (d2 == Direction.Left && d1 == Direction.Right);]]></ATT>
+                               (d1 == Direction.Up && d2 == Direction.Down) ||
+                               (d2 == Direction.Up && d1 == Direction.Down) ||
+                               (d1 == Direction.Left && d2 == Direction.Right) ||
+                               (d2 == Direction.Left && d1 == Direction.Right);]]></ATT>
                         <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>

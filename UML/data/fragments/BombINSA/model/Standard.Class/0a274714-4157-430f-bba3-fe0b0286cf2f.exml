@@ -567,7 +567,7 @@ bombing = false;
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="f69e8754-0fbb-42d9-a286-1800f048accc"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="299a6ef6-6a80-4888-9813-febfefc74188"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -605,7 +605,7 @@ bombing = false;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="0054c417-06f9-4ad8-bf54-e9ed86ba87b4"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="4f424b9a-d712-474f-8bf2-e5627ba66bfc"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -630,7 +630,7 @@ bombing = false;
             <ATT name="IsDerived">false</ATT>
             <ATT name="IsOrdered">false</ATT>
             <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
@@ -652,8 +652,8 @@ bombing = false;
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
+                  <ATT name="MultiplicityMax"></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
@@ -682,7 +682,7 @@ bombing = false;
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a6d2d1f6-8d8b-4c61-88c7-2f59664497fc"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="3b886ad3-50fd-4889-a8f6-38d73e4b88b1"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

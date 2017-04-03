@@ -599,7 +599,7 @@ System.err.println("Problème bonus " + summ);
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="32f733f7-7c87-4ec4-b8a3-c06df8600d89"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="2be0497d-55c4-4cc1-9fb4-35f0614af798"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

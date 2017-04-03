@@ -5260,7 +5260,7 @@ while(iterator.hasNext()){
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7d432a53-fc1e-43be-acd3-d5ca3c2c6b0c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="55533a1e-5198-4d2a-93cf-3d9eb8ddab59"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -5362,7 +5362,7 @@ while(iterator.hasNext()){
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="f0a3aaab-3b24-47ed-be36-4bbf97447903"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a331345a-300e-4bf3-be0c-4341a4034590"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

@@ -142,7 +142,7 @@ this.name = name;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="2bf8e6f4-3298-4019-a2bd-c371b7509631"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="c93e32a5-e556-4f5e-b42a-f42af3d5cc0e"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -180,7 +180,7 @@ this.name = name;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="aa79e15f-ccac-41a5-8648-cc64edb76296"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="82bf88c6-44dc-45ad-b277-2ccf3ca09e41"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

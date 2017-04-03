@@ -22,6 +22,9 @@
       <LINK relation="Extension">
         <FOREIGNID name="JavaPackage" mc="Infrastructure.Stereotype" uid="01ec23a8-0000-0126-0000-000000000000"/>
       </LINK>
+      <COMP relation="Product">
+        <COMPID name="Network" mc="Standard.ClassDiagram" uid="b59a4f65-ec9a-4211-81f8-30e5917b5800"/>
+      </COMP>
     </DEPENDENCIES>
   </OBJECT>
 </EXT>

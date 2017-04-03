@@ -540,7 +540,7 @@ if (entity instanceof Player) {
                 <ID name="" mc="Infrastructure.Note" uid="8b0d9ea2-6a54-4d07-a02a-ca807e1df347"/>
                 <ATTRIBUTES>
                   <ATT name="Content"><![CDATA[return new GameInfo(fps, duration, timeRemaining, warmupDuration, warmupTimeRemaining,
-                            round, map.getTileSize(), map.saveMap());]]></ATT>
+                                    round, map.getTileSize(), map.saveMap());]]></ATT>
                   <ATT name="MimeType"><![CDATA[text/plain]]></ATT>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -817,13 +817,13 @@ network.sendToAllTCP(message);
         <OBJECT>
           <ID name="network" mc="Standard.AssociationEnd" uid="0af280ea-a7b2-4232-a15b-220a4b0d977f"/>
           <ATTRIBUTES>
-            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="Aggregation">KindIsAggregation</ATT>
             <ATT name="IsChangeable">true</ATT>
             <ATT name="Changeable">AccesNone</ATT>
             <ATT name="IsDerived">false</ATT>
             <ATT name="IsOrdered">false</ATT>
             <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
             <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
@@ -845,8 +845,8 @@ network.sendToAllTCP(message);
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
+                  <ATT name="MultiplicityMax"></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
@@ -887,7 +887,7 @@ network.sendToAllTCP(message);
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="03bade1b-55de-42b6-a3ef-8e046ceb1975"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="e9873e15-6614-4074-9ab5-967b1648ab22"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

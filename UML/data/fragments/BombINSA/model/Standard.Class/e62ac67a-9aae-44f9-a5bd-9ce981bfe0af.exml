@@ -332,7 +332,7 @@ bombing = update.bombing;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="fbfcba75-bb8a-467c-b548-5bd3eb0e5166"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="f2664c8e-286c-474f-8e59-168d50772c1f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -349,7 +349,7 @@ bombing = update.bombing;
       </COMP>
       <COMP relation="OwnedEnd">
         <OBJECT>
-          <ID name="connection" mc="Standard.AssociationEnd" uid="d83c3773-de49-4e65-9113-e1413caa25c6"/>
+          <ID name="connection" mc="Standard.AssociationEnd" uid="9d397391-71fd-4ad7-8991-c293ae0679f2"/>
           <ATTRIBUTES>
             <ATT name="Aggregation">KindIsAssociation</ATT>
             <ATT name="IsChangeable">true</ATT>
@@ -357,7 +357,7 @@ bombing = update.bombing;
             <ATT name="IsDerived">false</ATT>
             <ATT name="IsOrdered">false</ATT>
             <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
             <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
@@ -371,29 +371,32 @@ bombing = update.bombing;
             </LINK>
             <COMP relation="Opposite">
               <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="26779610-0d7f-4a31-a832-2e18b9b5f10d"/>
+                <ID name="controllers" mc="Standard.AssociationEnd" uid="0db9a074-6abe-4310-8ad4-11c781f605a1"/>
                 <ATTRIBUTES>
                   <ATT name="Aggregation">KindIsAssociation</ATT>
                   <ATT name="IsChangeable">true</ATT>
-                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="Changeable">AccesNone</ATT>
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
                   <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
+                  <ATT name="Visibility">PackageVisibility</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
-                  <ATT name="Name"></ATT>
+                  <ATT name="Name"><![CDATA[controllers]]></ATT>
                   <ATT name="status">1970354901745664</ATT>
                 </ATTRIBUTES>
                 <DEPENDENCIES>
+                  <LINK relation="Target">
+                    <ID name="NetworkController" mc="Standard.Class" uid="e62ac67a-9aae-44f9-a5bd-9ce981bfe0af"/>
+                  </LINK>
                   <COMP relation="Opposite">
-                    <COMPID name="connection" mc="Standard.AssociationEnd" uid="d83c3773-de49-4e65-9113-e1413caa25c6"/>
+                    <COMPID name="connection" mc="Standard.AssociationEnd" uid="9d397391-71fd-4ad7-8991-c293ae0679f2"/>
                   </COMP>
                   <COMP relation="Association">
                     <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="7fde7897-5ba3-45b2-97f2-539fde2da05c"/>
+                      <ID name="" mc="Standard.Association" uid="fb77ae1c-ea25-45ea-8bc5-fefca0dce0f3"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -401,15 +404,51 @@ bombing = update.bombing;
                       <DEPENDENCIES></DEPENDENCIES>
                     </OBJECT>
                   </COMP>
+                  <COMP relation="Tag">
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="432e9e64-0cff-43fd-8c93-93dc578e0971"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <COMP relation="Actual">
+                          <OBJECT>
+                            <ID name="" mc="Infrastructure.TagParameter" uid="31cfc522-3db5-42e9-afe6-9581b8ff5b23"/>
+                            <ATTRIBUTES>
+                              <ATT name="Value"><![CDATA[List]]></ATT>
+                              <ATT name="status">1970354901745664</ATT>
+                            </ATTRIBUTES>
+                            <DEPENDENCIES></DEPENDENCIES>
+                          </OBJECT>
+                        </COMP>
+                        <LINK relation="Definition">
+                          <FOREIGNID name="type" mc="Infrastructure.TagType" uid="00000000-0000-3766-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                    <OBJECT>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="5e899fd1-9fca-48dd-819b-840fc0985618"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES>
+                        <LINK relation="Definition">
+                          <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
+                        </LINK>
+                      </DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
                 </DEPENDENCIES>
               </OBJECT>
             </COMP>
             <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="7fde7897-5ba3-45b2-97f2-539fde2da05c"/>
+              <COMPID name="" mc="Standard.Association" uid="fb77ae1c-ea25-45ea-8bc5-fefca0dce0f3"/>
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ad7c35de-793a-420c-9fa0-522fa999012c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="03785f2d-78ec-466d-9ebb-598f20ebf9a6"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

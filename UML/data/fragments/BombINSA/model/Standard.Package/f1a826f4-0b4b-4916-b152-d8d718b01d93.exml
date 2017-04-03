@@ -632,7 +632,7 @@ this.color = color;
                   </LINK>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="f7e99148-9ffd-4a6b-acfa-785c80a57595"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="06ac81e2-f25c-4879-a225-3f7cda0203b1"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>
@@ -709,7 +709,7 @@ this.color = color;
                   </COMP>
                   <COMP relation="Tag">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.TaggedValue" uid="e2dbd8e1-c359-4b12-831b-3e83f87dd7c6"/>
+                      <ID name="" mc="Infrastructure.TaggedValue" uid="b44e1d40-19df-4300-acd7-174814f5e321"/>
                       <ATTRIBUTES>
                         <ATT name="Name"></ATT>
                         <ATT name="status">1970354901745664</ATT>

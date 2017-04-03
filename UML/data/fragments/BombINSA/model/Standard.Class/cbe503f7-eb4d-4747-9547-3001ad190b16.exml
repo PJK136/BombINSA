@@ -406,7 +406,7 @@ turned = false;
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="f9cb5b71-fd95-4d4e-a011-7919b44272e2"/>
+                      <ID name="" mc="Infrastructure.Note" uid="c3c83077-d66e-41e6-8a6b-030aca0af7a5"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[La tuile qu'il faut controller]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -446,7 +446,7 @@ turned = false;
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="1ddd9f3a-1d73-456a-89c6-d36c2979a5ba"/>
+                      <ID name="" mc="Infrastructure.Note" uid="42f58e8a-f4af-4c14-ac08-d1d47cc79554"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[true Si la tuile est sécurisée, false sinon]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -573,7 +573,7 @@ for(Direction dir : Direction.values()){
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="aa9e07a1-4b2d-468f-986b-fbcc5730fbb4"/>
+                      <ID name="" mc="Infrastructure.Note" uid="aae9a78a-8763-46bc-b632-63d67c437b04"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[les coordonnées de grille de la tuile]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -613,7 +613,7 @@ for(Direction dir : Direction.values()){
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="0f313a94-847c-4d04-a519-4cc77a5a8a66"/>
+                      <ID name="" mc="Infrastructure.Note" uid="aa3d1927-7e16-4404-af93-e722f87cd582"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[true si oui, false sinon]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -698,7 +698,7 @@ for(Direction dir : Direction.values()){
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="00e66f94-b6f0-4f72-b4e1-0f2b14f2b224"/>
+                      <ID name="" mc="Infrastructure.Note" uid="4582bc72-2acc-48b1-8ac4-7f91e9f94d10"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[les coordonnées de grille de la tuile]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -738,7 +738,7 @@ for(Direction dir : Direction.values()){
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="736952bb-d06a-44a7-9405-3315460dd45a"/>
+                      <ID name="" mc="Infrastructure.Note" uid="a5a8b430-00c8-4d86-b1b4-a7da9f4bd5b7"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[true si oui, false sinon]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -823,7 +823,7 @@ for(Direction dir : Direction.values()){
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="50a271ca-5904-4d74-8947-93eb9f81f8a1"/>
+                      <ID name="" mc="Infrastructure.Note" uid="5a50bca9-54bf-45cf-b194-27cd5f419ec2"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[true si oui, false sinon]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1004,13 +1004,13 @@ for(Direction dir : Direction.values()){
         <OBJECT>
           <ID name="aiLocation" mc="Standard.AssociationEnd" uid="6acb90de-974c-4546-a93e-0b8cc35a6bd2"/>
           <ATTRIBUTES>
-            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="Aggregation">KindIsAggregation</ATT>
             <ATT name="IsChangeable">true</ATT>
             <ATT name="Changeable">AccesNone</ATT>
             <ATT name="IsDerived">false</ATT>
             <ATT name="IsOrdered">false</ATT>
             <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
             <ATT name="Visibility">Private</ATT>
             <ATT name="IsClass">false</ATT>
@@ -1032,8 +1032,8 @@ for(Direction dir : Direction.values()){
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
+                  <ATT name="MultiplicityMax"></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
@@ -1062,7 +1062,7 @@ for(Direction dir : Direction.values()){
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="058bad5a-e20d-4057-b837-4f6ef3c39ba9"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="536e7ef0-cf4d-457b-9558-723f4d0ddf7f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

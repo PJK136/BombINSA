@@ -86,7 +86,7 @@
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="adbdda61-fdc1-4244-ad53-d18d39a548ee"/>
+                      <ID name="" mc="Infrastructure.Note" uid="fcb94815-74e7-43d1-a21d-827d2790c415"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[la coordonée en x en pixel]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -124,7 +124,7 @@
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="83a605fe-0d77-406d-8bfa-3d2d625e7a85"/>
+                      <ID name="" mc="Infrastructure.Note" uid="3139336e-62b5-45bc-bb0c-4a1dd9647567"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[la coordonée en y en pixel]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -214,7 +214,7 @@ this.y = y;
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="ceb1c158-1fc7-4bf3-a4d0-e64a41bee9d2"/>
+                      <ID name="" mc="Infrastructure.Note" uid="fc632bdf-0a71-4af5-b2fb-809911cc301d"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[les cooronnées préexistantes]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -502,7 +502,7 @@ GridCoordinates gc = (GridCoordinates)obj;
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="48ff4409-bf9a-445b-ab0e-a56873533295"/>
+                      <ID name="" mc="Infrastructure.Note" uid="fba54f4a-448d-4dff-b0cb-b3889c62ed4f"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[La direction dans laquelle on cherche la voisine]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -542,7 +542,7 @@ GridCoordinates gc = (GridCoordinates)obj;
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="be671c65-c4fc-4ca8-988c-adb79e8ec1f4"/>
+                      <ID name="" mc="Infrastructure.Note" uid="f92399f9-7b82-484f-b189-60d61352d2ce"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Les coordonnées de la case voisine]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -651,7 +651,7 @@ case Down:
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="86a6fa98-5009-4610-8d94-494e86dfd4cd"/>
+                      <ID name="" mc="Infrastructure.Note" uid="e26a5eb3-ba42-4f6e-826b-b6dbbb09d805"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Les premières coordonnées]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -689,7 +689,7 @@ case Down:
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="1bbca32c-88c9-4556-94ad-cb23bf28c396"/>
+                      <ID name="" mc="Infrastructure.Note" uid="268b2fde-3180-4880-a4b7-d003526d6fea"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Les secondes coordonnées]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -729,7 +729,7 @@ case Down:
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="9524478f-e1e0-47b6-bb24-32d016747d33"/>
+                      <ID name="" mc="Infrastructure.Note" uid="35419ee2-365b-4f6b-a880-cd229755c502"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[La distance entre les 2 coordonnées]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -804,7 +804,7 @@ case Down:
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="bbf7746c-ba58-4954-8d0d-851ddaf4d6cc"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="7d6ef082-a711-4ec5-8abe-100f44e7c7fd"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -842,7 +842,7 @@ case Down:
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="9b1ca940-7b6b-4423-82e8-add9995be672"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="01fd02f1-0e73-4a82-b989-bc448cabfa7f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

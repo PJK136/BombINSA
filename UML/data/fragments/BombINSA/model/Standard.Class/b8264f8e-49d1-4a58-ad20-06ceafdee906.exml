@@ -1216,7 +1216,7 @@ if (object instanceof List<?>) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="9941d5d3-f764-41a1-be02-d057a8549d68"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="bc9e17d4-c947-421a-98d4-8f0b55cb7b27"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1254,7 +1254,7 @@ if (object instanceof List<?>) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="a4bf49e8-dace-4be0-8a60-18b52c1adf37"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="fa70825d-bcfa-4fed-8af7-fb8e87370ed3"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1292,7 +1292,7 @@ if (object instanceof List<?>) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="dcc0bbdd-ec1c-415a-aae7-2954b210d82f"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="77ed7aa4-f08c-4788-ba08-711527f7a2ee"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1330,7 +1330,7 @@ if (object instanceof List<?>) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b3d935ee-34a5-4f1f-881b-8a9aac4e9baf"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="caccfbda-2971-42d3-a515-c7b0f4e70ef6"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1349,13 +1349,13 @@ if (object instanceof List<?>) {
         <OBJECT>
           <ID name="network" mc="Standard.AssociationEnd" uid="a6a97511-69d5-4a0d-8b2f-046814038a98"/>
           <ATTRIBUTES>
-            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="Aggregation">KindIsAggregation</ATT>
             <ATT name="IsChangeable">true</ATT>
             <ATT name="Changeable">AccesNone</ATT>
             <ATT name="IsDerived">false</ATT>
             <ATT name="IsOrdered">false</ATT>
             <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
             <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
@@ -1377,8 +1377,8 @@ if (object instanceof List<?>) {
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
+                  <ATT name="MultiplicityMax"></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
@@ -1419,7 +1419,7 @@ if (object instanceof List<?>) {
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="6959adbd-5b2c-466e-a69b-bcd28baa05bb"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="09b60317-14f9-4e25-8005-ae9f91e950f3"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1464,8 +1464,8 @@ if (object instanceof List<?>) {
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
+                  <ATT name="MultiplicityMax"></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
@@ -1516,7 +1516,7 @@ if (object instanceof List<?>) {
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ed274e95-663b-4920-97e1-005825768c4d"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="b3abbbf4-6ed4-4f4c-9c82-7394a65b5450"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

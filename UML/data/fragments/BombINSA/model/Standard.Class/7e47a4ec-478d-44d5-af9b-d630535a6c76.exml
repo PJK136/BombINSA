@@ -160,7 +160,7 @@ args = objects;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="84c101ee-3a5e-403a-ac93-18d735fe3e12"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="7c327720-7fb4-4cdd-8a67-e92d1e27292f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -259,7 +259,7 @@ args = objects;
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="8682403a-3f12-409e-b91f-806ca50f403d"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="75d386ea-6e53-4d73-98d3-c5604f84852a"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

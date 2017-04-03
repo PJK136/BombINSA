@@ -142,7 +142,7 @@ this.entityId = entityId;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="56e371f5-ae11-4cb8-8b08-200a5b630e99"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1e003ac2-1881-4107-8719-3f01049587b7"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -180,7 +180,7 @@ this.entityId = entityId;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="62c1c9bd-dfe9-4856-ab82-b5af46cb1106"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="06ff3aad-bc20-4b63-a911-9ca39d7a71c8"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

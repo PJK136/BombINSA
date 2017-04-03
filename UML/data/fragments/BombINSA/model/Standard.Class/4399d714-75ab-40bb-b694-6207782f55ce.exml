@@ -1014,7 +1014,7 @@ if (entity instanceof Bomb) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="c35d8e02-7010-4109-84cc-9aa4b28c2801"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="37b656c2-2913-44a0-a044-5e579a1acbc4"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1052,7 +1052,7 @@ if (entity instanceof Bomb) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d776b748-1fba-4a0f-98c5-f094e4157a46"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="798e8788-9960-4b90-ae59-ea04e2f5d7e6"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1090,7 +1090,7 @@ if (entity instanceof Bomb) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="10c5f355-df12-417b-80a0-61a2b37a2aad"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="69c5b8a1-5e05-4cab-9e92-ba669f4bd5f3"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -1171,7 +1171,7 @@ if (entity instanceof Bomb) {
             <ATT name="IsUnique">false</ATT>
             <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
             <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Protected</ATT>
+            <ATT name="Visibility">PackageVisibility</ATT>
             <ATT name="IsClass">false</ATT>
             <ATT name="IsAbstract">false</ATT>
             <ATT name="Name"><![CDATA[owner]]></ATT>
@@ -1191,8 +1191,8 @@ if (entity instanceof Bomb) {
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[*]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
+                  <ATT name="MultiplicityMax"></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
@@ -1233,7 +1233,7 @@ if (entity instanceof Bomb) {
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="7271f0c1-e573-4bf7-b83a-002bcee3cbed"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="66efdefa-e115-4095-b1d4-3952f4548c3b"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>

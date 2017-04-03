@@ -1300,7 +1300,7 @@ else {
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="c690fe2d-c9a8-45f9-b0fd-9ad9c0f381aa"/>
+                      <ID name="" mc="Infrastructure.Note" uid="26ad68df-d2a4-48b6-9d6b-49b997121619"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[le joueur qui veut poser une bombe]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1371,7 +1371,7 @@ else {
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="9cfe3ebc-f7f7-43f7-adc7-ca694df23fd7"/>
+                      <ID name="" mc="Infrastructure.Note" uid="27a4aaa2-5f60-4217-9ffc-cbb951246641"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[la bombe qui explose]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1442,7 +1442,7 @@ else {
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="17b45db5-9e91-4431-9110-4629318a3ded"/>
+                      <ID name="" mc="Infrastructure.Note" uid="eaabdaee-a03c-4bee-98e7-852aac2e9bf6"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[la coordonnée en x du joueur en pixel]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1480,7 +1480,7 @@ else {
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="6190efd0-9878-422f-b7c2-e09f25469186"/>
+                      <ID name="" mc="Infrastructure.Note" uid="e784fdd4-9d2a-4274-a069-ae2301a85728"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[la coordonnée en y du joueur en pixel]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1551,7 +1551,7 @@ else {
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="ff109418-0f22-443b-a906-868a75e24253"/>
+                      <ID name="" mc="Infrastructure.Note" uid="0acbc964-e961-44a5-883b-bbb9175e3577"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[la bomb qui se fait pousser]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1591,7 +1591,7 @@ else {
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="d088850d-4568-47df-87ec-f85f78d36a72"/>
+                      <ID name="" mc="Infrastructure.Note" uid="b932f063-fe18-438f-9a6d-1aeab0abe54f"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[la direction vers laquelle elle est poussée]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1662,7 +1662,7 @@ else {
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="cc38eb92-2164-4ca6-8e96-b80f03e306b0"/>
+                      <ID name="" mc="Infrastructure.Note" uid="aad86c67-ed5c-4a85-a381-86535254eb61"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[le controlleur préexistant]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1733,7 +1733,7 @@ else {
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="4ecd8fc9-cf9f-434f-891d-6d19f96d0995"/>
+                      <ID name="" mc="Infrastructure.Note" uid="43cc9ee1-d313-44d4-9267-76ffa0b8c5fc"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[true si oui, false sinon]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1804,7 +1804,7 @@ else {
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="a0f1a80b-a476-474f-b3c3-3627776f831b"/>
+                      <ID name="" mc="Infrastructure.Note" uid="9dfb67df-4482-4b12-87ec-4a420876fd2c"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[true si oui, false sinon]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1970,7 +1970,7 @@ puis en mettant la carte à jour]]></ATT>
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="1bd58e18-bb0c-45b5-a2c8-297234bb542b"/>
+                      <ID name="" mc="Infrastructure.Note" uid="e3bd7fbd-1321-4510-8972-a44d89c6b1df"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[problème lié au chargement de la carte]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -2281,7 +2281,7 @@ for(Entity entity : getEntities()){ //Thread-safety
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="f8b810e3-2e35-4560-85e2-979f47397ca6"/>
+                      <ID name="" mc="Infrastructure.Note" uid="c0e55eb9-8261-4c97-bd79-d84b3e2f4116"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[l'entité qui doit être ajoutée]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -2319,7 +2319,7 @@ for(Entity entity : getEntities()){ //Thread-safety
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="eea508e5-7e55-4e06-84da-dbc190408968"/>
+                      <ID name="" mc="Infrastructure.Note" uid="1b100a89-8744-4651-97e6-520760d5c59a"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[l'identité de l'entité]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -2738,7 +2738,7 @@ double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b0892503-57fc-4daa-a232-22e17e03b25e"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="a186f675-472f-48e0-8389-7a733352a627"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2776,7 +2776,7 @@ double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d7a99177-6e44-4fcf-aa3e-e6053cc43b4b"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="63f65254-d5bd-4b54-b710-1e4f8b57b298"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2814,7 +2814,7 @@ double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="10701a2c-dead-4cfc-85b7-c03f64054ad4"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="2952019d-ce1d-4f38-9d8b-093a544abaf4"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2852,7 +2852,7 @@ double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="2bb922f7-939a-4cc1-9ca7-7a5346071233"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1f98f2ee-b217-4918-8e3b-c8395f563de3"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2890,7 +2890,7 @@ double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="8061fcf0-54da-417c-8b99-84177f9ed9ab"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="7f1056e9-1d0e-490b-99ac-8dc33a837b09"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -3243,7 +3243,7 @@ double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
             </COMP>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="ec314ea0-b54f-490e-a944-bad9dcee34bc"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="0869baaa-02de-4e4e-8615-83c87be8df85"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -3291,7 +3291,7 @@ double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
                   <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>

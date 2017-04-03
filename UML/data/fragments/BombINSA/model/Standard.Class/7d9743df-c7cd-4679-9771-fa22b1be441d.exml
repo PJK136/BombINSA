@@ -2395,7 +2395,7 @@ if (entity instanceof Player) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="173202dc-0bc3-46de-a24a-38df740f32d6"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="3bd8a6b6-dd93-478e-b92c-a27691157194"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2433,7 +2433,7 @@ if (entity instanceof Player) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="2076d458-ab86-4708-a1f7-4dcbb695b06c"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="ae15a9e0-6272-453b-875f-cae7641aaa57"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2471,7 +2471,7 @@ if (entity instanceof Player) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="1b3f5acb-1955-4c61-ab9d-a582aa412ca1"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="4586c0dc-3e24-49cb-b069-8b8dd9e26190"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2509,7 +2509,7 @@ if (entity instanceof Player) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="f92ef6dc-9277-4a9a-83cf-9ad4ed1f48d9"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="3d51778a-efe9-4f41-8ad7-347c21884326"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2547,7 +2547,7 @@ if (entity instanceof Player) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="b0e11d59-4234-4843-b74f-2ee2d231b9a8"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="bc9f08d8-d6d4-49f0-b6da-121340623604"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2619,7 +2619,7 @@ if (entity instanceof Player) {
                 </DEPENDENCIES>
               </OBJECT>
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="2b83a550-ffa0-4461-a994-7ee144b322df"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="1e39cd94-c20a-4cf1-b36a-b30f65daa080"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2657,7 +2657,7 @@ if (entity instanceof Player) {
             </LINK>
             <COMP relation="Tag">
               <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="c2dce93d-1c3b-4f97-bd9f-fb8d54b623c4"/>
+                <ID name="" mc="Infrastructure.TaggedValue" uid="3dfb0ce4-c173-4d98-b726-5105ab87ea8f"/>
                 <ATTRIBUTES>
                   <ATT name="Name"></ATT>
                   <ATT name="status">1970354901745664</ATT>
@@ -2727,93 +2727,9 @@ if (entity instanceof Player) {
         </OBJECT>
       </COMP>
       <COMP relation="OwnedEnd">
-        <OBJECT>
+        <REFOBJ>
           <ID name="controller" mc="Standard.AssociationEnd" uid="2f129ce7-ac16-42b5-85cb-d57015645a67"/>
-          <ATTRIBUTES>
-            <ATT name="Aggregation">KindIsAssociation</ATT>
-            <ATT name="IsChangeable">true</ATT>
-            <ATT name="Changeable">ReadWrite</ATT>
-            <ATT name="IsDerived">false</ATT>
-            <ATT name="IsOrdered">false</ATT>
-            <ATT name="IsUnique">false</ATT>
-            <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-            <ATT name="Visibility">Protected</ATT>
-            <ATT name="IsClass">false</ATT>
-            <ATT name="IsAbstract">false</ATT>
-            <ATT name="Name"><![CDATA[controller]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Target">
-              <ID name="Controller" mc="Standard.Class" uid="435a3f56-662a-44c1-a8c7-b82ab53bd0e1"/>
-            </LINK>
-            <COMP relation="Opposite">
-              <OBJECT>
-                <ID name="" mc="Standard.AssociationEnd" uid="bcdf68cd-860d-43c6-9164-a9abc315aa3b"/>
-                <ATTRIBUTES>
-                  <ATT name="Aggregation">KindIsAssociation</ATT>
-                  <ATT name="IsChangeable">true</ATT>
-                  <ATT name="Changeable">ReadWrite</ATT>
-                  <ATT name="IsDerived">false</ATT>
-                  <ATT name="IsOrdered">false</ATT>
-                  <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
-                  <ATT name="Visibility">Public</ATT>
-                  <ATT name="IsClass">false</ATT>
-                  <ATT name="IsAbstract">false</ATT>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <COMP relation="Opposite">
-                    <COMPID name="controller" mc="Standard.AssociationEnd" uid="2f129ce7-ac16-42b5-85cb-d57015645a67"/>
-                  </COMP>
-                  <COMP relation="Association">
-                    <OBJECT>
-                      <ID name="" mc="Standard.Association" uid="cf5b6edb-2610-4c17-be04-e1e654760b8e"/>
-                      <ATTRIBUTES>
-                        <ATT name="Name"></ATT>
-                        <ATT name="status">1970354901745664</ATT>
-                      </ATTRIBUTES>
-                      <DEPENDENCIES></DEPENDENCIES>
-                    </OBJECT>
-                  </COMP>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-            <COMP relation="Association">
-              <COMPID name="" mc="Standard.Association" uid="cf5b6edb-2610-4c17-be04-e1e654760b8e"/>
-            </COMP>
-            <COMP relation="Tag">
-              <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="45fd05c8-a96c-44db-8732-7cfb12cdbeda"/>
-                <ATTRIBUTES>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Definition">
-                    <FOREIGNID name="JavaTransient" mc="Infrastructure.TagType" uid="003800a8-0000-0183-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-              <OBJECT>
-                <ID name="" mc="Infrastructure.TaggedValue" uid="d319a834-acfc-425c-891a-2ff0c2f3fd97"/>
-                <ATTRIBUTES>
-                  <ATT name="Name"></ATT>
-                  <ATT name="status">1970354901745664</ATT>
-                </ATTRIBUTES>
-                <DEPENDENCIES>
-                  <LINK relation="Definition">
-                    <FOREIGNID name="JavaNoInitValue" mc="Infrastructure.TagType" uid="00d007fc-0003-bf52-0000-000000000000"/>
-                  </LINK>
-                </DEPENDENCIES>
-              </OBJECT>
-            </COMP>
-          </DEPENDENCIES>
-        </OBJECT>
+        </REFOBJ>
       </COMP>
       <COMP relation="Parent">
         <OBJECT>

@@ -42,7 +42,7 @@
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="6db151c4-183b-402b-9bc9-5dfdec219453"/>
+                      <ID name="" mc="Infrastructure.Note" uid="332aefaf-1b73-4c92-80f7-1508fda3bd61"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Erreur liée au chargement de la carte]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -82,7 +82,7 @@
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="01ba01f9-e005-4c23-bff7-6da5c088bb84"/>
+                      <ID name="" mc="Infrastructure.Note" uid="362014a0-b3e5-4679-a75c-d24c6b7eb6e3"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Nom du ficher de la carte]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -120,7 +120,7 @@
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="1f09ba5c-2f1a-40ce-8524-a207ed43d1e1"/>
+                      <ID name="" mc="Infrastructure.Note" uid="7db50ab1-a32d-46c2-9ce2-0865540f8270"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Taille des tuiles]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -158,7 +158,7 @@
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="2882a8b8-9db4-49f7-b342-aef1960bbb1f"/>
+                      <ID name="" mc="Infrastructure.Note" uid="a3b2a251-3dca-4ea0-a4f1-f2c548e8c5c0"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Nombre d'images par secondes]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -196,7 +196,7 @@
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="b7a2ba37-b161-4728-85d6-24a2336678e9"/>
+                      <ID name="" mc="Infrastructure.Note" uid="9c98fb84-dc2d-4974-886e-432a618fe944"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Durée d'un round en images]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -234,7 +234,7 @@
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="576ff06f-eab1-47fd-a439-930778739580"/>
+                      <ID name="" mc="Infrastructure.Note" uid="b82f76da-e9d8-432a-9b37-8a20717fdb6e"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Durée du temps d'échauffement en images]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -328,7 +328,7 @@ setWarmupDuration(warmup);
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="fc9871f2-d3b3-4d57-82b9-61b59878bfb6"/>
+                      <ID name="" mc="Infrastructure.Note" uid="fe3ae6cf-7159-4391-8227-7ac9ee93393f"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[taille des tuiles de la carte]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -403,7 +403,7 @@ setWarmupDuration(warmup);
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="a2ed9551-d070-4770-90e4-d3b402bd8653"/>
+                      <ID name="" mc="Infrastructure.Note" uid="ced59c41-ce74-4f89-a788-9f115435a927"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Erreur liée au chargement de la carte]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -443,7 +443,7 @@ setWarmupDuration(warmup);
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="b46dd0e5-94cb-4f09-9e45-c8eb67e1bed4"/>
+                      <ID name="" mc="Infrastructure.Note" uid="306657dc-7750-4e5e-bff2-b20eaf2584df"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[Nom du fichier de la carte]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -604,7 +604,7 @@ controllers.add(controller);
                   </LINK>
                   <COMP relation="Descriptor">
                     <OBJECT>
-                      <ID name="" mc="Infrastructure.Note" uid="c87e39bf-76ae-4690-8fbb-e435038e127f"/>
+                      <ID name="" mc="Infrastructure.Note" uid="17f163ac-3182-4ae0-a4a6-4b9be7746c84"/>
                       <ATTRIBUTES>
                         <ATT name="Content"><![CDATA[le controlleur rataché au nouveau joueur]]></ATT>
                         <ATT name="MimeType"></ATT>
@@ -1497,8 +1497,8 @@ loadMap(mapFileName);
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
+                  <ATT name="MultiplicityMax"></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
@@ -1598,8 +1598,8 @@ loadMap(mapFileName);
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
+                  <ATT name="MultiplicityMax"></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
@@ -1699,8 +1699,8 @@ loadMap(mapFileName);
                   <ATT name="IsDerived">false</ATT>
                   <ATT name="IsOrdered">false</ATT>
                   <ATT name="IsUnique">false</ATT>
-                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
-                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMin"></ATT>
+                  <ATT name="MultiplicityMax"></ATT>
                   <ATT name="Visibility">Public</ATT>
                   <ATT name="IsClass">false</ATT>
                   <ATT name="IsAbstract">false</ATT>
