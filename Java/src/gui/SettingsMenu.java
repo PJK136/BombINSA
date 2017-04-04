@@ -16,6 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Menu des paramètres
+ */
 @objid ("ec66d53e-766d-4339-8432-33aa65df6754")
 public class SettingsMenu extends JPanel implements ActionListener {
     @objid ("70085ad2-6022-49c2-8ad3-25385a796b42")
@@ -51,6 +54,10 @@ public class SettingsMenu extends JPanel implements ActionListener {
     @objid ("ca5f7df7-542f-4692-a75e-a1e1d249df36")
     private JCheckBox tags;
 
+    /**
+     * Construit le menu des paramètres du programme
+     * @param mainWindow Fenêtre principale
+     */
     @objid ("5e18fe14-f987-4eae-9a09-f63175dcdf1d")
     public SettingsMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
@@ -220,6 +227,9 @@ public class SettingsMenu extends JPanel implements ActionListener {
         add(btnBack, gbc_btnBack);
     }
 
+    /**
+     * Met à jour les paramètres
+     */
     @objid ("e613e7a2-75fa-4d80-b621-f10505b7d843")
     private void updateGameSettings() {
         settings.fps = (int) fps.getValue();

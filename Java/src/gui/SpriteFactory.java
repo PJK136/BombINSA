@@ -11,6 +11,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Classe qui s'occupe de charger et fournir les Sprites
+ */
 @objid ("188ae9da-b54c-4e1e-a3ff-948915c69a2e")
 public class SpriteFactory {
     @objid ("be66be87-2fc4-4602-af56-316d8d408437")
@@ -21,6 +24,11 @@ public class SpriteFactory {
         images = new ConcurrentHashMap<String, BufferedImage>();
     }
 
+    /**
+     * Lit l'image ressource demandée et renvoie sous forme de BufferedImage
+     * @param name Nom de la ressource
+     * @return Image demandée
+     */
     @objid ("1a5a9bd4-95f9-44cd-9c99-16d2baddd8af")
     private BufferedImage readRessource(String name) {
         try {
@@ -39,11 +47,19 @@ public class SpriteFactory {
         }
     }
 
+    /**
+     * @return Instance de SpriteFactory
+     */
     @objid ("a4bcd1c1-4528-4332-afd4-bc75e9f86b4d")
     public static SpriteFactory getInstance() {
         return SingletonHolder.instance;
     }
 
+    /**
+     * Charge si nécessaire l'image et la renvoie
+     * @param name Nom de l'image
+     * @return Image
+     */
     @objid ("ca0717cc-da7f-438c-b675-029d0ab2969f")
     public BufferedImage readImage(String name) {
         BufferedImage image = images.get(name);
@@ -54,21 +70,43 @@ public class SpriteFactory {
         return image;
     }
 
+    /**
+     * Renvoie une Sprite associée à l'image
+     * @param name Nom de l'image
+     * @return Sprite
+     */
     @objid ("af178005-1f6f-439a-9e68-9277f4c5b3bf")
     public Sprite getSprite(String name) {
         return new Sprite(readImage(name));
     }
 
+    /**
+     * Renvoie une Sprite orientée associée à l'image
+     * @param name Nom de l'image
+     * @return Sprite orientée
+     */
     @objid ("cb5b5f88-34d1-4661-857c-efe9233732bb")
     public OrientedSprite getOrientedSprite(String name) {
         return new OrientedSprite(readImage(name));
     }
 
+    /**
+     * Renvoie une image à la taille indiquée
+     * @param name Nom de l'image
+     * @param size Taille désirée
+     * @return Image dimensionnée
+     */
     @objid ("1012fe74-b517-4161-ae30-4bda5f5d534f")
     public Image getScaledImage(String name, int size) {
         return getSprite(name).getImage(size);
     }
 
+    /**
+     * Renvoie une ImageIcon de l'image à la taille indiquée
+     * @param name Nom de l'image
+     * @param size Taille désirée
+     * @return ImageIcon
+     */
     @objid ("64de7ee9-2eb1-483b-b339-60e0150d68b8")
     public ImageIcon getImageIcon(String name, int size) {
         return new ImageIcon(getScaledImage(name, size));
@@ -132,12 +170,12 @@ public class SpriteFactory {
         int width = g.getFontMetrics().stringWidth(str);
         g.drawString(str, centerX-width/2, centerY+height/4);
     } */
-// http://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java
+    
+    // http://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java
     @objid ("04ec226d-8f5c-485e-b881-d2853dcd4fd9")
     private static class SingletonHolder {
         @objid ("9ff0d2e2-a060-4051-80e5-3f4790836aa0")
         private static final SpriteFactory instance = new SpriteFactory();
 
     }
-
 }

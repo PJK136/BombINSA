@@ -10,6 +10,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.Player;
 import game.PlayerAbility;
 
+/**
+ * JPanel qui gère l'affichage de l'état d'un joueur 
+ */
 @objid ("46db285b-3b47-467c-9f0f-477cd2eb3613")
 public class PlayerStatePanel extends JPanel {
     @objid ("a93c2a2a-7d08-409f-8eff-a00ecdf4e7ae")
@@ -27,6 +30,11 @@ public class PlayerStatePanel extends JPanel {
     @objid ("cc0439d1-6524-42e4-ae85-4fba137c27d9")
      JSeparator separator;
 
+    /**
+     * Construit un panneau d'affichage de l'état d'un joueur
+     * @param playerID ID du joueur
+     * @param size Taille des icônes
+     */
     @objid ("e8dc4fa0-32c2-4b8c-90c6-df91088eba72")
     PlayerStatePanel(int playerID, int size) {
         SpriteFactory factory = SpriteFactory.getInstance();
@@ -75,6 +83,11 @@ public class PlayerStatePanel extends JPanel {
         add(separator);
     }
 
+    /**
+     * Met à jour l'état du joueur
+     * @param player Joueur
+     * @return Vrai si la taille a potentiellement changée
+     */
     @objid ("8536a41a-23a7-444d-8f96-1adeb430eee3")
     boolean updatePlayerState(Player player) {
         boolean abilitiesChanged = false;

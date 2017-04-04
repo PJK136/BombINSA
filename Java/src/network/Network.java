@@ -16,6 +16,9 @@ import game.Player;
 import game.PlayerAbility;
 import game.TileType;
 
+/**
+ * Cette classe contient toutes les classes "messages" que s'envoient le serveur et le client
+ */
 @objid ("9c7be3f0-b12b-4d48-bdb0-4cf286ca0add")
 public class Network {
     @objid ("739b2928-14e9-43fe-9402-0c6b02ea8899")
