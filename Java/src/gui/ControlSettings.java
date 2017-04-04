@@ -26,9 +26,9 @@ public class ControlSettings {
     public String name;
     
     /**
-     * Constructeur des contrôles selon le joueur
-     * @param i
-     * @return
+     * Crée des contrôles par défaut au clavier
+     * @param i ID des contrôles
+     * @return Contrôles au clavier
      */
     @objid ("948d2cb4-d3f5-4e61-a924-4b263d52c766")
     public static ControlSettings defaultControls(int i) {

@@ -27,12 +27,13 @@ public abstract class Entity {
 
     @objid ("83945ddf-99e1-4a55-8f7c-5f7a2c89a534")
      transient World world;
-/**
- * Constructeur d'Entity
- * @param world
- * @param x
- * @param y
- */
+    
+    /**
+     * Constructeur d'Entity
+     * @param world
+     * @param x Position horizontale en coordonnées de jeu
+     * @param y Position verticale en coordonnées de jeu
+     */
     @objid ("2482ca74-f651-4b89-8f4e-b25e74535a33")
     Entity(World world, double x, double y) {
         this.world = world;
@@ -165,10 +166,10 @@ public abstract class Entity {
     }
 
     /**
-     * Vérifie si l'entité entre en collision
-     * @param x
-     * @param y
-     * @return boolean 
+     * Vérifie si l'entité entre en collision pour une position donnée
+     * @param x Position horizontale en coordonnées de jeu 
+     * @param y Position verticale en coordonnées de jeu
+     * @return vrai si entre en collision
      */
     @objid ("94f5132c-0a18-4827-bebd-451cd306edff")
     boolean canCollide(double x, double y) {
@@ -177,7 +178,7 @@ public abstract class Entity {
     }
 
     /**
-     * Update les entités en mettant à jour la position des entités 
+     * Met à jour l'entité
      */
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
@@ -193,7 +194,7 @@ public abstract class Entity {
     }
     
     /**
-     * Update la position de l'entité avec vérification des collisions
+     * Met à jour la position de l'entité avec vérification des collisions
      */
     @objid ("30b55b46-96bb-4d8b-9810-6ccdaa97d7db")
     private void updatePosition() {
@@ -228,6 +229,10 @@ public abstract class Entity {
         }
     }
 
+    /**
+     * Met à jour l'entité depuis une autre entité
+     * @param entity Autre entité
+     */
     @objid ("ffa0dcae-9640-47ec-b23d-de519e7ed701")
     void updateFrom(Entity entity) {
         this.id = entity.id;

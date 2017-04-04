@@ -83,7 +83,6 @@ public class AIController extends Controller {
 
     /**
      * Fait tourner l'IA dans une direction différente de l'actuelle
-     * @param dir La direction actuelle de l'IA
      */
     @objid ("e87291f0-a8c8-4d07-99ba-b34fa92d336b")
     public void turn() {

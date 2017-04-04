@@ -45,15 +45,15 @@ public class Player extends Entity {
 
     /**
      * Constructeur avec Attribut
-     * @param world
-     * @param x
-     * @param y
-     * @param controller
-     * @param playerID
-     * @param lives
-     * @param bombMax
-     * @param range
-     * @param invulnerability
+     * @param world Monde dans lequel est le joueur
+     * @param x Position horizontale en coordonnées de jeu
+     * @param y Position verticale en coordonnées de jeu
+     * @param controller Controlleur du joueur
+     * @param playerID ID du joueur
+     * @param lives Nombre de vies
+     * @param bombMax Nombre de bombes
+     * @param range Portée des bombes
+     * @param invulnerability Temps d'invulnérabilité (en nombre de ticks/frames)
      */
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
     public Player(World world, double x, double y, Controller controller, int playerID, int lives, int bombMax, int range, int invulnerability) {
