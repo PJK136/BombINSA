@@ -14,12 +14,20 @@ public class BreakableTile extends ExplodableTile {
     }
 
     @objid ("0f60bf8a-4b36-487b-9fe4-ea8ec57dcaa7")
+    /**
+     * impose que la tuile est percutable
+     */
     public boolean isCollidable() {
         return true;
     }
 
     @objid ("0fab6260-7a9c-4a9e-adda-5a7b5f0d0098")
     @Override
+    /**
+     * Génère une tuile qui va la remplacer une fois l'explosion finie.
+     * Soit un bonus généré aléatoirement, soit une case vide selon le taux 
+     * d'apparition choisi.
+     */
     Tile postExplosion() {
         Tile ret;
         double drop = (Math.random());

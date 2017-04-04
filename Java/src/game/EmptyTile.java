@@ -10,6 +10,9 @@ public class EmptyTile extends ExplodableTile {
     }
 
     @objid ("81346f4a-1c14-472f-9623-a660ddd6b6d9")
+    /**
+     * impose que la tuile n'est pas percutable
+     */
     public boolean isCollidable() {
         return false;
     }

@@ -10,17 +10,26 @@ import game.Direction;
 @objid ("0a274714-4157-430f-bba3-fe0b0286cf2f")
 public class KeyboardController extends Controller implements KeyListener {
     @objid ("551f145c-09ad-4538-86bc-5b9129d34274")
+    /**
+     * Liste des directions qui sont enfoncées triées dans l'ordre d'apparition 
+     * décroissant (^plus récente en début et plus ancienne à la fin)
+     */
     private LinkedList<Direction> keysPressed;
 
     @objid ("821786a6-3f54-48d5-8e4d-f8425ef62c20")
+    /**
+     * Indique si on doit psoer une bombe ou pas
+     */
     private boolean bombing;
 
     @objid ("a93e8c2e-c054-4934-923f-acac72ff257c")
+    /**
+     * Paramêtres qui permettent d'associer les touches enfoncées sur le clavier à
+     * une commande en jeu
+     */
     private ControlSettings settings;
 
-/* Objectif : que l'on sache où on est en train d'appuyer (doit conserver une variable car java n'a pas de methode*
-     * qui lit si on est appuyé, seulement si on appuie et si on relâche)
-     */
+
     @objid ("2c9abb5b-b9fc-4226-bee5-6df775a5d20d")
     public KeyboardController(ControlSettings settings) {
         setName(settings.name);
@@ -38,6 +47,9 @@ public class KeyboardController extends Controller implements KeyListener {
 
     @objid ("39549206-ede1-4d8e-bdb7-8f5010446eb7")
     @Override
+    /**
+     * renvoie si la commande "poser une bombe" a été activée
+     */
     public boolean isPlantingBomb() {
         if (bombing){
             bombing = false;
@@ -54,6 +66,12 @@ public class KeyboardController extends Controller implements KeyListener {
 
     @objid ("3d5514a6-86cc-49d2-8723-289056c0be41")
     @Override
+    /**
+     * Rajoute à la liste en attribut la direction qui correspond a une 
+     * touche quand elle est appuyée.
+     * Pour éviter les effets du rebond on efface de la liste l'instance 
+     * de la direction avant de l'ajouter
+     */
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == settings.right){
             keysPressed.remove(Direction.Right); //fais en sorte qu'il y ai au maximum 1 exemplaire dans la liste sinon ca bug..
@@ -74,6 +92,10 @@ public class KeyboardController extends Controller implements KeyListener {
 
     @objid ("2aeea9b7-3dee-4dd7-887d-4c312c79010f")
     @Override
+    /**
+     * Enlève la direction de la liste en attribut lorque la touche
+     * qui y correspond est relachée
+     */
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == settings.right){
             keysPressed.remove(Direction.Right);

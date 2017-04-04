@@ -43,6 +43,9 @@ public class Audio implements GameListener {
     }
 
     @objid ("f49b5ee7-754b-4a0f-9405-d64d2607f48e")
+    /**
+     * Arrête tous les clips audio lancés
+     */
     public void stop() {
         hit.stop();
         bombe.stop();
@@ -52,6 +55,9 @@ public class Audio implements GameListener {
 
     @objid ("4d6557e8-da88-4a98-922e-52e3b27ce4ca")
     @Override
+    /**
+     * lance le son qui correspond à l'évènement reçu
+     */
     public void processEvent(Event e) {
         switch(e){
         case Hit:

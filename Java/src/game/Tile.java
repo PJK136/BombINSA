@@ -7,15 +7,24 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("0a4b4bbc-6c10-4d09-9d5f-ebe94f0193bd")
 public abstract class Tile {
     @objid ("2f216b30-27c8-4022-ad19-dbd71146cfd8")
+    /**
+     * Liste des entites présentes sur la tuile
+     */
     protected List<Entity> entities = new LinkedList<Entity> ();
 
     @objid ("f4911fdc-1c7c-45f9-80e8-3af86c75d6bb")
+    /**
+     * Carte à laquelle la tuile appartient
+     */
      Map map;
 
     @objid ("eba8c794-3248-484e-8fdd-ec19b08a5c19")
     public abstract TileType getType();
 
     @objid ("20137d66-fdca-4295-90c9-d845540dcb82")
+    /**
+     * @return si la tuile est percutable
+     */
     public abstract boolean isCollidable();
 
     @objid ("2b2f5efa-8de9-4ab7-932c-ca4af3ebd86f")
@@ -34,6 +43,10 @@ public abstract class Tile {
     }
 
     @objid ("547b782f-b41e-4098-bd4a-5de3c5f1b0dd")
+    /**
+     * ajoute une entité à la liste de celles présentens sur la tuile
+     * @param entity : entité à rajouter
+     */
     void addEntity(Entity entity) {
         entities.add(entity);
     }

@@ -3,6 +3,10 @@ package game;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("7787b9db-abdc-433d-863e-9ffee325df12")
+/**
+ * Liste des bonus/malus avec leurs taux d'apparition associés
+ *
+ */
 public enum BonusType {
     Random ((3./4.)*(1./10.)),
     MoreBomb ((3./4.)*(3./10.)),
