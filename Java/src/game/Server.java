@@ -24,6 +24,15 @@ public class Server extends Local implements Listener {
     @objid ("0af280ea-a7b2-4232-a15b-220a4b0d977f")
      com.esotericsoftware.kryonet.Server network;
 
+    /**
+     * Construit un serveur de jeu
+     * @param mapFilename Nom du ficher de la carte
+     * @param tileSize Taille des tuiles
+     * @param fps Nombre d'images par secondes
+     * @param duration Durée d'un round en images
+     * @param warmup Durée du temps d'échauffement en images
+     * @throws java.lang.Exception Erreur liée au chargement de la carte
+     */
     @objid ("c0e17e22-6d82-404c-81c8-d2c427dec052")
     public Server(String mapFilename, int tileSize, int fps, int duration, int warmup) throws Exception {
         super(mapFilename, tileSize, fps, duration, warmup);
@@ -103,6 +112,9 @@ public class Server extends Local implements Listener {
         }
     }
 
+    /**
+     * @return Les informations de la partie en cours
+     */
     @objid ("eddf6bd8-2e40-4c63-8435-f6ef11a69e01")
     public GameInfo getGameInfo() {
         return new GameInfo(fps, duration, timeRemaining, warmupDuration, warmupTimeRemaining,

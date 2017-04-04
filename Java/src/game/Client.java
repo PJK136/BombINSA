@@ -39,6 +39,11 @@ public class Client extends World implements Listener {
     @objid ("b3107df3-29f9-4537-a5c5-7a34ae3f36b4")
      List<CommandMap> commands;
 
+    /**
+     * Construit un client qui se connecte à l'adresse spécifiée
+     * @param address Adresse du serveur
+     * @throws Exception si échec de la connexion
+     */
     @objid ("63d8fe40-31e8-480c-82ff-640b5412de27")
     public Client(InetAddress address) throws Exception {
         map = new Map(32);
@@ -63,6 +68,10 @@ public class Client extends World implements Listener {
             throw new Exception("Pas de serveur trouvé...");
     }
 
+    /**
+     * Construit un client et se connecte au premier serveur trouvé
+     * @throws Exception si échec de la connexion
+     */
     @objid ("a0b86d60-e56c-4c1c-900d-85fb1d6cd53c")
     public Client() throws Exception {
         this(null);
@@ -141,6 +150,9 @@ public class Client extends World implements Listener {
         return roundEnded || !network.isConnected();
     }
 
+    /**
+     * @return si le client est connecté à un serveur
+     */
     @objid ("78cbc042-3577-4058-a504-77bad8d090c9")
     public boolean isConnected() {
         return network.isConnected();

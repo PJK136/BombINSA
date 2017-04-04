@@ -103,9 +103,9 @@ public abstract class World implements WorldView {
     @objid ("83167709-dc8e-456e-b787-b9a4ed0d8113")
     public List<Entity> getEntities() {
         //Thread-safety
-                synchronized (entities) {
+        synchronized (entities) {
             return new LinkedList<Entity>(entities.values());            
-                }
+        }
     }
 
     @objid ("8696ef92-01cf-4263-80c5-6bcf172924d8")
@@ -196,21 +196,21 @@ public abstract class World implements WorldView {
     }
 
     /**
-     * définit qu'un joueur pose une bombe sur la map
+     * Pose une bombe sur la map par un joueur
      * @param player le joueur qui veut poser une bombe
      */
     @objid ("9c563a21-9aa5-4a46-9bc7-944623f9796c")
     abstract void plantBomb(Player player);
 
     /**
-     * définit qu'une bombe explose sur la map
+     * Crée une explosion sur la map par une bombe
      * @param bomb la bombe qui explose
      */
     @objid ("df2bc239-ca9f-42a9-b92a-6255de4d5c86")
     abstract void createExplosion(Bomb bomb);
 
     /**
-     * définit qu'un bonus se fait ramasser par un joueur
+     * Signale qu'un bonus se fait ramasser par un joueur
      * @param x la coordonnée en x du joueur en pixel
      * @param y la coordonnée en y du joueur en pixel
      */
@@ -218,9 +218,9 @@ public abstract class World implements WorldView {
     abstract void pickUpBonus(double x, double y);
 
     /**
-     * définit qu'une bombe se fait pousser dans une direction
-     * @param bomb la bomb qui se fait pousser
-     * @param direction la direction vers laquelle elle est poussée
+     * Pousse une bombe dans une direction
+     * @param bomb Bombe à pousser
+     * @param direction Direction vers laquelle pousser
      */
     @objid ("d2244540-1a9f-4ec7-bee2-e5b2a2c83862")
     abstract void kickBomb(Bomb bomb, Direction direction);
@@ -247,7 +247,7 @@ public abstract class World implements WorldView {
     public abstract boolean isRoundEnded();
 
     /**
-     * met à jour le monde en controllant :
+     * Met à jour le monde en controllant :
      * - s'il faut enclencher la mort subite
      * - s'il faut supprimer des entités
      * puis en mettant la carte à jour
@@ -283,14 +283,14 @@ public abstract class World implements WorldView {
     }
 
     /**
-     * met fin à la partie
+     * Met fin à la partie
      */
     @objid ("ff6dfd59-975b-4d3b-af34-f38b4e3ac3b5")
     public void stop() {
     }
 
     /**
-     * permet de relancer la partie
+     * Relance la partie
      * @throws java.lang.Exception problème lié au chargement de la carte
      */
     @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
@@ -315,11 +315,19 @@ public abstract class World implements WorldView {
         return playerList;
     }
 
+    /**
+     * Ajoute un écouteur à la partie
+     * @param listener Écouteur
+     */
     @objid ("a94d9c92-e103-47fc-85c2-8ec0e6be9521")
     public void addGameListener(GameListener listener) {
         listeners.add(listener);
     }
-
+    
+    /**
+     * Envoie l'événement aux listeners
+     * @param e Événement
+     */
     @objid ("4b33edc4-09ea-4366-aaed-a774e91e6c5a")
     void fireEvent(Event e) {
         for(GameListener listener : listeners){
@@ -328,7 +336,7 @@ public abstract class World implements WorldView {
     }
 
     /**
-     * ajoute une entité à la partie
+     * Ajoute une entité avec l'ID spécifiée
      * @param entity l'entité qui doit être ajoutée
      * @param id l'identité de l'entité
      */
@@ -340,13 +348,22 @@ public abstract class World implements WorldView {
         map.addEntity(entity);
     }
 
+    /**
+     * Ajoute une entité avec le premier ID disponible
+     * @param entity
+     */
     @objid ("27111301-80b0-479b-af73-bb78da106041")
     void addEntity(Entity entity) {
         addEntity(entity, nextID);
         nextID++;
     }
 
-//http://answers.unity3d.com/questions/150347/what-exactly-does-timetime-do-in-mathfpingpong.html
+    /**
+     * http://answers.unity3d.com/questions/150347/what-exactly-does-timetime-do-in-mathfpingpong.html
+     * @param time
+     * @param length
+     * @return
+     */
     @objid ("a2ce16fa-379a-4c02-be51-8541e80d6bac")
     private static double pingPong(double time, double length) {
         double l = 2 * length;
@@ -358,9 +375,16 @@ public abstract class World implements WorldView {
             return l - t;
     }
 
+    /**
+     * http://answers.unity3d.com/questions/678855/trying-to-get-object-to-blink-speed-acording-to-ti.html
+     * @param remaining
+     * @param duration
+     * @param intervalMin
+     * @param intervalMax
+     * @return alternance de vrai et de faux à intervalle dynamique
+     */
     @objid ("dd75a61f-a8f2-4638-b49e-8fc4e1a0c499")
     public static boolean oscillate(double remaining, double duration, double intervalMin, double intervalMax) {
-        //http://answers.unity3d.com/questions/678855/trying-to-get-object-to-blink-speed-acording-to-ti.html
         double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
         return pingPong(duration - remaining, interval) > interval/2; //Ping pong sur la durée écoulée
     }

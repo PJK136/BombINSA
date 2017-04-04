@@ -12,12 +12,22 @@ public class DeltaMap extends Map {
     @objid ("8513eb13-92ef-4f66-b5dc-d2b6de90c84b")
      List<CommandMap> deltas;
 
+    /**
+     * Construit une carte avec historique
+     * @param tileSize Taille des tuiles
+     */
     @objid ("ba393edb-4bdc-404e-a892-60d26b6d4fe2")
     public DeltaMap(int tileSize) {
         super(tileSize);
         deltas = new LinkedList<CommandMap>();
     }
 
+    /**
+     * Construit une carte avec historique
+     * @param columns Nombre de colonnes
+     * @param rows Nombre de lignes
+     * @param tileSize Taille des tuiles
+     */
     @objid ("b61d4be9-c0fa-4d56-b0c0-99997a3fd7c5")
     public DeltaMap(int columns, int rows, int tileSize) {
         super(columns, rows, tileSize);
@@ -79,6 +89,11 @@ public class DeltaMap extends Map {
         super.setTile(tile, gc);
     }
 
+    /**
+     * Applique une commande sur la map
+     * @param command Commande à exécuter
+     * @param map Map sur laquelle exécuter
+     */
     @objid ("37f96f5b-ab0d-4d97-bf2c-f25c7efdb432")
     public static void executeDelta(CommandMap command, Map map) {
         switch (command.name) {
@@ -105,6 +120,11 @@ public class DeltaMap extends Map {
         }
     }
 
+    /**
+     * Charge l'historique sur la carte
+     * @param deltas Historique à charger
+     * @param map Carte sur laquelle exécuter
+     */
     @objid ("a389a7b1-e2a5-445c-b765-4950785c76f5")
     public static void executeDeltas(List<CommandMap> deltas, Map map) {
         for (CommandMap command : deltas) {
