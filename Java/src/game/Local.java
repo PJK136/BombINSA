@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/** Cette classe gère une partie de type Local */
 @objid ("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Local extends World {
     @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/** Ce contrôleur est l'intelligence artificielle du jeu */
 @objid ("cbe503f7-eb4d-4747-9547-3001ad190b16")
 public class AIController extends Controller {
     @objid ("b3611ff7-8085-4126-9180-545efad68da8")
@@ -19,7 +20,7 @@ public class AIController extends Controller {
     private GridCoordinates aiLocation;
 
     /**
-     * Crée un nouveau controlleur de type intelligence artificielle
+     * Crée un nouveau contrôleur de type intelligence artificielle
      */
     @objid ("3d3cd868-87c6-4b1c-b1b2-335b1d2eb3e3")
     public AIController() {
@@ -47,7 +48,7 @@ public class AIController extends Controller {
     }
 
     /**
-     * Met à jour le controlleur de type intelligence artificielle en faisant les actions suivantes :
+     * Met à jour le contrôleur de type intelligence artificielle en faisant les actions suivantes :
      * - si l'IA peut poser und bombe, elle le fait
      * - arrête de bouger si elle est cernée
      * - tourne ou pas en fonction de sa situation
@@ -99,7 +100,7 @@ public class AIController extends Controller {
 
     /**
      * Controle la dangerosité d'une tuile
-     * @param target La tuile qu'il faut controller
+     * @param target La tuile qu'il faut contrôler
      * @return true Si la tuile est sécurisée, false sinon
      */
     @objid ("cc20da1a-09e2-4259-b21e-47277450e318")

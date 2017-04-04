@@ -12,6 +12,7 @@ import java.util.Scanner;
 import java.util.StringJoiner;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/** Cette classe gère la carte dans laquelle évoluent les entités et les tuiles */
 @objid ("828d0eae-528b-43df-a33e-799c03f4c5af")
 public class Map implements MapView {
     @objid ("07880cea-125c-44c4-b8e2-fa231ec26a91")

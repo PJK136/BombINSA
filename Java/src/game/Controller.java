@@ -2,6 +2,7 @@ package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/** Cette classe indique les différentes actions à effectuer pour un joueur */
 @objid ("435a3f56-662a-44c1-a8c7-b82ab53bd0e1")
 public abstract class Controller {
     @objid ("d1b9902a-8b0f-4eaa-95ee-934fea8da2a9")
@@ -49,7 +50,7 @@ public abstract class Controller {
     public abstract boolean isPlantingBomb();
     
     /**
-     * Met à jour le controlleur
+     * Met à jour le contrôleur
      */
     @objid ("99886342-ec39-44a9-aae1-581d9aa251df")
     public abstract void update();

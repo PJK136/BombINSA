@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/** Cette classe coordonne l'ensemble des actions pendant une partie */
 @objid ("4e38e511-34e5-49ff-aa51-e135ece3c5eb")
 public abstract class World implements WorldView {
     @objid ("85c96d62-8a34-4a32-b45b-ae1b9c9d4112")

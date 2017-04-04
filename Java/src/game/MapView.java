@@ -3,6 +3,7 @@ package game;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/** Cette interface est une vue des informations contenues dans la carte */
 @objid ("27201ab7-2fd3-4c35-abb3-37155f6d5822")
 public interface MapView {
     @objid ("14a5fb0b-a57a-499e-ab6a-00fbd434a72b")

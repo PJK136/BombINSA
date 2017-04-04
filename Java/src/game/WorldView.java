@@ -3,6 +3,7 @@ package game;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/** Cette interface est une vue sur les informations contenues dans le monde */
 @objid ("ef002ca0-7638-4d64-9860-1c30b5e5c688")
 public interface WorldView {
     /**
