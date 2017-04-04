@@ -4,3 +4,7 @@ Panda
 3_Players_A
 3_Players_B
 4_Players_A
+map_1
+map_2
+map_3
+Creativity
