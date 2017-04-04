@@ -37,13 +37,20 @@ public abstract class Controller {
     public void setWorldView(WorldView world) {
         this.world = world;
     }
-
+    
     @objid ("0ebad723-c10a-4def-be2c-c30ca87e26c9")
     public abstract Direction getDirection();
-
+    
+    /** 
+     * Indique si le joueur pose une bombe
+     * @return true si oui, false sinon
+     */
     @objid ("fbd83e0a-a70c-4e3b-a076-312bb8d237d8")
     public abstract boolean isPlantingBomb();
-
+    
+    /**
+     * Met à jour le controlleur
+     */
     @objid ("99886342-ec39-44a9-aae1-581d9aa251df")
     public abstract void update();
 

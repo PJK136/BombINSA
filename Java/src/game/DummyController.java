@@ -9,7 +9,7 @@ public class DummyController extends Controller {
 
     @objid ("aecfaad0-e24d-47f8-b86a-c14fa6070470")
     protected boolean bombing;
-
+    
     @objid ("81b2855a-13bd-435a-b9ac-1d14266f3317")
     public DummyController() {
     }
@@ -29,7 +29,7 @@ public class DummyController extends Controller {
         }
         return false;
     }
-
+    
     @objid ("29579ec4-a744-4d1b-ae6d-50569074af38")
     @Override
     public void update() {

@@ -22,14 +22,24 @@ public class Map implements MapView {
 
     @objid ("01eb7be5-4c79-4697-b0b8-0c701c3ff114")
      List<GridCoordinates> spawningLocations;
-
+    
+    /**
+     * Crée une carte de jeu vierge
+     * @param tileSize La taille des cases de grille dans cette carte
+     */
     @objid ("207bd3eb-53bc-4cf3-96e2-f4df05fd2714")
     public Map(int tileSize) {
         this.tileSize = tileSize;
         this.spawningLocations = new ArrayList<GridCoordinates>();
         this.tiles = new Tile[0][0];
     }
-
+    
+    /**
+     * Crée une carte de jeu 
+     * @param columns Le nombre de colonnes dans la grille de case de la carte
+     * @param rows Le nombre de lignes dans la grille de case de la carte
+     * @param tileSize La taille des cases de grille dans cette carte
+     */
     @objid ("a4436290-1f67-4588-b3bc-fa90f4f58cfa")
     public Map(int columns, int rows, int tileSize) {
         this(tileSize);
@@ -188,7 +198,11 @@ public class Map implements MapView {
     public List<GridCoordinates> getSpawningLocations() {
         return Collections.unmodifiableList(spawningLocations);
     }
-
+    
+    /**
+     * Ajoute une zone d'apparition pour les joueurs sur la carte
+     * @param gc Les coordonnées de la case qui deviendra une zone d'apparition
+     */
     @objid ("63d25698-a5f4-4701-a7ed-10309284ddb6")
     public void addSpawningLocation(GridCoordinates gc) {
         if (!isInsideMap(gc))
@@ -214,7 +228,7 @@ public class Map implements MapView {
             }
         }
     }
-
+    
     @objid ("37a9da32-d0c2-4570-a1d5-c73972f7f508")
     public void setsize(int columns, int rows) {
         if (columns <= 0)
@@ -242,7 +256,12 @@ public class Map implements MapView {
         
         tiles = newTiles;
     }
-
+    
+    /**
+     * Charge une carte
+     * @param sc Scanner support du chargement de la carte
+     * @throws InputMismatchException Erreur liée au chargement de la carte
+     */
     @objid ("81317f24-599b-4128-9480-5c1f6c0859f2")
     void loadMap(Scanner sc) throws InputMismatchException {
         int columnCount = sc.nextInt();
@@ -277,22 +296,42 @@ public class Map implements MapView {
         
         tiles = newTiles;
     }
-
+    
+    /**
+     * Charge une carte
+     * @param map Entrée depuis un String
+     * @throws InputMismatchException Erreur liée au chargement de la carte
+     */
     @objid ("bdc6a78b-39d3-412e-a529-57ef1ba3f624")
     public void loadMap(String map) throws InputMismatchException {
         loadMap(new Scanner(map));
     }
-
+    
+    /**
+     * Charge une carte
+     * @param path Entrée depuis un Path
+     * @throws IOException
+     * @throws InputMismatchException
+     */
     @objid ("95994401-6979-4fce-ad9e-c9521f3c0ba8")
     public void loadMap(Path path) throws IOException, InputMismatchException {
         loadMap(new Scanner(path));
     }
-
+    
+    /**
+     * Charge une carte
+     * @param map Entrée depuis un flux entrant
+     * @throws InputMismatchException
+     */
     @objid ("853ca821-8f56-41f8-9469-20ffaecb7bcb")
     public void loadMap(InputStream map) throws InputMismatchException {
         loadMap(new Scanner(map));
     }
-
+    
+    /**
+     * Sauvegarde une carte sous forme de String
+     * @return Le String correspondant  la carte
+     */
     @objid ("8960c7a3-87e7-4b1b-8f9a-1858808c9349")
     public String saveMap() {
         StringJoiner content = new StringJoiner(" ");
@@ -437,7 +476,10 @@ public class Map implements MapView {
         GridCoordinates gc = toGridCoordinates(entity.getX(), entity.getY());
         tiles[gc.x][gc.y].addEntity(entity);
     }
-
+    
+    /**
+     * Met à jour la carte
+     */
     @objid ("0812769a-5d2b-489d-9bf4-f782cb16fbef")
     void update() {
         GridCoordinates gc = new GridCoordinates();
@@ -454,7 +496,11 @@ public class Map implements MapView {
     void setTile(Tile tile, GridCoordinates gc) {
         tiles[gc.x][gc.y] = tile;
     }
-
+    
+    /**
+     * Met à jour les entités contenues dans une case de grille
+     * @param gc les coordonnées de la case étudiée
+     */
     @objid ("6bc80ea5-bafc-4ca1-86f2-9d861e475c10")
     private void updateEntities(GridCoordinates gc) {
         Iterator<Entity> iterator = tiles[gc.x][gc.y].entities.iterator();
