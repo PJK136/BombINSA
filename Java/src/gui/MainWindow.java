@@ -43,6 +43,10 @@ public class MainWindow implements WindowListener {
     @objid ("6a4c9e53-d41c-4237-99b1-a540a0004898")
     private Color messageColor;
 
+    /**
+     * Méthode principale main pour lancer le jeu
+     * @param args Arguments lors de l'exécution
+     */
     @objid ("c0396266-731f-4131-9df4-3e1a8c55ed3a")
     public static void main(String[] args) {
         /* Crée et affiche window dans l'Event Dispatch Thread (EDT)
@@ -59,12 +63,18 @@ public class MainWindow implements WindowListener {
         });
     }
 
+    /**
+     * Construit la fenêtre principale
+     */
     @objid ("3c9a8780-8ade-4f8d-8f7e-7bfa3ca27a66")
     public MainWindow() {
         this.settings = GameSettings.getInstance();
         initialize();
     }
 
+    /**
+     * Initialise la fenêtre
+     */
     @objid ("14da88d1-2c75-4382-849c-9c7a54c281ac")
     private void initialize() {
         frame = new JFrame();
@@ -96,6 +106,9 @@ public class MainWindow implements WindowListener {
         showMenu();
     }
 
+    /**
+     * Affiche le menu principal
+     */
     @objid ("d0b8245a-6b07-481e-b47e-45ce8cfbffec")
     public void showMenu() {
         if (gameWorker != null) {
@@ -106,6 +119,9 @@ public class MainWindow implements WindowListener {
         setPage(new MainMenu(this));
     }
 
+    /**
+     * Lance le jeu
+     */
     @objid ("6b34965b-9d8d-4d4f-ac64-d111b1e847c0")
     public void startGame() {
         try {
@@ -124,12 +140,19 @@ public class MainWindow implements WindowListener {
         }
     }
 
+    /**
+     * Lance le créateur de carte
+     */
     @objid ("8898c61c-fe11-44b3-8431-2a93405194ae")
     public void startCreator() {
         setPage(new MapCreatorPanel(this));
         pack();
     }
 
+    /**
+     * Change le contenu de la fenêtre
+     * @param page Panel à afficher
+     */
     @objid ("030bbdba-dcc6-4a25-9366-dab889f9d934")
     void setPage(JPanel page) {
         frame.getGlassPane().setVisible(false);
@@ -137,11 +160,19 @@ public class MainWindow implements WindowListener {
         frame.revalidate();
     }
 
+    /**
+     * Redimensionne la fenêtre de manière plus compacte
+     */
     @objid ("c6c9afec-5bba-4a55-ab6c-14848f545c6c")
     void pack() {
         frame.pack();
     }
 
+    /**
+     * Affiche un message en semi-transparence avec un fond gris par dessus les autres composants
+     * @param message Message à afficher
+     * @param color Couleur du message
+     */
     @objid ("4219eb02-4dcd-45fd-88cf-b6c685cc8d32")
     void showMessage(String message, Color color) {
         this.message = message;
@@ -150,6 +181,9 @@ public class MainWindow implements WindowListener {
         frame.repaint();
     }
 
+    /**
+     * Enlève le message en semi-transparence s'il y en a un
+     */
     @objid ("2b490ea0-a3a0-4f8a-979a-8c20574e3a60")
     void clearMessage() {
         this.message = null;
@@ -223,6 +257,11 @@ public class MainWindow implements WindowListener {
         // TODO Auto-generated method stub
     }
 
+    /**
+     * Définit la taille de la police du composant
+     * @param component Composant à modifier
+     * @param size Taille à appliquer
+     */
     @objid ("d3f6e6d9-3541-4526-8433-d7a080952a55")
     public static void setFontSize(JComponent component, float size) {
         component.setFont(component.getFont().deriveFont((float)size));

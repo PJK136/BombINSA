@@ -59,6 +59,9 @@ public class GameSettings {
     @objid ("35c7ed6d-70f2-46bc-9c5a-047fcaed1713")
     public List<ControlSettings> controls;
 
+    /**
+     * Construit des paramètres par défaut
+     */
     @objid ("c6740cfb-642c-4bbc-82c0-d26fc0f5b072")
     private GameSettings() {
         //Configuration par défaut
@@ -81,6 +84,10 @@ public class GameSettings {
         tags = true;
     }
 
+    /**
+     * Charge les paramètres depuis le fichier de configuration
+     * @return Les paramètres
+     */
     @objid ("f454de1c-cf21-4345-acd1-5debae4eb46b")
     private static GameSettings load() {
         try {
@@ -93,6 +100,10 @@ public class GameSettings {
         }
     }
 
+    /**
+     * Enregistre les paramètres dans le fichier de configuration
+     * @throws FileNotFoundException s'il y a une erreur lors de la sauvegarde
+     */
     @objid ("a03739e2-2ae7-4c62-a7b3-0d2edbd4412a")
     public void save() throws FileNotFoundException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -101,37 +112,64 @@ public class GameSettings {
         printWriter.close();
     }
 
+    /**
+     * Met à l'échelle la taille d'après les paramètres
+     * @param size Taille à mettre à l'échelle
+     * @return Taille mise à l'échelle
+     */
     @objid ("61e52266-93e7-4c1f-beb6-01283d8ac592")
     public int scale(int size) {
         return (int)(size*scale);
     }
 
+    /**
+     * Met à l'échelle la taille d'après les paramètres
+     * @param size Taille à mettre à l'échelle
+     * @return Taille mise à l'échelle
+     */
     @objid ("465f7317-a123-4e6a-8f44-80c8ef2466fc")
     public double scale(double size) {
         return size*scale;
     }
 
+    /**
+     * Met à l'échelle des dimensions d'après les paramètres
+     * @param dim Dimensions à mettre à l'échelle
+     * @return Dimensions mises à l'échelle
+     */
     @objid ("4a58d5a4-01fa-433c-b027-eec38d51b4f0")
     public Dimension scale(Dimension dim) {
         return new Dimension(scale(dim.width), scale(dim.height));
     }
 
+    /**
+     * Met à l'échelle la police d'après les paramètres
+     * @param font Police à mettre à l'échelle
+     * @return Police mise à l'échelle
+     */
     @objid ("2fdc9a81-c218-40b3-a8e8-4f632a8d7fa7")
     public Font scale(Font font) {
         return font.deriveFont((float)scale(font.getSize()));
     }
 
+    /**
+     * Met à l'échelle la police du composant
+     * @param component Composant à mettre à l'échelle
+     */
     @objid ("e0876dec-e217-40cd-b8f3-584fd78d5e6e")
     public void scaleFont(JComponent component) {
         MainWindow.setFontSize(component, scale(component.getFont().getSize()));
     }
 
+    /**
+     * @return Une instance des paramètres
+     */
     @objid ("42057e54-8e3a-42ba-ae75-06870b71ee27")
     public static GameSettings getInstance() {
         return SingletonHolder.instance;
     }
 
-// http://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java
+    // http://thecodersbreakfast.net/index.php?post/2008/02/25/26-de-la-bonne-implementation-du-singleton-en-java
     @objid ("7b61ee5d-38fe-44b9-aab2-698bca537f0d")
     private static class SingletonHolder {
         @objid ("15ea41c0-58a7-4cb8-981d-2b3565ad3981")

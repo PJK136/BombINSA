@@ -42,6 +42,10 @@ public class MainMenu extends JPanel implements ActionListener {
     @objid ("2696f807-a667-4fc1-a456-5229bf28e27a")
     private Sprite wallPaperSprite;
 
+    /**
+     * Construit le menu principal
+     * @param mainWindow Fenêtre principale
+     */
     @objid ("a31a2175-f166-434f-b6fd-96a25b344584")
     public MainMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
@@ -87,6 +91,12 @@ public class MainMenu extends JPanel implements ActionListener {
         add(buttonPanel, BorderLayout.EAST);
     }
 
+    /**
+     * Crée un bouton dans un panneau vertical
+     * @param text Texte du bouton
+     * @param panel Panneau vertical
+     * @return Bouton créé et ajouté
+     */
     @objid ("07a869f1-82e5-45c3-9ad9-a445c4aa7dde")
     private JButton addButton(String text, JPanel panel) {
         JButton button = new JButton(text);

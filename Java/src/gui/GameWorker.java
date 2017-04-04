@@ -32,6 +32,12 @@ public class GameWorker implements Runnable {
     @objid ("0c0b3418-de2f-49f0-91d2-008a02cea763")
     private GameViewer viewer;
 
+    /**
+     * Construit l'objet gérant l'exécution du jeu
+     * @param mainWindow Fenêtre principale
+     * @param panel Panneau d'affichage du jeu
+     * @throws Exception s'il y a une erreur lors du chargement du jeu
+     */
     @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
     public GameWorker(MainWindow mainWindow, GamePanel panel) throws Exception {
         this.settings = GameSettings.getInstance();
@@ -189,11 +195,18 @@ public class GameWorker implements Runnable {
         }
     }
 
+    /**
+     * Met fin au jeu
+     */
     @objid ("9f94bd39-ac7e-4e2f-8f19-afc50b48f9ad")
     public void stop() {
         this.stop = true;
     }
 
+    /**
+     * Crée une partie
+     * @throws Exception s'il y a une erreur lors de la création
+     */
     @objid ("b5e7e42e-c73b-4130-bed6-7aa32aa55eb3")
     void createWorld() throws Exception {
         if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox) || settings.gameType.equals(GameType.Server)) {
@@ -234,6 +247,9 @@ public class GameWorker implements Runnable {
         world.addGameListener(Audio.getInstance());
     }
 
+    /**
+     * Ajoute des controleurs clavier au jeu
+     */
     @objid ("9ce6b5e0-2241-473b-aafa-77d986bd3027")
     private void addKeyboardControllers() {
         for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
@@ -243,6 +259,10 @@ public class GameWorker implements Runnable {
         }
     }
 
+    /**
+     * Signale l'état du jeu
+     * @param state État du jeu
+     */
     @objid ("df3a5c13-59cb-491e-811a-ea1af7e23cda")
     void setGameState(GameState state) {
         System.err.println(state);

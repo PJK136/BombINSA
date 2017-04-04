@@ -72,6 +72,9 @@ public class GameViewer extends JPanel {
     @objid ("c42cdd12-fa87-40c1-88d9-da86b61d8224")
     private Sprite[] explosions;
 
+    /**
+     * Construit un panneau d'affichage de la carte et des entitiées
+     */
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {
         settings = GameSettings.getInstance();
@@ -116,16 +119,27 @@ public class GameViewer extends JPanel {
         setDoubleBuffered(true);
     }
 
+    /**
+     * @return Les sprites des tuiles utilisées par GameViewer
+     */
     @objid ("583f3996-abed-471d-8101-b04b30a43ab8")
     public Sprite[] getTileSprites() {
         return Arrays.copyOf(tiles, tiles.length);
     }
 
+    /**
+     * Définit l'affichage ou non des emplacements d'apparition
+     * @param showSpawningLocations Affichage ou non
+     */
     @objid ("2586ef32-e39f-4586-9357-595b4ee6a16f")
     public void setShowSpawningLocations(boolean showSpawningLocations) {
         this.showSpawningLocations = showSpawningLocations;
     }
 
+    /**
+     * Met à jour le buffer draw si nécessaire en fonction de la carte
+     * @param map Carte à dessiner
+     */
     @objid ("83213c12-5c54-444e-a97b-5c1c6b3696a4")
     private void updateDrawImage(MapView map) {
         int width = settings.scale(map.getWidth());
@@ -139,6 +153,10 @@ public class GameViewer extends JPanel {
         }
     }
 
+    /**
+     * Dessine la partie
+     * @param worldView Vue de la partie
+     */
     @objid ("18e3e04f-dec2-45e2-a3f5-dbabb34447b4")
     public void drawWorld(WorldView worldView) {
         MapView map = worldView.getMap();
@@ -153,6 +171,10 @@ public class GameViewer extends JPanel {
         updateDisplay();
     }
 
+    /**
+     * Dessine la carte
+     * @param map Carte à dessiner
+     */
     @objid ("15b604df-463d-46e1-a427-f4b1fe7216df")
     public void drawMap(MapView map) {
         updateDrawImage(map);
@@ -165,6 +187,11 @@ public class GameViewer extends JPanel {
         updateDisplay();
     }
 
+    /**
+     * Dessine la carte sur un Graphics2D
+     * @param g Graphics2D sur lequel dessiner
+     * @param map Carte à dessiner
+     */
     @objid ("f390cb1f-6299-4095-b357-460eec272041")
     private void drawMap(Graphics2D g, MapView map) {
         int size = settings.scale(map.getTileSize());
@@ -213,6 +240,11 @@ public class GameViewer extends JPanel {
         }
     }
 
+    /**
+     * Dessine la partie sur un Graphics2D
+     * @param g Graphics2D sur lequel dessiner
+     * @param worldView Vue de la partie
+     */
     @objid ("755fc65e-0758-44c2-9985-aa3b99a9ab0c")
     private void drawWorld(Graphics2D g, WorldView worldView) {
         for (Entity entity : worldView.getEntities()) {
@@ -257,11 +289,20 @@ public class GameViewer extends JPanel {
         }
     }
 
+    /**
+     * Dessine une entitié
+     * @param g Graphics2D sur lequel dessiner
+     * @param entity Entité à dessiner
+     * @param image Image de l'entité
+     */
     @objid ("74f9ac1f-3b1a-4b47-b048-85518b178ca9")
     private void drawEntity(Graphics2D g, Entity entity, Image image) {
         g.drawImage(image, (int)settings.scale(entity.getBorderLeft()), (int)settings.scale(entity.getBorderTop()), null);
     }
 
+    /**
+     * Met à jour l'affichage
+     */
     @objid ("3d9b90b7-9585-42ab-b70f-bddea28da889")
     private void updateDisplay() {
         if (wait == null) {
@@ -289,6 +330,10 @@ public class GameViewer extends JPanel {
         }
     }
 
+    /**
+     * Met à jour les images en cache
+     * @param size Nouvelle taille
+     */
     @objid ("a3eb5366-b80a-427e-baf9-06b3886893f0")
     private void updateCaches(int size) {
         for (Sprite[] sprites : new Sprite[][]{tiles, bonuses, bombs, explosions}) {
@@ -302,6 +347,13 @@ public class GameViewer extends JPanel {
         cacheTileSize = size;
     }
 
+    /**
+     * Dessine un chaîne de caractère centrée
+     * @param g Graphics sur lequel dessiner
+     * @param str Chaîne de caractère à dessiner
+     * @param centerX Position horizontale du centre de la chaîne de caractère
+     * @param centerY Position verticale du centre de la chaîne de caractère
+     */
     @objid ("6739bd4e-1437-4897-b494-45f4309b8971")
     public static void drawCenteredString(Graphics g, String str, int centerX, int centerY) {
         if (str == null)

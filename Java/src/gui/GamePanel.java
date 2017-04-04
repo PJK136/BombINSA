@@ -44,6 +44,10 @@ public class GamePanel extends JPanel implements ActionListener {
     @objid ("1c3818b3-5d8a-4afc-a3fe-a21f1c2480f9")
     private JButton btnExit;
 
+    /**
+     * Construit le panneau d'affichage du jeu
+     * @param mainWindow Fenêtre principale
+     */
     @objid ("c0d6533a-0897-40bb-94e0-4be89488c38b")
     public GamePanel(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
@@ -89,6 +93,10 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Met à jour la barre d'état du jeu
+     * @param view Vue du de la partie
+     */
     @objid ("45932752-17aa-44c7-8689-4c86cb06b683")
     public void showGameStatus(WorldView view) {
         final int size = settings.scale((int) (view.getMap().getTileSize()*0.75));
@@ -130,6 +138,9 @@ public class GamePanel extends JPanel implements ActionListener {
             updateGameSize();
     }
 
+    /**
+     * Met à jour la taille de la fenêtre en fonction du jeu
+     */
     @objid ("28945b2a-0dba-494d-8e43-6992d3e5b089")
     void updateGameSize() {
         mainWindow.pack();
@@ -144,6 +155,11 @@ public class GamePanel extends JPanel implements ActionListener {
         gameViewer.requestFocusInWindow();
     }
 
+    /**
+     * Met à jour le compteur du temps restant
+     * @param view Vue du la partie
+     * @param size Taille du texte
+     */
     @objid ("4eda1677-dd51-4090-9ffa-956332a2fc44")
     private void updateTimeRemaining(WorldView view, int size) {
         if (timeRemaining.getFont().getSize() != size)

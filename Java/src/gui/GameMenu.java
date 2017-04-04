@@ -73,6 +73,10 @@ public class GameMenu extends JPanel implements ActionListener {
     @objid ("0963e96d-06f3-4813-bcde-a4a9cc51afc3")
     private JSpinner roundDuration;
 
+    /**
+     * Construit le menu des options avant une partie
+     * @param mainWindow Fenêtre principale
+     */
     @objid ("9b4377fe-7088-4d49-ac76-20f2e508013d")
     public GameMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
@@ -253,6 +257,9 @@ public class GameMenu extends JPanel implements ActionListener {
         updateFields();
     }
 
+    /**
+     * Met à jour la liste des cartes
+     */
     @objid ("774feb6e-66a6-4fc0-869a-297ed681852b")
     private void updateMapList() {
         maps.removeAllItems();
@@ -280,6 +287,9 @@ public class GameMenu extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Met à jour l'affichage des champs
+     */
     @objid ("35b7bee0-ae68-4ea1-9884-96a447867da6")
     private void updateFields() {
         switch ((GameType)gameType.getSelectedItem()) {
@@ -314,6 +324,9 @@ public class GameMenu extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Met à jour les paramètres
+     */
     @objid ("d1e9ba38-aebd-4bc4-b6f9-a97681e13fe0")
     private void updateGameSettings() {
         settings.gameType = (GameType) gameType.getSelectedItem();

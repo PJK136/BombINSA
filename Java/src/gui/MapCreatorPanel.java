@@ -97,6 +97,10 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("0557317e-dc8a-4c00-a7a9-e1ed7ce62fa8")
     private Map map;
 
+    /**
+     * Construit le créateur de carte
+     * @param mainWindow Fenêtre principale
+     */
     @objid ("3eb3ee4b-6c57-4bb6-a160-6e58e812f6e2")
     public MapCreatorPanel(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
@@ -175,6 +179,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         newMap(false);
     }
 
+    /**
+     * Met à jour la taille de l'interface
+     */
     @objid ("d54323e5-69dc-4edd-8f55-4a3c3157f552")
     private void updateUISize() {
         final int size = settings.scale(((int)tileSize.getValue())*3/4);
@@ -209,6 +216,10 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         }
     }
 
+    /**
+     * Crée une nouvelle carte vierge
+     * @param resizeWindow Redimensionne la fenêtre ?
+     */
     @objid ("b65fa18f-a789-4435-8290-32da712f6f42")
     private void newMap(boolean resizeWindow) {
         map = new Map((int) columnCount.getValue(), (int) rowCount.getValue(), (int) tileSize.getValue());
@@ -218,16 +229,26 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             mainWindow.pack();
     }
 
+    /**
+     * Met à jour l'affichage de la carte
+     */
     @objid ("584fc0de-2056-4b35-92aa-74f1525b0941")
     private void updateMap() {
         gameViewer.drawMap(map);
     }
 
+    /**
+     * @return Le type de la tuile actuellement sélectionnée
+     */
     @objid ("a60ab1b5-08e4-4dd7-8ef4-8c20d5a4c37c")
     private TileType getActualType() {
         return TileType.valueOf(tileTypeGroup.getSelection().getActionCommand());
     }
 
+    /**
+     * Place une tuile à l'emplacement désignée par la souris
+     * @param e Évènement de la souris
+     */
     @objid ("97716585-b324-4d2b-9f0c-a120bcf0b328")
     private void placeTile(MouseEvent e) {
         double x = e.getX()/settings.scale;
@@ -323,6 +344,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         }
     }
 
+    /**
+     * @return vrai si toutes les modifications ont été sauvegardées ou si l'utilisateur ne veut pas les enregistrer
+     */
     @objid ("0d4a0b27-2c68-4e19-af8c-4959d1c79097")
     public boolean checkSaved() {
         if (saved)
@@ -334,6 +358,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                                                 JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
     }
 
+    /**
+     * Propose à l'utilisateur d'ouvrir un fichier
+     */
     @objid ("2b651672-46d6-4d34-8cb8-b75257bc894e")
     private void openFile() {
         if (!checkSaved())
@@ -359,6 +386,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         }
     }
 
+    /**
+     * Propose à l'utilisateur d'enregistrer la carte
+     */
     @objid ("769a1578-c2bd-4c61-bcca-133d69c17718")
     private void saveToFile() {
         int ret = fileChooser.showSaveDialog(this);
