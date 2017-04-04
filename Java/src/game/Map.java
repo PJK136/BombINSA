@@ -311,8 +311,8 @@ public class Map implements MapView {
     /**
      * Charge une carte
      * @param path Entrée depuis un Path
-     * @throws IOException
-     * @throws InputMismatchException
+     * @throws IOException Erreur lors de l'ouverture du fichier
+     * @throws InputMismatchException Erreur liée au chargement de la carte
      */
     @objid ("95994401-6979-4fce-ad9e-c9521f3c0ba8")
     public void loadMap(Path path) throws IOException, InputMismatchException {
@@ -322,7 +322,7 @@ public class Map implements MapView {
     /**
      * Charge une carte
      * @param map Entrée depuis un flux entrant
-     * @throws InputMismatchException
+     * @throws InputMismatchException Erreur liée au chargement de la carte
      */
     @objid ("853ca821-8f56-41f8-9469-20ffaecb7bcb")
     public void loadMap(InputStream map) throws InputMismatchException {

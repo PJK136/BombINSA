@@ -359,12 +359,7 @@ public abstract class World implements WorldView {
         nextID++;
     }
 
-    /**
-     * http://answers.unity3d.com/questions/150347/what-exactly-does-timetime-do-in-mathfpingpong.html
-     * @param time
-     * @param length
-     * @return
-     */
+    //http://answers.unity3d.com/questions/150347/what-exactly-does-timetime-do-in-mathfpingpong.html
     @objid ("a2ce16fa-379a-4c02-be51-8541e80d6bac")
     private static double pingPong(double time, double length) {
         double l = 2 * length;
@@ -378,10 +373,10 @@ public abstract class World implements WorldView {
 
     /**
      * http://answers.unity3d.com/questions/678855/trying-to-get-object-to-blink-speed-acording-to-ti.html
-     * @param remaining
-     * @param duration
-     * @param intervalMin
-     * @param intervalMax
+     * @param remaining nombre restant
+     * @param duration durée
+     * @param intervalMin intervalle minimum
+     * @param intervalMax intervalle maximum
      * @return alternance de vrai et de faux à intervalle dynamique
      */
     @objid ("dd75a61f-a8f2-4638-b49e-8fc4e1a0c499")
