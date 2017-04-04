@@ -2,6 +2,9 @@ package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Ce contrôleur suit le déplacement du joueur
+ */
 @objid ("756f6969-df41-4003-83d3-def42ac8a49a")
 public class FollowController extends Controller {
     @objid ("d6d5397c-9b93-41a8-a7cc-53821fcf8371")

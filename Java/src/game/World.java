@@ -351,7 +351,7 @@ public abstract class World implements WorldView {
 
     /**
      * Ajoute une entité avec le premier ID disponible
-     * @param entity
+     * @param entity Entité à ajouter
      */
     @objid ("27111301-80b0-479b-af73-bb78da106041")
     void addEntity(Entity entity) {

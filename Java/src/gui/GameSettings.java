@@ -15,6 +15,9 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Paramètres du jeu
+ */
 @objid ("8b53145e-40f1-4120-b590-417a35a7feb5")
 public class GameSettings {
     @objid ("59545b35-c143-4d23-81e7-cfa605a46f32")

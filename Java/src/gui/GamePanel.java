@@ -18,6 +18,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.Player;
 import game.WorldView;
 
+/**
+ * Affichage du jeu
+ */
 @objid ("edc89ef6-b498-483e-875c-befa52d629f4")
 public class GamePanel extends JPanel implements ActionListener {
     @objid ("74e92561-a1a0-467e-a74c-be5e17aa47d1")

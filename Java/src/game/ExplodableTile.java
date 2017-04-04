@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
- * Tuile en train d'exploser
+ * Classe mère abstraite de l'ensemble des tuiles explosibles
  */
 @objid ("01912cfd-22a7-41a2-b251-b8a95ee24494")
 public abstract class ExplodableTile extends Tile {
@@ -23,10 +23,10 @@ public abstract class ExplodableTile extends Tile {
         explosionStates = new LinkedList<ExplosionState>();
     }
 
-    @objid ("afce3c9f-2a7e-43fa-b8fe-9183c2e26f63")
     /**
      * @return si la tuile est en train d'exploser
      */
+    @objid ("afce3c9f-2a7e-43fa-b8fe-9183c2e26f63")
     public boolean isExploding() {
         return !explosionStates.isEmpty();
     }
@@ -47,12 +47,12 @@ public abstract class ExplodableTile extends Tile {
         return this.explosionDirection;
     }
 
-    @objid ("9ae3c961-25a8-40e9-b5f7-beaeae153e0b")
     /**
      * met à jour la tuile en :
      *   - diminuant le temps restant des explosions qu'elle contient
      *   - ajustant la liste des explosions qu'elle contient
      */
+    @objid ("9ae3c961-25a8-40e9-b5f7-beaeae153e0b")
     @Override
     Tile update() {
         Iterator<ExplosionState> iterator = explosionStates.iterator();
@@ -76,24 +76,24 @@ public abstract class ExplodableTile extends Tile {
         return super.update();
     }
 
-    @objid ("9f2c3dd7-e9e3-46b8-82e0-23ea933b9eda")
     /**
      * Rajoute une explosion définie par les paramêtres suivants sur la tuile
-     * @param duration
-     * @param type
-     * @param direction
+     * @param duration Durée de l'explosion
+     * @param type Type d'explosion
+     * @param direction Direction de l'explosion
      */
+    @objid ("9f2c3dd7-e9e3-46b8-82e0-23ea933b9eda")
     void explode(int duration, ExplosionType type, Direction direction) {
         ExplosionState state = new ExplosionState(duration, type, direction);
         explosionStates.add(state);
         updateExternalState();
     }
 
-    @objid ("dca542ae-8f72-492c-87d0-443745d00491")
     /**
      * met à jour la liste des explosions présentes sur la tuile 
      * puis en déduit le type d'explosion que la tuile affiche et sa direction
      */
+    @objid ("dca542ae-8f72-492c-87d0-443745d00491")
     private void updateExternalState() {
         if (explosionStates.isEmpty()) {
             explosionType = null;
@@ -115,10 +115,10 @@ public abstract class ExplodableTile extends Tile {
         }
     }
 
-    @objid ("b4b6ffe2-bdfe-439f-8c49-0fcffc6bb171")
     /**
-     * @return renvoie la tuile qu'il restera après explosion
+     * @return renvoie la tuile qui restera après explosion
      */
+    @objid ("b4b6ffe2-bdfe-439f-8c49-0fcffc6bb171")
     Tile postExplosion() {
         return this;
     }

@@ -19,6 +19,9 @@ import network.Network.WarmupTimeRemaining;
 import network.Network;
 import network.NetworkController;
 
+/**
+ * Cette classe gère une partie de type Serveur
+ */
 @objid ("47364a1e-3fd0-4e56-8047-f80aca5b2b36")
 public class Server extends Local implements Listener {
     @objid ("0af280ea-a7b2-4232-a15b-220a4b0d977f")

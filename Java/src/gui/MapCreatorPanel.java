@@ -35,6 +35,9 @@ import game.GridCoordinates;
 import game.Map;
 import game.TileType;
 
+/**
+ * Créateur de carte
+ */
 @objid ("79589b62-c371-4298-9764-59fe82333d18")
 public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotionListener, ActionListener, ChangeListener {
     @objid ("c7402902-b98b-4edd-bdc8-fd85d1bff610")

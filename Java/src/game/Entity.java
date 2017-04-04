@@ -33,7 +33,7 @@ public abstract class Entity {
     
     /**
      * Constructeur d'Entity
-     * @param world
+     * @param world Monde dans lequel l'entité est crée
      * @param x Position horizontale en pixel
      * @param y Position verticale en pixel
      */

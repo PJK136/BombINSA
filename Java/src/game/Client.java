@@ -19,6 +19,9 @@ import network.Network.ToRemove;
 import network.Network.WarmupTimeRemaining;
 import network.Network;
 
+/**
+ * Cette classe gère une partie de type Client
+ */
 @objid ("b8264f8e-49d1-4a58-ad20-06ceafdee906")
 public class Client extends World implements Listener {
     @objid ("07603ddf-f608-4cd6-8206-fe5e7ed74af2")

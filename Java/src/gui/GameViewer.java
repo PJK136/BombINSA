@@ -25,6 +25,9 @@ import game.TileType;
 import game.World;
 import game.WorldView;
 
+/**
+ * JPanel d'affichage de la carte et des entitiés
+ */
 @objid ("932712f7-e00f-431a-abd5-e4322b7407bd")
 public class GameViewer extends JPanel {
     @objid ("ed779ebb-3be4-48e3-b95b-734fd05f7722")
@@ -73,7 +76,7 @@ public class GameViewer extends JPanel {
     private Sprite[] explosions;
 
     /**
-     * Construit un panneau d'affichage de la carte et des entitiées
+     * Construit un panneau d'affichage de la carte et des entitiés
      */
     @objid ("e8b05c80-1463-4060-8ffd-82157c92adb5")
     public GameViewer() {

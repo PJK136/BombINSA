@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Fenêtre princpale
+ */
 @objid ("580889f0-8e1d-4a59-9bfb-00c967a10ffd")
 public class MainWindow implements WindowListener {
     @objid ("b7100b61-40ce-4a3b-bc84-213a61d275d0")

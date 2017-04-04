@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Menu princpal
+ */
 @objid ("e22186a6-1bcc-48ec-a2ac-a88a3eb90491")
 public class MainMenu extends JPanel implements ActionListener {
     @objid ("cb8bf489-916e-4b78-a5d9-44be8855f17f")

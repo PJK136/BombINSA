@@ -7,6 +7,9 @@ import java.util.Scanner;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import network.Network.CommandMap;
 
+/**
+ * Carte avec historique
+ */
 @objid ("12a42e28-45db-4083-a2d6-44f180711817")
 public class DeltaMap extends Map {
     @objid ("8513eb13-92ef-4f66-b5dc-d2b6de90c84b")

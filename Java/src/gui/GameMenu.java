@@ -23,6 +23,9 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Menu des options d'une partie de jeu
+ */
 @objid ("1792b20d-e79e-4f35-8f63-20089eca61f0")
 public class GameMenu extends JPanel implements ActionListener {
     @objid ("a39767d1-eca3-41c4-85d7-7d0bde3a14cc")

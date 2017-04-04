@@ -12,6 +12,9 @@ import game.Player;
 import game.Server;
 import game.World;
 
+/**
+ * Classe qui gère l'exécution du jeu 
+ */
 @objid ("0352607c-7ee6-4aa1-839f-fc6a174af9fd")
 public class GameWorker implements Runnable {
     @objid ("261a2da6-2f7b-4394-83a1-d38b8510f2cb")
