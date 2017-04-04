@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/** Représente la couleur du joueur */
 @objid ("91bb794c-142d-4d2f-b0c0-6cc9df1ef66e")
 public enum PlayerColor {
     Blue ("Bleu", Color.blue),
