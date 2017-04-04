@@ -26,8 +26,8 @@ public class GameConnection extends Connection {
 
     /***
      * Crée un contrôleur associé à la connexion
-     * @param message
-     * @return
+     * @param message Message demandant l'ajout
+     * @return Nouveau contrôleur
      */
     @objid ("d9c073d4-e263-4a9e-8a04-068c7180b708")
     public NetworkController addController(AddController message) {

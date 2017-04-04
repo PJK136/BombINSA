@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Entité joueur
+ */
 @objid ("7d9743df-c7cd-4679-9771-fa22b1be441d")
 public class Player extends Entity {
     @objid ("0188c626-9d00-48cc-821f-2cd2188664fc")
@@ -44,10 +47,10 @@ public class Player extends Entity {
     }
 
     /**
-     * Constructeur avec Attribut
+     * Constructeur avec paramètres
      * @param world Monde dans lequel est le joueur
-     * @param x Position horizontale en coordonnées de jeu
-     * @param y Position verticale en coordonnées de jeu
+     * @param x Position horizontale en pixel
+     * @param y Position verticale en pixel
      * @param controller Controlleur du joueur
      * @param playerID ID du joueur
      * @param lives Nombre de vies

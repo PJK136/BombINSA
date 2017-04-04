@@ -2,6 +2,9 @@ package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Entité bombe
+ */
 @objid ("4399d714-75ab-40bb-b694-6207782f55ce")
 public class Bomb extends Entity {
     @objid ("7cf845bf-dacd-4f1f-9c63-46ad9d0e478b")
@@ -20,7 +23,7 @@ public class Bomb extends Entity {
      transient Player owner;
 
     /**
-     * Constructeur Bomb par défaut
+     * Constructeur par défaut de Bomb
      */
     @objid ("282df99d-8010-4cca-a7b1-e03cba0302ea")
     private Bomb() {
@@ -28,12 +31,12 @@ public class Bomb extends Entity {
     }
 
     /**
-     * Constructeur Bomb indépendante des Joueurs (mort subite)  
-     * @param world
-     * @param x
-     * @param y
-     * @param range
-     * @param duration
+     * Construit une Bombe
+     * @param world Monde dans lequel est la bombe
+     * @param x Position horizontale en pixel
+     * @param y Position verticale en pixel
+     * @param range Portée de l'explosion (en cases)
+     * @param duration Durée avant explosion (en ticks)
      */
     @objid ("f9841259-647d-4cd7-9bb7-f10aea5a4794")
     public Bomb(World world, double x, double y, int range, int duration) {
@@ -42,12 +45,13 @@ public class Bomb extends Entity {
         this.duration = duration;
         this.timeRemaining = duration;
     }
-/**
- * Constructeur Bomb des Joueurs
- * @param world
- * @param owner
- * @param duration
- */
+    
+    /**
+     * Construit une Bombe à partir du joueur qui l'a posée
+     * @param world Monde dans lequel est la bombe
+     * @param owner Joueur à qui appartient la bombe 
+     * @param duration Durée avant explosion (en ticks)
+     */
     @objid ("37d6734c-0f78-448a-a2c5-6fa8930b3233")
     public Bomb(World world, Player owner, int duration) {
         this(world, world.getMap().toCenterX(owner.getX()), world.getMap().toCenterX(owner.getY()), owner.getRange(), duration);
@@ -87,13 +91,14 @@ public class Bomb extends Entity {
     public int getTimeRemaining() {
         return this.timeRemaining;
     }
-/**
- * Met à jour les Bombes:
- * - Diminue le temps jusqu'à l'explosion
- * - Mise à jour de la position
- * - Vérifie si elle est sur une case avec flèche
- * - Vérification si la bombe explose 
- */
+    
+    /**
+     * Met à jour les Bombes:
+     * - Diminue le temps jusqu'à l'explosion
+     * - Mise à jour de la position
+     * - Vérifie si elle est sur une case avec flèche
+     * - Vérification si la bombe explose 
+     */
     @objid ("ce00607d-3c72-45ea-b3e1-5a3ac0315b22")
     void update() {
         // Decrease TimeRemaining
@@ -136,9 +141,7 @@ public class Bomb extends Entity {
             remove();
         }
     }
-/**
- * Appelle la méthode canCollide de Entity puis vérifie si elle rencontre une entité
- */
+    
     @objid ("6ed55b50-6182-4e9f-9274-183b0145eacf")
     @Override
     boolean canCollide(double x, double y) {

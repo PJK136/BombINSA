@@ -2,6 +2,9 @@ package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Entité du jeu
+ */
 @objid ("c2a5ec32-8fb5-4eea-beff-33ee327f4352")
 public abstract class Entity {
     @objid ("f7548ae8-0e8e-42f3-891e-e0d849b36c13")
@@ -31,8 +34,8 @@ public abstract class Entity {
     /**
      * Constructeur d'Entity
      * @param world
-     * @param x Position horizontale en coordonnées de jeu
-     * @param y Position verticale en coordonnées de jeu
+     * @param x Position horizontale en pixel
+     * @param y Position verticale en pixel
      */
     @objid ("2482ca74-f651-4b89-8f4e-b25e74535a33")
     Entity(World world, double x, double y) {
@@ -143,7 +146,10 @@ public abstract class Entity {
     }
 
     /**
-     * Test de Collision avec les murs
+     * Test de collision avec les murs dans une direction à une certaine distance
+     * @param direction Direction
+     * @param move Distance
+     * @return Vrai s'il y a collision
      */
     @objid ("41800255-bf3a-456d-a83a-101f7454243e")
     public boolean isColliding(Direction direction, double move) {
@@ -167,8 +173,8 @@ public abstract class Entity {
 
     /**
      * Vérifie si l'entité entre en collision pour une position donnée
-     * @param x Position horizontale en coordonnées de jeu 
-     * @param y Position verticale en coordonnées de jeu
+     * @param x Position horizontale en pixel 
+     * @param y Position verticale en pixel
      * @return vrai si entre en collision
      */
     @objid ("94f5132c-0a18-4827-bebd-451cd306edff")
