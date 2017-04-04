@@ -55,13 +55,13 @@ public class Audio implements GameListener {
     public void processEvent(Event e) {
         switch(e){
         case Hit:
-            hit.play();
+            hit.play(0.5);
             break;
         case Explosion:
-            bombe.play();
+            bombe.play(0.5);
             break;
         case PickUp:
-            bonus.play();
+            bonus.play(0.5);
             break;
         case SuddenDeath:
             suddenDeath.play(true);

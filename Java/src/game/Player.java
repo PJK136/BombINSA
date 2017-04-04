@@ -34,12 +34,27 @@ public class Player extends Entity {
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
      transient Controller controller;
 
+    /**
+     * Constructeur Player par défaut
+     */
     @objid ("c346899f-0664-4813-bcc6-157babe0b50f")
     private Player() {
         super(null, 0, 0);
         setController(null);
     }
 
+    /**
+     * Constructeur avec Attribut
+     * @param world
+     * @param x
+     * @param y
+     * @param controller
+     * @param playerID
+     * @param lives
+     * @param bombMax
+     * @param range
+     * @param invulnerability
+     */
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
     public Player(World world, double x, double y, Controller controller, int playerID, int lives, int bombMax, int range, int invulnerability) {
         super(world, x, y);
@@ -56,7 +71,10 @@ public class Player extends Entity {
         for (int i = 0; i < pa.length; i++)
             this.playerAbilities.add(false);
     }
-
+/**
+ * Vérifie si le Joueur est vivant
+ * @return boolean
+ */
     @objid ("d8c3c2ca-78cd-4d35-8d4a-df8c6f1cbe55")
     public boolean isAlive() {
         return lives > 0;
@@ -216,7 +234,9 @@ public class Player extends Entity {
     void removeShield() {
         this.playerAbilities.set(PlayerAbility.Shield.ordinal(), false);
     }
-
+/**
+ * Appelle la méthode canCollide de Entity et vérifie en plus la collision avec les bombes
+ */
     @objid ("19e970e7-cbf2-4148-99bc-6828a561f8de")
     boolean canCollide(double x, double y) {
         if (!super.canCollide(x, y)) {
@@ -225,7 +245,15 @@ public class Player extends Entity {
         }
         return true;
     }
-
+/**
+ * Met à jour le Joueur en faisant les actions suivantes :
+ * - Update controller pour fixer la direction et la vitesse du Joueur
+ * - Appel de l'Update de Entity
+ * - Vérifie si le Kick est disponible puis Kick la bombe si possible
+ * - Update acquisition de Bonus/Malus
+ * - Vérifie si le Joueur possède un Shield ou s'il perd une vie
+ * - Vérifie si le Joueur est encore vivant
+ */
     @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
         controller.update();
@@ -300,7 +328,9 @@ public class Player extends Entity {
             remove(); // On indique qu'il faut enlever le player qui a perdu toutes ses vies
         }
     }
-
+/**
+ * Gère les acquisitions de Bonus et Malus puis enlève les Bonus/Malus de la map
+ */
     @objid ("e8cbd4f6-a55d-4030-8e99-752530c9845d")
     private void updateBonusMalus() {
         if(this.world.getMap().getTileType(this.x , this.y) == TileType.Bonus){

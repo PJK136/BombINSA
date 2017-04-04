@@ -27,7 +27,12 @@ public abstract class Entity {
 
     @objid ("83945ddf-99e1-4a55-8f7c-5f7a2c89a534")
      transient World world;
-
+/**
+ * Constructeur d'Entity
+ * @param world
+ * @param x
+ * @param y
+ */
     @objid ("2482ca74-f651-4b89-8f4e-b25e74535a33")
     Entity(World world, double x, double y) {
         this.world = world;
@@ -136,6 +141,9 @@ public abstract class Entity {
         this.world = world;
     }
 
+    /**
+     * Test de Collision avec les murs
+     */
     @objid ("41800255-bf3a-456d-a83a-101f7454243e")
     public boolean isColliding(Direction direction, double move) {
         if (direction == null)
@@ -156,12 +164,21 @@ public abstract class Entity {
         return false;
     }
 
+    /**
+     * Vérifie si l'entité entre en collision
+     * @param x
+     * @param y
+     * @return boolean 
+     */
     @objid ("94f5132c-0a18-4827-bebd-451cd306edff")
     boolean canCollide(double x, double y) {
         //Il faut aussi vérifier la collision dans les sous classes
         return this.world.getMap().isCollidable(x, y);
     }
 
+    /**
+     * Update les entités en mettant à jour la position des entités 
+     */
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
         while (this.speed >= 0 && isColliding(this.direction, this.speed)) {
@@ -174,7 +191,10 @@ public abstract class Entity {
         
         updatePosition();
     }
-
+    
+    /**
+     * Update la position de l'entité avec vérification des collisions
+     */
     @objid ("30b55b46-96bb-4d8b-9810-6ccdaa97d7db")
     private void updatePosition() {
         if (this.speed == 0)
