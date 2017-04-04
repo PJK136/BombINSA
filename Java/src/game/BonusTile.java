@@ -2,6 +2,9 @@ package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Tuile bonus qui devient une tuile vide une fois que le bonus est pris
+ */
 @objid ("e0899fb2-43c0-4905-a390-6c536094eade")
 public class BonusTile extends ExplodableTile {
     @objid ("3e29d10d-6372-4dd9-bd6f-32bbedb5490d")

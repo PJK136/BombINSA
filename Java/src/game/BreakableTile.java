@@ -2,6 +2,9 @@ package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Tuile cassable qui va libérer un bonus ou seulement devenir une case vide après qu'elle ait explosé
+ */
 @objid ("96719cc7-626b-4b48-9f90-aeab79c12c54")
 public class BreakableTile extends ExplodableTile {
     @objid ("0f97109a-7ddc-4f5f-916d-aa2c1e51cc55")

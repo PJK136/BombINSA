@@ -2,6 +2,9 @@ package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Tuile vide
+ */
 @objid ("2ee20b8d-0ca1-45dc-9c2f-d6f9a8dae45c")
 public class EmptyTile extends ExplodableTile {
     @objid ("1e514f2f-2677-4b09-90c5-7770342f7a45")
@@ -11,7 +14,7 @@ public class EmptyTile extends ExplodableTile {
 
     @objid ("81346f4a-1c14-472f-9623-a660ddd6b6d9")
     /**
-     * impose que la tuile n'est pas percutable
+     * impose que la tuile ne soit pas percutable
      */
     public boolean isCollidable() {
         return false;

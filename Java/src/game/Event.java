@@ -6,7 +6,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 /**
  * Liste des événements se produisant dans le jeu
  * 
- * N'est utilise ici que pour l'audio
+ * N'est utilisé ici que pour l'audio
  */
 public enum Event {
     Hit,

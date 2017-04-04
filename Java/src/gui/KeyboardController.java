@@ -7,6 +7,9 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.Controller;
 import game.Direction;
 
+/**
+ * Gère les contrôles clavier : renvoie la direction associée à la touche appuyée
+ */
 @objid ("0a274714-4157-430f-bba3-fe0b0286cf2f")
 public class KeyboardController extends Controller implements KeyListener {
     @objid ("551f145c-09ad-4538-86bc-5b9129d34274")

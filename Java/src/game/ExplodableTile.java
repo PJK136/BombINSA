@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Tuile en train d'exploser
+ */
 @objid ("01912cfd-22a7-41a2-b251-b8a95ee24494")
 public abstract class ExplodableTile extends Tile {
     @objid ("92f1f412-d0f4-4ce9-9d08-b7ae35deda00")

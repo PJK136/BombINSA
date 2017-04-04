@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+/**
+ * Classe mère abstraite de l'ensemble des tuiles (cases du terrain de jeu)
+ */
 @objid ("0a4b4bbc-6c10-4d09-9d5f-ebe94f0193bd")
 public abstract class Tile {
     @objid ("2f216b30-27c8-4022-ad19-dbd71146cfd8")
