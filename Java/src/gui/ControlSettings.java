@@ -2,8 +2,9 @@ package gui;
 
 import java.awt.event.KeyEvent;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 /**
- *Définit les contrôles claviers des Joueurs
+ * Définit les contrôles claviers des Joueurs
  */
 @objid ("a9e520e6-c602-4e73-9fe6-390ff4f5fabb")
 public class ControlSettings {

@@ -10,14 +10,18 @@ public class BonusTile extends ExplodableTile {
     @objid ("3e29d10d-6372-4dd9-bd6f-32bbedb5490d")
      BonusType bonusType;
 
-    @objid ("2c6b3524-435a-414e-86f8-3a8b772005f9")
     /**
-     * Constructeur par défaut
+     * Construit un bonus aléatoire
      */
+    @objid ("2c6b3524-435a-414e-86f8-3a8b772005f9")
     public BonusTile() {
         bonusType = BonusType.Random;
     }
 
+    /**
+     * Construit le bonus indiquée
+     * @param type Type du bonus désiré
+     */
     @objid ("ef5a626b-54a8-41e3-833e-b15b09f2c6ba")
     public BonusTile(BonusType type) {
         this.bonusType = type;
@@ -30,9 +34,6 @@ public class BonusTile extends ExplodableTile {
     }
 
     @objid ("b391e578-677f-47b3-bf9c-8bd76328658c")
-    /**
-     * impose que la tuile n'est pas percutable
-     */
     public boolean isCollidable() {
         return false;
     }
@@ -47,23 +48,22 @@ public class BonusTile extends ExplodableTile {
         this.bonusType = value;
     }
 
+    /**
+     * Renvoie une tuile vide
+     */
     @objid ("78fbf9a6-83ae-474b-9040-5c9e25f3769d")
     @Override
-    /**
-     * Renvoie une tuile vide contenant toutes les entités que la tuile bonus contenait.
-     * La tuile vide remplace la tuile bonus sur la carte après l'explosion
-     */
     Tile postExplosion() {
         EmptyTile tile = new EmptyTile();
         tile.setEntities(entities);
         return tile;
     }
 
-    @objid ("06b379a9-5529-4a67-a73c-9ab4058c8da7")
     /**
-     * @return un type de bonus choisit aléatoirement parmis ceux existants et
+     * @return Un type de bonus choisi aléatoirement parmi ceux existants 
      * en tenant compte de leur taux d'apparition
      */
+    @objid ("06b379a9-5529-4a67-a73c-9ab4058c8da7")
     public static BonusType randomBonus() {
         double random = Math.random();
         double summ = 0;

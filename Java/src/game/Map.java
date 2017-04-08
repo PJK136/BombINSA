@@ -331,7 +331,7 @@ public class Map implements MapView {
     
     /**
      * Sauvegarde une carte sous forme de String
-     * @return Le String correspondant  la carte
+     * @return Le String correspondant la carte
      */
     @objid ("8960c7a3-87e7-4b1b-8f9a-1858808c9349")
     public String saveMap() {

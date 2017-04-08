@@ -3,8 +3,7 @@ package game;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
- * Liste des bonus/malus avec leurs taux d'apparition associés
- *
+ * Liste des bonus/malus avec leurs taux d'apparition
  */
 @objid ("7787b9db-abdc-433d-863e-9ffee325df12")
 public enum BonusType {
@@ -23,7 +22,7 @@ public enum BonusType {
 
     @objid ("d7eb4770-c2ef-42b0-94da-ea083fee605b")
     private BonusType(double lr) {
-        lootRate=lr;
+        lootRate = lr;
     }
 
     @objid ("14a21d6f-2c04-4d55-b218-7a7f8af4e9f6")

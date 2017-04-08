@@ -9,16 +9,16 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  */
 @objid ("0a4b4bbc-6c10-4d09-9d5f-ebe94f0193bd")
 public abstract class Tile {
-    @objid ("2f216b30-27c8-4022-ad19-dbd71146cfd8")
     /**
      * Liste des entites présentes sur la tuile
      */
+    @objid ("2f216b30-27c8-4022-ad19-dbd71146cfd8")
     protected List<Entity> entities = new LinkedList<Entity> ();
 
-    @objid ("f4911fdc-1c7c-45f9-80e8-3af86c75d6bb")
     /**
      * Carte à laquelle la tuile appartient
      */
+    @objid ("f4911fdc-1c7c-45f9-80e8-3af86c75d6bb")
      Map map;
 
     @objid ("eba8c794-3248-484e-8fdd-ec19b08a5c19")
@@ -46,7 +46,7 @@ public abstract class Tile {
     }
 
     /**
-     * ajoute une entité à la liste de celles présentens sur la tuile
+     * Ajoute une entité à la liste de celles présentens sur la tuile
      * @param entity : entité à rajouter
      */
     @objid ("547b782f-b41e-4098-bd4a-5de3c5f1b0dd")

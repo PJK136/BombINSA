@@ -66,7 +66,7 @@ public interface MapView {
     double toCenterY(double y);
     
     /**
-     * Controlle si les coordonnées appartiennent à la grille de la carte
+     * Vérifie si les coordonnées appartiennent à la grille de la carte
      * @param gc les coordonnées de grille à tester
      * @return true si oui, false sinon
      */
@@ -74,7 +74,7 @@ public interface MapView {
     boolean isInsideMap(GridCoordinates gc);
     
     /**
-     * Controlle si les coordonnées appartiennent à la grille de la carte
+     * Vérifie si les coordonnées appartiennent à la grille de la carte
      * @param x la coordonnée en x en pixel
      * @param y la coordonnée en y en pixel
      * @return true si oui, false sinon
@@ -83,7 +83,7 @@ public interface MapView {
     boolean isInsideMap(double x, double y);
     
     /**
-     * Controlle si la case de grille est percutable
+     * Vérifie si la case de grille est percutable
      * @param gc les coordonnées de grille à tester
      * @return true si oui, false sinon
      */
@@ -91,7 +91,7 @@ public interface MapView {
     boolean isCollidable(GridCoordinates gc);
     
     /**
-     * Controlle si le contenu de la case de grille est percutable
+     * Vérifie si le contenu de la case de grille est percutable
      * @param x la coordonnée en x en pixel à tester
      * @param y la coordonnée en y en pixel à tester
      * @return true si oui, false sinon
@@ -100,7 +100,7 @@ public interface MapView {
     boolean isCollidable(double x, double y);
 
     /**
-     * Controlle si le contenu de la case de grille est déstructible
+     * Vérifie si le contenu de la case de grille est déstructible
      * @param gc les coordonnées de grille à tester
      * @return true si oui, false sinon
      */
@@ -108,7 +108,7 @@ public interface MapView {
     boolean isExplodable(GridCoordinates gc);
     
     /**
-     * Controlle si une case de grille explose
+     * Vérifie si une case de grille explose
      * @param gc les coordonnées de grille à tester
      * @return true si oui, false sinon
      */
@@ -116,7 +116,7 @@ public interface MapView {
     boolean isExploding(GridCoordinates gc);
     
     /**
-     * Controlle si une case de grille explose
+     * Vérifie si une case de grille explose
      * @param x la coordonnée en x en pixel
      * @param y la coordonnée en y en pixel
      * @return true si oui, false sinon
@@ -158,7 +158,7 @@ public interface MapView {
     List<Entity> getEntities(double x, double y);
     
     /**
-     * Controlle si la case contient une bombe
+     * Vérifie si la case contient une bombe
      * @param gc les coordonnées de grille à tester
      * @return true si oui, false sinon
      */
@@ -166,7 +166,7 @@ public interface MapView {
     boolean hasBomb(GridCoordinates gc);
     
     /**
-     * Controlle si la case contient une bombe
+     * Vérifie si la case contient une bombe
      * @param x la coordonnée en x en pixel
      * @param y la coordonnée en y en pixel
      * @return true si oui, false sinon

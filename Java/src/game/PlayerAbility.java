@@ -1,6 +1,7 @@
 package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 /**
  * Liste des capacités du joueur
  */

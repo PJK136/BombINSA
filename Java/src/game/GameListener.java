@@ -3,7 +3,7 @@ package game;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
- * Ecouteur des événements du jeu (explosion, se fait toucher, ramasse un bonus...)
+ * Écouteur des événements du jeu
  */
 @objid ("4cfa9b4f-fbcd-4c9f-b802-38f0e10dca65")
 public interface GameListener {

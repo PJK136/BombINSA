@@ -3,22 +3,25 @@ package game;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
- * Tuile qui projette toute bombe qui passe dessus dans une direction donnée 
+ * Tuile flèche qui projette toute bombe qui passe dessus dans une direction donnée 
  */
 @objid ("7c0be07f-9851-49c1-9084-d21acfdf1a57")
 public class ArrowTile extends ExplodableTile {
     @objid ("e9081624-7d7d-411c-9fae-43e3570502a5")
      Direction direction;
 
-
     /**
-     * Contructeur par défaut qui crée une flèche dirigée vers le haut
+     * Construit une flèche dirigée vers le haut
      */
     @objid ("894797e2-f762-4426-9ed4-7431cc252a22")
     public ArrowTile() {
         direction = Direction.Up;
     }
 
+    /**
+     * Construit une flèche dans la direction indiquée
+     * @param direction Direction désirée
+     */
     @objid ("3ffd6d9c-5051-4269-9ead-1aa727152d09")
     public ArrowTile(Direction direction) {
         this.direction = direction;

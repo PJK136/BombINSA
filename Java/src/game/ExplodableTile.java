@@ -48,9 +48,9 @@ public abstract class ExplodableTile extends Tile {
     }
 
     /**
-     * met à jour la tuile en :
+     * Met à jour la tuile en :
      *   - diminuant le temps restant des explosions qu'elle contient
-     *   - ajustant la liste des explosions qu'elle contient
+     *   - rafraichissant la liste des explosions qu'elle contient
      */
     @objid ("9ae3c961-25a8-40e9-b5f7-beaeae153e0b")
     @Override
@@ -77,7 +77,7 @@ public abstract class ExplodableTile extends Tile {
     }
 
     /**
-     * Rajoute une explosion définie par les paramêtres suivants sur la tuile
+     * Rajoute une explosion définie par les paramêtres suivants
      * @param duration Durée de l'explosion
      * @param type Type d'explosion
      * @param direction Direction de l'explosion
@@ -90,7 +90,7 @@ public abstract class ExplodableTile extends Tile {
     }
 
     /**
-     * met à jour la liste des explosions présentes sur la tuile 
+     * Met à jour la liste des explosions présentes sur la tuile 
      * puis en déduit le type d'explosion que la tuile affiche et sa direction
      */
     @objid ("dca542ae-8f72-492c-87d0-443745d00491")
@@ -116,13 +116,16 @@ public abstract class ExplodableTile extends Tile {
     }
 
     /**
-     * @return renvoie la tuile qui restera après explosion
+     * @return La tuile qui restera après explosion
      */
     @objid ("b4b6ffe2-bdfe-439f-8c49-0fcffc6bb171")
     Tile postExplosion() {
         return this;
     }
 
+    /**
+     * État possible d'une explosion
+     */
     @objid ("173dc16c-a787-4c94-a1e1-eea4b4ae5394")
     public class ExplosionState {
         @objid ("e42d73f9-4a60-4504-8287-1129299f4ab1")

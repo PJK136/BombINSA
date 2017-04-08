@@ -93,11 +93,11 @@ public class Bomb extends Entity {
     }
     
     /**
-     * Met à jour les Bombes:
+     * Mise à jour de la bombe :
      * - Diminue le temps jusqu'à l'explosion
      * - Mise à jour de la position
      * - Vérifie si elle est sur une case avec flèche
-     * - Vérification si la bombe explose 
+     * - Vérifie si la bombe doit exploser 
      */
     @objid ("ce00607d-3c72-45ea-b3e1-5a3ac0315b22")
     void update() {

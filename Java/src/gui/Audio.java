@@ -8,7 +8,7 @@ import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
 
 /**
- * Ecoute le jeu pendant son fonctionnement et déclanche l'audio
+ * Classe gérant l'audio du jeu
  */
 @objid ("2c36fc6c-5652-4ca8-b975-04a406e9308a")
 public class Audio implements GameListener {

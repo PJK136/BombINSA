@@ -36,9 +36,6 @@ public class GridCoordinates {
         this(gc.x, gc.y);
     }
 
-    /**
-     * Teste l'égalité de 2 objets
-     */
     @objid ("e332b11d-704a-4500-8511-2ed4f8fa73e5")
     @Override
     public boolean equals(Object obj) {
@@ -60,7 +57,7 @@ public class GridCoordinates {
     }
 
     /**
-     * Récupère les coordonnées d'une case voisine
+     * Calcule les coordonnées d'une case voisine
      * @param direction La direction dans laquelle on cherche la voisine
      * @return Les coordonnées de la case voisine
      */

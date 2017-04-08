@@ -2,7 +2,7 @@ package game;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
-/** Ce contrôleur se conforte à ses paramètres indiqués et n'effectue aucune action */
+/** Ce contrôleur se conforte aux paramètres définis manuellement */
 @objid ("74c3a922-a208-46bf-aca4-54cc99330dda")
 public class DummyController extends Controller {
     @objid ("e0be10f7-40dd-4611-bdcf-fbffb74e0c80")

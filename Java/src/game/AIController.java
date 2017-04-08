@@ -20,7 +20,7 @@ public class AIController extends Controller {
     private GridCoordinates aiLocation;
 
     /**
-     * Crée un nouveau contrôleur de type intelligence artificielle
+     * Construit une intelligence artificielle
      */
     @objid ("3d3cd868-87c6-4b1c-b1b2-335b1d2eb3e3")
     public AIController() {
@@ -48,10 +48,7 @@ public class AIController extends Controller {
     }
 
     /**
-     * Met à jour le contrôleur de type intelligence artificielle en faisant les actions suivantes :
-     * - si l'IA peut poser und bombe, elle le fait
-     * - arrête de bouger si elle est cernée
-     * - tourne ou pas en fonction de sa situation
+     * Met à jour l'intelligence artificielle
      */
     @objid ("2960c0e0-6a89-4208-87eb-888ae75547e6")
     @Override
@@ -82,11 +79,8 @@ public class AIController extends Controller {
         }
     }
 
-    /**
-     * Fait tourner l'IA dans une direction différente de l'actuelle
-     */
     @objid ("e87291f0-a8c8-4d07-99ba-b34fa92d336b")
-    public void turn() {
+    private void turn() {
         Direction randomDirection;
         for (int i = 0; i < 10 && !turned; i++) {
             randomDirection = Direction.getRandomDirection();
@@ -99,12 +93,12 @@ public class AIController extends Controller {
     }
 
     /**
-     * Controle la dangerosité d'une tuile
-     * @param target La tuile qu'il faut contrôler
+     * Vérifie la dangerosité d'une tuile
+     * @param target La tuile à vérifier
      * @return true Si la tuile est sécurisée, false sinon
      */
     @objid ("cc20da1a-09e2-4259-b21e-47277450e318")
-    public boolean isSafe(GridCoordinates target) {
+    private boolean isSafe(GridCoordinates target) {
         if (world.getMap().isCollidable(target))
             return true;
             
@@ -137,7 +131,7 @@ public class AIController extends Controller {
     }
 
     /**
-     * Teste si une tuile est vide
+     * Vérifie si une tuile est vide
      * @param gc les coordonnées de grille de la tuile
      * @return true si oui, false sinon
      */
@@ -147,7 +141,7 @@ public class AIController extends Controller {
     }
 
     /**
-     * Teste si une tuile est vide et sécurisée
+     * Vérifie si une tuile est vide et sécurisée
      * @param gc les coordonnées de grille de la tuile
      * @return true si oui, false sinon
      */
@@ -161,7 +155,7 @@ public class AIController extends Controller {
      * @return true si oui, false sinon
      */
     @objid ("abcfe8f8-3507-4b7c-a175-d63eebfae72c")
-    public boolean readyToBomb() {
+    private boolean readyToBomb() {
         if(player.getBombCount() < player.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation) && Math.random() < 1./world.getFps()) {
             //check up
             if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up))) {

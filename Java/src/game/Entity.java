@@ -32,7 +32,7 @@ public abstract class Entity {
      transient World world;
     
     /**
-     * Constructeur d'Entity
+     * Construit une entité
      * @param world Monde dans lequel l'entité est crée
      * @param x Position horizontale en pixel
      * @param y Position verticale en pixel
@@ -146,7 +146,7 @@ public abstract class Entity {
     }
 
     /**
-     * Test de collision avec les murs dans une direction à une certaine distance
+     * Vérifie la collision dans une direction à une certaine distance
      * @param direction Direction
      * @param move Distance
      * @return Vrai s'il y a collision
