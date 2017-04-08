@@ -1,9 +1,10 @@
 package game;
 
 import java.net.InetAddress;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -39,9 +40,8 @@ public class Client extends World implements Listener {
     @objid ("a6a97511-69d5-4a0d-8b2f-046814038a98")
      com.esotericsoftware.kryonet.Client network;
 
-    @objid ("b3107df3-29f9-4537-a5c5-7a34ae3f36b4")
-     List<CommandMap> commands;
-
+    Queue<Object> messages;
+    
     /**
      * Construit un client qui se connecte à l'adresse spécifiée
      * @param address Adresse du serveur
@@ -51,8 +51,8 @@ public class Client extends World implements Listener {
     public Client(InetAddress address) throws Exception {
         map = new Map(32);
         
-        commands = Collections.synchronizedList(new LinkedList<CommandMap>());
-        
+        messages = new ConcurrentLinkedQueue<Object>();
+
         init = false;
         
         network = new com.esotericsoftware.kryonet.Client(16384, 8192);
@@ -114,15 +114,13 @@ public class Client extends World implements Listener {
         for (int i = 0; i < controllers.size(); i++) {
             network.sendUDP(new ControllerUpdate(i, controllers.get(i)));
         }
-        
-        synchronized (map) {
-            synchronized (commands) {
-                DeltaMap.executeDeltas(commands, map);
-                commands.clear();
-            }
-        
-            super.update();
+
+        Object message = null;
+        while ((message = messages.poll()) != null) {
+            processMessage(message);
         }
+        
+        super.update();
         
         if (pickUp) {
             fireEvent(Event.PickUp);
@@ -173,9 +171,7 @@ public class Client extends World implements Listener {
                 player.setController(new FollowController());
             }
             
-            synchronized (map) {
-                super.addEntity(entity, id);
-            }
+            super.addEntity(entity, id);
         }
     }
 
@@ -208,18 +204,20 @@ public class Client extends World implements Listener {
             if (this.timeRemaining < 0)
                 fireEvent(Event.SuddenDeath);
             init = true;
-        } else if (!init)
-            return;
-                
+        } else if (init)
+            messages.offer(object);
+    }
+    
+    private void processMessage(Object object) {  
         if (object instanceof CommandMap) {
-            commands.add((CommandMap)object);
+            DeltaMap.executeDelta((CommandMap)object, map);
         } else if (object instanceof Entity) {           
             addEntity((Entity) object, ((Entity)object).getID());
         } else if (object instanceof PlayerName) {
-            PlayerName message = (PlayerName)object;
-            Entity entity = entities.get(message.entityId);
+            PlayerName playerName = (PlayerName)object;
+            Entity entity = entities.get(playerName.entityId);
             if (entity != null && entity instanceof Player) {
-                ((Player)entity).getController().setName(message.name);
+                ((Player)entity).getController().setName(playerName.name);
             }
         } else if (object instanceof ControllerPlayer) {
             ControllerPlayer cP = (ControllerPlayer) object;
@@ -228,7 +226,11 @@ public class Client extends World implements Listener {
                 ((Player)entity).setController(controllers.get(cP.controllerId));
             }
         } else if (object instanceof TimeRemaining) {
-            timeRemaining = ((TimeRemaining)object).timeRemaining;
+            int newTime = ((TimeRemaining)object).timeRemaining;
+            if (timeRemaining > 0 && newTime < 0)
+                fireEvent(Event.SuddenDeath);
+            
+            timeRemaining = newTime;
         } else if (object instanceof WarmupTimeRemaining) {
             warmupTimeRemaining = ((WarmupTimeRemaining)object).warmupTimeRemaining;
         } else if (object instanceof RoundEnded) {
@@ -240,19 +242,17 @@ public class Client extends World implements Listener {
                 e.printStackTrace();
             }
         } else if (object instanceof ToRemove) {
-            ToRemove message = (ToRemove)object;
-            for (Integer id : message.toRemove)
+            ToRemove toRemove = (ToRemove)object;
+            for (Integer id : toRemove.toRemove)
                 entities.remove(id);
-        }
-        
-        if (object instanceof List<?>) {
-            if (((List)object).isEmpty())
+        } else if (object instanceof List<?>) {
+            if (((List<?>)object).isEmpty())
                 return;
             
-            if (((List)object).get(0) instanceof CommandMap)
-                commands.addAll((List<CommandMap>) object);
-            else if (((List)object).get(0) instanceof Entity) {
-                for (Entity entity : (List<Entity>)object) {
+            if (((List<?>) object).get(0) instanceof CommandMap)
+                DeltaMap.executeDeltas((List<CommandMap>)object, map);
+            else if (((List<?>) object).get(0) instanceof Entity) {
+                for (Entity entity : (List<Entity>) object) {
                     addEntity(entity, entity.getID());
                 }
             }
