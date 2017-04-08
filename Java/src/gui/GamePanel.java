@@ -41,6 +41,8 @@ public class GamePanel extends JPanel implements ActionListener {
     @objid ("3ace71d3-e6f1-4997-a200-b55f6b20c619")
      HashMap<Player, PlayerStatePanel> playerStates;
 
+    private int lastTimeRemaining;
+    
     @objid ("dbd6f5cb-8848-4a03-9b74-402de0479e51")
     private JLabel timeRemaining;
 
@@ -168,8 +170,10 @@ public class GamePanel extends JPanel implements ActionListener {
         if (timeRemaining.getFont().getSize() != size)
             MainWindow.setFontSize(timeRemaining, size);
         
-        if (view.getTimeRemaining() % view.getFps() != 0)
+        if (Math.abs(lastTimeRemaining - view.getTimeRemaining()) < view.getFps() && view.getTimeRemaining() % view.getFps() != 0)
             return;
+        
+        lastTimeRemaining = view.getFps();
         
         int remaining = view.getTimeRemaining()/view.getFps();
         if (remaining <= 10 && remaining % 2 == 0) //Fait clignoter en rouge

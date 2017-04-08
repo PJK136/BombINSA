@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
@@ -11,6 +13,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -19,9 +22,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  */
 @objid ("580889f0-8e1d-4a59-9bfb-00c967a10ffd")
 public class MainWindow implements WindowListener {
-    @objid ("b7100b61-40ce-4a3b-bc84-213a61d275d0")
-    private String message;
-
     @objid ("3e3265a5-358a-47b3-a2b4-e7aefe04df03")
     private static final int START_WIDTH = 640;
 
@@ -33,6 +33,11 @@ public class MainWindow implements WindowListener {
 
     @objid ("3adeebc1-fc0c-491c-ab18-955b04cdfba4")
     private JPanel glassPanel;
+    
+    @objid ("b7100b61-40ce-4a3b-bc84-213a61d275d0")
+    private String message;
+    
+    private Timer messageTimer;
 
     @objid ("7604bbda-b462-466b-b8a4-680fae86a454")
     private GameSettings settings;
@@ -158,7 +163,7 @@ public class MainWindow implements WindowListener {
      */
     @objid ("030bbdba-dcc6-4a25-9366-dab889f9d934")
     void setPage(JPanel page) {
-        frame.getGlassPane().setVisible(false);
+        clearMessage();
         frame.setContentPane(page);
         frame.revalidate();
     }
@@ -182,6 +187,32 @@ public class MainWindow implements WindowListener {
         this.messageColor = color;
         frame.getGlassPane().setVisible(true);
         frame.repaint();
+    }
+    
+    /**
+     * Affiche un message en semi-transparence avec un fond gris par dessus les autres composants
+     * @param message Message à afficher
+     * @param color Couleur du message
+     * @param duration Durée avant effacement en millisecondes
+     */
+    @objid ("4219eb02-4dcd-45fd-88cf-b6c685cc8d32")
+    void showMessage(String message, Color color, int duration) {
+        if (messageTimer == null) {
+            messageTimer = new Timer(duration, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    clearMessage();
+                }
+            });
+            messageTimer.setRepeats(false);
+        }
+        else
+            messageTimer.stop();
+        
+        showMessage(message, color);
+        
+        messageTimer.setInitialDelay(duration);
+        messageTimer.restart();
     }
 
     /**

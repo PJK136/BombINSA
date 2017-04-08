@@ -90,7 +90,7 @@ public class GameWorker implements Runnable {
                     SwingUtilities.invokeLater(updateGamePanel);
                     viewer.drawWorld(world);
                     
-                    if (world.getWarmupTimeRemaining() > 1) {
+                    if (world.getWarmupTimeRemaining() > 0) {
                         final String[] messages = new String[]{"Round " + world.getRound(), //Ralongement du temps
                                                                "Round " + world.getRound(), //d'affichage
                                                                "Round " + world.getRound(), //du round
@@ -98,14 +98,10 @@ public class GameWorker implements Runnable {
                                                                "Prêts.",
                                                                "Jouez !"};
                         int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
-                        SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black));
-                    } else if (world.getWarmupTimeRemaining() == 1) {
-                        SwingUtilities.invokeLater(() -> mainWindow.clearMessage());
+                        SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black, world.getWarmupTimeRemaining()*1000/world.getFps()));
                     } else if (world.getTimeRemaining() == 0) {
                         setGameState(GameState.SuddenDeath);
-                        SwingUtilities.invokeLater(() -> mainWindow.showMessage("Mort subite !", Color.red));
-                    } else if (world.getTimeRemaining() == (int)(-0.75 * world.getFps())) {
-                        SwingUtilities.invokeLater(() -> mainWindow.clearMessage());
+                        SwingUtilities.invokeLater(() -> mainWindow.showMessage("Mort subite !", Color.red, 750));
                     }
                     
                     long duration = System.nanoTime() - start;
@@ -121,21 +117,19 @@ public class GameWorker implements Runnable {
                     start = System.nanoTime();
                     
                     frame++;
-                    if (System.nanoTime() - lastDisplay >= 1000000000) {
+                    /*if (System.nanoTime() - lastDisplay >= 1000000000) {
                         System.out.println(frame*(System.nanoTime() - lastDisplay)/1000000000 + " FPS");
                         frame = 0;
                         lastDisplay = System.nanoTime();
-                    }
+                    }*/
                 }
                 setGameState(GameState.EndRound);
                 
-                if (!stop) {
+                if (!stop) { //i.e : endRound
                     if (settings.gameType == GameType.Client && !((Client)world).isConnected())
                     {
-                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage("Déconnecté.", Color.darkGray));
-                        try {
-                            Thread.sleep(5000, 0);
-                        } catch (InterruptedException e) {  }
+                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage("Déconnecté.", Color.darkGray, 5000));
+                        
                     } else if (settings.gameType != GameType.Sandbox) {
                         String message = null;
                         Color color = null;
@@ -154,17 +148,21 @@ public class GameWorker implements Runnable {
                         
                         final String x = message; 
                         final Color y = color;
-                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(x, y)) ;
+                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(x, y, 5000));
                     }
                     
-                    if (settings.gameType != GameType.Client) {
-                        try {
-                            Thread.sleep(5000, 0);
-                        } catch (InterruptedException e) {  }
-                        if (world.getRound() < settings.roundCount)
+                    if (settings.gameType != GameType.Client) {                      
+                        if (world.getRound() < settings.roundCount) {
+                            try {
+                                Thread.sleep(5000, 0);
+                            } catch (InterruptedException e) {  }
                             world.restart();
-                        else
+                        } else {
+                            try {
+                                Thread.sleep(2000, 0);
+                            } catch (InterruptedException e) {  }
                             stop = true;
+                        }
                     } else {
                         Client client = (Client)world;
                         while (client.isConnected() && client.isRoundEnded() && !stop) {
@@ -176,7 +174,6 @@ public class GameWorker implements Runnable {
                         stop = stop || !client.isConnected();
                     }
                     
-                    mainWindow.clearMessage();
                     Audio.getInstance().stop();
                 }
             }
