@@ -248,16 +248,16 @@ public class MainWindow implements WindowListener {
         
         if (gameWorker != null) {
             gameWorker.stop();
-                try {
-                    gameWorkerThread.interrupt();
-                } catch (SecurityException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    gameWorkerThread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            try {
+                gameWorkerThread.interrupt();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+            try {
+                gameWorkerThread.join(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         
         try {
