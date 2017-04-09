@@ -201,7 +201,7 @@ public class Player extends Entity {
     @objid ("8cb4ed00-b6b9-4918-86a9-6a90e6368f8f")
     void decreaseLives() {
         this.lives = Math.max(0, this.lives-1);
-        world.fireEvent(Event.Hit);
+        world.fireEvent(GameEvent.Hit);
     }
 
     @objid ("e0e09e0d-eb13-467a-b35f-235dff6e7fef")

@@ -11,7 +11,7 @@ import network.Network.AddController;
 import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
 import network.Network.PlayerName;
-import network.Network.Restart;
+import network.Network.NextRound;
 import network.Network.RoundEnded;
 import network.Network.TimeRemaining;
 import network.Network.ToRemove;
@@ -92,11 +92,11 @@ public class Server extends Local implements Listener {
 
     @objid ("a17698f1-df19-4c29-b3be-3b78424f3c88")
     @Override
-    public void restart() throws Exception {
-        network.sendToAllTCP(new Restart());
+    public void nextRound() throws Exception {
+        network.sendToAllTCP(new NextRound());
         
         synchronized (controllers) {
-            super.restart();
+            super.nextRound();
         }
     }
 

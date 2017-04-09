@@ -13,7 +13,7 @@ import network.Network.CommandMap;
 import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
 import network.Network.PlayerName;
-import network.Network.Restart;
+import network.Network.NextRound;
 import network.Network.RoundEnded;
 import network.Network.TimeRemaining;
 import network.Network.ToRemove;
@@ -123,12 +123,12 @@ public class Client extends World implements Listener {
         super.update();
         
         if (pickUp) {
-            fireEvent(Event.PickUp);
+            fireEvent(GameEvent.PickUp);
             pickUp = false;
         }
         
         if (explosion) {
-            fireEvent(Event.Explosion);
+            fireEvent(GameEvent.Explosion);
             explosion = false;
         }
     }
@@ -183,8 +183,8 @@ public class Client extends World implements Listener {
 
     @objid ("b9510250-2586-427f-88f4-0ef51d2c9232")
     @Override
-    public void restart() throws Exception {
-        super.restart();
+    public void nextRound() throws Exception {
+        super.nextRound();
         roundEnded = false;
     }
 
@@ -202,7 +202,7 @@ public class Client extends World implements Listener {
             this.map.setTileSize(info.tileSize);
             this.map.loadMap(info.map);
             if (this.timeRemaining < 0)
-                fireEvent(Event.SuddenDeath);
+                fireEvent(GameEvent.SuddenDeath);
             init = true;
         } else if (init)
             messages.offer(object);
@@ -228,16 +228,16 @@ public class Client extends World implements Listener {
         } else if (object instanceof TimeRemaining) {
             int newTime = ((TimeRemaining)object).timeRemaining;
             if (timeRemaining > 0 && newTime < 0)
-                fireEvent(Event.SuddenDeath);
+                fireEvent(GameEvent.SuddenDeath);
             
             timeRemaining = newTime;
         } else if (object instanceof WarmupTimeRemaining) {
             warmupTimeRemaining = ((WarmupTimeRemaining)object).warmupTimeRemaining;
         } else if (object instanceof RoundEnded) {
             roundEnded = true;
-        } else if (object instanceof Restart) {
+        } else if (object instanceof NextRound) {
             try {
-                restart();
+                nextRound();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -264,7 +264,7 @@ public abstract class World implements WorldView {
         timeRemaining -= 1;
         
         if(timeRemaining == 0) {
-            fireEvent(Event.SuddenDeath);
+            fireEvent(GameEvent.SuddenDeath);
         }
         
         synchronized (entities) {
@@ -295,7 +295,7 @@ public abstract class World implements WorldView {
      * @throws java.lang.Exception problème lié au chargement de la carte
      */
     @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
-    public void restart() throws Exception {
+    public void nextRound() throws Exception {
         //time remaining back to beginning
           timeRemaining = duration;
           warmupTimeRemaining = warmupDuration;
@@ -330,9 +330,9 @@ public abstract class World implements WorldView {
      * @param e Événement
      */
     @objid ("4b33edc4-09ea-4366-aaed-a774e91e6c5a")
-    void fireEvent(Event e) {
+    void fireEvent(GameEvent e) {
         for(GameListener listener : listeners){
-            listener.processEvent(e);
+            listener.gameChanged(e);
         }
     }
 

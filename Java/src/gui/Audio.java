@@ -1,7 +1,7 @@
 package gui;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import game.Event;
+import game.GameEvent;
 import game.GameListener;
 import kuusisto.tinysound.Music;
 import kuusisto.tinysound.Sound;
@@ -61,7 +61,7 @@ public class Audio implements GameListener {
     /**
      * lance le son qui correspond à l'évènement reçu
      */
-    public void processEvent(Event e) {
+    public void gameChanged(GameEvent e) {
         switch(e){
         case Hit:
             hit.play(0.5);

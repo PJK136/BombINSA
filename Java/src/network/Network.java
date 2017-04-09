@@ -56,7 +56,7 @@ public class Network {
         kryo.register(TimeRemaining.class);
         kryo.register(WarmupTimeRemaining.class);
         kryo.register(RoundEnded.class);
-        kryo.register(Restart.class);
+        kryo.register(NextRound.class);
         kryo.register(ToRemove.class);
     }
 
@@ -234,7 +234,7 @@ public class Network {
     }
 
     @objid ("9e52f3cd-68c3-49d2-bdab-4955712ea8c3")
-    public static class Restart {
+    public static class NextRound {
     }
 
 }

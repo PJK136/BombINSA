@@ -7,6 +7,8 @@ import javax.swing.SwingUtilities;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.AIController;
 import game.Client;
+import game.GameEvent;
+import game.GameListener;
 import game.Local;
 import game.Player;
 import game.Server;
@@ -16,7 +18,7 @@ import game.World;
  * Classe qui gère l'exécution du jeu 
  */
 @objid ("0352607c-7ee6-4aa1-839f-fc6a174af9fd")
-public class GameWorker implements Runnable {
+public class GameWorker implements Runnable, GameListener {
     @objid ("261a2da6-2f7b-4394-83a1-d38b8510f2cb")
     private boolean stop;
 
@@ -99,9 +101,6 @@ public class GameWorker implements Runnable {
                                                                "Jouez !"};
                         int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
                         SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black, world.getWarmupTimeRemaining()*1000/world.getFps()));
-                    } else if (world.getTimeRemaining() == 0) {
-                        setGameState(GameState.SuddenDeath);
-                        SwingUtilities.invokeLater(() -> mainWindow.showMessage("Mort subite !", Color.red, 750));
                     }
                     
                     long duration = System.nanoTime() - start;
@@ -156,7 +155,7 @@ public class GameWorker implements Runnable {
                             try {
                                 Thread.sleep(5000, 0);
                             } catch (InterruptedException e) {  }
-                            world.restart();
+                            world.nextRound();
                         } else {
                             try {
                                 Thread.sleep(2000, 0);
@@ -195,6 +194,20 @@ public class GameWorker implements Runnable {
         }
     }
 
+    
+    @Override
+    public void gameChanged(GameEvent e) {
+        switch (e) {
+        case SuddenDeath:
+            setGameState(GameState.SuddenDeath);
+            SwingUtilities.invokeLater(() -> mainWindow.showMessage("Mort subite !", Color.red, 750));
+            break;
+        default:
+            break;
+        
+        }
+    }
+    
     /**
      * Met fin au jeu
      */
@@ -244,6 +257,7 @@ public class GameWorker implements Runnable {
             throw new Exception("Non implémenté !");
         }
         
+        world.addGameListener(this);
         world.addGameListener(Audio.getInstance());
     }
 
