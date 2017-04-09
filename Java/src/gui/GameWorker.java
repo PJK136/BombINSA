@@ -57,26 +57,17 @@ public class GameWorker implements Runnable, GameListener {
         try {
             this.stop = false;
             
-            while (!world.isReady()) {
-                try {
-                    Thread.sleep(1000/settings.fps, 0);
-                } catch (InterruptedException e) {  }
+            while (!stop && !world.isReady()) {
+                Thread.sleep(1000/settings.fps, 0);
             }
             
-            final Runnable updateGamePanel = new Runnable() {
-                @Override
-                public void run() {
-                    panel.showGameStatus(world);
-                }
-            };
-            
             viewer.drawMap(world.getMap());
-            SwingUtilities.invokeAndWait(updateGamePanel);
+            SwingUtilities.invokeAndWait(() -> panel.showGameStatus(world));
             setGameState(GameState.Init);
             
             final long timeStep = 1000000000/settings.fps;
             
-            while (!stop) {       
+            while (!stop) {
                 setGameState(GameState.Playing);
                               
                 long offset = 0;
@@ -89,7 +80,7 @@ public class GameWorker implements Runnable, GameListener {
                 {          
                     world.update();
                     
-                    SwingUtilities.invokeLater(updateGamePanel);
+                    SwingUtilities.invokeLater(() -> panel.showGameStatus(world));
                     viewer.drawWorld(world);
                     
                     if (world.getWarmupTimeRemaining() > 0) {
@@ -106,9 +97,7 @@ public class GameWorker implements Runnable, GameListener {
                     long duration = System.nanoTime() - start;
                     
                     if (timeStep-duration-offset > 0) {
-                        try {
-                            Thread.sleep((timeStep-duration-offset)/1000000, (int)(timeStep-duration-offset)%1000000);
-                        } catch (InterruptedException e) { }
+                        Thread.sleep((timeStep-duration-offset)/1000000, (int)(timeStep-duration-offset)%1000000);
                     }
                     
                     offset += (System.nanoTime() - start) - timeStep;
@@ -122,62 +111,59 @@ public class GameWorker implements Runnable, GameListener {
                         lastDisplay = System.nanoTime();
                     }*/
                 }
+                
                 setGameState(GameState.EndRound);
                 
-                if (!stop) { //i.e : endRound
-                    if (settings.gameType == GameType.Client && !((Client)world).isConnected())
-                    {
-                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage("Déconnecté.", Color.darkGray, 5000));
-                        
-                    } else if (settings.gameType != GameType.Sandbox) {
-                        String message = null;
-                        Color color = null;
-                        
-                        if (world.getPlayerAliveCount() == 1) {
-                            PlayerColor[] colors = PlayerColor.values();
-                            message = ((Player)world.getPlayers().get(0)).getController().getName() + " gagne !";
-                            color = colors[((Player)world.getPlayers().get(0)).getPlayerID() % colors.length].toColor();
-                        } else if (world.getPlayerAliveCount() > 0){
-                            message = "IA gagne !";
-                            color = Color.black;
-                        } else {
-                            message = "Égalité !";
-                            color = Color.black;
-                        }
-                        
-                        final String x = message; 
-                        final Color y = color;
-                        SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(x, y, 5000));
-                    }
+                if (stop)
+                    break;
+                
+                if (settings.gameType == GameType.Client && !((Client)world).isConnected())
+                {
+                    SwingUtilities.invokeAndWait(() -> mainWindow.showMessage("Déconnecté.", Color.darkGray, 5000));
                     
-                    if (settings.gameType != GameType.Client) {                      
-                        if (world.getRound() < settings.roundCount) {
-                            try {
-                                Thread.sleep(5000, 0);
-                            } catch (InterruptedException e) {  }
-                            world.nextRound();
-                        } else {
-                            try {
-                                Thread.sleep(2000, 0);
-                            } catch (InterruptedException e) {  }
-                            stop = true;
-                        }
+                } else if (settings.gameType != GameType.Sandbox) {
+                    String message = null;
+                    Color color = null;
+                    
+                    if (world.getPlayerAliveCount() == 1) {
+                        PlayerColor[] colors = PlayerColor.values();
+                        message = ((Player)world.getPlayers().get(0)).getController().getName() + " gagne !";
+                        color = colors[((Player)world.getPlayers().get(0)).getPlayerID() % colors.length].toColor();
+                    } else if (world.getPlayerAliveCount() > 0){
+                        message = "IA gagne !";
+                        color = Color.black;
                     } else {
-                        Client client = (Client)world;
-                        while (client.isConnected() && client.isRoundEnded() && !stop) {
-                            try {
-                                Thread.sleep(1000/settings.fps, 0);
-                            } catch (InterruptedException e) {  }
-                        }
-                        
-                        stop = stop || !client.isConnected();
+                        message = "Égalité !";
+                        color = Color.black;
                     }
                     
-                    Audio.getInstance().stop();
+                    final String x = message; 
+                    final Color y = color;
+                    SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(x, y, 5000));
                 }
+                
+                if (settings.gameType != GameType.Client) {                      
+                    if (world.getRound() < settings.roundCount) {
+                        Thread.sleep(5000, 0);
+                        world.nextRound();
+                    } else {
+                        Thread.sleep(2000, 0);
+                        stop = true;
+                    }
+                } else {
+                    Client client = (Client)world;
+                    while (client.isConnected() && client.isRoundEnded() && !stop) {
+                        Thread.sleep(1000/settings.fps, 0);
+                    }
+                    
+                    stop = stop || !client.isConnected();
+                }
+                
+                Audio.getInstance().stop();
             }
-            setGameState(GameState.End);
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
+            //Interrompu
+        }  catch (Exception e) {
             e.printStackTrace(); //Sinon l'erreur n'est jamais propagée
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
@@ -191,6 +177,7 @@ public class GameWorker implements Runnable, GameListener {
         } finally {
             world.stop();
             Audio.getInstance().stop();
+            setGameState(GameState.End);
         }
     }
 
