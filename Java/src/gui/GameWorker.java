@@ -65,7 +65,7 @@ public class GameWorker implements Runnable, GameListener {
             SwingUtilities.invokeAndWait(() -> panel.showGameStatus(world));
             setGameState(GameState.Init);
             
-            final long timeStep = 1000000000/settings.fps;
+            final long timeStep = 1000000000/world.getFps();
             
             while (!stop) {
                 setGameState(GameState.Playing);
@@ -153,7 +153,7 @@ public class GameWorker implements Runnable, GameListener {
                 } else {
                     Client client = (Client)world;
                     while (client.isConnected() && client.isRoundEnded() && !stop) {
-                        Thread.sleep(1000/settings.fps, 0);
+                        Thread.sleep(1000/world.getFps(), 0);
                     }
                     
                     stop = stop || !client.isConnected();
