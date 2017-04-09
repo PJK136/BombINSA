@@ -2,6 +2,9 @@ package game;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
@@ -27,6 +30,8 @@ public class Server extends Local implements Listener {
     @objid ("0af280ea-a7b2-4232-a15b-220a4b0d977f")
      com.esotericsoftware.kryonet.Server network;
 
+    ExecutorService threadPool;
+    
     /**
      * Construit un serveur de jeu
      * @param mapFilename Nom du ficher de la carte
@@ -51,7 +56,9 @@ public class Server extends Local implements Listener {
         
         Network.register(network);
         
-        network.addListener(new Listener.ThreadedListener(this));
+        threadPool = Executors.newFixedThreadPool(1);
+        
+        network.addListener(new Listener.ThreadedListener(this, threadPool));
         
         network.bind(Network.tcpPort, Network.udpPort);
         
@@ -88,6 +95,7 @@ public class Server extends Local implements Listener {
     @objid ("8c95d6c7-e515-4188-918d-205812f19cc8")
     public void stop() {
         network.stop();
+        threadPool.shutdown();
     }
 
     @objid ("a17698f1-df19-4c29-b3be-3b78424f3c88")

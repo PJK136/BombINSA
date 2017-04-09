@@ -122,6 +122,7 @@ public class MainWindow implements WindowListener {
         if (gameWorker != null) {
             gameWorker.stop();
             gameWorker = null;
+            gameWorkerThread = null;
         }
         
         setPage(new MainMenu(this));
@@ -248,6 +249,8 @@ public class MainWindow implements WindowListener {
         
         if (gameWorker != null) {
             gameWorker.stop();
+            gameWorker = null;
+            
             try {
                 gameWorkerThread.interrupt();
             } catch (SecurityException e) {
@@ -258,6 +261,8 @@ public class MainWindow implements WindowListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+              
+            gameWorkerThread = null;
         }
         
         try {
@@ -265,6 +270,8 @@ public class MainWindow implements WindowListener {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        
+        System.err.println("Ended !");
     }
 
     @objid ("4e07e866-0b1f-4473-b006-464d93ac852c")
