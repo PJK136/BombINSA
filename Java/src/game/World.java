@@ -14,7 +14,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("4e38e511-34e5-49ff-aa51-e135ece3c5eb")
 public abstract class World implements WorldView {
     @objid ("85c96d62-8a34-4a32-b45b-ae1b9c9d4112")
-     int fps;
+     int fps = 60;
 
     @objid ("0a994301-baff-4943-8fc9-5e40b755921d")
      int timeRemaining;
@@ -170,8 +170,8 @@ public abstract class World implements WorldView {
             throw new RuntimeException("duration not positive");
         } else {
             this.duration = duration;
-            if (timeRemaining > duration)
-                timeRemaining = duration;
+            if (timeRemaining+1 > duration)
+                setTimeRemaining(duration);
         }
     }
 
@@ -180,7 +180,7 @@ public abstract class World implements WorldView {
         if (timeRemaining < 0)
             throw new RuntimeException("time remaining not positive");
         else
-            this.timeRemaining = time;
+            this.timeRemaining = time+1;
     }
 
     @objid ("33e095d8-68dd-4046-b765-17ecc0fe4365")
@@ -261,7 +261,7 @@ public abstract class World implements WorldView {
             warmupTimeRemaining--;
             return;
         }
-        
+              
         //update of timeRemaining
         timeRemaining -= 1;
         

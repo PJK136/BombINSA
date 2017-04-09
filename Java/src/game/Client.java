@@ -36,6 +36,8 @@ public class Client extends World implements Listener {
 
     @objid ("e75ff67a-fbd6-46ab-b982-d0131ef1a0c4")
      boolean explosion;
+    
+     boolean suddenDeath;
 
     @objid ("a6a97511-69d5-4a0d-8b2f-046814038a98")
      com.esotericsoftware.kryonet.Client network;
@@ -122,6 +124,11 @@ public class Client extends World implements Listener {
         
         super.update();
         
+        if (suddenDeath) {
+            fireEvent(GameEvent.SuddenDeath);
+            suddenDeath = false;
+        }
+            
         if (pickUp) {
             fireEvent(GameEvent.PickUp);
             pickUp = false;
@@ -201,9 +208,10 @@ public class Client extends World implements Listener {
             this.round = info.round;
             this.map.setTileSize(info.tileSize);
             this.map.loadMap(info.map);
-            if (this.timeRemaining < 0)
-                fireEvent(GameEvent.SuddenDeath);
             init = true;
+            
+            if (timeRemaining <= 0)
+                suddenDeath = true;
         } else if (init)
             messages.offer(object);
     }
@@ -227,8 +235,8 @@ public class Client extends World implements Listener {
             }
         } else if (object instanceof TimeRemaining) {
             int newTime = ((TimeRemaining)object).timeRemaining;
-            if (timeRemaining > 0 && newTime < 0)
-                fireEvent(GameEvent.SuddenDeath);
+            if (timeRemaining > 1 && newTime <= 0)
+                suddenDeath = true;
             
             timeRemaining = newTime;
         } else if (object instanceof WarmupTimeRemaining) {

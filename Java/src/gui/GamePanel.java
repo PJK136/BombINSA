@@ -170,7 +170,7 @@ public class GamePanel extends JPanel implements ActionListener {
         if (timeRemaining.getFont().getSize() != size)
             MainWindow.setFontSize(timeRemaining, size);
         
-        if (Math.abs(lastTimeRemaining - view.getTimeRemaining()) < view.getFps() && view.getTimeRemaining() % view.getFps() != 0)
+        if (lastTimeRemaining != 0 && view.getTimeRemaining() % view.getFps() != 0)
             return;
         
         lastTimeRemaining = view.getFps();

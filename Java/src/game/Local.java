@@ -123,10 +123,11 @@ public class Local extends World {
      */
     @objid ("15f9ba61-54f9-4783-8bd0-923098e480d7")
     public void update() {
-        super.update();
-        
-        if (warmupTimeRemaining > 0)
+        if (warmupTimeRemaining > 0) {
+            super.update();
             return;
+        } else
+            super.update();
         
         //sudden death case
         if (timeRemaining == 0) {
