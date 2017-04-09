@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /** Cette classe coordonne l'ensemble des actions pendant une partie */
@@ -263,24 +265,31 @@ public abstract class World implements WorldView {
         //update of timeRemaining
         timeRemaining -= 1;
         
-        if(timeRemaining == 0) {
+        if (timeRemaining == 0) {
             fireEvent(GameEvent.SuddenDeath);
         }
         
+        List<Integer> toRemove = new ArrayList<Integer>();
+        
         synchronized (entities) {
-            //update of Entities
-            Iterator<Entity> iterator = entities.values().iterator();
-            while(iterator.hasNext()){
-                Entity entity = iterator.next();
+          //update of Entities
+            for (Entry<Integer, Entity> entry : entities.entrySet()) {
+                Entity entity = entry.getValue();
                 entity.update();
-                if(entity.isToRemove()){
-                    iterator.remove();
-                }
+                if (entity.isToRemove())
+                    toRemove.add(entry.getKey());
             }
         }
         
+        removeEntities(toRemove);
+        
         //update of the map
         map.update();
+    }
+    
+    void removeEntities(List<Integer> entityIDs) {
+        for (Integer id : entityIDs)
+            entities.remove(id);
     }
 
     /**

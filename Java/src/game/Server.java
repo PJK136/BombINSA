@@ -91,6 +91,20 @@ public class Server extends Local implements Listener {
         if (isRoundEnded())
             network.sendToAllUDP(new RoundEnded());
     }
+    
+    @Override
+    void removeEntities(List<Integer> entityIDs) {
+        super.removeEntities(entityIDs);
+        
+        ToRemove message = new ToRemove();
+        
+        for (Integer id : entityIDs) {
+            if (entities.get(id) instanceof Player)
+                message.toRemove.add(id);
+        }
+        
+        network.sendToAllTCP(message);
+    }
 
     @objid ("8c95d6c7-e515-4188-918d-205812f19cc8")
     public void stop() {
@@ -165,15 +179,11 @@ public class Server extends Local implements Listener {
         if (controllers.isEmpty())
              return;
         
-        ToRemove message = new ToRemove(controllers.size());
         for (NetworkController controller : controllers) {
             if (controller.getPlayer() != null) {
-                message.toRemove.add(controller.getPlayer().getID());
                 controller.getPlayer().remove();
             }
         }
-        
-        network.sendToAllTCP(message);
     }
 
 }

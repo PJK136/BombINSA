@@ -137,8 +137,8 @@ public class Local extends World {
                 }
             }
         } else if(timeRemaining<0) {
-            int interval = (int)(((120.*fps+timeRemaining)/(120*fps))*fps);
-            if (interval == 0 || timeRemaining % interval == 0) {
+            int interval = (int)(((90.*fps+timeRemaining)/(120*fps))*fps);
+            if (interval <= 0 || timeRemaining % interval == 0) {
                 boolean bombPlanted = false;
                 while(!bombPlanted){
                     double x = Math.random()*map.getWidth();
