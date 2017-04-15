@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -48,6 +50,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
     @objid ("1c3818b3-5d8a-4afc-a3fe-a21f1c2480f9")
     private JButton btnExit;
+    
+    private boolean needResize;
 
     /**
      * Construit le panneau d'affichage du jeu
@@ -62,6 +66,15 @@ public class GamePanel extends JPanel implements ActionListener {
         topBar = new JPanel();
         add(topBar, BorderLayout.NORTH);
         topBar.setLayout(new BoxLayout(topBar, BoxLayout.X_AXIS));
+        topBar.addComponentListener(new ComponentListener() {
+            public void componentResized(ComponentEvent e) {
+                needResize = true;
+            }
+            
+            public void componentShown(ComponentEvent e) {  }
+            public void componentMoved(ComponentEvent e) { }
+            public void componentHidden(ComponentEvent e) { }
+        });
         
         playerStates = new HashMap<Player, PlayerStatePanel>();
         playerStateGroup = new JPanel() ;
@@ -105,12 +118,10 @@ public class GamePanel extends JPanel implements ActionListener {
     @objid ("45932752-17aa-44c7-8689-4c86cb06b683")
     public void showGameStatus(WorldView view) {
         final int size = settings.scale((int) (view.getMap().getTileSize()*0.75));
-        boolean updateSize = false;
         
         updateTimeRemaining(view, size);
         if (btnExit.getIcon() == null || btnExit.getIcon().getIconHeight() != size) {
             btnExit.setIcon(SpriteFactory.getInstance().getImageIcon("Stop24", size));
-            updateSize = true;
         }
         
         List<Player> playerList = view.getPlayers();
@@ -121,11 +132,9 @@ public class GamePanel extends JPanel implements ActionListener {
                 pState = new PlayerStatePanel(player.getPlayerID(), size);
                 playerStates.put(player, pState);
                 playerStateGroup.add(pState);
-                updateSize = true;
             }
             
-            if (pState.updatePlayerState(player))
-                updateSize = true;
+            pState.updatePlayerState(player);
         }
         
         Iterator<Entry<Player, PlayerStatePanel>> iterator = playerStates.entrySet().iterator();
@@ -135,11 +144,15 @@ public class GamePanel extends JPanel implements ActionListener {
             if (!playerList.contains(player.getKey())) {
                 playerStateGroup.remove(player.getValue());
                 iterator.remove();
-                updateSize = true;
             }
         }
         
-        if (updateSize)
+        if (!this.isVisible()) {
+            setVisible(true);
+            gameViewer.requestFocusInWindow();
+        }
+        
+        if (needResize)
             updateGameSize();
     }
 
@@ -156,8 +169,7 @@ public class GamePanel extends JPanel implements ActionListener {
             playerStateGroup.revalidate();
             mainWindow.pack();
         } while (previousHeight != playerStateGroup.getHeight());
-        setVisible(true);
-        gameViewer.requestFocusInWindow();
+        needResize = false;
     }
 
     /**
