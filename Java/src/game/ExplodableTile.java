@@ -9,17 +9,14 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  */
 @objid ("01912cfd-22a7-41a2-b251-b8a95ee24494")
 public abstract class ExplodableTile extends Tile {
-    @objid ("92f1f412-d0f4-4ce9-9d08-b7ae35deda00")
-     ExplosionType explosionType;
-
-    @objid ("17c62bcf-3895-45e5-a8d0-04861e6e18b6")
-     Direction explosionDirection;
-
+     ExplosionState externalState;
+     
     @objid ("8a18bd7f-8636-4b55-b5af-394d896dc043")
      LinkedList<ExplosionState> explosionStates;
 
     @objid ("67bfec5b-1eca-46f5-a78e-86c18ad95d1e")
     public ExplodableTile() {
+        externalState = new ExplosionState(0, null, null);
         explosionStates = new LinkedList<ExplosionState>();
     }
 
@@ -33,7 +30,7 @@ public abstract class ExplodableTile extends Tile {
 
     @objid ("fe5d73c7-8cd9-4d33-9fed-48117a165c06")
     public ExplosionType getExplosionType() {
-        return this.explosionType;
+        return externalState.type;
     }
 
     @objid ("f580fd24-cfbc-4765-8cf0-de74ab991da4")
@@ -44,7 +41,11 @@ public abstract class ExplodableTile extends Tile {
 
     @objid ("147b60ea-8e42-4f89-9e0d-845226b4bc38")
     public Direction getExplosionDirection() {
-        return this.explosionDirection;
+        return externalState.direction;
+    }
+    
+    public int getExplosionTimeRemaining() {
+        return externalState.timeRemaining;
     }
 
     /**
@@ -66,6 +67,8 @@ public abstract class ExplodableTile extends Tile {
                 needUpdate = true;
             }
         }
+        
+        externalState.timeRemaining--;
         
         if (needUpdate) {
             updateExternalState();
@@ -96,22 +99,26 @@ public abstract class ExplodableTile extends Tile {
     @objid ("dca542ae-8f72-492c-87d0-443745d00491")
     private void updateExternalState() {
         if (explosionStates.isEmpty()) {
-            explosionType = null;
-            explosionDirection = null;
+            externalState.type = null;
+            externalState.direction = null;
+            externalState.timeRemaining = 0;
             return;
         }
         
-        explosionType = ExplosionType.End;
-        explosionDirection = explosionStates.get(0).direction;
+        externalState.type = ExplosionType.End;
+        externalState.direction = explosionStates.get(0).direction;
         
         for (ExplosionState state : explosionStates) {
-            if (state.type == ExplosionType.Center || !Direction.isSameAxis(explosionDirection, state.direction)) {
-                explosionType = ExplosionType.Center;
-                explosionDirection = null;
-                return;
-            } else if (state.type == ExplosionType.Branch){
-                explosionType = ExplosionType.Branch;
-            } //Si state.type == End, alors soit explosionType l'est déjà, soit il n'est pas pris en compte
+            if (externalState.type != ExplosionType.Center) {
+                if (state.type == ExplosionType.Center || !Direction.doHaveSameAxis(externalState.direction, state.direction)) {
+                    externalState.type = ExplosionType.Center;
+                    externalState.direction = null;
+                } else if (state.type == ExplosionType.Branch){
+                    externalState.type = ExplosionType.Branch;
+                } //Si state.type == End, alors soit explosionType l'est déjà, soit il n'est pas pris en compte
+            }
+            
+            externalState.timeRemaining = Math.max(externalState.timeRemaining, state.timeRemaining);
         }
     }
 

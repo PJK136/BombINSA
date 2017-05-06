@@ -129,6 +129,8 @@ public interface MapView {
 
     @objid ("104ed3aa-75aa-4eab-8747-8dd81e7d068b")
     Direction getExplosionDirection(GridCoordinates gc);
+    
+    int getExplosionTimeRemaining(GridCoordinates gc);
 
     @objid ("fca35abb-78e4-4816-be51-6c014978e4ac")
     TileType getTileType(GridCoordinates gc);

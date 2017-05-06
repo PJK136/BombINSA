@@ -164,6 +164,11 @@ public class Map implements MapView {
     public Direction getExplosionDirection(GridCoordinates gc) {
         return ((ExplodableTile)tiles[gc.x][gc.y]).getExplosionDirection();
     }
+    
+    @Override
+    public int getExplosionTimeRemaining(GridCoordinates gc) {
+        return ((ExplodableTile)tiles[gc.x][gc.y]).getExplosionTimeRemaining();
+    }
 
     @objid ("188ecbd8-c984-4187-93b4-8a4d4e9a8432")
     public TileType getTileType(GridCoordinates gc) {
