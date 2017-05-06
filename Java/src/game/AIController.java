@@ -1,7 +1,8 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /** Ce contrôleur est l'intelligence artificielle du jeu */
@@ -10,14 +11,15 @@ public class AIController extends Controller {
     @objid ("b3611ff7-8085-4126-9180-545efad68da8")
     private Direction currentDirection = null;
 
-    @objid ("b6acfd1f-3b8b-4e90-80e7-cbe3d3afb0a9")
-    private boolean turned = false;
-
+    private boolean bombingSimulation = false;
+    
     @objid ("946744c7-3ebf-45d8-bab5-f2533cd24562")
     private boolean bombing = false;
 
     @objid ("6acb90de-974c-4546-a93e-0b8cc35a6bd2")
     private GridCoordinates aiLocation;
+    
+    private ArrayList<Direction> directions;
 
     /**
      * Construit une intelligence artificielle
@@ -25,6 +27,8 @@ public class AIController extends Controller {
     @objid ("3d3cd868-87c6-4b1c-b1b2-335b1d2eb3e3")
     public AIController() {
         setName("IA");
+        directions = new ArrayList<Direction>(Arrays.asList(Direction.values()));
+        Collections.shuffle(directions);
     }
 
     @objid ("a6dfdad3-f290-4e15-ba75-694888e5d4c2")
@@ -46,6 +50,30 @@ public class AIController extends Controller {
             return false;
         }
     }
+    
+    private GridCoordinates nextPosition(Direction direction) {
+        double x = player.getX();
+        double y = player.getY();
+        
+        switch (direction) {
+        case Left:
+            x -= player.getMaxSpeed()+(world.getMap().getTileSize()/2.);
+            break;
+        case Right:
+            x += player.getMaxSpeed()+(world.getMap().getTileSize()/2.);
+            break;
+        case Up:
+            y -= player.getMaxSpeed()+(world.getMap().getTileSize()/2.);
+            break;
+        case Down:
+            y += player.getMaxSpeed()+(world.getMap().getTileSize()/2.);
+            break;
+        default:
+            break;
+        }
+        
+        return world.getMap().toGridCoordinates(x, y);
+    }
 
     /**
      * Met à jour l'intelligence artificielle
@@ -53,43 +81,111 @@ public class AIController extends Controller {
     @objid ("2960c0e0-6a89-4208-87eb-888ae75547e6")
     @Override
     public void update() {
-        aiLocation = world.getMap().toGridCoordinates((int)player.getX(),(int)player.getY());
+        aiLocation = world.getMap().toGridCoordinates(player.getX(), player.getY());
+              
         if(readyToBomb()){
             bombing = true;
             return;
         }
         
-        //Si sa position est sans danger mais que tous ses voisins sont soit des murs, soit dangereux alors ne bouge pas
-        if(isSafe(aiLocation) && 
-           !isEmptyAndSafe(aiLocation.neighbor(Direction.Up)) &&
-           !isEmptyAndSafe(aiLocation.neighbor(Direction.Down)) &&
-           !isEmptyAndSafe(aiLocation.neighbor(Direction.Left)) &&
-           !isEmptyAndSafe(aiLocation.neighbor(Direction.Right))){
-            currentDirection = null;
-        } else if(currentDirection == null || player.isColliding(currentDirection, player.getMaxSpeed())){ //Si l'IA rencontre un obstacle
-            turn();
-        } else if (!(isSafe(aiLocation.neighbor(currentDirection))) && isSafe(aiLocation)) { //Si l'IA va atteindre une case dangereuse
-            turn();
-        } else if(!isSafe(aiLocation)){ //Si l'IA est en danger
-            for(Direction dir : Direction.values()){
-                if(isEmptyAndSafe(aiLocation.neighbor(dir)) && !player.isColliding(dir, player.getMaxSpeed())){
-                    currentDirection = dir;
-                }
+        if (currentDirection == null)
+            currentDirection = player.getDirection();
+        
+        GridCoordinates nextPosition = nextPosition(currentDirection);
+        
+        if (player.isColliding(currentDirection, player.getMaxSpeed())) {
+            if (!turnSafely(10))
+                turnRandomly();
+        } else if (!aiLocation.equals(nextPosition)) {
+            if (!isSafe(nextPosition))
+                turnSafely(10); //Sortir du danger
+            else { //Changer de direction
+                if (Math.random() < 1./world.getFps())
+                    Collections.shuffle(directions);
+                turnSafely(1, Direction.getOpposite(currentDirection));
             }
         }
     }
+    
+    private boolean turnSafely(int maxStep) {
+        return turnSafely(maxStep, -1, null);
+    }
 
-    @objid ("e87291f0-a8c8-4d07-99ba-b34fa92d336b")
-    private void turn() {
-        Direction randomDirection;
-        for (int i = 0; i < 10 && !turned; i++) {
-            randomDirection = Direction.getRandomDirection();
-            if(randomDirection != currentDirection && !player.isColliding(randomDirection, player.getMaxSpeed())){
-                currentDirection = randomDirection;
-                turned = true;
+    private boolean turnSafely(int maxStep, Direction exclude) {
+        return turnSafely(maxStep, -1, exclude);
+    }
+    
+    
+    private boolean turnSafely(int maxStep, int minSafe) {
+        return turnSafely(maxStep, minSafe, null);
+    }
+    
+    private boolean turnSafely(int maxStep, int minSafe, Direction exclude) {
+        DirectionInfo safest = null;
+        Direction direction = null;
+        
+        for (Direction nextDirection : directions) {
+            if (player.isColliding(nextDirection, player.getMaxSpeed()))
+                continue;
+            
+            if (nextDirection == exclude)
+                continue;
+                
+            DirectionInfo next = isDirectionSafe(aiLocation, nextDirection, maxStep);
+            if (next.compareTo(safest) > 0) {
+                safest = next;
+                direction = nextDirection;
             }
         }
-        turned = false;
+        
+        if ((safest == null || safest.safe <= 0 || safest.step > 1) && isSafe(aiLocation)) {
+            currentDirection = null;
+            return true;
+        } else if (safest != null && safest.safe >= minSafe) {
+            currentDirection = direction;
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    private void turnRandomly() {
+        for (Direction direction : directions) {
+            if (currentDirection != direction && !player.isColliding(direction, player.getMaxSpeed())) {
+                currentDirection = direction;
+                return;
+            }
+        }
+    }
+    
+    private int getThreateningBombTimeRemaining(GridCoordinates target) {
+        int timeRemaining = -1;
+        GridCoordinates temp = new GridCoordinates(target);
+        
+        for(Direction dir : Direction.values()){
+            temp = target; // Pas besoin de copier car neighbor donne une autre instance
+            while(!world.getMap().isCollidable(temp)){
+                Bomb bomb = world.getMap().getFirstBomb(temp);
+                
+                if(bomb != null && GridCoordinates.distance(target,temp) <= bomb.getRange()) {
+                    if (timeRemaining < 0 || bomb.getTimeRemaining() < timeRemaining)
+                        timeRemaining = bomb.getTimeRemaining();
+                }
+                
+                if (bombingSimulation && temp.equals(aiLocation)) {
+                    if (GridCoordinates.distance(target, aiLocation) <= player.getRange()) {
+                        if (timeRemaining == -1)
+                            timeRemaining = (int)World.TIME_BEFORE_EXPLOSION*world.getFps();
+                        else
+                            timeRemaining = Math.min((int)World.TIME_BEFORE_EXPLOSION*world.getFps(), timeRemaining);
+                    }
+                }
+                
+                temp = temp.neighbor(dir);
+            }
+        }
+        
+        return timeRemaining;
     }
 
     /**
@@ -106,27 +202,26 @@ public class AIController extends Controller {
             return false;
         }
         
-        GridCoordinates temp = new GridCoordinates(target);
-        List<Entity> tileEntities = new ArrayList<Entity>();
         Bomb bomb = null;
+        GridCoordinates temp = new GridCoordinates(target);
         
         for(Direction dir : Direction.values()){
             temp = target; // Pas besoin de copier car neighbor donne une autre instance
             while(!world.getMap().isCollidable(temp)){
-                if(world.getMap().hasBomb(temp)){
-                    tileEntities = world.getMap().getEntities(temp);
-                    for(Entity entity : tileEntities){
-                        if(entity instanceof Bomb){
-                            bomb = (Bomb)entity;
-                        }
-                    }
-                    if(GridCoordinates.distance(target,temp) <= bomb.getRange()){
+                bomb = world.getMap().getFirstBomb(temp);
+                
+                if(bomb != null && GridCoordinates.distance(target,temp) <= bomb.getRange())
+                    return false;
+                
+                if (bombingSimulation && temp.equals(aiLocation)) {
+                    if (GridCoordinates.distance(target, aiLocation) <= player.getRange())
                         return false;
-                    }
                 }
+                
                 temp = temp.neighbor(dir);
             }
         }
+        
         return true;
     }
 
@@ -150,6 +245,36 @@ public class AIController extends Controller {
         return isEmpty(gc) && isSafe(gc);
     }
 
+    private boolean isBadBonus(GridCoordinates gc) {
+        if (!world.getMap().isInsideMap(gc) || world.getMap().getTileType(gc) != TileType.Bonus)
+            return false;
+        
+        switch (world.getMap().getBonusType(gc)) {
+            case LessBomb:
+            case LessRange:
+            case LessSpeed:
+                return true;
+            default:
+                return false;
+        }
+    }
+    
+    private boolean isGoodBonus(GridCoordinates gc) {
+        if (!world.getMap().isInsideMap(gc) || world.getMap().getTileType(gc) != TileType.Bonus)
+            return false;
+        
+        switch (world.getMap().getBonusType(gc)) {
+            case Kick:
+            case MoreSpeed:
+            case MoreBomb:
+            case MoreRange:
+            case Random:
+            case Shield:
+                return true;
+            default:
+                return false;
+        }
+    }
     /**
      * Détermine si l'IA peut poser une bombe dans la situation actuelle
      * @return true si oui, false sinon
@@ -157,43 +282,109 @@ public class AIController extends Controller {
     @objid ("abcfe8f8-3507-4b7c-a175-d63eebfae72c")
     private boolean readyToBomb() {
         if(player.getBombCount() < player.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation) && Math.random() < 1./world.getFps()) {
-            //check up
-            if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up))) {
-                if(isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Left)) ||
-                   isEmptyAndSafe(aiLocation.neighbor(Direction.Up).neighbor(Direction.Right))) {
-                    currentDirection = Direction.Up;
-                    return true;
-                }
-            }
-            
-            //check down
-            if(isEmptyAndSafe(aiLocation.neighbor(Direction.Down))) {
-                if(isEmptyAndSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Left)) ||
-                   isEmptyAndSafe(aiLocation.neighbor(Direction.Down).neighbor(Direction.Right))) {
-                    currentDirection = Direction.Down;
-                    return true;
-                }
-            }
-            
-            //check left
-            if(isEmptyAndSafe(aiLocation.neighbor(Direction.Left))) {
-                if(isEmptyAndSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Up)) ||
-                   isEmptyAndSafe(aiLocation.neighbor(Direction.Left).neighbor(Direction.Down))) {
-                    currentDirection = Direction.Left;
-                    return true;
-                }
-            }
-        
-            //check right
-            if(isEmptyAndSafe(aiLocation.neighbor(Direction.Right))) {
-                if(isEmptyAndSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Up)) ||
-                   isEmptyAndSafe(aiLocation.neighbor(Direction.Right).neighbor(Direction.Down))) {
-                    currentDirection = Direction.Right;
-                    return true;
-                }
-            }
+            bombingSimulation = true;
+            if (turnSafely(5, 1)) {
+                bombingSimulation = false;
+                return true;
+            } else
+                bombingSimulation = false;
         }
         return false;
     }
 
+    private static class DirectionInfo implements Comparable<DirectionInfo> {
+        public int safe = -3;
+        public int step = 0;
+        public int badBonus = 0;
+        public int goodBonus = 0;
+        
+        public DirectionInfo() {
+            // TODO Auto-generated constructor stub
+        }
+        
+        public DirectionInfo(int safe, int step, int badBonus, int goodBonus) {
+            this.safe = safe;
+            this.step = step;
+            this.badBonus = badBonus;
+            this.goodBonus = goodBonus;
+        }
+        
+        @Override
+        public int compareTo(DirectionInfo o) {
+            if (o == null)
+                return 1;
+
+            if (safe < o.safe)
+                return -1;
+            else if (safe > o.safe)
+                return 1;
+            
+            else if (step > o.step)
+                return -1;
+            else if (step < o.step)
+                return 1;
+            
+            else if (badBonus > o.badBonus)
+                return -1;
+            else if (badBonus < o.badBonus)
+                return 1;
+            
+            else if (goodBonus < o.goodBonus)
+                return -1;
+            else if (goodBonus > o.goodBonus)
+                return 1;
+            
+            return 0;
+        }
+    }
+    
+    private DirectionInfo isDirectionSafe(GridCoordinates position, Direction direction, int maxStep) {
+        return isDirectionSafe(position, direction, maxStep, 0);
+    }
+    
+    private DirectionInfo isDirectionSafe(GridCoordinates position, Direction direction, int maxStep, int step) {      
+        GridCoordinates nextPosition = position.neighbor(direction);
+        DirectionInfo ret = new DirectionInfo(0, 1, isBadBonus(nextPosition) ? 1 : 0, isGoodBonus(nextPosition) ? 1 : 0);
+        
+        if (!isEmpty(nextPosition))
+            ret.safe = -1;
+        else if (world.getMap().isExploding(nextPosition)) {
+            if (world.getMap().getExplosionTimeRemaining(nextPosition) <= (step-1)*world.getMap().getTileSize()/player.getMaxSpeed())
+                ret.safe = 1;
+            else
+                ret.safe = -2;
+        }
+        else {
+            int timeRemaining = getThreateningBombTimeRemaining(nextPosition);
+            
+            if (timeRemaining < 0) { //Safe
+                ret.safe = 1;
+            } else if (step+1 >= maxStep) { //Inconnu mais nb de pas max atteint
+                ret.safe = 0;
+            } else { //Vide mais unsafe
+                if ((step+1)*world.getMap().getTileSize()/player.getMaxSpeed() > timeRemaining) {
+                    ret.safe = -2;
+                }
+                else {
+                    DirectionInfo safest = null;
+                    
+                    for (Direction nextDirection : directions) {
+                        if (Direction.areOpposite(direction, nextDirection))
+                            continue;
+                        
+                        DirectionInfo next = isDirectionSafe(nextPosition, nextDirection, maxStep, step+1);
+                        if (next.compareTo(safest) > 0)
+                            safest = next;
+                    }
+                    
+                    ret.safe = safest.safe;
+                    ret.step += safest.step;
+                    ret.badBonus += safest.badBonus;
+                    ret.goodBonus += safest.goodBonus;
+                }
+            }
+        }
+        
+        return ret;
+    }
 }
