@@ -138,7 +138,7 @@ public class AIController extends Controller {
             }
         }
         
-        if ((safest == null || safest.safe <= 0 || safest.step > 1) && isSafe(aiLocation)) {
+        if ((safest == null || safest.safe <= 0 || safest.step > 1 || safest.badBonus > 0) && isSafe(aiLocation)) {
             currentDirection = null;
             return true;
         } else if (safest != null && safest.safe >= minSafe) {
