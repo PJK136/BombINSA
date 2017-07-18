@@ -3,6 +3,8 @@ package game;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /** Ce contrôleur est l'intelligence artificielle du jeu */
@@ -275,13 +277,40 @@ public class AIController extends Controller {
                 return false;
         }
     }
+    
+    private boolean hasTarget(int range) {
+        for(Direction direction : Direction.values()){
+        	GridCoordinates position = aiLocation;
+            for (int i = 0; i < range; i++) {
+            	position = position.neighbor(direction);
+                if (!world.getMap().isInsideMap(position))
+                	break;
+                else if (world.getMap().getTileType(position) == TileType.Breakable)
+                	return true;
+                else if (!isEmpty(position) || isGoodBonus(position))
+                	break;
+                else {
+                	List<Entity> entities = world.getMap().getEntities(position);
+                	for (Entity entity : entities) {
+                		if (entity instanceof Player && entity != player)
+                			return true;
+                	}
+                }
+            }
+        }
+        
+        return false;
+    }
+    
     /**
      * Détermine si l'IA peut poser une bombe dans la situation actuelle
      * @return true si oui, false sinon
      */
     @objid ("abcfe8f8-3507-4b7c-a175-d63eebfae72c")
     private boolean readyToBomb() {
-        if(player.getBombCount() < player.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation) && Math.random() < 1./world.getFps()) {
+        if(player.getBombCount() < player.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation)
+        		&& Math.random() < 2./world.getFps() && hasTarget(player.getRange())) {
+        		
             bombingSimulation = true;
             if (turnSafely(5, 1)) {
                 bombingSimulation = false;
