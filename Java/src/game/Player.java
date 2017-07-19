@@ -238,9 +238,10 @@ public class Player extends Entity {
     void removeShield() {
         this.playerAbilities.set(PlayerAbility.Shield.ordinal(), false);
     }
-/**
- * Appelle la méthode canCollide de Entity et vérifie en plus la collision avec les bombes
- */
+    
+    /**
+     * Appelle la méthode canCollide de Entity et vérifie en plus la collision avec les bombes
+     */
     @objid ("19e970e7-cbf2-4148-99bc-6828a561f8de")
     boolean canCollide(double x, double y) {
         if (!super.canCollide(x, y)) {
