@@ -388,6 +388,15 @@ public class AIController extends Controller {
             
             if (timeRemaining < 0) { //Safe
                 ret.safe = 1;
+                
+                for (int i = step; i < maxStep; i++) { //Compte les bons bonus si l'on suit cette voie 
+                	nextPosition = nextPosition.neighbor(direction);
+                	
+                	if (!isEmpty(nextPosition) || world.getMap().isExploding(nextPosition) || isBadBonus(nextPosition))
+                    	break;
+                    else if (isGoodBonus(nextPosition))
+                    	ret.goodBonus++;
+                }
             } else if (step+1 >= maxStep) { //Inconnu mais nb de pas max atteint
                 ret.safe = 0;
             } else { //Vide mais unsafe
