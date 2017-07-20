@@ -243,6 +243,32 @@ public class GameViewer extends JPanel {
         }
     }
 
+    //http://answers.unity3d.com/questions/150347/what-exactly-does-timetime-do-in-mathfpingpong.html
+    @objid ("a2ce16fa-379a-4c02-be51-8541e80d6bac")
+    private static double pingPong(double time, double length) {
+        double l = 2 * length;
+        double t = time % l;
+        
+        if (0 <= t && t < length)
+            return t;
+        else
+            return l - t;
+    }
+
+    /**
+     * http://answers.unity3d.com/questions/678855/trying-to-get-object-to-blink-speed-acording-to-ti.html
+     * @param remaining nombre restant
+     * @param duration durée
+     * @param intervalMin intervalle minimum
+     * @param intervalMax intervalle maximum
+     * @return alternance de vrai et de faux à intervalle dynamique
+     */
+    @objid ("dd75a61f-a8f2-4638-b49e-8fc4e1a0c499")
+    public static boolean oscillate(double remaining, double duration, double intervalMin, double intervalMax) {
+        double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
+        return pingPong(duration - remaining, interval) > interval/2; //Ping pong sur la durée écoulée
+    }
+    
     /**
      * Dessine la partie sur un Graphics2D
      * @param g Graphics2D sur lequel dessiner
@@ -252,7 +278,7 @@ public class GameViewer extends JPanel {
     private void drawWorld(Graphics2D g, WorldView worldView) {
         for (Entity entity : worldView.getEntities()) {
             if (entity instanceof Bomb) {
-                if (World.oscillate(((Bomb)entity).getTimeRemaining(),
+                if (oscillate(((Bomb)entity).getTimeRemaining(),
                                     ((Bomb)entity).getDuration(),
                                     (int)(BOMB_BLINK_INTERVAL_MIN*worldView.getFps()),
                                     (int)(BOMB_BLINK_INTERVAL_MAX*worldView.getFps()))) {
