@@ -32,6 +32,14 @@ public class AIController extends Controller {
         directions = new ArrayList<Direction>(Arrays.asList(Direction.values()));
         Collections.shuffle(directions);
     }
+    
+    @Override
+    public void setPlayer(Player value) {
+    	super.setPlayer(value);
+		currentDirection = null;
+		bombing = false;
+		bombingSimulation = false;
+    }
 
     @objid ("a6dfdad3-f290-4e15-ba75-694888e5d4c2")
     @Override
