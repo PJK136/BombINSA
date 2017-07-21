@@ -132,83 +132,90 @@ public class Local extends World {
         
         GameState state = super.update();
         
-        //sudden death case
-        if (timeRemaining == 0) {
-            for (Entity entity : entities.values()) {
-                if (entity instanceof Player) {
-                    ((Player)entity).setLives(1);
-                    ((Player)entity).removeShield();
-                }
-            }
-        } else if(timeRemaining<0) {
-            int interval = (int)(((90.*fps+timeRemaining)/(120*fps))*fps);
-            if (interval <= 0 || timeRemaining % interval == 0) {
-                boolean bombPlanted = false;
-                while(!bombPlanted){
-                    double x = Math.random()*map.getWidth();
-                    double y = Math.random()*map.getHeight();
-                    if(!map.isCollidable(x, y)) {
-                        addEntity(new Bomb(this, map.toCenterX(x), map.toCenterY(y), 4,(int)(TIME_BEFORE_EXPLOSION*fps)));
-                        bombPlanted = true;
+        if (state == GameState.Playing || state == GameState.SuddenDeath) {
+            //sudden death case
+            if (timeRemaining == 0) {
+                for (Entity entity : entities.values()) {
+                    if (entity.toRemove)
+                        continue;
+                    
+                    if (entity instanceof Player) {
+                        ((Player)entity).setLives(1);
+                        ((Player)entity).removeShield();
                     }
                 }
             }
-        }
-        
-        //update of the new bombs
-        for(Player player : queuePlayer){
-            addEntity(new Bomb(this, player, (int)(TIME_BEFORE_EXPLOSION*fps)));
-        }
-        
-        //update of the bonus
-        for(GridCoordinates bonus : queueBonus){
-            map.setTileType(TileType.Empty,bonus);
-        }
-           
-        //update of the bombs explosions
-        for(Bomb bomb : queueBomb){
-            //locate center of the bomb impact
-            GridCoordinates bombGC = map.toGridCoordinates(bomb.getX(), bomb.getY());
-            GridCoordinates explosionGC = new GridCoordinates(bombGC);
             
-            if (map.isExplodable(explosionGC))
-                map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Center, null, explosionGC);
-            
-            for (Direction direction : Direction.values()) {
-                explosionGC = bombGC;
-                GridCoordinates nextGC = bombGC.neighbor(direction);
-                boolean hasCollided = false;
-                while (GridCoordinates.distance(bombGC, nextGC) <= bomb.getRange() &&
-                       map.isInsideMap(nextGC) && !hasCollided && map.isExplodable(nextGC)) {
-                    explosionGC = nextGC;
-                    map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, direction, explosionGC);
-                    hasCollided = map.isCollidable(explosionGC) || map.hasBomb(explosionGC);
-                    nextGC = explosionGC.neighbor(direction);
+            if(state == GameState.SuddenDeath) {
+                int interval = (int)(((90.*fps+timeRemaining)/(120*fps))*fps);
+                if (interval <= 0 || timeRemaining % interval == 0) {
+                    boolean bombPlanted = false;
+                    while(!bombPlanted){
+                        double x = Math.random()*map.getWidth();
+                        double y = Math.random()*map.getHeight();
+                        if(!map.isCollidable(x, y)) {
+                            addEntity(new Bomb(this, map.toCenterX(x), map.toCenterY(y), 4,(int)(TIME_BEFORE_EXPLOSION*fps)));
+                            bombPlanted = true;
+                        }
+                    }
                 }
-                map.setExplosionEnd(explosionGC);
             }
-        }
-        
-        //Update kicks
-        for (Entry<Bomb, Direction> entry : queueKickBomb.entrySet()) {
-            if (entry.getValue() != null) {
-                entry.getKey().setDirection(entry.getValue());
-                entry.getKey().setSpeed(Bomb.BOMB_DEFAULT_SPEED*map.getTileSize()/getFps());
+            
+            //update of the new bombs
+            for(Player player : queuePlayer){
+                addEntity(new Bomb(this, player, (int)(TIME_BEFORE_EXPLOSION*fps)));
             }
+            
+            //update of the bonus
+            for(GridCoordinates bonus : queueBonus){
+                map.setTileType(TileType.Empty,bonus);
+            }
+               
+            //update of the bombs explosions
+            for(Bomb bomb : queueBomb){
+                //locate center of the bomb impact
+                GridCoordinates bombGC = map.toGridCoordinates(bomb.getX(), bomb.getY());
+                GridCoordinates explosionGC = new GridCoordinates(bombGC);
+                
+                if (map.isExplodable(explosionGC))
+                    map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Center, null, explosionGC);
+                
+                for (Direction direction : Direction.values()) {
+                    explosionGC = bombGC;
+                    GridCoordinates nextGC = bombGC.neighbor(direction);
+                    boolean hasCollided = false;
+                    while (GridCoordinates.distance(bombGC, nextGC) <= bomb.getRange() &&
+                           map.isInsideMap(nextGC) && !hasCollided && map.isExplodable(nextGC)) {
+                        explosionGC = nextGC;
+                        map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, direction, explosionGC);
+                        hasCollided = map.isCollidable(explosionGC) || map.hasBomb(explosionGC);
+                        nextGC = explosionGC.neighbor(direction);
+                    }
+                    map.setExplosionEnd(explosionGC);
+                }
+            }
+            
+            //Update kicks
+            for (Entry<Bomb, Direction> entry : queueKickBomb.entrySet()) {
+                if (entry.getValue() != null) {
+                    entry.getKey().setDirection(entry.getValue());
+                    entry.getKey().setSpeed(Bomb.BOMB_DEFAULT_SPEED*map.getTileSize()/getFps());
+                }
+            }
+            
+            if(!queueBomb.isEmpty()){  
+                fireEvent(GameEvent.Explosion);
+            }
+            if(!queueBonus.isEmpty()){
+                fireEvent(GameEvent.PickUp);
+            }
+            
+            //clearing all the queue lists
+            queuePlayer.clear();
+            queueBomb.clear();
+            queueBonus.clear();
+            queueKickBomb.clear();
         }
-        
-        if(!queueBomb.isEmpty()){  
-            fireEvent(GameEvent.Explosion);
-        }
-        if(!queueBonus.isEmpty()){
-            fireEvent(GameEvent.PickUp);
-        }
-        
-        //clearing all the queue lists
-        queuePlayer.clear();
-        queueBomb.clear();
-        queueBonus.clear();
-        queueKickBomb.clear();
         
         return state;
     }
