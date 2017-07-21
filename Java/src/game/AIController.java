@@ -259,31 +259,14 @@ public class AIController extends Controller {
         if (!world.getMap().isInsideMap(gc) || world.getMap().getTileType(gc) != TileType.Bonus)
             return false;
         
-        switch (world.getMap().getBonusType(gc)) {
-            case LessBomb:
-            case LessRange:
-            case LessSpeed:
-                return true;
-            default:
-                return false;
-        }
+        return !world.getMap().getBonusType(gc).isGood();
     }
     
     private boolean isGoodBonus(GridCoordinates gc) {
         if (!world.getMap().isInsideMap(gc) || world.getMap().getTileType(gc) != TileType.Bonus)
             return false;
         
-        switch (world.getMap().getBonusType(gc)) {
-            case Kick:
-            case MoreSpeed:
-            case MoreBomb:
-            case MoreRange:
-            case Random:
-            case Shield:
-                return true;
-            default:
-                return false;
-        }
+        return world.getMap().getBonusType(gc).isGood();
     }
     
     private boolean hasTarget(int range) {
