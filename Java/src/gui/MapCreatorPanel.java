@@ -341,11 +341,15 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     public boolean checkSaved() {
         if (saved)
             return true;
-        return JOptionPane.showConfirmDialog(this,
-                                                "Il y a des modifications non sauvegardées, êtes-vous sûr de vouloir continuer ?",
+        
+        if (JOptionPane.showConfirmDialog(this, "Voulez-vous sauvegarder votre travail ?",
                                                 "Modifications non sauvegardées",
                                                 JOptionPane.YES_NO_OPTION,
-                                                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
+                                               JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+            saveToFile();
+            return saved;
+        } else
+            return true;
     }
 
     /**
