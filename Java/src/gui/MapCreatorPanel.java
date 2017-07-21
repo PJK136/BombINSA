@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -82,12 +83,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("33f032e8-510d-4492-9392-5e231a876963")
     private JSpinner rowCount;
 
-    @objid ("4dcf6e2d-c5b4-4c93-8aa6-c496410bbfa7")
-    private JLabel lblTS;
-
-    @objid ("f5dcb610-eb17-488e-8cd6-0c4c354f1c47")
-    private JSpinner tileSize;
-
     @objid ("7303354e-0b01-45e3-810b-35c47aeb562f")
     private JLabel lblTiles;
 
@@ -100,6 +95,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("0557317e-dc8a-4c00-a7a9-e1ed7ce62fa8")
     private Map map;
 
+    private static final int ICON_SIZE = 32;
+    
     /**
      * Construit le créateur de carte
      * @param mainWindow Fenêtre principale
@@ -145,13 +142,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         toolBar.add(rowCount);
         toolBar.addSeparator();
         
-        lblTS = new JLabel("TS : ");
-        toolBar.add(lblTS);
-        tileSize = new JSpinner(new SpinnerNumberModel(new Integer(settings.tileSize), new Integer(8), null, new Integer(2)));
-        tileSize.addChangeListener(this);
-        toolBar.add(tileSize);
-        toolBar.addSeparator();
-        
         lblTiles = new JLabel("Tiles : ");
         toolBar.add(lblTiles);
         gameViewer = new GameViewer();
@@ -179,7 +169,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         updateUISize();
         
-        newMap(false);
+        newMap();
     }
 
     /**
@@ -187,7 +177,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
      */
     @objid ("d54323e5-69dc-4edd-8f55-4a3c3157f552")
     private void updateUISize() {
-        final int size = settings.scale(((int)tileSize.getValue())*3/4);
+        final int size = settings.scale(ICON_SIZE);
         SpriteFactory factory = SpriteFactory.getInstance();
         btnNew.setIcon(factory.getImageIcon("New24", size));
         btnOpen.setIcon(factory.getImageIcon("Open24", size));
@@ -198,18 +188,14 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         MainWindow.setFontSize(columnCount, size/2);
         MainWindow.setFontSize(lblRows, size/2);
         MainWindow.setFontSize(rowCount, size/2);
-        MainWindow.setFontSize(lblTS, size/2);
-        MainWindow.setFontSize(tileSize, size/2);
         
         MainWindow.setFontSize(lblTiles, size/2);
         
         int spinnerWidth = columnCount.getMinimumSize().width*3/2;
         columnCount.setMaximumSize(new Dimension(spinnerWidth, btnNew.getMaximumSize().height));
         rowCount.setMaximumSize(new Dimension(spinnerWidth, btnNew.getMaximumSize().height));
-        tileSize.setMaximumSize(new Dimension(spinnerWidth, btnNew.getMaximumSize().height));
         columnCount.setPreferredSize(new Dimension(spinnerWidth, btnNew.getPreferredSize().height));
         rowCount.setPreferredSize(new Dimension(spinnerWidth, btnNew.getPreferredSize().height));
-        tileSize.setPreferredSize(new Dimension(spinnerWidth, btnNew.getPreferredSize().height));
         
         Sprite[] tileImages = gameViewer.getTileSprites();
         Enumeration<AbstractButton> buttons = tileTypeGroup.getElements();
@@ -221,15 +207,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
 
     /**
      * Crée une nouvelle carte vierge
-     * @param resizeWindow Redimensionne la fenêtre ?
      */
     @objid ("b65fa18f-a789-4435-8290-32da712f6f42")
-    private void newMap(boolean resizeWindow) {
-        map = new Map((int) columnCount.getValue(), (int) rowCount.getValue(), (int) tileSize.getValue());
+    public void newMap() {
+        map = new Map((int) columnCount.getValue(), (int) rowCount.getValue(), settings.tileSize);
         saved = true;
         updateMap();
-        if (resizeWindow)
-            mainWindow.pack();
     }
 
     /**
@@ -247,6 +230,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     private TileType getActualType() {
         return TileType.valueOf(tileTypeGroup.getSelection().getActionCommand());
     }
+    
+    private GridCoordinates mousePosition(MouseEvent e) {
+        double x = (e.getX()-gameViewer.getOffsetX())/gameViewer.getScaleFactor();
+        double y = (e.getY()-gameViewer.getOffsetY())/gameViewer.getScaleFactor();
+        return map.toGridCoordinates(x, y);
+    }
 
     /**
      * Place une tuile à l'emplacement désignée par la souris
@@ -254,9 +243,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
      */
     @objid ("97716585-b324-4d2b-9f0c-a120bcf0b328")
     private void placeTile(MouseEvent e) {
-        double x = e.getX()/settings.scale;
-        double y = e.getY()/settings.scale;
-        if (tileTypeGroup.getSelection() != null && map.isInsideMap(x, y)) {
+        GridCoordinates gc = mousePosition(e);
+        if (tileTypeGroup.getSelection() != null && map.isInsideMap(gc)) {
             TileType type;
             if (SwingUtilities.isLeftMouseButton(e))
                 type = getActualType();
@@ -265,9 +253,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             else
                 return;
             
-            if (map.getTileType(x, y) != type) {
+            if (map.getTileType(gc) != type) {
                 saved = false;
-                map.setTileType(type, x, y);
+                map.setTileType(type, gc);
                 updateMap();
             }
         }
@@ -277,7 +265,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @Override
     public void mouseClicked(MouseEvent e) {
         if (SwingUtilities.isMiddleMouseButton(e)) {
-            GridCoordinates gc = map.toGridCoordinates(e.getX()/settings.scale, e.getY()/settings.scale);
+            GridCoordinates gc = mousePosition(e);
             if (map.getSpawningLocations().contains(gc))
                 map.removeSpawningLocation(gc);
             else
@@ -301,12 +289,11 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("21292e44-21b2-4f77-bd31-c1f442411cab")
     @Override
     public void mousePressed(MouseEvent e) {
-        double x = e.getX()/settings.scale;
-        double y = e.getY()/settings.scale;
-        if (getActualType() == TileType.Arrow && map.isInsideMap(x, y) && map.getTileType(x, y) == TileType.Arrow) {
+        GridCoordinates gc = mousePosition(e);
+        if (getActualType() == TileType.Arrow && map.isInsideMap(gc) && map.getTileType(gc) == TileType.Arrow) {
             Direction[] directions = Direction.values();
-            int i = (map.getArrowDirection(x, y).ordinal()+1)%directions.length;
-            map.setArrowDirection(directions[i], x, y);
+            int i = (map.getArrowDirection(gc).ordinal()+1)%directions.length;
+            map.setArrowDirection(directions[i], gc);
             updateMap();
         } else
             placeTile(e);
@@ -334,7 +321,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnNew && checkSaved()) {
-            newMap(true);
+            newMap();
         }
         if (e.getSource() == btnOpen)
             openFile();
@@ -377,7 +364,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 columnCount.setValue(map.getColumnCount());
                 rowCount.setValue(map.getRowCount());
                 updateMap();
-                mainWindow.pack();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,
                         "Impossible de lire le fichier demandé !",
@@ -425,11 +411,11 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 saved = false;
             }
         }
-        else if (e.getSource() == tileSize) {
-            map.setTileSize((int) tileSize.getValue());
-            updateUISize();
-            updateMap();
-        }
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        updateMap();
+    }
 }

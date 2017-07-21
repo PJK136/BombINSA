@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -23,10 +24,10 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("580889f0-8e1d-4a59-9bfb-00c967a10ffd")
 public class MainWindow implements WindowListener {
     @objid ("3e3265a5-358a-47b3-a2b4-e7aefe04df03")
-    private static final int START_WIDTH = 640;
+    private static final int START_WIDTH = 800;
 
     @objid ("4bf8129e-77ea-44b3-b213-ea9b537b9eee")
-    private static final int START_HEIGHT = 480;
+    private static final int START_HEIGHT = 600;
 
     @objid ("d7d0818d-1589-4942-982c-1a9cbfa0f600")
     private JFrame frame;
@@ -155,7 +156,6 @@ public class MainWindow implements WindowListener {
     @objid ("8898c61c-fe11-44b3-8431-2a93405194ae")
     public void startCreator() {
         setPage(new MapCreatorPanel(this));
-        pack();
     }
 
     /**
@@ -167,14 +167,6 @@ public class MainWindow implements WindowListener {
         clearMessage();
         frame.setContentPane(page);
         frame.revalidate();
-    }
-
-    /**
-     * Redimensionne la fenêtre de manière plus compacte
-     */
-    @objid ("c6c9afec-5bba-4a55-ab6c-14848f545c6c")
-    void pack() {
-        frame.pack();
     }
 
     private void setMessage(String message, Color color) {
@@ -234,6 +226,10 @@ public class MainWindow implements WindowListener {
 
     String getMessageShown() {
         return this.message;
+    }
+    
+    void expandSize(int width, int height) {
+        frame.setSize(frame.getWidth()+width, frame.getHeight()+height);
     }
 
     @objid ("5770124d-d120-44f6-bf06-0f01379bd988")

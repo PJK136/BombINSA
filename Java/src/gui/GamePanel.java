@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -51,8 +49,8 @@ public class GamePanel extends JPanel implements ActionListener {
     @objid ("1c3818b3-5d8a-4afc-a3fe-a21f1c2480f9")
     private JButton btnExit;
     
-    private boolean needResize;
-
+    private static final int ICON_SIZE = 32;
+    
     /**
      * Construit le panneau d'affichage du jeu
      * @param mainWindow Fenêtre principale
@@ -66,15 +64,6 @@ public class GamePanel extends JPanel implements ActionListener {
         topBar = new JPanel();
         add(topBar, BorderLayout.NORTH);
         topBar.setLayout(new BoxLayout(topBar, BoxLayout.X_AXIS));
-        topBar.addComponentListener(new ComponentListener() {
-            public void componentResized(ComponentEvent e) {
-                needResize = true;
-            }
-            
-            public void componentShown(ComponentEvent e) {  }
-            public void componentMoved(ComponentEvent e) { }
-            public void componentHidden(ComponentEvent e) { }
-        });
         
         playerStates = new HashMap<Player, PlayerStatePanel>();
         playerStateGroup = new JPanel() ;
@@ -85,7 +74,7 @@ public class GamePanel extends JPanel implements ActionListener {
         topBar.add(horizontalGlue);
         
         timeRemaining = new JLabel("9:99 ");
-        timeRemaining.setIcon(SpriteFactory.getInstance().getImageIcon("hourglass", settings.scale(settings.tileSize)));
+        timeRemaining.setIcon(SpriteFactory.getInstance().getImageIcon("hourglass", settings.scale(ICON_SIZE)));
         topBar.add(timeRemaining);
         
         btnExit = new JButton();
@@ -117,11 +106,12 @@ public class GamePanel extends JPanel implements ActionListener {
      */
     @objid ("45932752-17aa-44c7-8689-4c86cb06b683")
     public void showGameStatus(WorldView view) {
-        final int size = settings.scale((int) (view.getMap().getTileSize()*0.75));
+        final int size = settings.scale(ICON_SIZE);
         
         updateTimeRemaining(view, size);
         if (btnExit.getIcon() == null || btnExit.getIcon().getIconHeight() != size) {
             btnExit.setIcon(SpriteFactory.getInstance().getImageIcon("Stop24", size));
+            timeRemaining.setIcon(SpriteFactory.getInstance().getImageIcon("hourglass", size));
         }
         
         List<Player> playerList = view.getPlayers();
@@ -151,25 +141,6 @@ public class GamePanel extends JPanel implements ActionListener {
             setVisible(true);
             gameViewer.requestFocusInWindow();
         }
-        
-        if (needResize)
-            updateGameSize();
-    }
-
-    /**
-     * Met à jour la taille de la fenêtre en fonction du jeu
-     */
-    @objid ("28945b2a-0dba-494d-8e43-6992d3e5b089")
-    void updateGameSize() {
-        mainWindow.pack();
-        
-        int previousHeight;
-        do { //Réajuste la fenêtre tant que la hauteur est modifiée
-            previousHeight = playerStateGroup.getHeight();
-            playerStateGroup.revalidate();
-            mainWindow.pack();
-        } while (previousHeight != playerStateGroup.getHeight());
-        needResize = false;
     }
 
     /**

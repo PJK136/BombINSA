@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.net.InetAddress;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -61,6 +62,7 @@ public class GameWorker implements Runnable, GameListener {
                 Thread.sleep(1000/settings.fps, 0);
             }
             
+            adjustMainWindowSize();
             viewer.drawMap(world.getMap());
             SwingUtilities.invokeAndWait(() -> panel.showGameStatus(world));
             
@@ -241,5 +243,13 @@ public class GameWorker implements Runnable, GameListener {
             viewer.addKeyListener(kbController);
             world.newController(kbController);
         }
+    }
+    
+    private void adjustMainWindowSize() {
+        Dimension vsize = viewer.getSize();
+        int preferredWidth = world.getMap().getColumnCount()*settings.scale(settings.tileSize)+1;
+        int preferredHeight = world.getMap().getRowCount()*settings.scale(settings.tileSize)+1;
+        mainWindow.expandSize(Math.max(0, preferredWidth-vsize.width),
+                Math.max(0, preferredHeight-vsize.height));
     }
 }

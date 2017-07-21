@@ -15,6 +15,10 @@ import game.PlayerAbility;
  */
 @objid ("46db285b-3b47-467c-9f0f-477cd2eb3613")
 public class PlayerStatePanel extends JPanel {
+    int size;
+    
+    String bombermanIcon;
+    
     @objid ("a93c2a2a-7d08-409f-8eff-a00ecdf4e7ae")
      JLabel lives;
 
@@ -36,47 +40,31 @@ public class PlayerStatePanel extends JPanel {
      * @param size Taille des icônes
      */
     @objid ("e8dc4fa0-32c2-4b8c-90c6-df91088eba72")
-    PlayerStatePanel(int playerID, int size) {
-        SpriteFactory factory = SpriteFactory.getInstance();
-        
+    PlayerStatePanel(int playerID, int size) {       
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         
         PlayerColor[] colors = PlayerColor.values();
-        int color = playerID % colors.length;
+        bombermanIcon = "bomberMan_"+colors[playerID % colors.length].name().toLowerCase();
         
         lives = new JLabel();
-        lives.setIcon(factory.getImageIcon("bomberMan_"+colors[color].name().toLowerCase(), size));
-        MainWindow.setFontSize(lives, size);
         add(lives);
         
         
         bombMax = new JLabel();
-        bombMax.setIcon(factory.getImageIcon("bombMax", size));
-        MainWindow.setFontSize(bombMax, size);
         add(bombMax);
         
         range = new JLabel();
-        range.setIcon(factory.getImageIcon("range", size));
-        MainWindow.setFontSize(range, size);
         add(range);
         
         abilities = new JLabel[PlayerAbility.values().length];
         
         for (int i = 0; i < abilities.length; i++) {
             abilities[i] = new JLabel(" ");
-            MainWindow.setFontSize(abilities[i], size);
             abilities[i].setVisible(false);
             add(abilities[i]);
         }
         
-        abilities[PlayerAbility.MoreSpeed.ordinal()].setIcon(
-                factory.getImageIcon("moreSpeed", size));
-        abilities[PlayerAbility.LessSpeed.ordinal()].setIcon(
-                factory.getImageIcon("lessSpeed", size));
-        abilities[PlayerAbility.Shield.ordinal()].setIcon(
-                factory.getImageIcon("shield", size));
-        abilities[PlayerAbility.Kick.ordinal()].setIcon(
-                factory.getImageIcon("kick", size));
+        setSize(size);
         
         separator = new JSeparator(JSeparator.VERTICAL);
         separator.setMaximumSize(new Dimension(1, Integer.MAX_VALUE));
@@ -98,4 +86,35 @@ public class PlayerStatePanel extends JPanel {
         }
     }
 
+    void setSize(int size) {
+        if (this.size == size)
+            return;
+        
+        this.size = size;
+        
+        SpriteFactory factory = SpriteFactory.getInstance();
+        
+        lives.setIcon(factory.getImageIcon(bombermanIcon, size));
+        MainWindow.setFontSize(lives, size);
+        
+        
+        bombMax.setIcon(factory.getImageIcon("bombMax", size));
+        MainWindow.setFontSize(bombMax, size);
+        
+        range.setIcon(factory.getImageIcon("range", size));
+        MainWindow.setFontSize(range, size);
+        
+        for (int i = 0; i < abilities.length; i++) {
+            MainWindow.setFontSize(abilities[i], size);
+        }
+        
+        abilities[PlayerAbility.MoreSpeed.ordinal()].setIcon(
+                factory.getImageIcon("moreSpeed", size));
+        abilities[PlayerAbility.LessSpeed.ordinal()].setIcon(
+                factory.getImageIcon("lessSpeed", size));
+        abilities[PlayerAbility.Shield.ordinal()].setIcon(
+                factory.getImageIcon("shield", size));
+        abilities[PlayerAbility.Kick.ordinal()].setIcon(
+                factory.getImageIcon("kick", size));
+    }
 }
