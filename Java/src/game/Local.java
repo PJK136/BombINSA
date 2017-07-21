@@ -37,16 +37,19 @@ public class Local extends World {
      * @param fps Nombre d'images par secondes
      * @param duration Durée d'un round en images
      * @param warmup Durée du temps d'échauffement en images
+     * @param restTime Durée entre deux rounds en images
      * @throws java.lang.Exception Erreur liée au chargement de la carte
      */
     @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
-    public Local(String mapFilename, int tileSize, int fps, int duration, int warmup) throws Exception {
+    public Local(String mapFilename, int tileSize, int fps, int roundMax, int duration, int warmup, int restTime) throws Exception {
         createMap(tileSize);
         loadMap(mapFilename);
         setFps(fps);
+        setRoundMax(roundMax);
         setDuration(duration);
-        setTimeRemaining(duration);
         setWarmupDuration(warmup);
+        setRestTimeDuration(restTime);
+        newRound();
     }
 
     /**
@@ -122,12 +125,12 @@ public class Local extends World {
      * - déplace toutes les bombes qui ont étés poussées
      */
     @objid ("15f9ba61-54f9-4783-8bd0-923098e480d7")
-    public void update() {
+    public GameState update() {
         if (warmupTimeRemaining > 0) {
-            super.update();
-            return;
-        } else
-            super.update();
+            return super.update();
+        }
+        
+        GameState state = super.update();
         
         //sudden death case
         if (timeRemaining == 0) {
@@ -206,17 +209,23 @@ public class Local extends World {
         queueBomb.clear();
         queueBonus.clear();
         queueKickBomb.clear();
+        
+        return state;
     }
 
     @objid ("a193a9c9-e032-4940-953b-5923c9da849e")
-    public void nextRound() throws Exception {
+    public void nextRound() {
         super.nextRound();
         //renew players
         for(Controller controller : controllers){
             newPlayer(controller);
         }
         //reload map
-        loadMap(mapFileName);
+        try {
+            loadMap(mapFileName);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     @objid ("b13fef2c-1897-428c-871d-8a201627e755")
@@ -267,4 +276,20 @@ public class Local extends World {
         return false;
     }
 
+    @Override
+    public String getWinnerName() {
+        if (getPlayerAliveCount() == 0 || getPlayerAliveCount() > 1)
+            return null;
+        else {
+            return getPlayers().get(0).getController().getName();
+        }
+    }
+
+    @Override
+    public int getWinnerID() {
+        if (getPlayerAliveCount() == 0 || getPlayerAliveCount() > 1)
+            return -1;
+        else
+            return getPlayers().get(0).getPlayerID();
+    }
 }

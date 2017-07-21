@@ -41,6 +41,9 @@ public class GameSettings {
     @objid ("3b09f6d9-a7d8-4a9b-8d54-6343cf3bb343")
     public double warmupDuration;
 
+    @objid ("3b09f6d9-a7d8-4a9b-8d54-6343cf3bb343")
+    public double restTimeDuration;
+
     @objid ("23a2dc78-69f4-4cfb-9196-282f0059da01")
     public int playerCount;
 
@@ -76,6 +79,7 @@ public class GameSettings {
         roundCount = 1;
         duration = 180;
         warmupDuration = 2;
+        restTimeDuration = 5;
         tileSize = 32;
         fps = 60;
         controls = new ArrayList<ControlSettings> ();

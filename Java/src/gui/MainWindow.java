@@ -177,6 +177,13 @@ public class MainWindow implements WindowListener {
         frame.pack();
     }
 
+    private void setMessage(String message, Color color) {
+        this.message = message;
+        this.messageColor = color;
+        frame.getGlassPane().setVisible(true);
+        frame.repaint();
+    }
+
     /**
      * Affiche un message en semi-transparence avec un fond gris par dessus les autres composants
      * @param message Message à afficher
@@ -184,14 +191,14 @@ public class MainWindow implements WindowListener {
      */
     @objid ("4219eb02-4dcd-45fd-88cf-b6c685cc8d32")
     void showMessage(String message, Color color) {
-        this.message = message;
-        this.messageColor = color;
-        frame.getGlassPane().setVisible(true);
-        frame.repaint();
+        if (messageTimer != null)
+            messageTimer.stop();
+        
+        setMessage(message, color);
     }
-    
+
     /**
-     * Affiche un message en semi-transparence avec un fond gris par dessus les autres composants
+     * Affiche un message en semi-transparence avec un fond gris par dessus les autres composants pendant une durée limitée
      * @param message Message à afficher
      * @param color Couleur du message
      * @param duration Durée avant effacement en millisecondes
@@ -210,7 +217,7 @@ public class MainWindow implements WindowListener {
         else
             messageTimer.stop();
         
-        showMessage(message, color);
+        setMessage(message, color);
         
         messageTimer.setInitialDelay(duration);
         messageTimer.restart();
@@ -223,6 +230,10 @@ public class MainWindow implements WindowListener {
     void clearMessage() {
         this.message = null;
         frame.getGlassPane().setVisible(false);
+    }
+
+    String getMessageShown() {
+        return this.message;
     }
 
     @objid ("5770124d-d120-44f6-bf06-0f01379bd988")

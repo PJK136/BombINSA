@@ -42,8 +42,8 @@ public class Server extends Local implements Listener {
      * @throws java.lang.Exception Erreur liée au chargement de la carte
      */
     @objid ("c0e17e22-6d82-404c-81c8-d2c427dec052")
-    public Server(String mapFilename, int tileSize, int fps, int duration, int warmup) throws Exception {
-        super(mapFilename, tileSize, fps, duration, warmup);
+    public Server(String mapFilename, int tileSize, int fps, int roundMax, int duration, int warmup, int restTime) throws Exception {
+        super(mapFilename, tileSize, fps, roundMax, duration, warmup, restTime);
         
         controllers = Collections.synchronizedList(controllers);
         
@@ -73,14 +73,16 @@ public class Server extends Local implements Listener {
 
     @objid ("969d20cd-0105-4d21-98c6-db3d6d93c845")
     @Override
-    public void update() {
-        super.update();
+    public GameState update() {
+        boolean hasEnded = isRoundEnded();
+        
+        GameState state = super.update();
         
         for (Entity entity : getEntities()) {
             network.sendToAllUDP(entity);
         }
         
-        if (warmupTimeRemaining > 0 && timeRemaining % (fps/2) == 0) {
+        if (warmupTimeRemaining > 0 && warmupTimeRemaining % (fps/2) == 0) {
             network.sendToAllUDP(new WarmupTimeRemaining(warmupTimeRemaining));
         } else if (timeRemaining % fps == 0)
             network.sendToAllUDP(new TimeRemaining(timeRemaining));
@@ -88,8 +90,10 @@ public class Server extends Local implements Listener {
         network.sendToAllTCP(((DeltaMap)map).deltas);
         ((DeltaMap)map).deltas.clear();
         
-        if (isRoundEnded())
-            network.sendToAllUDP(new RoundEnded());
+        if (!hasEnded && isRoundEnded())
+            network.sendToAllTCP(new RoundEnded(getWinnerName(), getWinnerID()));
+        
+        return state;
     }
     
     @Override
@@ -114,7 +118,7 @@ public class Server extends Local implements Listener {
 
     @objid ("a17698f1-df19-4c29-b3be-3b78424f3c88")
     @Override
-    public void nextRound() throws Exception {
+    public void nextRound() {
         network.sendToAllTCP(new NextRound());
         
         synchronized (controllers) {
@@ -143,7 +147,7 @@ public class Server extends Local implements Listener {
     @objid ("eddf6bd8-2e40-4c63-8435-f6ef11a69e01")
     public GameInfo getGameInfo() {
         return new GameInfo(fps, duration, timeRemaining, warmupDuration, warmupTimeRemaining,
-                                            round, map.getTileSize(), map.saveMap());
+                            restTimeDuration, restTimeRemaining, round, roundMax, map.getTileSize(), map.saveMap());
     }
 
     @objid ("15d969ea-6190-4c81-8279-3ae9894b6ed4")

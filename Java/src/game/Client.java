@@ -31,6 +31,10 @@ public class Client extends World implements Listener {
     @objid ("dfe866bc-4673-4e51-a1c6-849dc4b42e49")
      boolean roundEnded;
 
+     boolean nextRound;
+
+     RoundEnded winner;
+
     @objid ("69b14909-1260-4d7a-8292-5d025967581b")
      boolean pickUp;
 
@@ -109,9 +113,12 @@ public class Client extends World implements Listener {
 
     @objid ("463bec21-830d-412a-8728-f570ba668f52")
     @Override
-    public void update() {
+    public GameState update() {
         if (!init)
-            return;
+            return GameState.Init;
+        
+        if (!isConnected())
+            return GameState.End;
         
         for (int i = 0; i < controllers.size(); i++) {
             network.sendUDP(new ControllerUpdate(i, controllers.get(i)));
@@ -122,7 +129,7 @@ public class Client extends World implements Listener {
             processMessage(message);
         }
         
-        super.update();
+        GameState state = super.update();
         
         if (suddenDeath) {
             fireEvent(GameEvent.SuddenDeath);
@@ -138,6 +145,8 @@ public class Client extends World implements Listener {
             fireEvent(GameEvent.Explosion);
             explosion = false;
         }
+        
+        return state;
     }
 
     @objid ("9cc03884-80cf-4f76-8510-8f2ca2035eef")
@@ -155,7 +164,7 @@ public class Client extends World implements Listener {
     @objid ("2ce88ea4-d683-46a3-be3f-2cd53554bdb0")
     @Override
     public boolean isRoundEnded() {
-        return roundEnded || !network.isConnected();
+        return roundEnded;
     }
 
     /**
@@ -188,11 +197,18 @@ public class Client extends World implements Listener {
         network.close();
     }
 
-    @objid ("b9510250-2586-427f-88f4-0ef51d2c9232")
     @Override
-    public void nextRound() throws Exception {
-        super.nextRound();
+    void newRound() {
+        super.newRound();
         roundEnded = false;
+        nextRound = false;
+        winner = null;
+    }
+
+    @Override
+    public void nextRound() {
+        if (nextRound)
+            super.nextRound();
     }
 
     @objid ("3114b1af-c101-4ac6-bf27-c61d6175cac7")
@@ -205,7 +221,10 @@ public class Client extends World implements Listener {
             this.timeRemaining = info.timeRemaining;
             this.warmupDuration = info.warmupDuration;
             this.warmupTimeRemaining = info.warmupTimeRemaining;
+            this.restTimeDuration = info.restTimeDuration;
+            this.restTimeRemaining = info.restTimeRemaining;
             this.round = info.round;
+            this.roundMax = info.roundMax;
             this.map.setTileSize(info.tileSize);
             this.map.loadMap(info.map);
             init = true;
@@ -243,12 +262,10 @@ public class Client extends World implements Listener {
             warmupTimeRemaining = ((WarmupTimeRemaining)object).warmupTimeRemaining;
         } else if (object instanceof RoundEnded) {
             roundEnded = true;
+            winner = (RoundEnded) object;
         } else if (object instanceof NextRound) {
-            try {
-                nextRound();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            nextRound = true;
+            nextRound();
         } else if (object instanceof ToRemove) {
             ToRemove toRemove = (ToRemove)object;
             for (Integer id : toRemove.toRemove)
@@ -265,6 +282,22 @@ public class Client extends World implements Listener {
                 }
             }
         }
+    }
+
+    @Override
+    public String getWinnerName() {
+        if (winner != null)
+            return winner.winnerName;
+        else
+            return null;
+    }
+
+    @Override
+    public int getWinnerID() {
+        if (winner != null)
+            return winner.winnerID;
+        else
+            return -1;
     }
 
 }

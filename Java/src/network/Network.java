@@ -231,6 +231,16 @@ public class Network {
 
     @objid ("45b35dad-4e06-4eaf-9e28-1a60eaf74c41")
     public static class RoundEnded {
+        public String winnerName;
+        public int winnerID;
+        
+        public RoundEnded() {
+        }
+        
+        public RoundEnded(String winnerName, int winnerID) {
+            this.winnerName = winnerName;
+            this.winnerID = winnerID;
+        }
     }
 
     @objid ("9e52f3cd-68c3-49d2-bdab-4955712ea8c3")

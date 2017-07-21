@@ -21,9 +21,15 @@ public class GameInfo {
 
     @objid ("412031ee-2f0e-43e1-8daf-973efcce1518")
     public int warmupTimeRemaining;
+    
+    public int restTimeDuration;
+    
+    public int restTimeRemaining;
 
     @objid ("e414a2c2-5cb9-4646-8921-1244a983a9a8")
     public int round;
+    
+    public int roundMax;
 
     @objid ("700f5789-d7ac-454a-a1a4-e4cd76bf3743")
     public int tileSize;
@@ -50,13 +56,17 @@ public class GameInfo {
      * @param map Carte sérialisée
      */
     @objid ("7e6be8f6-2889-427b-b4ee-944683be2de8")
-    public GameInfo(int fps, int duration, int timeRemaining, int warmupDuration, int warmupTimeRemaining, int round, int tileSize, String map) {
+    public GameInfo(int fps, int duration, int timeRemaining, int warmupDuration, int warmupTimeRemaining,
+            int restTimeDuration, int restTimeRemaining, int round, int roundMax, int tileSize, String map) {
         this.fps = fps;
         this.duration = duration;
         this.timeRemaining = timeRemaining;
         this.warmupDuration = warmupDuration;
         this.warmupTimeRemaining = warmupTimeRemaining;
+        this.restTimeDuration = restTimeDuration;
+        this.restTimeRemaining = restTimeRemaining;
         this.round = round;
+        this.roundMax = roundMax;
         this.tileSize = tileSize;
         this.map = map;
     }

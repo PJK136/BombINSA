@@ -3,7 +3,6 @@ package game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -17,7 +16,7 @@ public abstract class World implements WorldView {
      int fps = 60;
 
     @objid ("0a994301-baff-4943-8fc9-5e40b755921d")
-     int timeRemaining;
+     int timeRemaining = -1;
 
     @objid ("ed497149-29e3-423f-aa53-4d59e7f2d0a9")
      int duration;
@@ -25,11 +24,17 @@ public abstract class World implements WorldView {
     @objid ("179b51a3-de36-42d1-b4e7-5910602e3eb1")
      int warmupDuration;
 
+     int restTimeDuration;
+
     @objid ("7cc86e7d-355f-47e2-9db6-26e82b9e1684")
-     int warmupTimeRemaining;
+     int warmupTimeRemaining = -1;
+
+     int restTimeRemaining = -1;
 
     @objid ("dd221d3c-d9db-4f3a-9a49-3a81e5cc95df")
-     int round = 1;
+     int round = 0;
+
+     int roundMax = 3;
 
     @objid ("6a5f65d2-9b0d-4b5a-a388-17ff14b96ca8")
     private int nextID = 1;
@@ -64,16 +69,19 @@ public abstract class World implements WorldView {
     @objid ("d409f763-e743-4545-b3b6-8c3aa8ce966a")
      List<GameListener> listeners = new LinkedList<GameListener>();
 
+    @Override
     @objid ("9aa33376-6f71-4b5f-a0af-9fcba7c1a5cd")
     public int getFps() {
         return fps;
     }
 
+    @Override
     @objid ("74f79401-b120-4eaf-81b7-d8ddf36eae60")
     public int getDuration() {
         return duration;
     }
 
+    @Override
     @objid ("181a1f7d-91b0-4a1e-8a77-235ba0c5dd0c")
     public int getTimeRemaining() {
         return timeRemaining;
@@ -97,12 +105,24 @@ public abstract class World implements WorldView {
         return warmupTimeRemaining;
     }
 
+    public int getRestTimeRemaining() {
+        return restTimeRemaining;
+    }
+
     @objid ("a8a0c673-0be2-4b59-9a70-0b336383479c")
     @Override
     public int getRound() {
         return round;
     }
 
+    public void setRoundMax(int roundMax) {
+        if (roundMax < 0)
+            throw new RuntimeException("Round max not positive");
+        
+        this.roundMax = roundMax;
+    }
+
+    @Override
     @objid ("83167709-dc8e-456e-b787-b9a4ed0d8113")
     public List<Entity> getEntities() {
         //Thread-safety
@@ -111,16 +131,19 @@ public abstract class World implements WorldView {
         }
     }
 
+    @Override
     @objid ("8696ef92-01cf-4263-80c5-6bcf172924d8")
     public MapView getMap() {
         return map;
     }
 
+    @Override
     @objid ("cb863fac-e1bd-4a91-aa76-95e63ad3fc08")
     public int getPlayerCount() {
         return controllers.size();
     }
 
+    @Override
     @objid ("fe9b5eb2-5def-4f69-8e0e-49e6eaaa3315")
     public int getPlayerAliveCount() {
         int sum = 0;
@@ -169,8 +192,8 @@ public abstract class World implements WorldView {
         if (duration < 0) {
             throw new RuntimeException("duration not positive");
         } else {
-            this.duration = duration;
-            if (timeRemaining+1 > duration)
+            this.duration = Math.max(1, duration);
+            if (timeRemaining > duration)
                 setTimeRemaining(duration);
         }
     }
@@ -180,7 +203,7 @@ public abstract class World implements WorldView {
         if (timeRemaining < 0)
             throw new RuntimeException("time remaining not positive");
         else
-            this.timeRemaining = time+1;
+            this.timeRemaining = time;
     }
 
     @objid ("33e095d8-68dd-4046-b765-17ecc0fe4365")
@@ -189,7 +212,18 @@ public abstract class World implements WorldView {
             throw new RuntimeException("warmup not positive");
         else {
             this.warmupDuration = warmup;
-            this.warmupTimeRemaining = warmup;
+            if (this.warmupTimeRemaining < this.warmupDuration)
+                this.warmupTimeRemaining = this.warmupDuration;
+        }
+    }
+
+    public void setRestTimeDuration(int restTime) {
+        if (restTime < 0)
+            throw new RuntimeException("restTime not positive");
+        else {
+            this.restTimeDuration = restTime;
+            if (this.restTimeRemaining > this.restTimeDuration)
+                this.restTimeRemaining = this.restTimeDuration;
         }
     }
 
@@ -249,6 +283,10 @@ public abstract class World implements WorldView {
     @objid ("8573d9f6-2b91-46e8-815c-d1e296750608")
     public abstract boolean isRoundEnded();
 
+    public abstract String getWinnerName();
+
+    public abstract int getWinnerID();
+
     /**
      * Met à jour le monde en controllant :
      * - s'il faut enclencher la mort subite
@@ -256,35 +294,51 @@ public abstract class World implements WorldView {
      * puis en mettant la carte à jour
      */
     @objid ("30c7a359-b727-428f-8ef4-493db313017c")
-    public void update() {
-        if (warmupTimeRemaining > 0) {
-            warmupTimeRemaining--;
-            return;
-        }
-              
-        //update of timeRemaining
-        timeRemaining -= 1;
-        
-        if (timeRemaining == 0) {
-            fireEvent(GameEvent.SuddenDeath);
-        }
-        
-        List<Integer> toRemove = new ArrayList<Integer>();
-        
-        synchronized (entities) {
-          //update of Entities
-            for (Entry<Integer, Entity> entry : entities.entrySet()) {
-                Entity entity = entry.getValue();
-                entity.update();
-                if (entity.isToRemove())
-                    toRemove.add(entry.getKey());
+    public GameState update() {       
+        if (!isRoundEnded()) {
+            if (warmupTimeRemaining > 0) {
+                warmupTimeRemaining--;
+                return GameState.WarmUp;
+            } else {
+                //update of timeRemaining
+                timeRemaining -= 1;
+            
+                if (timeRemaining == 0) {
+                    fireEvent(GameEvent.SuddenDeath);
+                }
+                
+                List<Integer> toRemove = new ArrayList<Integer>();
+            
+                synchronized (entities) {
+                    //update of Entities
+                    for (Entry<Integer, Entity> entry : entities.entrySet()) {
+                        Entity entity = entry.getValue();
+                        entity.update();
+                        if (entity.isToRemove())
+                            toRemove.add(entry.getKey());
+                    }
+                }
+            
+                removeEntities(toRemove);
+            
+                //update of the map
+                map.update();
+                
+                if (timeRemaining > 0)
+                    return GameState.Playing;
+                else
+                    return GameState.SuddenDeath;
             }
         }
-        
-        removeEntities(toRemove);
-        
-        //update of the map
-        map.update();
+        else if (round < roundMax || restTimeRemaining > 0) { //S'il reste des rounds ou si le
+            restTimeRemaining--;                              // dernier temps de repos n'est pas fini
+            
+            if (round < roundMax && restTimeRemaining <= 0) //On relance s'il reste des rounds
+                nextRound();
+            
+            return GameState.EndRound;
+        } else
+            return GameState.End;
     }
     
     void removeEntities(List<Integer> entityIDs) {
@@ -299,21 +353,26 @@ public abstract class World implements WorldView {
     public void stop() {
     }
 
-    /**
-     * Relance la partie
-     * @throws java.lang.Exception problème lié au chargement de la carte
-     */
-    @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
-    public void nextRound() throws Exception {
+    void newRound() {
         //time remaining back to beginning
-          timeRemaining = duration;
-          warmupTimeRemaining = warmupDuration;
-          round++;
-        
-          //reinitialize entities 
-          entities.clear();
+        timeRemaining = duration;
+        warmupTimeRemaining = warmupDuration;
+        restTimeRemaining = restTimeDuration;
+        round++;
+      
+        //reinitialize entities 
+        entities.clear();
     }
 
+    /**
+     * Relance la partie
+     */
+    @objid ("cb1c5304-fd98-4582-be17-1c7dc3353443")
+    public void nextRound() {
+        newRound();
+    }
+
+    @Override
     @objid ("0b9057d7-eb96-4376-92be-bfb39cef93ff")
     public List<Player> getPlayers() {
         List<Player> playerList = new LinkedList<Player>();

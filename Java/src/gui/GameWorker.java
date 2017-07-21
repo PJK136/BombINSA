@@ -10,9 +10,9 @@ import game.Client;
 import game.GameEvent;
 import game.GameListener;
 import game.Local;
-import game.Player;
 import game.Server;
 import game.World;
+import game.GameState;
 
 /**
  * Classe qui gère l'exécution du jeu 
@@ -63,104 +63,85 @@ public class GameWorker implements Runnable, GameListener {
             
             viewer.drawMap(world.getMap());
             SwingUtilities.invokeAndWait(() -> panel.showGameStatus(world));
-            setGameState(GameState.Init);
             
             final long timeStep = 1000000000/world.getFps();
+                                        
+            long offset = 0;
+            long start = System.nanoTime();
             
-            while (!stop) {
-                setGameState(GameState.Playing);
-                              
-                long offset = 0;
-                long start = System.nanoTime();
+            //int frame = 0;
+            //long lastDisplay = System.nanoTime();
+            
+            GameState state;
+            
+            while (!stop && (state = world.update()) != GameState.End)
+            {          
+                SwingUtilities.invokeLater(() -> panel.showGameStatus(world));
+                viewer.drawWorld(world);
                 
-                int frame = 0;
-                long lastDisplay = System.nanoTime();
-                
-                while (!stop && !world.isRoundEnded())
-                {          
-                    world.update();
+                if (world.getWarmupTimeRemaining() > 0) {
+                    final String[] messages = new String[]{"Round " + world.getRound(), //Ralongement du temps
+                                                           "Round " + world.getRound(), //d'affichage
+                                                           "Round " + world.getRound(), //du round
+                                                           "À vos marques.",
+                                                           "Prêts.",
+                                                           "Jouez !"};
+                    int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
+                    if (!messages[i].equals(mainWindow.getMessageShown()))
+                        SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black, 1000*world.getWarmupTimeRemaining()/world.getFps()));
                     
-                    SwingUtilities.invokeLater(() -> panel.showGameStatus(world));
-                    viewer.drawWorld(world);
-                    
-                    if (world.getWarmupTimeRemaining() > 0) {
-                        final String[] messages = new String[]{"Round " + world.getRound(), //Ralongement du temps
-                                                               "Round " + world.getRound(), //d'affichage
-                                                               "Round " + world.getRound(), //du round
-                                                               "À vos marques.",
-                                                               "Prêts.",
-                                                               "Jouez !"};
-                        int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
-                        SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black, world.getWarmupTimeRemaining()*1000/world.getFps()));
+                    Audio.getInstance().stop();
+                } else if (world.isRoundEnded()) {
+                    if (settings.gameType != GameType.Sandbox) {
+                        String message = null;
+                        Color color = null;
+                        
+                        String winnerName = world.getWinnerName();
+                        
+                        if (winnerName != null) {
+                            PlayerColor[] colors = PlayerColor.values();
+                            message = winnerName + " gagne !";
+                            color = colors[world.getWinnerID() % colors.length].toColor();
+                        } else if (world.getPlayerAliveCount() > 1) {
+                            message = "Les IAs gagnent !";
+                            color = Color.black;
+                        } else {
+                            message = "Égalité !";
+                            color = Color.black;
+                        }
+                        
+                        if (!message.equals(mainWindow.getMessageShown())) {
+                            final String x = message; 
+                            final Color y = color;
+                        
+                            SwingUtilities.invokeLater(() -> mainWindow.showMessage(x, y, 1000*world.getRestTimeRemaning()/world.getFps()));
+                        }
                     }
-                    
-                    long duration = System.nanoTime() - start;
-                    
-                    if (timeStep-duration-offset > 0) {
-                        Thread.sleep((timeStep-duration-offset)/1000000, (int)(timeStep-duration-offset)%1000000);
-                    }
-                    
-                    offset += (System.nanoTime() - start) - timeStep;
-                    
-                    start = System.nanoTime();
-                    
-                    frame++;
-                    /*if (System.nanoTime() - lastDisplay >= 1000000000) {
-                        System.out.println(frame*(System.nanoTime() - lastDisplay)/1000000000 + " FPS");
-                        frame = 0;
-                        lastDisplay = System.nanoTime();
-                    }*/
                 }
                 
-                setGameState(GameState.EndRound);
+                long duration = System.nanoTime() - start;
                 
-                if (stop)
-                    break;
-                
-                if (settings.gameType == GameType.Client && !((Client)world).isConnected())
-                {
-                    SwingUtilities.invokeAndWait(() -> mainWindow.showMessage("Déconnecté.", Color.darkGray, 5000));
-                    
-                } else if (settings.gameType != GameType.Sandbox) {
-                    String message = null;
-                    Color color = null;
-                    
-                    if (world.getPlayerAliveCount() == 1) {
-                        PlayerColor[] colors = PlayerColor.values();
-                        message = ((Player)world.getPlayers().get(0)).getController().getName() + " gagne !";
-                        color = colors[((Player)world.getPlayers().get(0)).getPlayerID() % colors.length].toColor();
-                    } else if (world.getPlayerAliveCount() > 0){
-                        message = "IA gagne !";
-                        color = Color.black;
-                    } else {
-                        message = "Égalité !";
-                        color = Color.black;
-                    }
-                    
-                    final String x = message; 
-                    final Color y = color;
-                    SwingUtilities.invokeAndWait(() -> mainWindow.showMessage(x, y, 5000));
+                if (timeStep-duration-offset > 0) {
+                    Thread.sleep((timeStep-duration-offset)/1000000, (int)(timeStep-duration-offset)%1000000);
                 }
                 
-                if (settings.gameType != GameType.Client) {                      
-                    if (world.getRound() < settings.roundCount) {
-                        Thread.sleep(5000, 0);
-                        world.nextRound();
-                    } else {
-                        Thread.sleep(2000, 0);
-                        stop = true;
-                    }
-                } else {
-                    Client client = (Client)world;
-                    while (client.isConnected() && client.isRoundEnded() && !stop) {
-                        Thread.sleep(1000/world.getFps(), 0);
-                    }
-                    
-                    stop = stop || !client.isConnected();
-                }
+                offset += (System.nanoTime() - start) - timeStep;
                 
-                Audio.getInstance().stop();
+                start = System.nanoTime();
+                
+                /*frame++;
+
+                if (System.nanoTime() - lastDisplay >= 1000000000) {
+                    System.out.println(frame*(System.nanoTime() - lastDisplay)/1000000000 + " FPS");
+                    frame = 0;
+                    lastDisplay = System.nanoTime();
+                }*/
             }
+            
+            if (!stop && settings.gameType == GameType.Client && !((Client)world).isConnected())
+                SwingUtilities.invokeAndWait(() -> mainWindow.showMessage("Déconnecté.", Color.darkGray, 5000));
+            
+            Audio.getInstance().stop();
         } catch (InterruptedException e) {
             //Interrompu
         }  catch (Exception e) {
@@ -177,7 +158,6 @@ public class GameWorker implements Runnable, GameListener {
         } finally {
             world.stop();
             Audio.getInstance().stop();
-            setGameState(GameState.End);
         }
     }
 
@@ -186,7 +166,6 @@ public class GameWorker implements Runnable, GameListener {
     public void gameChanged(GameEvent e) {
         switch (e) {
         case SuddenDeath:
-            setGameState(GameState.SuddenDeath);
             SwingUtilities.invokeLater(() -> mainWindow.showMessage("Mort subite !", Color.red, 750));
             break;
         default:
@@ -215,14 +194,18 @@ public class GameWorker implements Runnable, GameListener {
                 world = new Local(settings.mapName+".map",
                                   settings.tileSize,
                                   settings.fps,
+                                  settings.roundCount,
                                   settings.duration*settings.fps,
-                                  (int)(settings.warmupDuration*settings.fps));
+                                  (int)(settings.warmupDuration*settings.fps),
+                                  (int)(settings.restTimeDuration*settings.fps));
             } else {
                 world = new Server(settings.mapName+".map",
                                    settings.tileSize,
                                    settings.fps,
+                                   settings.roundCount,
                                    settings.duration*settings.fps,
-                                   (int)(settings.warmupDuration*settings.fps));
+                                   (int)(settings.warmupDuration*settings.fps),
+                                   (int)(settings.restTimeDuration*settings.fps));
             }
             
             addKeyboardControllers();
@@ -259,14 +242,4 @@ public class GameWorker implements Runnable, GameListener {
             world.newController(kbController);
         }
     }
-
-    /**
-     * Signale l'état du jeu
-     * @param state État du jeu
-     */
-    @objid ("df3a5c13-59cb-491e-811a-ea1af7e23cda")
-    void setGameState(GameState state) {
-        System.err.println(state);
-    }
-
 }
