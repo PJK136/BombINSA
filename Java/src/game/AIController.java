@@ -356,14 +356,14 @@ public class AIController extends Controller {
             else if (safe > o.safe)
                 return 1;
             
-            else if (step > o.step)
-                return -1;
-            else if (step < o.step)
-                return 1;
-            
             else if (badBonus > o.badBonus)
                 return -1;
             else if (badBonus < o.badBonus)
+                return 1;
+            
+            else if (step > o.step)
+                return -1;
+            else if (step < o.step)
                 return 1;
             
             else if (goodBonus < o.goodBonus)
