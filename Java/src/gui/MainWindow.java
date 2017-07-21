@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -235,13 +234,11 @@ public class MainWindow implements WindowListener {
     @objid ("5770124d-d120-44f6-bf06-0f01379bd988")
     @Override
     public void windowActivated(WindowEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @objid ("1ddf2152-393e-4cd1-9eb4-f478156cc0f6")
     @Override
     public void windowClosed(WindowEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @objid ("a7b122f4-7115-4297-aeb1-d0f61ea62443")
@@ -284,25 +281,21 @@ public class MainWindow implements WindowListener {
     @objid ("4e07e866-0b1f-4473-b006-464d93ac852c")
     @Override
     public void windowDeactivated(WindowEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @objid ("9fb421e2-3933-4a4f-a5ad-1d03117db053")
     @Override
     public void windowDeiconified(WindowEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @objid ("57f37abd-2147-47a4-9bf8-afa4a2e9cf40")
     @Override
     public void windowIconified(WindowEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @objid ("f39abcb1-4310-4e33-a286-4a9c79a80356")
     @Override
     public void windowOpened(WindowEvent e) {
-        // TODO Auto-generated method stub
     }
 
     /**

@@ -236,7 +236,7 @@ public class Map implements MapView {
     }
     
     @objid ("37a9da32-d0c2-4570-a1d5-c73972f7f508")
-    public void setsize(int columns, int rows) {
+    public void setSize(int columns, int rows) {
         if (columns <= 0)
             throw new RuntimeException("Nombre de colonnes négatif ou nul : " + columns);
         else if (rows <= 0)

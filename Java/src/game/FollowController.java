@@ -23,14 +23,12 @@ public class FollowController extends Controller {
     @objid ("f26084d0-54f2-40f0-94b7-51c9b4e2d76b")
     @Override
     public boolean isPlantingBomb() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @objid ("cc395a3f-f171-424a-b844-6f96aa91403d")
     @Override
     public void update() {
-        // TODO Auto-generated method stub
     }
 
 }

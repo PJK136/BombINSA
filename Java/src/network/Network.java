@@ -62,7 +62,6 @@ public class Network {
 
     @objid ("0b43c40b-21a6-4743-a9fa-9c109b61369c")
     private Network() {
-        // TODO Auto-generated constructor stub
     }
 
     @objid ("7e47a4ec-478d-44d5-af9b-d630535a6c76")

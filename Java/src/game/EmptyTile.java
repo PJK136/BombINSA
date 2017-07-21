@@ -12,10 +12,10 @@ public class EmptyTile extends ExplodableTile {
         return TileType.Empty;
     }
 
-    @objid ("81346f4a-1c14-472f-9623-a660ddd6b6d9")
     /**
      * impose que la tuile ne soit pas percutable
      */
+    @objid ("81346f4a-1c14-472f-9623-a660ddd6b6d9")
     public boolean isCollidable() {
         return false;
     }

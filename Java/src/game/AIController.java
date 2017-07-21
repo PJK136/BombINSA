@@ -319,7 +319,6 @@ public class AIController extends Controller {
         public int goodBonus = 0;
         
         public DirectionInfo() {
-            // TODO Auto-generated constructor stub
         }
         
         public DirectionInfo(int safe, int step, int badBonus, int goodBonus) {

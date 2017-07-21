@@ -74,9 +74,7 @@ public class GameWorker implements Runnable, GameListener {
             //int frame = 0;
             //long lastDisplay = System.nanoTime();
             
-            GameState state;
-            
-            while (!stop && (state = world.update()) != GameState.End)
+            while (!stop && world.update() != GameState.End)
             {          
                 SwingUtilities.invokeLater(() -> panel.showGameStatus(world));
                 viewer.drawWorld(world);

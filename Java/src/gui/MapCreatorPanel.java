@@ -277,13 +277,11 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("41e7252e-3fe2-4ef8-89c1-e2026e638132")
     @Override
     public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @objid ("fb60a80c-3a92-4752-9afd-d606bbed59f8")
     @Override
     public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @objid ("21292e44-21b2-4f77-bd31-c1f442411cab")
@@ -302,7 +300,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("c8bed0d2-ee70-454d-b575-724198d71c59")
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @objid ("21696904-e3c3-4b05-8eb7-48db03a86d58")
@@ -314,7 +311,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("c19af884-3588-4b86-85ca-beb0112bafdf")
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     @objid ("2949aafd-f13a-4c7a-a4bc-750ccef814a4")
@@ -410,7 +406,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     public void stateChanged(ChangeEvent e) {
         if (e.getSource() == columnCount || e.getSource() == rowCount) {
             if (!isLoading) {
-                map.setsize((int) columnCount.getValue(), (int) rowCount.getValue());
+                map.setSize((int) columnCount.getValue(), (int) rowCount.getValue());
                 updateMap();
                 saved = false;
             }
