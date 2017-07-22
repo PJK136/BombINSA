@@ -40,7 +40,7 @@ public abstract class World implements WorldView {
     private int nextID = 1;
 
     @objid ("d4ef51fc-99a1-4469-a144-395b415f38c6")
-    public static final int START_LIVES = 3;
+    public static final int START_LIVES = 1;
 
     @objid ("acdeeb9e-e8f4-4338-953e-9a58f3e8e5d6")
     public static final int START_BOMB_MAX = 1;
