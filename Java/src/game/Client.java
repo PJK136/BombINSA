@@ -8,17 +8,18 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 import network.GameInfo;
+import network.Network;
 import network.Network.CommandMap;
 import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
-import network.Network.PlayerName;
 import network.Network.NextRound;
+import network.Network.PlayerName;
 import network.Network.RoundEnded;
 import network.Network.TimeRemaining;
 import network.Network.ToRemove;
 import network.Network.WarmupTimeRemaining;
-import network.Network;
 
 /**
  * Cette classe gère une partie de type Client
@@ -152,7 +153,8 @@ public class Client extends World implements Listener {
     @objid ("9cc03884-80cf-4f76-8510-8f2ca2035eef")
     @Override
     void kickBomb(Bomb bomb, Direction direction) {
-        // TODO Auto-generated method stub
+        bomb.setDirection(direction);
+        bomb.setSpeed(Bomb.BOMB_DEFAULT_SPEED*map.getTileSize()/getFps());
     }
 
     @objid ("21a09aee-03f8-43e6-9cbe-72aeaccddf27")
