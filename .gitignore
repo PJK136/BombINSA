@@ -23,6 +23,7 @@ hs_err_pid*
 /Java/bin/
 /Java/doc/
 /Java/src/bombinsa.xml
+/Java/target/
 
 # game generated
 /Java/settings.json
