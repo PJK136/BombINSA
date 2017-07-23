@@ -188,49 +188,58 @@ public abstract class Entity {
      */
     @objid ("a2924691-b5ff-4b3e-9a94-659f2e120988")
     void update() {
-        while (this.speed >= 0 && isColliding(this.direction, this.speed)) {
-            this.speed--;
+        if (!isColliding(this.direction, this.speed))
+            updatePosition(this.speed);
+        else {
+            double move = this.speed - 1;
+            
+            //TODO : approche dichotomique ?
+            while (move >= 0 && isColliding(this.direction, move)) {
+                move--;
+            }
+            
+            updatePosition(Math.max(0, move));
+            this.speed = 0;
         }
         
-        this.speed = Math.max(0, this.speed);
-        
-        //TODO : approche dichotomique ?
-        
-        updatePosition();
+    }
+    
+    private double clamp(double value, double min, double max) {
+        return Math.max(min, Math.min(value, max));
     }
     
     /**
      * Met à jour la position de l'entité avec vérification des collisions
      */
     @objid ("30b55b46-96bb-4d8b-9810-6ccdaa97d7db")
-    private void updatePosition() {
-        if (this.speed == 0)
+    private void updatePosition(double move) {
+        if (move == 0)
             return;
         
         switch (direction) {
         case Left:
-            this.x -= this.speed;
+            this.x -= move;
             if (canCollide(getBorderLeft(), getBorderTop()) || canCollide(getBorderLeft(), getBorderDown())) {
-                this.y = world.getMap().toCenterY(world.getMap().toGridCoordinates(x, y));
+                this.y -= clamp(this.y - world.getMap().toCenterY(world.getMap().toGridCoordinates(x, y)), -1, 1);
             }
             break;
         case Right:
-            this.x += this.speed;
+            this.x += move;
             if (canCollide(getBorderRight(), getBorderTop()) || canCollide(getBorderRight(), getBorderDown())) {
-                this.y = world.getMap().toCenterY(world.getMap().toGridCoordinates(x, y));
+                this.y -= clamp(this.y - world.getMap().toCenterY(world.getMap().toGridCoordinates(x, y)), -1, 1);
             }
             break;
         case Up:
-            this.y -= this.speed;
+            this.y -= move;
             if (canCollide(getBorderLeft(), getBorderTop()) || canCollide(getBorderRight(), getBorderTop())) {
-                this.x =  world.getMap().toCenterX(world.getMap().toGridCoordinates(x, y));
+                this.x -= clamp(this.x - world.getMap().toCenterX(world.getMap().toGridCoordinates(x, y)), -1, 1);
             }
             break;
         case Down:
             if (canCollide(getBorderLeft(), getBorderDown()) || canCollide(getBorderRight(), getBorderDown())) {
-                this.x =  world.getMap().toCenterX(world.getMap().toGridCoordinates(x, y));
+                this.x -= clamp(this.x - world.getMap().toCenterX(world.getMap().toGridCoordinates(x, y)), -1, 1);
             }
-            this.y += this.speed;
+            this.y += move;
             break;
         }
     }
