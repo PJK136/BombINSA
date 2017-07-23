@@ -3,17 +3,20 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.net.InetAddress;
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 import game.AIController;
 import game.Client;
 import game.GameEvent;
 import game.GameListener;
+import game.GameState;
 import game.Local;
 import game.Server;
 import game.World;
-import game.GameState;
 
 /**
  * Classe qui gère l'exécution du jeu 
@@ -53,6 +56,7 @@ public class GameWorker implements Runnable, GameListener {
         createWorld();
     }
 
+    @Override
     @objid ("57911ebe-31d3-4df2-b871-111cf25912bf")
     public void run() {
         try {
@@ -62,10 +66,6 @@ public class GameWorker implements Runnable, GameListener {
                 Thread.sleep(1000/settings.fps, 0);
             }
             
-            adjustMainWindowSize();
-            viewer.drawMap(world.getMap());
-            SwingUtilities.invokeAndWait(() -> panel.showGameStatus(world));
-            
             final long timeStep = 1000000000/world.getFps();
                                         
             long offset = 0;
@@ -74,10 +74,20 @@ public class GameWorker implements Runnable, GameListener {
             //int frame = 0;
             //long lastDisplay = System.nanoTime();
             
+            boolean adjustWindowSize = true;
+            
             while (!stop && world.update() != GameState.End)
             {          
                 SwingUtilities.invokeLater(() -> panel.showGameStatus(world));
                 viewer.drawWorld(world);
+                
+                if (adjustWindowSize) {
+                    SwingUtilities.invokeAndWait(() -> {
+                        panel.showGameStatus(world);
+                        adjustMainWindowSize();
+                    });
+                    adjustWindowSize = false;
+                }
                 
                 if (world.getWarmupTimeRemaining() > 0) {
                     final String[] messages = new String[]{"Round " + world.getRound(), //Ralongement du temps

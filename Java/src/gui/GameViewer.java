@@ -2,8 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
@@ -12,8 +12,11 @@ import java.awt.Transparency;
 import java.awt.image.VolatileImage;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.swing.JPanel;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 import game.Bomb;
 import game.BonusType;
 import game.Entity;
@@ -419,7 +422,9 @@ public class GameViewer extends JPanel {
         int wallPaperSize = Math.max(getHeight(), getWidth());
         g.drawImage(wallpaper.getImage(wallPaperSize), 0, 0, null);
         
-        g.drawImage(world, (getWidth()-world.getWidth())/2, (getHeight()-world.getHeight())/2, null);
+        if (world != null)
+            g.drawImage(world, (getWidth()-world.getWidth())/2, (getHeight()-world.getHeight())/2, null);
+        
         g.dispose();
     }
     
