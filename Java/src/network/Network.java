@@ -2,9 +2,12 @@ package network;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 import game.Bomb;
 import game.BonusType;
 import game.Controller;
@@ -58,6 +61,7 @@ public class Network {
         kryo.register(RoundEnded.class);
         kryo.register(NextRound.class);
         kryo.register(ToRemove.class);
+        kryo.register(EntityUpdateList.class);
     }
 
     @objid ("0b43c40b-21a6-4743-a9fa-9c109b61369c")
@@ -244,6 +248,19 @@ public class Network {
 
     @objid ("9e52f3cd-68c3-49d2-bdab-4955712ea8c3")
     public static class NextRound {
+    }
+
+    public static class EntityUpdateList {
+        public int timestamp;
+        public ArrayList<Entity> entities;
+        
+        public EntityUpdateList() {
+        }
+        
+        public EntityUpdateList(int timestamp, List<Entity> entities) {
+            this.timestamp = timestamp;
+            this.entities = new ArrayList<>(entities);
+        }
     }
 
 }

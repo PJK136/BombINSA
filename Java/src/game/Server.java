@@ -8,18 +8,20 @@ import java.util.concurrent.Executors;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 import network.GameConnection;
 import network.GameInfo;
+import network.Network;
 import network.Network.AddController;
 import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
-import network.Network.PlayerName;
+import network.Network.EntityUpdateList;
 import network.Network.NextRound;
+import network.Network.PlayerName;
 import network.Network.RoundEnded;
 import network.Network.TimeRemaining;
 import network.Network.ToRemove;
 import network.Network.WarmupTimeRemaining;
-import network.Network;
 import network.NetworkController;
 
 /**
@@ -31,6 +33,10 @@ public class Server extends Local implements Listener {
      com.esotericsoftware.kryonet.Server network;
 
     ExecutorService threadPool;
+    
+    private int timestamp;
+    
+    private static final int UPDATE_RATE = 20; //Hz
     
     /**
      * Construit un serveur de jeu
@@ -44,6 +50,8 @@ public class Server extends Local implements Listener {
     @objid ("c0e17e22-6d82-404c-81c8-d2c427dec052")
     public Server(String mapFilename, int tileSize, int fps, int roundMax, int duration, int warmup, int restTime) throws Exception {
         super(mapFilename, tileSize, fps, roundMax, duration, warmup, restTime);
+        
+        timestamp = 0;
         
         controllers = Collections.synchronizedList(controllers);
         
@@ -74,22 +82,28 @@ public class Server extends Local implements Listener {
     @objid ("969d20cd-0105-4d21-98c6-db3d6d93c845")
     @Override
     public GameState update() {
+        timestamp++;
+        
         boolean hasEnded = isRoundEnded();
         
         GameState state = super.update();
-        
-        for (Entity entity : getEntities()) {
-            network.sendToAllUDP(entity);
-        }
-        
-        if (warmupTimeRemaining > 0 && warmupTimeRemaining % (fps/2) == 0) {
+              
+        if (state == GameState.WarmUp && warmupTimeRemaining % (fps/2) == 0) {
             network.sendToAllUDP(new WarmupTimeRemaining(warmupTimeRemaining));
-        } else if (timeRemaining % fps == 0)
+        } else if (!isRoundEnded() && timeRemaining % fps == 0)
             network.sendToAllUDP(new TimeRemaining(timeRemaining));
         
-        network.sendToAllTCP(((DeltaMap)map).deltas);
-        ((DeltaMap)map).deltas.clear();
-        
+        if (!hasEnded) {
+            if (timeRemaining % (fps/UPDATE_RATE) == 0 || isRoundEnded()) {              
+                List<Entity> updates = getEntities();
+                for (int start = 0; start < updates.size(); start += 5)
+                    network.sendToAllUDP(new EntityUpdateList(timestamp, updates.subList(start, Math.min(start+5, updates.size()))));
+                
+                network.sendToAllTCP(((DeltaMap)map).deltas);
+                ((DeltaMap)map).deltas.clear();
+            }
+        }
+       
         if (!hasEnded && isRoundEnded())
             network.sendToAllTCP(new RoundEnded(getWinnerName(), getWinnerID()));
         
@@ -110,6 +124,7 @@ public class Server extends Local implements Listener {
         network.sendToAllTCP(message);
     }
 
+    @Override
     @objid ("8c95d6c7-e515-4188-918d-205812f19cc8")
     public void stop() {
         network.stop();

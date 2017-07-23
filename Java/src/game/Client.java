@@ -14,6 +14,7 @@ import network.Network;
 import network.Network.CommandMap;
 import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
+import network.Network.EntityUpdateList;
 import network.Network.NextRound;
 import network.Network.PlayerName;
 import network.Network.RoundEnded;
@@ -48,6 +49,8 @@ public class Client extends World implements Listener {
      com.esotericsoftware.kryonet.Client network;
 
     Queue<Object> messages;
+    
+    int lastTimestamp = -1;
     
     /**
      * Construit un client qui se connecte à l'adresse spécifiée
@@ -242,6 +245,14 @@ public class Client extends World implements Listener {
             DeltaMap.executeDelta((CommandMap)object, map);
         } else if (object instanceof Entity) {           
             addEntity((Entity) object, ((Entity)object).getID());
+        } else if (object instanceof EntityUpdateList) {
+            EntityUpdateList updates = (EntityUpdateList) object;
+            if (updates.timestamp >= lastTimestamp) {
+                lastTimestamp = updates.timestamp;
+                for (Entity entity : updates.entities) {
+                    addEntity(entity, entity.getID());
+                }
+            }
         } else if (object instanceof PlayerName) {
             PlayerName playerName = (PlayerName)object;
             Entity entity = entities.get(playerName.entityId);

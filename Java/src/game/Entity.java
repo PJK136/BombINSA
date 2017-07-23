@@ -11,7 +11,7 @@ public abstract class Entity {
      int id;
 
     @objid ("5ce64a3c-e0c0-4de4-b322-183a2e6a4c25")
-     boolean toRemove;
+     transient boolean toRemove = false;
 
     @objid ("f1ebcc19-f0b0-48a1-b6d3-cc22527239dd")
      double x = 0;
