@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Queue;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /** Cette classe gère une partie de type Local */
@@ -84,6 +85,7 @@ public class Local extends World {
         mapFileName = filename;
     }
 
+    @Override
     @objid ("57eecd7c-87d7-4fb4-933f-3928adf88bf1")
     public void newController(Controller controller) {
         newPlayer(controller);
@@ -124,6 +126,7 @@ public class Local extends World {
      * - fait exploser toutes les bombes qui doivent exploser
      * - déplace toutes les bombes qui ont étés poussées
      */
+    @Override
     @objid ("15f9ba61-54f9-4783-8bd0-923098e480d7")
     public GameState update() {
         if (warmupTimeRemaining > 0) {
@@ -220,6 +223,7 @@ public class Local extends World {
         return state;
     }
 
+    @Override
     @objid ("a193a9c9-e032-4940-953b-5923c9da849e")
     public void nextRound() {
         super.nextRound();
