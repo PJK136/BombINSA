@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.Enumeration;
+
 import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -30,7 +31,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 import game.Direction;
 import game.GridCoordinates;
 import game.Map;
@@ -95,7 +98,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("0557317e-dc8a-4c00-a7a9-e1ed7ce62fa8")
     private Map map;
 
-    private static final int ICON_SIZE = 32;
+    private static final int ICON_SIZE = 24;
     
     /**
      * Construit le créateur de carte
@@ -128,21 +131,21 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         toolBar.addSeparator();
         
-        lblColumns = new JLabel("Cols : ");
+        lblColumns = new JLabel("L : ");
         toolBar.add(lblColumns);
         columnCount = new JSpinner(new SpinnerNumberModel(new Integer(20), new Integer(1), null, new Integer(1)));
         columnCount.addChangeListener(this);
         toolBar.add(columnCount);
         toolBar.addSeparator();
         
-        lblRows = new JLabel("Rows : ");
+        lblRows = new JLabel("H : ");
         toolBar.add(lblRows);
         rowCount = new JSpinner(new SpinnerNumberModel(new Integer(15), new Integer(1), null, new Integer(1)));
         rowCount.addChangeListener(this);
         toolBar.add(rowCount);
         toolBar.addSeparator();
         
-        lblTiles = new JLabel("Tiles : ");
+        lblTiles = new JLabel("Tuiles : ");
         toolBar.add(lblTiles);
         gameViewer = new GameViewer();
         gameViewer.setShowSpawningLocations(true);

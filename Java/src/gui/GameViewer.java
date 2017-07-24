@@ -263,7 +263,7 @@ public class GameViewer extends JPanel {
                 GridCoordinates gc = spawningLocations.get(i);
                 g.drawOval(gc.x*size, gc.y*size, size, size);
                 
-                drawCenteredString(g, String.valueOf(i), (int)scale(map.toCenterX(gc)), (int)scale(map.toCenterY(gc)));
+                drawCenteredString(g, String.valueOf(i+1), (int)scale(map.toCenterX(gc)), (int)scale(map.toCenterY(gc)));
             }
         }
     }
