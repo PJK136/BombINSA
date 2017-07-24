@@ -4,7 +4,9 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 import network.Network.CommandMap;
 
 /**
@@ -13,7 +15,7 @@ import network.Network.CommandMap;
 @objid ("12a42e28-45db-4083-a2d6-44f180711817")
 public class DeltaMap extends Map {
     @objid ("8513eb13-92ef-4f66-b5dc-d2b6de90c84b")
-     List<CommandMap> deltas;
+     List<CommandMap> deltas = new LinkedList<CommandMap>();
 
     /**
      * Construit une carte avec historique
@@ -22,7 +24,6 @@ public class DeltaMap extends Map {
     @objid ("ba393edb-4bdc-404e-a892-60d26b6d4fe2")
     public DeltaMap(int tileSize) {
         super(tileSize);
-        deltas = new LinkedList<CommandMap>();
     }
 
     /**
@@ -33,8 +34,8 @@ public class DeltaMap extends Map {
      */
     @objid ("b61d4be9-c0fa-4d56-b0c0-99997a3fd7c5")
     public DeltaMap(int columns, int rows, int tileSize) {
-        super(columns, rows, tileSize);
-        deltas = new LinkedList<CommandMap>();
+        super(tileSize);
+        setSize(columns, rows);
     }
 
     @objid ("e7f0c674-34e5-4026-9500-3e7d5d9dd3e4")

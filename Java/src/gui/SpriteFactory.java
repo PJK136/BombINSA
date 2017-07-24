@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
@@ -65,7 +67,7 @@ public class SpriteFactory {
         BufferedImage image = images.get(name);
         if (image == null) {
             image = readRessource(name);
-            images.putIfAbsent(name, image);
+            images.put(name, image);
         }
         return image;
     }

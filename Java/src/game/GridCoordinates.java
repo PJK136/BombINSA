@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Objects;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /** Représente les coordonnées de grille de la carte */
@@ -48,6 +50,11 @@ public class GridCoordinates {
         
         GridCoordinates gc = (GridCoordinates)obj;
         return x == gc.x && y == gc.y;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 
     @objid ("7142fd4e-32d2-4852-aacc-41cd953691cd")

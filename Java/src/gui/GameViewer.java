@@ -55,6 +55,8 @@ public class GameViewer extends JPanel {
 
     private double scale;
     
+    private Object lock;
+    
     @objid ("113a9a2b-d75f-48f0-9ef6-969b7a21874b")
     private VolatileImage world;
 
@@ -125,6 +127,8 @@ public class GameViewer extends JPanel {
         showSpawningLocations = false;
         
         cacheTileSize = 0;
+        
+        lock = new Object();
         
         setFocusable(true);
         setDoubleBuffered(true);
@@ -354,23 +358,15 @@ public class GameViewer extends JPanel {
      * Met à jour l'affichage
      */
     @objid ("3d9b90b7-9585-42ab-b70f-bddea28da889")
-    private void updateDisplay() {
-        if (wait == null) {
+    private void updateDisplay() {        
+        synchronized (lock) {
+            VolatileImage cache = wait;
             wait = draw;
-            draw = null;
+            draw = cache;
             updatePending = true;
-            repaint();
         }
-        else {          
-            synchronized (wait) {
-                VolatileImage cache = wait;
-                wait = draw;
-                draw = cache;
-                updatePending = true;
-            }
-        
-            repaint();
-        }
+    
+        repaint();
     }
 
     /**
@@ -410,8 +406,8 @@ public class GameViewer extends JPanel {
     @objid ("8a85e92f-ba76-4ae7-8d93-ab5ea648949a")
     @Override
     protected void paintComponent(Graphics g) {
-        if (updatePending && wait != null) {
-            synchronized (wait) {
+        if (updatePending) {
+            synchronized (lock) {
                 VolatileImage cache = wait;
                 wait = world;
                 world = cache;
