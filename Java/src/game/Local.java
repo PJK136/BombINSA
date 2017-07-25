@@ -224,6 +224,16 @@ public class Local extends World {
     }
 
     @Override
+    void newRound() {
+        super.newRound();
+
+        queuePlayer.clear();
+        queueBomb.clear();
+        queueBonus.clear();
+        queueKickBomb.clear();
+    }
+    
+    @Override
     @objid ("a193a9c9-e032-4940-953b-5923c9da849e")
     public void nextRound() {
         super.nextRound();
