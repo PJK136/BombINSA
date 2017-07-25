@@ -8,7 +8,7 @@ import game.Direction;
  * Classe gérant les sprites du joueur
  */
 @objid ("56494f5a-2022-4bf5-8c12-90f1f369f286")
-public class PlayerSprite {
+public class CharacterSprite {
     @objid ("e1fa58d6-7096-4685-acc5-1978632e9877")
     public static int TOTAL_MOVES = 2;
 
@@ -23,7 +23,7 @@ public class PlayerSprite {
      * @param color Couleur du jouer
      */
     @objid ("bb1fdbc9-a556-40ca-9ecb-b2a1f19280a4")
-    public PlayerSprite(PlayerColor color) {
+    public CharacterSprite(PlayerColor color) {
         SpriteFactory factory = SpriteFactory.getInstance();
         this.standing = factory.getOrientedSprite("bomberMan_"+color.name().toLowerCase());
         this.moving = new OrientedSprite[TOTAL_MOVES];

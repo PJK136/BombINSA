@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import game.Controller;
 import game.Direction;
-import game.Player;
+import game.Character;
 
 /**
  * Gère les contrôles clavier : renvoie la direction associée à la touche appuyée
@@ -43,8 +43,8 @@ public class KeyboardController extends Controller implements KeyListener {
     }
 
     @Override
-    public void setPlayer(Player value) {
-    	super.setPlayer(value);
+    public void setCharacter(Character value) {
+    	super.setCharacter(value);
     	bombing = false;
     }
     

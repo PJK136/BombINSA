@@ -9,7 +9,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  * Entité joueur
  */
 @objid ("7d9743df-c7cd-4679-9771-fa22b1be441d")
-public class Player extends Entity {
+public class Character extends Entity {
     @objid ("0188c626-9d00-48cc-821f-2cd2188664fc")
      int playerID;
 
@@ -26,22 +26,22 @@ public class Player extends Entity {
      int range;
 
     @objid ("d3e49717-5f5c-49c0-b87a-e6ed29629386")
-     List<Boolean> playerAbilities;
+     List<Boolean> characterAbilities;
 
     @objid ("efe71f6e-6ac1-4f9a-bb96-98975b970b23")
      int invulnerability;
 
     @objid ("5b4c8db6-08b3-4215-8a96-4348f89623df")
-    public static final double PLAYER_DEFAULT_SPEED = 4; // tile/sec
+    public static final double CHARACTER_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
      transient Controller controller;
 
     /**
-     * Constructeur Player par défaut
+     * Constructeur Character par défaut
      */
     @objid ("c346899f-0664-4813-bcc6-157babe0b50f")
-    private Player() {
+    private Character() {
         super(null, 0, 0);
         setController(null);
     }
@@ -59,7 +59,7 @@ public class Player extends Entity {
      * @param invulnerability Temps d'invulnérabilité (en nombre de ticks/frames)
      */
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
-    public Player(World world, double x, double y, Controller controller, int playerID, int lives, int bombMax, int range, int invulnerability) {
+    public Character(World world, double x, double y, Controller controller, int playerID, int lives, int bombMax, int range, int invulnerability) {
         super(world, x, y);
         setController(controller);
         this.playerID = playerID;
@@ -69,10 +69,10 @@ public class Player extends Entity {
         setInvulnerability(invulnerability);
         this.bombCount = 0;
         
-        PlayerAbility[] pa = PlayerAbility.values();
-        this.playerAbilities = new ArrayList<Boolean>(pa.length);
+        CharacterAbility[] pa = CharacterAbility.values();
+        this.characterAbilities = new ArrayList<Boolean>(pa.length);
         for (int i = 0; i < pa.length; i++)
-            this.playerAbilities.add(false);
+            this.characterAbilities.add(false);
     }
     
     /**
@@ -142,13 +142,13 @@ public class Player extends Entity {
     }
 
     @objid ("671682b3-f854-4f65-8616-a0dee38409f6")
-    public List<Boolean> getPlayerAbilities() {
-        return Collections.unmodifiableList(this.playerAbilities);
+    public List<Boolean> getCharacterAbilities() {
+        return Collections.unmodifiableList(this.characterAbilities);
     }
 
     @objid ("2559d9b8-e592-4923-928b-ebc444992c5c")
-    void setPlayerAbilities(List<Boolean> value) {
-        this.playerAbilities = value;
+    void setCharacterAbilities(List<Boolean> value) {
+        this.characterAbilities = value;
     }
 
     @objid ("1c7621e2-784f-4508-933f-55ea6bea5b83")
@@ -177,16 +177,16 @@ public class Player extends Entity {
         else
             this.controller = new DummyController();
         
-        this.controller.setPlayer(this);
+        this.controller.setCharacter(this);
         this.controller.setWorldView(world);
     }
 
     @objid ("e2e7b5c2-c647-40b9-b8e3-d980b80dde0d")
     public double getMaxSpeed() {
-        double maxSpeed = PLAYER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
-        if (playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()))
+        double maxSpeed = CHARACTER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
+        if (characterAbilities.get(CharacterAbility.MoreSpeed.ordinal()))
             maxSpeed *= 1.5;
-        else if (playerAbilities.get(PlayerAbility.LessSpeed.ordinal())) 
+        else if (characterAbilities.get(CharacterAbility.LessSpeed.ordinal())) 
             maxSpeed /= 1.5;
         return maxSpeed;
     }
@@ -236,7 +236,7 @@ public class Player extends Entity {
 
     @objid ("4713a141-cd5b-4b52-aed7-d3a781156555")
     void removeShield() {
-        this.playerAbilities.set(PlayerAbility.Shield.ordinal(), false);
+        this.characterAbilities.set(CharacterAbility.Shield.ordinal(), false);
     }
     
     /**
@@ -272,7 +272,7 @@ public class Player extends Entity {
         
         super.update();
         //Kick
-        if (playerAbilities.get(PlayerAbility.Kick.ordinal()) && nextDirection != null) {
+        if (characterAbilities.get(CharacterAbility.Kick.ordinal()) && nextDirection != null) {
             double footX = -1;
             double footY = -1;
             
@@ -312,8 +312,8 @@ public class Player extends Entity {
         
         if(this.world.getMap().isExploding(this.x, this.y)) { // On vérifie si la case où se trouve le CENTRE du joueur explose
             if (getInvulnerability() == 0) { //S'il n'est pas invulnérable
-                if(playerAbilities.get(PlayerAbility.Shield.ordinal()) == true){
-                    playerAbilities.set(PlayerAbility.Shield.ordinal(), false); // On enlève le Shield
+                if(characterAbilities.get(CharacterAbility.Shield.ordinal()) == true){
+                    characterAbilities.set(CharacterAbility.Shield.ordinal(), false); // On enlève le Shield
                 } else {
                     decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
                 }
@@ -331,7 +331,7 @@ public class Player extends Entity {
         
         // Vérifier si le joueur est encore vivant
         if(isAlive() == false){
-            remove(); // On indique qu'il faut enlever le player qui a perdu toutes ses vies
+            remove(); // On indique qu'il faut enlever le character qui a perdu toutes ses vies
         }
     }
     
@@ -367,27 +367,27 @@ public class Player extends Entity {
                 break;
                 
             case MoreSpeed:
-                if(playerAbilities.get(PlayerAbility.LessSpeed.ordinal()) == true){
-                    playerAbilities.set(PlayerAbility.LessSpeed.ordinal(), false);
+                if(characterAbilities.get(CharacterAbility.LessSpeed.ordinal()) == true){
+                    characterAbilities.set(CharacterAbility.LessSpeed.ordinal(), false);
                 } else {
-                    playerAbilities.set(PlayerAbility.MoreSpeed.ordinal(), true);
+                    characterAbilities.set(CharacterAbility.MoreSpeed.ordinal(), true);
                 }
                 break;
                 
             case LessSpeed:
-                if(playerAbilities.get(PlayerAbility.MoreSpeed.ordinal()) == true){
-                    playerAbilities.set(PlayerAbility.MoreSpeed.ordinal(), false);
+                if(characterAbilities.get(CharacterAbility.MoreSpeed.ordinal()) == true){
+                    characterAbilities.set(CharacterAbility.MoreSpeed.ordinal(), false);
                 } else {
-                    playerAbilities.set(PlayerAbility.LessSpeed.ordinal(), true);
+                    characterAbilities.set(CharacterAbility.LessSpeed.ordinal(), true);
                 }
                 break;
                 
             case Shield:
-                playerAbilities.set(PlayerAbility.Shield.ordinal(), true);
+                characterAbilities.set(CharacterAbility.Shield.ordinal(), true);
                 break;
                 
             case Kick:
-                playerAbilities.set(PlayerAbility.Kick.ordinal(), true);
+                characterAbilities.set(CharacterAbility.Kick.ordinal(), true);
                 break;
             }
             
@@ -399,15 +399,15 @@ public class Player extends Entity {
     @Override
     void updateFrom(Entity entity) {
         super.updateFrom(entity);
-        if (entity instanceof Player) {
-            Player player = (Player)entity;
-            this.playerID = player.playerID;
-            this.lives = player.lives;
-            this.bombCount = player.bombCount;
-            this.bombMax = player.bombMax;
-            this.range = player.range;
-            this.playerAbilities = player.playerAbilities;
-            this.invulnerability = player.invulnerability;
+        if (entity instanceof Character) {
+            Character character = (Character)entity;
+            this.playerID = character.playerID;
+            this.lives = character.lives;
+            this.bombCount = character.bombCount;
+            this.bombMax = character.bombMax;
+            this.range = character.range;
+            this.characterAbilities = character.characterAbilities;
+            this.invulnerability = character.invulnerability;
         }
     }
 

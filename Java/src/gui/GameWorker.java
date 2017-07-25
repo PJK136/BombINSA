@@ -112,7 +112,7 @@ public class GameWorker implements Runnable, GameListener {
                             PlayerColor[] colors = PlayerColor.values();
                             message = winnerName + " gagne !";
                             color = colors[world.getWinnerID() % colors.length].toColor();
-                        } else if (world.getPlayerAliveCount() > 1) {
+                        } else if (world.getCharacterAliveCount() > 1) {
                             message = "Les IAs gagnent !";
                             color = Color.black;
                         } else {

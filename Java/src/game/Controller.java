@@ -6,13 +6,13 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 @objid ("435a3f56-662a-44c1-a8c7-b82ab53bd0e1")
 public abstract class Controller {
     @objid ("d1b9902a-8b0f-4eaa-95ee-934fea8da2a9")
-     String name;
+    protected String name;
 
     @objid ("697c8788-0531-4864-9423-7c5e05988fad")
-     WorldView world;
+    protected WorldView world;
 
     @objid ("bcdf68cd-860d-43c6-9164-a9abc315aa3b")
-    protected Player player;
+    protected Character character;
 
     @objid ("ca776232-1a17-4e2e-a7a6-eeffe4a104e4")
     public String getName() {
@@ -25,13 +25,13 @@ public abstract class Controller {
     }
 
     @objid ("9eaf5dce-ffc6-4b09-b661-af4e199a78a9")
-    public Player getPlayer() {
-        return this.player;
+    public Character getCharacter() {
+        return this.character;
     }
 
     @objid ("9e16b8d9-71bf-40b2-9cbf-69f5e7bc8583")
-    public void setPlayer(Player value) {
-        this.player = value;
+    public void setCharacter(Character value) {
+        this.character = value;
     }
 
     @objid ("b4919637-6675-4e6b-bd27-a18c64057a48")

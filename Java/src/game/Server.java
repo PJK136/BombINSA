@@ -117,7 +117,7 @@ public class Server extends Local implements Listener {
         ToRemove message = new ToRemove();
         
         for (Integer id : entityIDs) {
-            if (entities.get(id) instanceof Player)
+            if (entities.get(id) instanceof Character)
                 message.toRemove.add(id);
         }
         
@@ -146,8 +146,8 @@ public class Server extends Local implements Listener {
     void addEntity(Entity entity) {
         super.addEntity(entity);
         network.sendToAllTCP(entity);
-        if (entity instanceof Player) {
-            Controller controller = ((Player) entity).getController();
+        if (entity instanceof Character) {
+            Controller controller = ((Character) entity).getController();
             network.sendToAllTCP(new PlayerName(entity.getID(), controller.getName()));
             if (controller instanceof NetworkController) {
                 NetworkController networkController = (NetworkController)controller;
@@ -172,8 +172,8 @@ public class Server extends Local implements Listener {
         List<Entity> entities = getEntities();
         connection.sendTCP(entities);
         for (Entity entity : entities) {
-            if (entity instanceof Player) {
-                connection.sendTCP(new PlayerName(entity.getID(), ((Player)entity).getController().getName()));
+            if (entity instanceof Character) {
+                connection.sendTCP(new PlayerName(entity.getID(), ((Character)entity).getController().getName()));
             }
         }
     }
@@ -199,8 +199,8 @@ public class Server extends Local implements Listener {
              return;
         
         for (NetworkController controller : controllers) {
-            if (controller.getPlayer() != null) {
-                controller.getPlayer().remove();
+            if (controller.getCharacter() != null) {
+                controller.getCharacter().remove();
             }
         }
     }

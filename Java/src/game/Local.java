@@ -23,7 +23,7 @@ public class Local extends World {
      int nextPlayerID = 0;
 
     @objid ("a6755987-9eb6-4703-a202-cad2bb6345a4")
-     Queue<Player> queuePlayer = new LinkedList<Player>();
+     Queue<Character> queueCharacter = new LinkedList<Character>();
 
     @objid ("8f67b398-0aba-4beb-872c-590118673a03")
      Queue<Bomb> queueBomb = new LinkedList<Bomb>();
@@ -105,7 +105,7 @@ public class Local extends World {
             return;
         
         int spawnIndex = nextPlayerID % map.spawningLocations.size();
-        Player player = new Player(this,
+        Character character = new Character(this,
                                    map.toCenterX(map.spawningLocations.get(spawnIndex)),
                                    map.toCenterY(map.spawningLocations.get(spawnIndex)),
                                    controller,
@@ -114,7 +114,7 @@ public class Local extends World {
                                    START_BOMB_MAX,
                                    START_RANGE,
                                    (int)(START_INVULNERABITY_DURATION*fps));
-        addEntity(player);
+        addEntity(character);
         nextPlayerID++;
     }
 
@@ -142,9 +142,9 @@ public class Local extends World {
                     if (entity.toRemove)
                         continue;
                     
-                    if (entity instanceof Player) {
-                        ((Player)entity).setLives(1);
-                        ((Player)entity).removeShield();
+                    if (entity instanceof Character) {
+                        ((Character)entity).setLives(1);
+                        ((Character)entity).removeShield();
                     }
                 }
             }
@@ -165,8 +165,8 @@ public class Local extends World {
             }
             
             //update of the new bombs
-            for(Player player : queuePlayer){
-                addEntity(new Bomb(this, player, (int)(TIME_BEFORE_EXPLOSION*fps)));
+            for(Character character : queueCharacter){
+                addEntity(new Bomb(this, character, (int)(TIME_BEFORE_EXPLOSION*fps)));
             }
             
             //update of the bonus
@@ -214,7 +214,7 @@ public class Local extends World {
             }
             
             //clearing all the queue lists
-            queuePlayer.clear();
+            queueCharacter.clear();
             queueBomb.clear();
             queueBonus.clear();
             queueKickBomb.clear();
@@ -227,7 +227,7 @@ public class Local extends World {
     void newRound() {
         super.newRound();
 
-        queuePlayer.clear();
+        queueCharacter.clear();
         queueBomb.clear();
         queueBonus.clear();
         queueKickBomb.clear();
@@ -251,8 +251,8 @@ public class Local extends World {
 
     @objid ("b13fef2c-1897-428c-871d-8a201627e755")
     @Override
-    void plantBomb(Player player) {
-        queuePlayer.add(player);
+    void plantBomb(Character character) {
+        queueCharacter.add(character);
     }
 
     @objid ("d7b25576-cf20-47f5-9a75-9bc74eee10c2")
@@ -288,8 +288,8 @@ public class Local extends World {
     @Override
     public boolean isRoundEnded() {
         if (getPlayerCount() == 1) {
-            return getPlayerAliveCount() <= 0;
-        } else if (getPlayerAliveCount() <= 1) {
+            return getCharacterAliveCount() <= 0;
+        } else if (getCharacterAliveCount() <= 1) {
             return true;
         } else if (getHumanCount() >= 1) {
             return getHumanAliveCount() <= 0;
@@ -299,18 +299,18 @@ public class Local extends World {
 
     @Override
     public String getWinnerName() {
-        if (getPlayerAliveCount() == 0 || getPlayerAliveCount() > 1)
+        if (getCharacterAliveCount() == 0 || getCharacterAliveCount() > 1)
             return null;
         else {
-            return getPlayers().get(0).getController().getName();
+            return getCharacters().get(0).getController().getName();
         }
     }
 
     @Override
     public int getWinnerID() {
-        if (getPlayerAliveCount() == 0 || getPlayerAliveCount() > 1)
+        if (getCharacterAliveCount() == 0 || getCharacterAliveCount() > 1)
             return -1;
         else
-            return getPlayers().get(0).getPlayerID();
+            return getCharacters().get(0).getPlayerID();
     }
 }

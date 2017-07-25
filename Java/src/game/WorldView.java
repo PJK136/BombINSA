@@ -55,7 +55,7 @@ public interface WorldView {
     int getPlayerCount();
 
     @objid ("3c9c020a-4bd5-424b-9d90-1bdda21519a4")
-    int getPlayerAliveCount();
+    int getCharacterAliveCount();
 
     @objid ("d9ffc918-de5c-4ec2-9089-f0cc37079603")
     int getHumanCount();
@@ -64,6 +64,6 @@ public interface WorldView {
     int getHumanAliveCount();
 
     @objid ("28429dd0-b782-48e7-992e-64beab6a4e61")
-    List<Player> getPlayers();
+    List<Character> getCharacters();
 
 }

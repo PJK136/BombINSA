@@ -15,8 +15,8 @@ import game.Direction;
 import game.Entity;
 import game.ExplosionType;
 import game.GridCoordinates;
-import game.Player;
-import game.PlayerAbility;
+import game.Character;
+import game.CharacterAbility;
 import game.TileType;
 
 /**
@@ -47,8 +47,8 @@ public class Network {
         kryo.register(ExplosionType.class);
         kryo.register(GridCoordinates.class);
         kryo.register(Entity.class);
-        kryo.register(Player.class);
-        kryo.register(PlayerAbility.class);
+        kryo.register(Character.class);
+        kryo.register(CharacterAbility.class);
         kryo.register(Bomb.class);
         
         kryo.register(GameInfo.class);

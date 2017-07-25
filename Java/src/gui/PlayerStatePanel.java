@@ -7,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import game.Player;
-import game.PlayerAbility;
+import game.Character;
+import game.CharacterAbility;
 
 /**
  * JPanel qui gère l'affichage de l'état d'un joueur 
@@ -56,7 +56,7 @@ public class PlayerStatePanel extends JPanel {
         range = new JLabel();
         add(range);
         
-        abilities = new JLabel[PlayerAbility.values().length];
+        abilities = new JLabel[CharacterAbility.values().length];
         
         for (int i = 0; i < abilities.length; i++) {
             abilities[i] = new JLabel(" ");
@@ -73,14 +73,14 @@ public class PlayerStatePanel extends JPanel {
 
     /**
      * Met à jour l'état du joueur
-     * @param player Joueur
+     * @param character Joueur
      */
     @objid ("8536a41a-23a7-444d-8f96-1adeb430eee3")
-    void updatePlayerState(Player player) {
-        lives.setText("×" + player.getLives() + "  ");
-        bombMax.setText("×" + player.getBombMax() + "  ");
-        range.setText("×" + player.getRange() + "  ");
-        List<Boolean> playerAbilities = player.getPlayerAbilities();
+    void updateCharacterState(Character character) {
+        lives.setText("×" + character.getLives() + "  ");
+        bombMax.setText("×" + character.getBombMax() + "  ");
+        range.setText("×" + character.getRange() + "  ");
+        List<Boolean> playerAbilities = character.getCharacterAbilities();
         for (int i = 0; i < playerAbilities.size(); i++) {
             abilities[i].setVisible(playerAbilities.get(i));
         }
@@ -108,13 +108,13 @@ public class PlayerStatePanel extends JPanel {
             MainWindow.setFontSize(abilities[i], size);
         }
         
-        abilities[PlayerAbility.MoreSpeed.ordinal()].setIcon(
+        abilities[CharacterAbility.MoreSpeed.ordinal()].setIcon(
                 factory.getImageIcon("moreSpeed", size));
-        abilities[PlayerAbility.LessSpeed.ordinal()].setIcon(
+        abilities[CharacterAbility.LessSpeed.ordinal()].setIcon(
                 factory.getImageIcon("lessSpeed", size));
-        abilities[PlayerAbility.Shield.ordinal()].setIcon(
+        abilities[CharacterAbility.Shield.ordinal()].setIcon(
                 factory.getImageIcon("shield", size));
-        abilities[PlayerAbility.Kick.ordinal()].setIcon(
+        abilities[CharacterAbility.Kick.ordinal()].setIcon(
                 factory.getImageIcon("kick", size));
     }
 }

@@ -34,8 +34,8 @@ public class AIController extends Controller {
     }
     
     @Override
-    public void setPlayer(Player value) {
-    	super.setPlayer(value);
+    public void setCharacter(Character value) {
+    	super.setCharacter(value);
 		currentDirection = null;
 		bombing = false;
 		bombingSimulation = false;
@@ -62,21 +62,21 @@ public class AIController extends Controller {
     }
     
     private GridCoordinates nextPosition(Direction direction) {
-        double x = player.getX();
-        double y = player.getY();
+        double x = character.getX();
+        double y = character.getY();
         
         switch (direction) {
         case Left:
-            x -= player.getMaxSpeed()+(world.getMap().getTileSize()/2.);
+            x -= character.getMaxSpeed()+(world.getMap().getTileSize()/2.);
             break;
         case Right:
-            x += player.getMaxSpeed()+(world.getMap().getTileSize()/2.);
+            x += character.getMaxSpeed()+(world.getMap().getTileSize()/2.);
             break;
         case Up:
-            y -= player.getMaxSpeed()+(world.getMap().getTileSize()/2.);
+            y -= character.getMaxSpeed()+(world.getMap().getTileSize()/2.);
             break;
         case Down:
-            y += player.getMaxSpeed()+(world.getMap().getTileSize()/2.);
+            y += character.getMaxSpeed()+(world.getMap().getTileSize()/2.);
             break;
         default:
             break;
@@ -91,7 +91,7 @@ public class AIController extends Controller {
     @objid ("2960c0e0-6a89-4208-87eb-888ae75547e6")
     @Override
     public void update() {
-        aiLocation = world.getMap().toGridCoordinates(player.getX(), player.getY());
+        aiLocation = world.getMap().toGridCoordinates(character.getX(), character.getY());
               
         if(readyToBomb()){
             bombing = true;
@@ -99,11 +99,11 @@ public class AIController extends Controller {
         }
         
         if (currentDirection == null)
-            currentDirection = player.getDirection();
+            currentDirection = character.getDirection();
         
         GridCoordinates nextPosition = nextPosition(currentDirection);
         
-        if (player.isColliding(currentDirection, player.getMaxSpeed())) {
+        if (character.isColliding(currentDirection, character.getMaxSpeed())) {
             if (!turnSafely(10))
                 turnRandomly();
         } else if (!aiLocation.equals(nextPosition)) {
@@ -135,7 +135,7 @@ public class AIController extends Controller {
         Direction direction = null;
         
         for (Direction nextDirection : directions) {
-            if (player.isColliding(nextDirection, player.getMaxSpeed()))
+            if (character.isColliding(nextDirection, character.getMaxSpeed()))
                 continue;
             
             if (nextDirection == exclude)
@@ -161,7 +161,7 @@ public class AIController extends Controller {
     
     private void turnRandomly() {
         for (Direction direction : directions) {
-            if (currentDirection != direction && !player.isColliding(direction, player.getMaxSpeed())) {
+            if (currentDirection != direction && !character.isColliding(direction, character.getMaxSpeed())) {
                 currentDirection = direction;
                 return;
             }
@@ -183,7 +183,7 @@ public class AIController extends Controller {
                 }
                 
                 if (bombingSimulation && temp.equals(aiLocation)) {
-                    if (GridCoordinates.distance(target, aiLocation) <= player.getRange()) {
+                    if (GridCoordinates.distance(target, aiLocation) <= character.getRange()) {
                         if (timeRemaining == -1)
                             timeRemaining = (int)World.TIME_BEFORE_EXPLOSION*world.getFps();
                         else
@@ -224,7 +224,7 @@ public class AIController extends Controller {
                     return false;
                 
                 if (bombingSimulation && temp.equals(aiLocation)) {
-                    if (GridCoordinates.distance(target, aiLocation) <= player.getRange())
+                    if (GridCoordinates.distance(target, aiLocation) <= character.getRange())
                         return false;
                 }
                 
@@ -283,7 +283,7 @@ public class AIController extends Controller {
                 else {
                 	List<Entity> entities = world.getMap().getEntities(position);
                 	for (Entity entity : entities) {
-                		if (entity instanceof Player && entity != player)
+                		if (entity instanceof Character && entity != character)
                 			return true;
                 	}
                 }
@@ -299,8 +299,8 @@ public class AIController extends Controller {
      */
     @objid ("abcfe8f8-3507-4b7c-a175-d63eebfae72c")
     private boolean readyToBomb() {
-        if(player.getBombCount() < player.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation)
-        		&& Math.random() < 2./world.getFps() && hasTarget(player.getRange())) {
+        if(character.getBombCount() < character.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation)
+        		&& Math.random() < 2./world.getFps() && hasTarget(character.getRange())) {
         		
             bombingSimulation = true;
             if (turnSafely(5, 1)) {
@@ -368,7 +368,7 @@ public class AIController extends Controller {
         if (!isEmpty(nextPosition))
             ret.safe = -1;
         else if (world.getMap().isExploding(nextPosition)) {
-            if (world.getMap().getExplosionTimeRemaining(nextPosition) <= (step-1)*world.getMap().getTileSize()/player.getMaxSpeed())
+            if (world.getMap().getExplosionTimeRemaining(nextPosition) <= (step-1)*world.getMap().getTileSize()/character.getMaxSpeed())
                 ret.safe = 1;
             else
                 ret.safe = -2;
@@ -390,7 +390,7 @@ public class AIController extends Controller {
             } else if (step+1 >= maxStep) { //Inconnu mais nb de pas max atteint
                 ret.safe = 0;
             } else { //Vide mais unsafe
-                if ((step+1)*world.getMap().getTileSize()/player.getMaxSpeed() > timeRemaining) {
+                if ((step+1)*world.getMap().getTileSize()/character.getMaxSpeed() > timeRemaining) {
                     ret.safe = -2;
                 }
                 else {

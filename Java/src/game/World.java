@@ -145,10 +145,10 @@ public abstract class World implements WorldView {
 
     @Override
     @objid ("fe9b5eb2-5def-4f69-8e0e-49e6eaaa3315")
-    public int getPlayerAliveCount() {
+    public int getCharacterAliveCount() {
         int sum = 0;
-        for(Entity entity : getEntities()){ //Thread-safety
-            if(entity instanceof Player){
+        for (Entity entity : getEntities()) { //Thread-safety
+            if(entity instanceof Character){
                 sum ++;
             }       
         }
@@ -171,7 +171,7 @@ public abstract class World implements WorldView {
     public int getHumanAliveCount() {
         int sum = 0;
         for(Entity entity : getEntities()){ //Thread-safety
-            if(entity instanceof Player && !(((Player)entity).getController() instanceof AIController)){
+            if(entity instanceof Character && !(((Character)entity).getController() instanceof AIController)){
                 sum ++;
             }       
         }
@@ -234,10 +234,10 @@ public abstract class World implements WorldView {
 
     /**
      * Pose une bombe sur la map par un joueur
-     * @param player le joueur qui veut poser une bombe
+     * @param character le joueur qui veut poser une bombe
      */
     @objid ("9c563a21-9aa5-4a46-9bc7-944623f9796c")
-    abstract void plantBomb(Player player);
+    abstract void plantBomb(Character character);
 
     /**
      * Crée une explosion sur la map par une bombe
@@ -374,14 +374,14 @@ public abstract class World implements WorldView {
 
     @Override
     @objid ("0b9057d7-eb96-4376-92be-bfb39cef93ff")
-    public List<Player> getPlayers() {
-        List<Player> playerList = new LinkedList<Player>();
+    public List<Character> getCharacters() {
+        List<Character> characterList = new LinkedList<Character>();
         for(Entity entity : getEntities()){ //Thread-safety
-            if(entity instanceof Player){
-                playerList.add((Player)entity);
+            if(entity instanceof Character){
+                characterList.add((Character)entity);
             }
         }
-        return playerList;
+        return characterList;
     }
 
     /**

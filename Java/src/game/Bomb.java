@@ -20,7 +20,7 @@ public class Bomb extends Entity {
     public static final double BOMB_DEFAULT_SPEED = 4; // tile/sec
 
     @objid ("d663f27d-b4de-411a-b687-8ae5d439ab48")
-     transient Player owner;
+     transient Character owner;
 
     /**
      * Constructeur par défaut de Bomb
@@ -53,7 +53,7 @@ public class Bomb extends Entity {
      * @param duration Durée avant explosion (en ticks)
      */
     @objid ("37d6734c-0f78-448a-a2c5-6fa8930b3233")
-    public Bomb(World world, Player owner, int duration) {
+    public Bomb(World world, Character owner, int duration) {
         this(world, world.getMap().toCenterX(owner.getX()), world.getMap().toCenterX(owner.getY()), owner.getRange(), duration);
         this.owner = owner;
     }

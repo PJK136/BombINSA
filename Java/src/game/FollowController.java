@@ -14,8 +14,8 @@ public class FollowController extends Controller {
     @objid ("64e637c6-fb7b-48be-aac7-dd9ab2cc9285")
     @Override
     public Direction getDirection() {
-        if (player != null && player.getSpeed() != 0.)
-            return player.getDirection();
+        if (character != null && character.getSpeed() != 0.)
+            return character.getDirection();
         else
             return null;
     }

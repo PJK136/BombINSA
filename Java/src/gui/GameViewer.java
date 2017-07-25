@@ -23,7 +23,7 @@ import game.Entity;
 import game.ExplosionType;
 import game.GridCoordinates;
 import game.MapView;
-import game.Player;
+import game.Character;
 import game.TileType;
 import game.WorldView;
 
@@ -73,7 +73,7 @@ public class GameViewer extends JPanel {
     private Sprite[] bonuses;
 
     @objid ("26411124-731f-4b6b-8936-3798689dc93a")
-    private PlayerSprite[] players;
+    private CharacterSprite[] players;
 
     @objid ("0e692d65-5a5c-4ade-a4a0-b946e0a2bb73")
     private Sprite[] bombs;
@@ -104,9 +104,9 @@ public class GameViewer extends JPanel {
             bonuses[type.ordinal()] = factory.getSprite("bonus" + type.ordinal()); 
         }
         
-        players = new PlayerSprite[PlayerColor.values().length];
+        players = new CharacterSprite[PlayerColor.values().length];
         for (PlayerColor color : PlayerColor.values())
-            players[color.ordinal()] = new PlayerSprite(color);
+            players[color.ordinal()] = new CharacterSprite(color);
         
         bombs = new Sprite[2];
         {
@@ -317,11 +317,11 @@ public class GameViewer extends JPanel {
         final int colorCount = PlayerColor.values().length;
         //Dessine les joueurs ensuite
         for (Entity entity : worldView.getEntities()) {
-            if (entity instanceof Player) {
-                int invulnerability = ((Player)entity).getInvulnerability();
+            if (entity instanceof Character) {
+                int invulnerability = ((Character)entity).getInvulnerability();
                 if (worldView.getWarmupTimeRemaining() != 0 || invulnerability == 0 ||
                     invulnerability % (2*HIT_BLINK_INTERVAL*worldView.getFps()) >= HIT_BLINK_INTERVAL*worldView.getFps()) {
-                    int color = ((Player)entity).getPlayerID() % colorCount;
+                    int color = ((Character)entity).getPlayerID() % colorCount;
                     if (entity.getSpeed() == 0.)
                         drawEntity(g, entity, players[color].getStandingPlayer(entity.getDirection()));
                     else
@@ -333,9 +333,9 @@ public class GameViewer extends JPanel {
         if (settings.tags) {
             //Dessine les noms en dernier
             for (Entity entity : worldView.getEntities()) {
-                if (entity instanceof Player) {
+                if (entity instanceof Character) {
                     drawCenteredString(g,
-                                       ((Player)entity).getController().getName(),
+                                       ((Character)entity).getController().getName(),
                                        (int)scale(entity.getX()),
                                        (int)scale(entity.getBorderTop()-worldView.getMap().getTileSize()/5));
                 }
@@ -380,7 +380,7 @@ public class GameViewer extends JPanel {
                 sprite.setSize(size);
         }
         
-        for (PlayerSprite sprite : players)
+        for (CharacterSprite sprite : players)
             sprite.setSize(size);
         
         cacheTileSize = size;

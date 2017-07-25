@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
-import game.Player;
+import game.Character;
 import game.WorldView;
 
 /**
@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private JPanel playerStateGroup;
 
     @objid ("3ace71d3-e6f1-4997-a200-b55f6b20c619")
-     HashMap<Player, PlayerStatePanel> playerStates;
+     HashMap<Character, PlayerStatePanel> playerStates;
 
     private int lastTimeRemaining;
     
@@ -65,7 +65,7 @@ public class GamePanel extends JPanel implements ActionListener {
         add(topBar, BorderLayout.NORTH);
         topBar.setLayout(new BoxLayout(topBar, BoxLayout.X_AXIS));
         
-        playerStates = new HashMap<Player, PlayerStatePanel>();
+        playerStates = new HashMap<Character, PlayerStatePanel>();
         playerStateGroup = new JPanel() ;
         playerStateGroup.setLayout(new WrapLayout(WrapLayout.LEFT));
         topBar.add(playerStateGroup);
@@ -114,25 +114,25 @@ public class GamePanel extends JPanel implements ActionListener {
             timeRemaining.setIcon(SpriteFactory.getInstance().getImageIcon("hourglass", size));
         }
         
-        List<Player> playerList = view.getPlayers();
+        List<Character> characterList = view.getCharacters();
         
-        for (Player player : playerList) {
-            PlayerStatePanel pState = playerStates.get(player);
+        for (Character character : characterList) {
+            PlayerStatePanel pState = playerStates.get(character);
             if (pState == null) {
-                pState = new PlayerStatePanel(player.getPlayerID(), size);
-                playerStates.put(player, pState);
+                pState = new PlayerStatePanel(character.getPlayerID(), size);
+                playerStates.put(character, pState);
                 playerStateGroup.add(pState);
             }
             
-            pState.updatePlayerState(player);
+            pState.updateCharacterState(character);
         }
         
-        Iterator<Entry<Player, PlayerStatePanel>> iterator = playerStates.entrySet().iterator();
-        Entry<Player, PlayerStatePanel> player;
+        Iterator<Entry<Character, PlayerStatePanel>> iterator = playerStates.entrySet().iterator();
+        Entry<Character, PlayerStatePanel> character;
         while (iterator.hasNext()) {
-            player = iterator.next();
-            if (!playerList.contains(player.getKey())) {
-                playerStateGroup.remove(player.getValue());
+            character = iterator.next();
+            if (!characterList.contains(character.getKey())) {
+                playerStateGroup.remove(character.getValue());
                 iterator.remove();
             }
         }

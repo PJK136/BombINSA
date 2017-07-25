@@ -92,7 +92,7 @@ public class Client extends World implements Listener {
 
     @objid ("2116c198-f003-4fbb-8e6b-4ccf16f7f093")
     @Override
-    void plantBomb(Player player) {
+    void plantBomb(Character character) {
         // TODO Auto-generated method stub
     }
 
@@ -187,9 +187,9 @@ public class Client extends World implements Listener {
         if (existing != null) {
             existing.updateFrom(entity);
         } else {
-            if (entity instanceof Player) {
-                Player player = ((Player)entity);
-                player.setController(new FollowController());
+            if (entity instanceof Character) {
+                Character character = ((Character)entity);
+                character.setController(new FollowController());
             }
             
             super.addEntity(entity, id);
@@ -256,14 +256,14 @@ public class Client extends World implements Listener {
         } else if (object instanceof PlayerName) {
             PlayerName playerName = (PlayerName)object;
             Entity entity = entities.get(playerName.entityId);
-            if (entity != null && entity instanceof Player) {
-                ((Player)entity).getController().setName(playerName.name);
+            if (entity != null && entity instanceof Character) {
+                ((Character)entity).getController().setName(playerName.name);
             }
         } else if (object instanceof ControllerPlayer) {
             ControllerPlayer cP = (ControllerPlayer) object;
             Entity entity = entities.get(cP.entityId);
-            if (entity != null && entity instanceof Player && cP.controllerId >= 0 && cP.controllerId < controllers.size()) {
-                ((Player)entity).setController(controllers.get(cP.controllerId));
+            if (entity != null && entity instanceof Character && cP.controllerId >= 0 && cP.controllerId < controllers.size()) {
+                ((Character)entity).setController(controllers.get(cP.controllerId));
             }
         } else if (object instanceof TimeRemaining) {
             int newTime = ((TimeRemaining)object).timeRemaining;
