@@ -395,24 +395,7 @@ public class Map implements MapView {
 
     @objid ("b4267492-9246-4c92-88ab-4a9b72c99691")
     private void setTileType(Tile[][] tiles, TileType type, GridCoordinates gc) {
-        Tile newTile = null;
-        switch(type){
-        case Empty:
-            newTile = new EmptyTile();
-            break;
-        case Breakable:
-            newTile = new BreakableTile();
-            break;
-        case Unbreakable:
-            newTile = new UnbreakableTile();
-            break;
-        case Bonus:
-            newTile = new BonusTile();
-            break;
-        case Arrow:
-            newTile = new ArrowTile();
-            break;
-        }
+        Tile newTile = type.newTile();
         
         if (tiles[gc.x][gc.y] != null)
             newTile.setEntities(tiles[gc.x][gc.y].getEntities());
