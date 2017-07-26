@@ -64,7 +64,23 @@ public class Client extends World implements Listener {
      */
     @objid ("63d8fe40-31e8-480c-82ff-640b5412de27")
     public Client(InetAddress address) throws Exception {
-        map = new Map(32);
+        map = new Map(32) {
+            @Override
+            Tile newTile(TileType type) {
+                if (type != TileType.Breakable)
+                    return super.newTile(type);
+                else {
+                    return new BreakableTile() {
+                        @Override
+                        Tile postExplosion() {
+                            EmptyTile tile = new EmptyTile();
+                            tile.setEntities(entities);
+                            return tile;
+                        }
+                    };
+                }
+            }
+        };
         
         controllers = new ArrayList<>();
         

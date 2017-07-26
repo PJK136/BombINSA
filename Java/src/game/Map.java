@@ -382,6 +382,10 @@ public class Map implements MapView {
         }
         return content.toString();
     }
+    
+    Tile newTile(TileType type) {
+        return type.newTile();
+    }
 
     @objid ("33e1123b-fd64-4e1d-96ea-0813d9ffac7d")
     public void setTileType(TileType type, GridCoordinates gc) {
@@ -395,7 +399,7 @@ public class Map implements MapView {
 
     @objid ("b4267492-9246-4c92-88ab-4a9b72c99691")
     private void setTileType(Tile[][] tiles, TileType type, GridCoordinates gc) {
-        Tile newTile = type.newTile();
+        Tile newTile = newTile(type);
         
         if (tiles[gc.x][gc.y] != null)
             newTile.setEntities(tiles[gc.x][gc.y].getEntities());
