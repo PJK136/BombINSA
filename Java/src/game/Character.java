@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
@@ -10,9 +11,6 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
  */
 @objid ("7d9743df-c7cd-4679-9771-fa22b1be441d")
 public class Character extends Entity {
-    @objid ("0188c626-9d00-48cc-821f-2cd2188664fc")
-     int playerID;
-
     @objid ("c10c97b4-7ea2-4021-aff7-4c0b87aac71b")
      int lives;
 
@@ -33,9 +31,8 @@ public class Character extends Entity {
 
     @objid ("5b4c8db6-08b3-4215-8a96-4348f89623df")
     public static final double CHARACTER_DEFAULT_SPEED = 4; // tile/sec
-
-    @objid ("2f129ce7-ac16-42b5-85cb-d57015645a67")
-     transient Controller controller;
+    
+     transient Player player;
 
     /**
      * Constructeur Character par défaut
@@ -43,7 +40,6 @@ public class Character extends Entity {
     @objid ("c346899f-0664-4813-bcc6-157babe0b50f")
     private Character() {
         super(null, 0, 0);
-        setController(null);
     }
 
     /**
@@ -51,22 +47,21 @@ public class Character extends Entity {
      * @param world Monde dans lequel est le joueur
      * @param x Position horizontale en pixel
      * @param y Position verticale en pixel
-     * @param controller Controlleur du joueur
-     * @param playerID ID du joueur
      * @param lives Nombre de vies
      * @param bombMax Nombre de bombes
      * @param range Portée des bombes
      * @param invulnerability Temps d'invulnérabilité (en nombre de ticks/frames)
+     * @param player Joueur contrôlant le personnage
      */
     @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
-    public Character(World world, double x, double y, Controller controller, int playerID, int lives, int bombMax, int range, int invulnerability) {
+    public Character(World world, double x, double y, int lives, int bombMax, int range, int invulnerability, Player player) {
         super(world, x, y);
-        setController(controller);
-        this.playerID = playerID;
         setLives(lives);
         setBombMax(bombMax);
         setRange(range);
         setInvulnerability(invulnerability);
+        setPlayer(player);
+        
         this.bombCount = 0;
         
         CharacterAbility[] pa = CharacterAbility.values();
@@ -82,11 +77,6 @@ public class Character extends Entity {
     @objid ("d8c3c2ca-78cd-4d35-8d4a-df8c6f1cbe55")
     public boolean isAlive() {
         return lives > 0;
-    }
-
-    @objid ("401f78c6-974d-49a0-a7f6-56cd8c9e9a01")
-    public int getPlayerID() {
-        return this.playerID;
     }
 
     @objid ("007b7078-5eba-4ff5-a413-43e779f00b19")
@@ -165,22 +155,21 @@ public class Character extends Entity {
         }
     }
 
-    @objid ("d24ca8af-7294-4611-bab0-5541345d4258")
+    public Player getPlayer() {
+        return this.player;
+    }
+    
     public Controller getController() {
-        return this.controller;
-    }
-
-    @objid ("79de1afe-e6c2-4c96-ae54-f3d57da135dc")
-    void setController(Controller value) {
-        if (value != null)
-            this.controller = value;
+        if (this.player != null)
+            return this.player.getController();
         else
-            this.controller = new DummyController();
-        
-        this.controller.setCharacter(this);
-        this.controller.setWorldView(world);
+            return null;
     }
-
+    
+    void setPlayer(Player player) {
+        this.player = player;
+    }
+    
     @objid ("e2e7b5c2-c647-40b9-b8e3-d980b80dde0d")
     public double getMaxSpeed() {
         double maxSpeed = CHARACTER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
@@ -189,13 +178,6 @@ public class Character extends Entity {
         else if (characterAbilities.get(CharacterAbility.LessSpeed.ordinal())) 
             maxSpeed /= 1.5;
         return maxSpeed;
-    }
-
-    @objid ("f9b10d2c-72a9-4695-9fa2-07f2564fc175")
-    @Override
-    void setWorld(World world) {
-        super.setWorld(world);
-        this.controller.setWorldView(world);
     }
 
     @objid ("8cb4ed00-b6b9-4918-86a9-6a90e6368f8f")
@@ -242,6 +224,7 @@ public class Character extends Entity {
     /**
      * Appelle la méthode canCollide de Entity et vérifie en plus la collision avec les bombes
      */
+    @Override
     @objid ("19e970e7-cbf2-4148-99bc-6828a561f8de")
     boolean canCollide(double x, double y) {
         if (!super.canCollide(x, y)) {
@@ -260,17 +243,23 @@ public class Character extends Entity {
      * - Vérifie si le Joueur possède un Shield ou s'il perd une vie
      * - Vérifie si le Joueur est encore vivant
      */
+    @Override
     @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
-        controller.update();
-        Direction nextDirection = controller.getDirection();
-        if (nextDirection != null) {
-            direction = nextDirection;
-            speed = getMaxSpeed();
-        } else
-            speed = 0.;
+        Direction nextDirection = null;
+        
+        if (getController() != null) {
+            getController().update();
+            nextDirection = getController().getDirection();
+            if (nextDirection != null) {
+                direction = nextDirection;
+                speed = getMaxSpeed();
+            } else
+                speed = 0.;
+        }
         
         super.update();
+        
         //Kick
         if (characterAbilities.get(CharacterAbility.Kick.ordinal()) && nextDirection != null) {
             double footX = -1;
@@ -324,7 +313,7 @@ public class Character extends Entity {
         else
             decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0
         
-        if (controller.isPlantingBomb() && bombCount < bombMax && !world.getMap().isExploding(x, y) && !world.getMap().hasBomb(x,y)) {
+        if (getController() != null && getController().isPlantingBomb() && bombCount < bombMax && !world.getMap().isExploding(x, y) && !world.getMap().hasBomb(x,y)) {
             bombCount++;
             world.plantBomb(this);
         }
@@ -401,7 +390,6 @@ public class Character extends Entity {
         super.updateFrom(entity);
         if (entity instanceof Character) {
             Character character = (Character)entity;
-            this.playerID = character.playerID;
             this.lives = character.lives;
             this.bombCount = character.bombCount;
             this.bombMax = character.bombMax;
@@ -411,4 +399,7 @@ public class Character extends Entity {
         }
     }
 
+    public WorldView getWorldView() {
+        return this.world;
+    }
 }

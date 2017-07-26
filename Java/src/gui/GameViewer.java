@@ -19,11 +19,11 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 import game.Bomb;
 import game.BonusType;
+import game.Character;
 import game.Entity;
 import game.ExplosionType;
 import game.GridCoordinates;
 import game.MapView;
-import game.Character;
 import game.TileType;
 import game.WorldView;
 
@@ -223,6 +223,9 @@ public class GameViewer extends JPanel {
     @objid ("f390cb1f-6299-4095-b357-460eec272041")
     private void drawMap(Graphics2D g, MapView map) {
         int size = scale(map.getTileSize());
+        if (size <= 0)
+            return;
+            
         if (cacheTileSize != size)
             updateCaches(size);
         
@@ -314,14 +317,18 @@ public class GameViewer extends JPanel {
             }
         }
         
-        final int colorCount = PlayerColor.values().length;
+        final int colorCount = PlayerColor.values().length - 1; //On enlève le gris
         //Dessine les joueurs ensuite
         for (Entity entity : worldView.getEntities()) {
             if (entity instanceof Character) {
                 int invulnerability = ((Character)entity).getInvulnerability();
                 if (worldView.getWarmupTimeRemaining() != 0 || invulnerability == 0 ||
                     invulnerability % (2*HIT_BLINK_INTERVAL*worldView.getFps()) >= HIT_BLINK_INTERVAL*worldView.getFps()) {
-                    int color = ((Character)entity).getPlayerID() % colorCount;
+                    
+                    int color = PlayerColor.Gray.ordinal();
+                    if (((Character)entity).getPlayer() != null && ((Character)entity).getPlayer().getID() >= 0)
+                        color = ((Character)entity).getPlayer().getID() % colorCount;
+                    
                     if (entity.getSpeed() == 0.)
                         drawEntity(g, entity, players[color].getStandingPlayer(entity.getDirection()));
                     else
@@ -334,10 +341,12 @@ public class GameViewer extends JPanel {
             //Dessine les noms en dernier
             for (Entity entity : worldView.getEntities()) {
                 if (entity instanceof Character) {
-                    drawCenteredString(g,
-                                       ((Character)entity).getController().getName(),
-                                       (int)scale(entity.getX()),
-                                       (int)scale(entity.getBorderTop()-worldView.getMap().getTileSize()/5));
+                    if (((Character)entity).getController() != null) {
+                        drawCenteredString(g,
+                                           ((Character)entity).getController().getName(),
+                                           (int)scale(entity.getX()),
+                                           (int)scale(entity.getBorderTop()-worldView.getMap().getTileSize()/5));
+                    }
                 }
             }
         }

@@ -10,6 +10,8 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 /** Ce contrôleur est l'intelligence artificielle du jeu */
 @objid ("cbe503f7-eb4d-4747-9547-3001ad190b16")
 public class AIController extends Controller {
+    private WorldView world;
+    
     @objid ("b3611ff7-8085-4126-9180-545efad68da8")
     private Direction currentDirection = null;
 
@@ -91,6 +93,7 @@ public class AIController extends Controller {
     @objid ("2960c0e0-6a89-4208-87eb-888ae75547e6")
     @Override
     public void update() {
+        world = character.getWorldView();
         aiLocation = world.getMap().toGridCoordinates(character.getX(), character.getY());
               
         if(readyToBomb()){

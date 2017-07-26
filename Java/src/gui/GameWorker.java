@@ -112,7 +112,7 @@ public class GameWorker implements Runnable, GameListener {
                             PlayerColor[] colors = PlayerColor.values();
                             message = winnerName + " gagne !";
                             color = colors[world.getWinnerID() % colors.length].toColor();
-                        } else if (world.getCharacterAliveCount() > 1) {
+                        } else if (world.getCharacterCount() > 1) {
                             message = "Les IAs gagnent !";
                             color = Color.black;
                         } else {
@@ -123,8 +123,11 @@ public class GameWorker implements Runnable, GameListener {
                         if (!message.equals(mainWindow.getMessageShown())) {
                             final String x = message; 
                             final Color y = color;
-                        
-                            SwingUtilities.invokeLater(() -> mainWindow.showMessage(x, y, 1000*world.getRestTimeRemaning()/world.getFps()));
+                            
+                            if (world.getRestTimeRemaining() >= 10)
+                                SwingUtilities.invokeLater(() -> mainWindow.showMessage(x, y, 1000*world.getRestTimeRemaining()/world.getFps()));
+                            else
+                                SwingUtilities.invokeLater(() -> mainWindow.showMessage(x, y, 10));
                         }
                     }
                 }
@@ -221,8 +224,8 @@ public class GameWorker implements Runnable, GameListener {
             addKeyboardControllers();
             
             for (int i = 0; i < settings.aiCount; i++) {
-                AIController iaController = new AIController();
-                world.newController(iaController);
+                AIController aiController = new AIController();
+                world.newPlayer(aiController);
             }
             
             if (settings.gameType.equals(GameType.Local) && world.getPlayerCount() <= 1)
@@ -249,7 +252,7 @@ public class GameWorker implements Runnable, GameListener {
         for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
             KeyboardController kbController = new KeyboardController(settings.controls.get(i));
             viewer.addKeyListener(kbController);
-            world.newController(kbController);
+            world.newPlayer(kbController);
         }
     }
     

@@ -1,6 +1,7 @@
 package game;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -14,12 +15,14 @@ import network.Network;
 import network.Network.CommandMap;
 import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
+import network.Network.EntityPlayer;
+import network.Network.EntityToRemove;
 import network.Network.EntityUpdateList;
 import network.Network.NextRound;
-import network.Network.PlayerName;
+import network.Network.PlayerInfo;
+import network.Network.PlayerToRemove;
 import network.Network.RoundEnded;
 import network.Network.TimeRemaining;
-import network.Network.ToRemove;
 import network.Network.WarmupTimeRemaining;
 
 /**
@@ -48,6 +51,8 @@ public class Client extends World implements Listener {
     @objid ("a6a97511-69d5-4a0d-8b2f-046814038a98")
      com.esotericsoftware.kryonet.Client network;
 
+    List<Controller> controllers;
+    
     Queue<Object> messages;
     
     int lastTimestamp = -1;
@@ -60,6 +65,8 @@ public class Client extends World implements Listener {
     @objid ("63d8fe40-31e8-480c-82ff-640b5412de27")
     public Client(InetAddress address) throws Exception {
         map = new Map(32);
+        
+        controllers = new ArrayList<>();
         
         messages = new ConcurrentLinkedQueue<Object>();
 
@@ -110,9 +117,9 @@ public class Client extends World implements Listener {
 
     @objid ("162a4f81-a941-4f21-aaaf-afd832486f5b")
     @Override
-    public void newController(Controller controller) {
+    public Player newPlayer(Controller controller) {
         controllers.add(controller);
-        network.sendTCP(new Network.AddController(controller.getName()));
+        return null;
     }
 
     @objid ("463bec21-830d-412a-8728-f570ba668f52")
@@ -187,11 +194,6 @@ public class Client extends World implements Listener {
         if (existing != null) {
             existing.updateFrom(entity);
         } else {
-            if (entity instanceof Character) {
-                Character character = ((Character)entity);
-                character.setController(new FollowController());
-            }
-            
             super.addEntity(entity, id);
         }
     }
@@ -200,6 +202,7 @@ public class Client extends World implements Listener {
     @Override
     public void stop() {
         network.close();
+        network.stop();
     }
 
     @Override
@@ -232,6 +235,10 @@ public class Client extends World implements Listener {
             this.roundMax = info.roundMax;
             this.map.setTileSize(info.tileSize);
             this.map.loadMap(info.map);
+            
+            for (Controller controller : controllers)
+                network.sendTCP(new Network.AddController(controller.getName()));
+            
             init = true;
             
             if (timeRemaining <= 0)
@@ -240,7 +247,7 @@ public class Client extends World implements Listener {
             messages.offer(object);
     }
     
-    private void processMessage(Object object) {  
+    private void processMessage(Object object) { 
         if (object instanceof CommandMap) {
             DeltaMap.executeDelta((CommandMap)object, map);
         } else if (object instanceof Entity) {           
@@ -253,17 +260,36 @@ public class Client extends World implements Listener {
                     addEntity(entity, entity.getID());
                 }
             }
-        } else if (object instanceof PlayerName) {
-            PlayerName playerName = (PlayerName)object;
-            Entity entity = entities.get(playerName.entityId);
-            if (entity != null && entity instanceof Character) {
-                ((Character)entity).getController().setName(playerName.name);
+        } else if (object instanceof PlayerInfo) {
+            PlayerInfo playerInfo = (PlayerInfo)object;
+
+            if (playerInfo.player.getID() >= 0) {
+                Player player = playerInfo.player;
+                
+                player.setController(new FollowController());
+                player.getController().setName(playerInfo.name);
+                
+                Entity entity = entities.get(playerInfo.entityId);
+                if (entity instanceof Character)
+                    playerInfo.player.setCharacter((Character) entity);
+                
+                players.put(player.getID(), player);
             }
         } else if (object instanceof ControllerPlayer) {
             ControllerPlayer cP = (ControllerPlayer) object;
-            Entity entity = entities.get(cP.entityId);
-            if (entity != null && entity instanceof Character && cP.controllerId >= 0 && cP.controllerId < controllers.size()) {
-                ((Character)entity).setController(controllers.get(cP.controllerId));
+            Player player = players.get(cP.playerId);
+            if (player != null && cP.controllerId >= 0 && cP.controllerId < controllers.size()) {
+                player.setController(controllers.get(cP.controllerId));
+            }
+        } else if (object instanceof EntityPlayer) {
+            EntityPlayer entityPlayer = (EntityPlayer) object;
+            
+            Entity entity = entities.get(entityPlayer.entityId);
+            if (entity instanceof Character) {
+                Player player = players.get(entityPlayer.playerId);
+                if (player != null) {
+                    player.setCharacter((Character) entity); 
+                }
             }
         } else if (object instanceof TimeRemaining) {
             int newTime = ((TimeRemaining)object).timeRemaining;
@@ -279,10 +305,14 @@ public class Client extends World implements Listener {
         } else if (object instanceof NextRound) {
             nextRound = true;
             nextRound();
-        } else if (object instanceof ToRemove) {
-            ToRemove toRemove = (ToRemove)object;
+        } else if (object instanceof EntityToRemove) {
+            EntityToRemove toRemove = (EntityToRemove)object;
             for (Integer id : toRemove.toRemove)
                 entities.remove(id);
+        } else if (object instanceof PlayerToRemove) {
+            PlayerToRemove toRemove = (PlayerToRemove)object;
+            for (Integer id : toRemove.toRemove)
+                players.remove(id);
         } else if (object instanceof List<?>) {
             if (((List<?>)object).isEmpty())
                 return;
@@ -293,7 +323,11 @@ public class Client extends World implements Listener {
                 for (Entity entity : (List<Entity>) object) {
                     addEntity(entity, entity.getID());
                 }
+            } else {
+                System.err.println("Unexpected message list : " + object.getClass() + " / " + ((List<?>) object).get(0).getClass());
             }
+        } else {
+            System.err.println("Unexpected message : " + object.getClass());
         }
     }
 

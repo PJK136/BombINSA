@@ -3,8 +3,10 @@ package game;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Queue;
 
@@ -18,9 +20,6 @@ public class Local extends World {
 
     @objid ("bea83389-bb33-4211-97c6-1b6fc49e23eb")
      HashMap<Bomb, Direction> queueKickBomb = new HashMap<>();
-
-    @objid ("f4f3efa0-82ed-4a6e-a844-a5b784ab690e")
-     int nextPlayerID = 0;
 
     @objid ("a6755987-9eb6-4703-a202-cad2bb6345a4")
      Queue<Character> queueCharacter = new LinkedList<Character>();
@@ -87,35 +86,42 @@ public class Local extends World {
 
     @Override
     @objid ("57eecd7c-87d7-4fb4-933f-3928adf88bf1")
-    public void newController(Controller controller) {
-        newPlayer(controller);
-        controllers.add(controller);
+    public Player newPlayer(Controller controller) {
+        return newPlayer(controller, players.size()); // Aucun joueur ne peut être enlevé
+    }
+    
+    @objid ("57eecd7c-87d7-4fb4-933f-3928adf88bf1")
+    Player newPlayer(Controller controller, int playerID) {
+        Player player = new Player(playerID, controller);
+        players.put(playerID, player);
+        newCharacter(player);
+        return player;
     }
 
     /**
-     * Crée un joueur à partir de son controlleur
-     * @param controller le controlleur rataché au nouveau joueur
+     * Crée un personnage à partir du joueur
+     * @param player le joueur
      */
     @objid ("3201955a-ab70-48b8-b676-a53ca4da06a7")
-    void newPlayer(Controller controller) {
-        if (timeRemaining < 0) //N'ajoute pas de joueur en mort subite
+    void newCharacter(Player player) {
+        if (warmupTimeRemaining <= 0 && (isRoundEnded() || timeRemaining < 0)) //N'ajoute pas de joueur si le jeu est fini ou en mort subite
             return;
         
         if (map.spawningLocations.size() == 0)
             return;
         
-        int spawnIndex = nextPlayerID % map.spawningLocations.size();
+        int spawnIndex = getCharacterCount() % map.spawningLocations.size();
         Character character = new Character(this,
                                    map.toCenterX(map.spawningLocations.get(spawnIndex)),
                                    map.toCenterY(map.spawningLocations.get(spawnIndex)),
-                                   controller,
-                                   nextPlayerID,
                                    START_LIVES,
                                    START_BOMB_MAX,
                                    START_RANGE,
-                                   (int)(START_INVULNERABITY_DURATION*fps));
+                                   (int)(START_INVULNERABITY_DURATION*fps),
+                                   player);
+        
+        player.setCharacter(character);
         addEntity(character);
-        nextPlayerID++;
     }
 
     /**
@@ -237,9 +243,12 @@ public class Local extends World {
     @objid ("a193a9c9-e032-4940-953b-5923c9da849e")
     public void nextRound() {
         super.nextRound();
+        
         //renew players
-        for(Controller controller : controllers){
-            newPlayer(controller);
+        List<Player> playerList = getPlayers();
+        Collections.shuffle(playerList);
+        for (Player player : playerList) {
+            newCharacter(player);
         }
         //reload map
         try {
@@ -288,8 +297,8 @@ public class Local extends World {
     @Override
     public boolean isRoundEnded() {
         if (getPlayerCount() == 1) {
-            return getCharacterAliveCount() <= 0;
-        } else if (getCharacterAliveCount() <= 1) {
+            return getCharacterCount() <= 0;
+        } else if (getCharacterCount() <= 1) {
             return true;
         } else if (getHumanCount() >= 1) {
             return getHumanAliveCount() <= 0;
@@ -299,7 +308,7 @@ public class Local extends World {
 
     @Override
     public String getWinnerName() {
-        if (getCharacterAliveCount() == 0 || getCharacterAliveCount() > 1)
+        if (getCharacterCount() == 0 || getCharacterCount() > 1)
             return null;
         else {
             return getCharacters().get(0).getController().getName();
@@ -308,9 +317,9 @@ public class Local extends World {
 
     @Override
     public int getWinnerID() {
-        if (getCharacterAliveCount() == 0 || getCharacterAliveCount() > 1)
+        if (getCharacterCount() == 0 || getCharacterCount() > 1)
             return -1;
         else
-            return getCharacters().get(0).getPlayerID();
+            return getCharacters().get(0).getPlayer().getID();
     }
 }

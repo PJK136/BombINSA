@@ -2,22 +2,26 @@ package gui;
 
 import java.awt.Dimension;
 import java.util.List;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
+
 import game.Character;
 import game.CharacterAbility;
+import game.Player;
 
 /**
  * JPanel qui gère l'affichage de l'état d'un joueur 
  */
 @objid ("46db285b-3b47-467c-9f0f-477cd2eb3613")
 public class PlayerStatePanel extends JPanel {
-    int size;
+    Player player;
     
-    String bombermanIcon;
+    int size;
     
     @objid ("a93c2a2a-7d08-409f-8eff-a00ecdf4e7ae")
      JLabel lives;
@@ -40,11 +44,10 @@ public class PlayerStatePanel extends JPanel {
      * @param size Taille des icônes
      */
     @objid ("e8dc4fa0-32c2-4b8c-90c6-df91088eba72")
-    PlayerStatePanel(int playerID, int size) {       
+    PlayerStatePanel(Player player, int size) {       
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         
-        PlayerColor[] colors = PlayerColor.values();
-        bombermanIcon = "bomberMan_"+colors[playerID % colors.length].name().toLowerCase();
+        this.player = player;
         
         lives = new JLabel();
         add(lives);
@@ -64,25 +67,37 @@ public class PlayerStatePanel extends JPanel {
             add(abilities[i]);
         }
         
-        setSize(size);
-        
         separator = new JSeparator(JSeparator.VERTICAL);
         separator.setMaximumSize(new Dimension(1, Integer.MAX_VALUE));
         add(separator);
+        
+        setSize(size);
+        updatePlayerState();
     }
 
     /**
      * Met à jour l'état du joueur
-     * @param character Joueur
+     * @param player Joueur
      */
     @objid ("8536a41a-23a7-444d-8f96-1adeb430eee3")
-    void updateCharacterState(Character character) {
-        lives.setText("×" + character.getLives() + "  ");
-        bombMax.setText("×" + character.getBombMax() + "  ");
-        range.setText("×" + character.getRange() + "  ");
-        List<Boolean> playerAbilities = character.getCharacterAbilities();
-        for (int i = 0; i < playerAbilities.size(); i++) {
-            abilities[i].setVisible(playerAbilities.get(i));
+    void updatePlayerState() {       
+        Character character = player.getCharacter();
+        
+        if (character != null) {
+            lives.setText("×" + character.getLives() + "  ");
+            bombMax.setText("×" + character.getBombMax() + "  ");
+            range.setText("×" + character.getRange() + "  ");
+            List<Boolean> characterAbilities = character.getCharacterAbilities();
+            for (int i = 0; i < characterAbilities.size(); i++) {
+                abilities[i].setVisible(characterAbilities.get(i));
+            }
+        } else {
+            lives.setText("×0  ");
+            bombMax.setText("×0  ");
+            range.setText("×0  ");
+            for (int i = 0; i < abilities.length; i++) {
+                abilities[i].setVisible(false);
+            }
         }
     }
 
@@ -94,9 +109,11 @@ public class PlayerStatePanel extends JPanel {
         
         SpriteFactory factory = SpriteFactory.getInstance();
         
+        PlayerColor[] colors = PlayerColor.values();
+        int color = player.getID() % (colors.length-1);
+        String bombermanIcon = "bomberMan_"+colors[color].name().toLowerCase();
         lives.setIcon(factory.getImageIcon(bombermanIcon, size));
         MainWindow.setFontSize(lives, size);
-        
         
         bombMax.setIcon(factory.getImageIcon("bombMax", size));
         MainWindow.setFontSize(bombMax, size);

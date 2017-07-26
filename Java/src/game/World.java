@@ -64,7 +64,7 @@ public abstract class World implements WorldView {
      java.util.Map<Integer, Entity> entities = Collections.synchronizedMap(new HashMap<Integer, Entity> ());
 
     @objid ("20f367fb-bcb4-4389-912c-a406baff8d4e")
-    public List<Controller> controllers = new ArrayList<Controller> ();
+    java.util.Map<Integer, Player> players = new HashMap<> ();
 
     @objid ("d409f763-e743-4545-b3b6-8c3aa8ce966a")
      List<GameListener> listeners = new LinkedList<GameListener>();
@@ -138,18 +138,23 @@ public abstract class World implements WorldView {
     }
 
     @Override
+    public List<Player> getPlayers() {
+        return new ArrayList<Player>(players.values());
+    }
+    
+    @Override
     @objid ("cb863fac-e1bd-4a91-aa76-95e63ad3fc08")
     public int getPlayerCount() {
-        return controllers.size();
+        return players.size();
     }
 
     @Override
     @objid ("fe9b5eb2-5def-4f69-8e0e-49e6eaaa3315")
-    public int getCharacterAliveCount() {
+    public int getCharacterCount() {
         int sum = 0;
         for (Entity entity : getEntities()) { //Thread-safety
-            if(entity instanceof Character){
-                sum ++;
+            if (entity instanceof Character) {
+                sum++;
             }       
         }
         return sum;
@@ -159,8 +164,8 @@ public abstract class World implements WorldView {
     @Override
     public int getHumanCount() {
         int sum = 0;
-        for (Controller controller : controllers) {
-            if (!(controller instanceof AIController))
+        for (Player player : getPlayers()) {
+            if (!(player.getController() instanceof AIController))
                 sum++;
         }
         return sum;
@@ -263,11 +268,11 @@ public abstract class World implements WorldView {
     abstract void kickBomb(Bomb bomb, Direction direction);
 
     /**
-     * construit un nouveau controlleur à partir d'un controlleur préexistant
-     * @param controller le controlleur préexistant
+     * Construit un nouveau joueur pour un contrôleur
+     * @param controller Contrôleur du joueur
      */
     @objid ("d65622a5-0611-42cd-87a7-975a15931e59")
-    public abstract void newController(Controller controller);
+    public abstract Player newPlayer(Controller controller);
 
     /**
      * indique si la partie est prête à être commencée
@@ -294,43 +299,40 @@ public abstract class World implements WorldView {
      * puis en mettant la carte à jour
      */
     @objid ("30c7a359-b727-428f-8ef4-493db313017c")
-    public GameState update() {       
-        if (!isRoundEnded()) {
-            if (warmupTimeRemaining > 0) {
-                warmupTimeRemaining--;
-                return GameState.WarmUp;
-            } else {
-                //update of timeRemaining
-                timeRemaining -= 1;
-            
-                if (timeRemaining == 0) {
-                    fireEvent(GameEvent.SuddenDeath);
-                }
-                
-                List<Integer> toRemove = new ArrayList<Integer>();
-            
-                synchronized (entities) {
-                    //update of Entities
-                    for (Entry<Integer, Entity> entry : entities.entrySet()) {
-                        Entity entity = entry.getValue();
-                        entity.update();
-                        if (entity.isToRemove())
-                            toRemove.add(entry.getKey());
-                    }
-                }
-            
-                removeEntities(toRemove);
-            
-                //update of the map
-                map.update();
-                
-                if (timeRemaining > 0)
-                    return GameState.Playing;
-                else
-                    return GameState.SuddenDeath;
+    public GameState update() {
+        if (warmupTimeRemaining > 0) {
+            warmupTimeRemaining--;
+            return GameState.WarmUp;
+        } else if (!isRoundEnded()) {
+            //update of timeRemaining
+            timeRemaining -= 1;
+        
+            if (timeRemaining == 0) {
+                fireEvent(GameEvent.SuddenDeath);
             }
-        }
-        else if (round < roundMax || restTimeRemaining > 0) { //S'il reste des rounds ou si le
+            
+            List<Integer> toRemove = new ArrayList<Integer>();
+        
+            synchronized (entities) {
+                //update of Entities
+                for (Entry<Integer, Entity> entry : entities.entrySet()) {
+                    Entity entity = entry.getValue();
+                    entity.update();
+                    if (entity.isToRemove())
+                        toRemove.add(entry.getKey());
+                }
+            }
+        
+            removeEntities(toRemove);
+        
+            //update of the map
+            map.update();
+            
+            if (timeRemaining > 0)
+                return GameState.Playing;
+            else
+                return GameState.SuddenDeath;
+        } else if (round < roundMax || restTimeRemaining > 0) { //S'il reste des rounds ou si le
             restTimeRemaining--;                              // dernier temps de repos n'est pas fini
             
             if (round < roundMax && restTimeRemaining <= 0) //On relance s'il reste des rounds

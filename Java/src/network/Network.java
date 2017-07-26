@@ -10,13 +10,14 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 import game.Bomb;
 import game.BonusType;
+import game.Character;
+import game.CharacterAbility;
 import game.Controller;
 import game.Direction;
 import game.Entity;
 import game.ExplosionType;
 import game.GridCoordinates;
-import game.Character;
-import game.CharacterAbility;
+import game.Player;
 import game.TileType;
 
 /**
@@ -41,6 +42,7 @@ public class Network {
         kryo.register(ArrayList.class);
         kryo.register(CommandMap.class);
         kryo.register(CommandMap.Name.class);
+        kryo.register(Player.class);
         kryo.register(TileType.class);
         kryo.register(BonusType.class);
         kryo.register(Direction.class);
@@ -52,15 +54,17 @@ public class Network {
         kryo.register(Bomb.class);
         
         kryo.register(GameInfo.class);
+        kryo.register(PlayerInfo.class);
+        kryo.register(EntityPlayer.class);
         kryo.register(AddController.class);
-        kryo.register(ControllerUpdate.class);
-        kryo.register(PlayerName.class);
         kryo.register(ControllerPlayer.class);
+        kryo.register(ControllerUpdate.class);
         kryo.register(TimeRemaining.class);
         kryo.register(WarmupTimeRemaining.class);
         kryo.register(RoundEnded.class);
         kryo.register(NextRound.class);
-        kryo.register(ToRemove.class);
+        kryo.register(EntityToRemove.class);
+        kryo.register(PlayerToRemove.class);
         kryo.register(EntityUpdateList.class);
     }
 
@@ -97,11 +101,39 @@ public class Network {
         }
 
     }
+    
+    public static class PlayerInfo {
+        public Player player;
+        public String name;
+        public int entityId;
+
+        public PlayerInfo() {
+        }
+
+        public PlayerInfo(Player player, String name, int entityId) {
+            this.player = player;
+            this.name = name;
+            this.entityId = entityId;
+        }
+    }
+    
+    public static class EntityPlayer {
+        public int entityId;
+        public int playerId;
+        
+        public EntityPlayer() {
+        }
+        
+        public EntityPlayer(int entityId, int playerId) {
+            this.entityId = entityId;
+            this.playerId = playerId;
+        }
+    }
 
     @objid ("04f0f570-85ae-4081-ae1f-8505cbd85c74")
     public static class AddController {
         @objid ("2aabf79f-7bfb-4e1a-a23c-2a019d7eb701")
-         String name;
+        public String name;
 
         @objid ("b1adaae9-8773-4cfe-b26b-5e6bfd85a6c2")
         public AddController() {
@@ -110,6 +142,26 @@ public class Network {
         @objid ("5622d5e5-272a-4233-889d-be5a90f26ad0")
         public AddController(String name) {
             this.name = name;
+        }
+
+    }
+    
+    @objid ("ee3a28ab-0e4f-47d1-a03a-788e569f76f4")
+    public static class ControllerPlayer {
+        @objid ("1e08dab4-e231-4cc6-b50f-76fc7e0f81a1")
+        public int controllerId;
+
+        @objid ("e72e891d-09f1-4228-80da-998184ebc556")
+        public int playerId;
+
+        @objid ("96ac45fd-aa58-4f95-a943-15617048df3d")
+        public ControllerPlayer() {
+        }
+
+        @objid ("f1a29548-642f-465c-8f91-f34e8d690c90")
+        public ControllerPlayer(int controllerId, int playerId) {
+            this.controllerId = controllerId;
+            this.playerId = playerId;
         }
 
     }
@@ -136,47 +188,7 @@ public class Network {
             this.bombing = controller.isPlantingBomb();
         }
 
-    }
-
-    @objid ("c46ca67a-b355-43ff-9bae-963528b54129")
-    public static class PlayerName {
-        @objid ("906902b3-3782-440c-8866-27ba3c708d72")
-        public int entityId;
-
-        @objid ("301d5c35-373d-4613-8fe4-ff56b26a645f")
-        public String name;
-
-        @objid ("94b1413e-8966-4794-b0ed-b069c23044b0")
-        public PlayerName() {
-        }
-
-        @objid ("19ce93e0-81d1-4aae-b518-7a56310aa842")
-        public PlayerName(int entityId, String name) {
-            this.entityId = entityId;
-            this.name = name;
-        }
-
-    }
-
-    @objid ("ee3a28ab-0e4f-47d1-a03a-788e569f76f4")
-    public static class ControllerPlayer {
-        @objid ("1e08dab4-e231-4cc6-b50f-76fc7e0f81a1")
-        public int controllerId;
-
-        @objid ("e72e891d-09f1-4228-80da-998184ebc556")
-        public int entityId;
-
-        @objid ("96ac45fd-aa58-4f95-a943-15617048df3d")
-        public ControllerPlayer() {
-        }
-
-        @objid ("f1a29548-642f-465c-8f91-f34e8d690c90")
-        public ControllerPlayer(int controllerId, int entityId) {
-            this.controllerId = controllerId;
-            this.entityId = entityId;
-        }
-
-    }
+    }    
 
     @objid ("14b90368-d1a8-466e-a211-78822ba454dd")
     public static class TimeRemaining {
@@ -211,22 +223,39 @@ public class Network {
     }
 
     @objid ("95e2a1da-5201-47ab-bb6f-4364dadbfd58")
-    public static class ToRemove {
+    public static class EntityToRemove {
         @objid ("0998e812-e5c1-495e-ab72-30f15650895f")
         public ArrayList<Integer> toRemove;
 
         @objid ("9c1d39e6-0541-4ea8-803c-00718d72ba98")
-        public ToRemove() {
+        public EntityToRemove() {
             this.toRemove = new ArrayList<Integer>();
         }
 
         @objid ("f82d193d-d11d-4007-afab-9077136ee9b6")
-        public ToRemove(int capacity) {
+        public EntityToRemove(int capacity) {
             this.toRemove = new ArrayList<Integer>(capacity);
         }
 
         @objid ("021c1e4b-a6a4-4bfc-97da-dc51489d2328")
-        public ToRemove(ArrayList<Integer> toRemove) {
+        public EntityToRemove(ArrayList<Integer> toRemove) {
+            this.toRemove = toRemove;
+        }
+
+    }
+    
+    public static class PlayerToRemove {
+        public ArrayList<Integer> toRemove;
+
+        public PlayerToRemove() {
+            this.toRemove = new ArrayList<Integer>();
+        }
+
+        public PlayerToRemove(int capacity) {
+            this.toRemove = new ArrayList<Integer>(capacity);
+        }
+
+        public PlayerToRemove(ArrayList<Integer> toRemove) {
             this.toRemove = toRemove;
         }
 

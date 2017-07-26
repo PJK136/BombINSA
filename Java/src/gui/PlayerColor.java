@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /** Représente la couleur du joueur */
@@ -13,7 +14,8 @@ public enum PlayerColor {
     Pink ("Rose", Color.pink),
     Turquoise ("Turquoise", Color.cyan),
     Orange ("Orange", Color.orange),
-    Purple ("Violet", Color.magenta);
+    Purple ("Violet", Color.magenta),
+    Gray ("Gris", Color.gray);
 
     @objid ("cdcc9b1e-372f-450c-a0ff-009b4a5bb7ce")
     private String name;
@@ -27,6 +29,7 @@ public enum PlayerColor {
         this.color = color;
     }
 
+    @Override
     @objid ("2704c296-4c0a-4ab0-b70c-2339db2c38e4")
     public String toString() {
         return name;

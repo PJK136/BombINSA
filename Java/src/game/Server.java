@@ -2,6 +2,7 @@ package game;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -15,12 +16,14 @@ import network.Network;
 import network.Network.AddController;
 import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
+import network.Network.EntityPlayer;
+import network.Network.EntityToRemove;
 import network.Network.EntityUpdateList;
 import network.Network.NextRound;
-import network.Network.PlayerName;
+import network.Network.PlayerInfo;
+import network.Network.PlayerToRemove;
 import network.Network.RoundEnded;
 import network.Network.TimeRemaining;
-import network.Network.ToRemove;
 import network.Network.WarmupTimeRemaining;
 import network.NetworkController;
 
@@ -33,6 +36,9 @@ public class Server extends Local implements Listener {
      com.esotericsoftware.kryonet.Server network;
 
     ExecutorService threadPool;
+    
+    private int nextPlayerId = 0;
+    PriorityQueue<Integer> freeIDs = new PriorityQueue<>();
     
     private int timestamp;
     
@@ -53,7 +59,7 @@ public class Server extends Local implements Listener {
         
         timestamp = 0;
         
-        controllers = Collections.synchronizedList(controllers);
+        players = Collections.synchronizedMap(players);
         
         network = new com.esotericsoftware.kryonet.Server() {
             @Override
@@ -111,22 +117,22 @@ public class Server extends Local implements Listener {
     }
     
     @Override
-    void removeEntities(List<Integer> entityIDs) {
-        super.removeEntities(entityIDs);
-        
-        ToRemove message = new ToRemove();
+    void removeEntities(List<Integer> entityIDs) {       
+        EntityToRemove message = new EntityToRemove();
         
         for (Integer id : entityIDs) {
             if (entities.get(id) instanceof Character)
                 message.toRemove.add(id);
         }
         
+        super.removeEntities(entityIDs);
         network.sendToAllTCP(message);
     }
 
     @Override
     @objid ("8c95d6c7-e515-4188-918d-205812f19cc8")
     public void stop() {
+        network.close();
         network.stop();
         threadPool.shutdown();
     }
@@ -136,7 +142,7 @@ public class Server extends Local implements Listener {
     public void nextRound() {
         network.sendToAllTCP(new NextRound());
         
-        synchronized (controllers) {
+        synchronized (players) {
             super.nextRound();
         }
     }
@@ -147,12 +153,9 @@ public class Server extends Local implements Listener {
         super.addEntity(entity);
         network.sendToAllTCP(entity);
         if (entity instanceof Character) {
-            Controller controller = ((Character) entity).getController();
-            network.sendToAllTCP(new PlayerName(entity.getID(), controller.getName()));
-            if (controller instanceof NetworkController) {
-                NetworkController networkController = (NetworkController)controller;
-                networkController.getConnection().sendTCP(new ControllerPlayer(networkController.getID(), entity.getID()));
-            }
+            Player player = ((Character) entity).getPlayer();
+            if (player != null)
+                network.sendToAllTCP(new EntityPlayer(entity.getID(), player.getID()));
         }
     }
 
@@ -164,6 +167,16 @@ public class Server extends Local implements Listener {
         return new GameInfo(fps, duration, timeRemaining, warmupDuration, warmupTimeRemaining,
                             restTimeDuration, restTimeRemaining, round, roundMax, map.getTileSize(), map.saveMap());
     }
+    
+    private PlayerInfo getPlayerInfo(Player player) {
+        PlayerInfo playerInfo = new PlayerInfo(player, null, -1);
+        if (player.getController() != null)
+            playerInfo.name = player.getController().getName();
+        if (player.getCharacter() != null)
+            playerInfo.entityId = player.getCharacter().getID();
+        
+        return playerInfo;
+    }
 
     @objid ("15d969ea-6190-4c81-8279-3ae9894b6ed4")
     @Override
@@ -171,22 +184,43 @@ public class Server extends Local implements Listener {
         connection.sendTCP(getGameInfo());
         List<Entity> entities = getEntities();
         connection.sendTCP(entities);
-        for (Entity entity : entities) {
-            if (entity instanceof Character) {
-                connection.sendTCP(new PlayerName(entity.getID(), ((Character)entity).getController().getName()));
-            }
+        for (Player player : getPlayers()) {
+            connection.sendTCP(getPlayerInfo(player));
         }
     }
+    
+    @Override
+    public Player newPlayer(Controller controller) {
+        Player player = null;
+        Integer ID = null;
+        
+        synchronized (freeIDs) {
+            ID = freeIDs.poll();
+            if (ID == null) {
+                ID = nextPlayerId;  
+                nextPlayerId++;
+            }
+        }
 
+        player = newPlayer(controller, ID.intValue());
+        network.sendToAllTCP(getPlayerInfo(player));
+        return player;
+    }
+    
     @objid ("51b6e150-fee5-4d9f-969d-b15be8d71c94")
     @Override
     public void received(Connection connection, Object object) {
         GameConnection gConnection = (GameConnection)connection;
         if (object instanceof AddController) {
-            Controller controller = gConnection.addController((AddController)object);
-            newController(controller);
+            AddController message = (AddController) object;
+            NetworkController controller = new NetworkController(gConnection, gConnection.getPlayers().size(), message.name);
+            Player player = newPlayer(controller);
+            gConnection.addPlayer(player);
+            connection.sendTCP(new ControllerPlayer(controller.getID(), player.getID()));
         } else if (object instanceof ControllerUpdate) {
-            gConnection.updateController((ControllerUpdate)object);
+            ControllerUpdate update = (ControllerUpdate) object;
+            if (update.id >= 0 && update.id < gConnection.getPlayers().size())
+                ((NetworkController) gConnection.getPlayers().get(update.id).getController()).update(update);
         }
     }
 
@@ -194,14 +228,26 @@ public class Server extends Local implements Listener {
     @Override
     public void disconnected(Connection connection) {
         GameConnection gConnection = (GameConnection)connection;
-        List<NetworkController> controllers = gConnection.getControllers();
-        if (controllers.isEmpty())
+        List<Player> playerList = gConnection.getPlayers();
+        if (playerList.isEmpty())
              return;
         
-        for (NetworkController controller : controllers) {
-            if (controller.getCharacter() != null) {
-                controller.getCharacter().remove();
+        PlayerToRemove message = new PlayerToRemove(playerList.size());
+        
+        for (Player player : playerList) {
+            if (player.getCharacter() != null) {
+                player.getCharacter().remove();
             }
+            
+            int playerID = player.getID();
+            message.toRemove.add(playerID);
+            players.remove(playerID);
+        }
+        
+        network.sendToAllTCP(message);
+        
+        synchronized (freeIDs) {
+            freeIDs.addAll(message.toRemove);
         }
     }
 

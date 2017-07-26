@@ -51,11 +51,13 @@ public interface WorldView {
     @objid ("b3701478-0bf1-402b-98bd-a71cb1065097")
     MapView getMap();
 
+    List<Player> getPlayers();
+    
     @objid ("bc99ac64-6430-4211-82c1-72ea90aac841")
     int getPlayerCount();
 
     @objid ("3c9c020a-4bd5-424b-9d90-1bdda21519a4")
-    int getCharacterAliveCount();
+    int getCharacterCount();
 
     @objid ("d9ffc918-de5c-4ec2-9089-f0cc37079603")
     int getHumanCount();
