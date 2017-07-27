@@ -14,6 +14,8 @@ public class AIController extends Controller {
     
     @objid ("b3611ff7-8085-4126-9180-545efad68da8")
     private Direction currentDirection = null;
+    
+    private int timeElapsedSinceLastShuffle = 0;
 
     private boolean bombingSimulation = false;
     
@@ -96,7 +98,7 @@ public class AIController extends Controller {
         world = character.getWorldView();
         aiLocation = world.getMap().toGridCoordinates(character.getX(), character.getY());
               
-        if(readyToBomb()){
+        if (isReadyToBomb()) {
             bombing = true;
             return;
         }
@@ -106,17 +108,33 @@ public class AIController extends Controller {
         
         GridCoordinates nextPosition = nextPosition(currentDirection);
         
+        timeElapsedSinceLastShuffle++;
+        if (timeElapsedSinceLastShuffle >= 0.5*world.getFps()) {
+            if (Math.random() < 0.5/world.getFps())
+                shuffleDirections();
+        }
+
         if (character.isColliding(currentDirection, character.getMaxSpeed())) {
+            shuffleDirections();
             if (!turnSafely(10))
                 turnRandomly();
         } else if (!aiLocation.equals(nextPosition)) {
-            if (!isSafe(nextPosition))
-                turnSafely(10); //Sortir du danger
-            else { //Changer de direction
-                if (Math.random() < 1./world.getFps())
-                    Collections.shuffle(directions);
-                turnSafely(1, Direction.getOpposite(currentDirection));
+            turnSafely(10);
+        }
+        
+        if (currentDirection != null) {
+            Direction opposite = Direction.getOpposite(currentDirection);
+            if (directions.get(directions.size()-1) != opposite) {
+                directions.remove(opposite);
+                directions.add(opposite);
             }
+        }
+    }
+    
+    private void shuffleDirections() {
+        if (isSafe(aiLocation)) {
+            Collections.shuffle(directions);
+            timeElapsedSinceLastShuffle = 0;
         }
     }
     
@@ -273,16 +291,24 @@ public class AIController extends Controller {
     }
     
     private boolean hasTarget(int range) {
-        for(Direction direction : Direction.values()){
+        boolean destroyGoodBonus = false;
+        boolean destroyBreakable = false;
+        boolean hitCharacter = false;
+        
+        for (Direction direction : Direction.values()) {
         	GridCoordinates position = aiLocation;
             for (int i = 0; i < range; i++) {
             	position = position.neighbor(direction);
                 if (!world.getMap().isInsideMap(position))
                 	break;
-                else if (world.getMap().getTileType(position) == TileType.Breakable)
-                	return true;
-                else if (!isEmpty(position) || isGoodBonus(position))
-                	break;
+                else if (world.getMap().getTileType(position) == TileType.Breakable) {
+                    destroyBreakable = true;
+                    break;
+                }
+                else if (!isEmpty(position))
+                    break;
+                else if (isGoodBonus(position))
+                	destroyGoodBonus = true;
                 else {
                 	List<Entity> entities = world.getMap().getEntities(position);
                 	for (Entity entity : entities) {
@@ -293,7 +319,12 @@ public class AIController extends Controller {
             }
         }
         
-        return false;
+        if (hitCharacter)
+            return true;
+        else if (!destroyGoodBonus && destroyBreakable)
+            return true;
+        else
+            return false;
     }
     
     /**
@@ -301,16 +332,18 @@ public class AIController extends Controller {
      * @return true si oui, false sinon
      */
     @objid ("abcfe8f8-3507-4b7c-a175-d63eebfae72c")
-    private boolean readyToBomb() {
+    private boolean isReadyToBomb() {
         if(character.getBombCount() < character.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation)
         		&& Math.random() < 2./world.getFps() && hasTarget(character.getRange())) {
-        		
+            Direction beforeSimulation = currentDirection;
             bombingSimulation = true;
             if (turnSafely(5, 1)) {
                 bombingSimulation = false;
                 return true;
-            } else
+            } else {
                 bombingSimulation = false;
+                currentDirection = beforeSimulation;
+            }
         }
         return false;
     }
@@ -385,7 +418,8 @@ public class AIController extends Controller {
                 for (int i = step; i < maxStep; i++) { //Compte les bons bonus si l'on suit cette voie 
                 	nextPosition = nextPosition.neighbor(direction);
                 	
-                	if (!isEmpty(nextPosition) || world.getMap().isExploding(nextPosition) || isBadBonus(nextPosition))
+                	if (!isEmpty(nextPosition) || world.getMap().isExploding(nextPosition) ||
+                	        isBadBonus(nextPosition) || !isSafe(nextPosition))
                     	break;
                     else if (isGoodBonus(nextPosition))
                     	ret.goodBonus++;
