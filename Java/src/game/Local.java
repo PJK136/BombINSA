@@ -244,17 +244,18 @@ public class Local extends World {
     public void nextRound() {
         super.nextRound();
         
-        //renew players
-        List<Player> playerList = getPlayers();
-        Collections.shuffle(playerList);
-        for (Player player : playerList) {
-            newCharacter(player);
-        }
         //reload map
         try {
             loadMap(mapFileName);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
+        }
+        
+        //renew players
+        List<Player> playerList = getPlayers();
+        Collections.shuffle(playerList);
+        for (Player player : playerList) {
+            newCharacter(player);
         }
     }
 
