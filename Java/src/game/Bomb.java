@@ -99,6 +99,7 @@ public class Bomb extends Entity {
      * - Vérifie si elle est sur une case avec flèche
      * - Vérifie si la bombe doit exploser 
      */
+    @Override
     @objid ("ce00607d-3c72-45ea-b3e1-5a3ac0315b22")
     void update() {
         // Decrease TimeRemaining
@@ -136,10 +137,15 @@ public class Bomb extends Entity {
         // On vérifie le TimeRemaining et on fait exploser si nulle
         if (this.timeRemaining == 0) {
             this.world.createExplosion(this);
-            if (owner != null)
-                owner.decreaseBombCount();
             remove();
         }
+    }
+    
+    @Override
+    void remove() {
+        if (owner != null)
+            owner.decreaseBombCount();
+        super.remove();
     }
     
     @objid ("6ed55b50-6182-4e9f-9274-183b0145eacf")

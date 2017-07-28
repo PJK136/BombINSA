@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.Random;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
@@ -17,6 +18,12 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 public class Local extends World {
     @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")
      String mapFileName = new String();
+    
+     Random random = new Random();
+     
+     SuddenDeathType suddenDeath = null;
+     
+     public static final int SUDDEN_DEATH_DURATION = 60; //s
 
     @objid ("bea83389-bb33-4211-97c6-1b6fc49e23eb")
      HashMap<Bomb, Direction> queueKickBomb = new HashMap<>();
@@ -156,17 +163,26 @@ public class Local extends World {
             }
             
             if(state == GameState.SuddenDeath) {
-                int interval = (int)(((90.*fps+timeRemaining)/(120*fps))*fps);
-                if (interval <= 0 || timeRemaining % interval == 0) {
-                    boolean bombPlanted = false;
-                    while(!bombPlanted){
-                        double x = Math.random()*map.getWidth();
-                        double y = Math.random()*map.getHeight();
-                        if(!map.isCollidable(x, y)) {
-                            addEntity(new Bomb(this, map.toCenterX(x), map.toCenterY(y), 4,(int)(TIME_BEFORE_EXPLOSION*fps)));
-                            bombPlanted = true;
+                if (suddenDeath == null) {
+                    SuddenDeathType[] types = SuddenDeathType.values();
+                    suddenDeath = types[random.nextInt(types.length)];
+                }
+                
+                if (suddenDeath == SuddenDeathType.BOMBS) {
+                    int interval = (SUDDEN_DEATH_DURATION*fps+timeRemaining)/120;
+                    if (interval <= 0 || timeRemaining % interval == 0) {
+                        boolean bombPlanted = false;
+                        while(!bombPlanted){
+                            double x = Math.random()*map.getWidth();
+                            double y = Math.random()*map.getHeight();
+                            if(!map.isCollidable(x, y)) {
+                                addEntity(new Bomb(this, map.toCenterX(x), map.toCenterY(y), 4,(int)(TIME_BEFORE_EXPLOSION*fps)));
+                                bombPlanted = true;
+                            }
                         }
                     }
+                } else if (suddenDeath == SuddenDeathType.WALLS) {
+                    updateSuddenDeathWalls();
                 }
             }
             
@@ -233,6 +249,7 @@ public class Local extends World {
     void newRound() {
         super.newRound();
 
+        suddenDeath = null;
         queueCharacter.clear();
         queueBomb.clear();
         queueBonus.clear();
@@ -323,4 +340,57 @@ public class Local extends World {
         else
             return getCharacters().get(0).getPlayer().getID();
     }
+    
+
+    public void updateSuddenDeathWalls() {
+        final int interval = (SUDDEN_DEATH_DURATION*fps)/(map.getColumnCount()*map.getRowCount());
+        if (timeRemaining % interval != 0)
+            return;
+        
+        for (GridCoordinates start = new GridCoordinates();
+                start.x != map.getColumnCount()-start.x && start.y != map.getRowCount()-start.y;
+                start.x++, start.y++) {
+            GridCoordinates gc = new GridCoordinates(start);
+            
+            for (; gc.x < map.getColumnCount()-start.x; gc.x++) {
+                if (makeWall(gc))
+                    return;
+            }
+            gc.x--;
+            
+            for (; gc.y < map.getRowCount()-start.y; gc.y++) {
+                if (makeWall(gc))
+                    return;
+            }
+            gc.y--;
+            
+            for (; gc.x >= start.x; gc.x--) {
+                if (makeWall(gc))
+                    return;
+            }
+            gc.x++;
+            
+            for (; gc.y > start.y; gc.y--) {
+                if (makeWall(gc))
+                    return;
+            }
+        }
+    }
+
+
+    private boolean makeWall(GridCoordinates gc) {
+        if (map.getTileType(gc) == TileType.Unbreakable)
+            return false; 
+        
+        for (Entity entity : map.getEntities(gc)) {
+            if (entity instanceof Character)
+                ((Character) entity).decreaseLives(((Character) entity).getLives());
+            
+            entity.remove();
+        }
+        
+        map.setTileType(TileType.Unbreakable, gc);
+        return true;
+    }
+    
 }
