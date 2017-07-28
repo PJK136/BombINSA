@@ -258,14 +258,16 @@ public class Character extends Entity {
             if (nextDirection != null) {
                 direction = nextDirection;
                 speed = getMaxSpeed();
-            } else
+            } else if (world.getMap().getTileType(this.x, this.y) == TileType.Frozen)
+                speed = CHARACTER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps()/1.5;
+            else
                 speed = 0.;
         }
         
         super.update();
         
         //Kick
-        if (characterAbilities.get(CharacterAbility.Kick.ordinal()) && nextDirection != null) {
+        if (nextDirection != null) {
             double footX = -1;
             double footY = -1;
             
@@ -290,10 +292,13 @@ public class Character extends Entity {
             
             if (world.getMap().isInsideMap(footX, footY) &&
                 !world.getMap().toGridCoordinates(footX, footY).equals(world.getMap().toGridCoordinates(x, y))) {
-                Bomb target = world.getMap().getFirstBomb(footX, footY);
-        
-                if(target != null){
-                    this.world.kickBomb(target, nextDirection);
+                
+                if (characterAbilities.get(CharacterAbility.Kick.ordinal()) ||
+                        world.getMap().getTileType(footX, footY) == TileType.Frozen) {
+                    Bomb target = world.getMap().getFirstBomb(footX, footY);
+            
+                    if (target != null)
+                        this.world.kickBomb(target, nextDirection);
                 }
             }
         }

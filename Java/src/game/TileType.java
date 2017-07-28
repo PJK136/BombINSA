@@ -14,7 +14,8 @@ public enum TileType {
     Breakable(BreakableTile.class),
     Unbreakable(UnbreakableTile.class),
     Bonus(BonusTile.class),
-    Arrow(ArrowTile.class);
+    Arrow(ArrowTile.class),
+    Frozen(FrozenTile.class);
     
     private Constructor<? extends Tile> tileConstructor;
     
