@@ -202,21 +202,22 @@ public class Local extends World {
                 GridCoordinates bombGC = map.toGridCoordinates(bomb.getX(), bomb.getY());
                 GridCoordinates explosionGC = new GridCoordinates(bombGC);
                 
-                if (map.isExplodable(explosionGC))
+                if (map.isExplodable(explosionGC)) {
                     map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Center, null, explosionGC);
                 
-                for (Direction direction : Direction.values()) {
-                    explosionGC = bombGC;
-                    GridCoordinates nextGC = bombGC.neighbor(direction);
-                    boolean hasCollided = false;
-                    while (GridCoordinates.distance(bombGC, nextGC) <= bomb.getRange() &&
-                           map.isInsideMap(nextGC) && !hasCollided && map.isExplodable(nextGC)) {
-                        explosionGC = nextGC;
-                        map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, direction, explosionGC);
-                        hasCollided = map.isCollidable(explosionGC) || map.hasBomb(explosionGC);
-                        nextGC = explosionGC.neighbor(direction);
+                    for (Direction direction : Direction.values()) {
+                        explosionGC = bombGC;
+                        GridCoordinates nextGC = bombGC.neighbor(direction);
+                        boolean hasCollided = false;
+                        while (GridCoordinates.distance(bombGC, nextGC) <= bomb.getRange() &&
+                                map.isInsideMap(nextGC) && !hasCollided && map.isExplodable(nextGC)) {
+                            explosionGC = nextGC;
+                            map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, direction, explosionGC);
+                            hasCollided = map.isCollidable(explosionGC) || map.hasBomb(explosionGC);
+                            nextGC = explosionGC.neighbor(direction);
+                        }
+                        map.setExplosionEnd(explosionGC);
                     }
-                    map.setExplosionEnd(explosionGC);
                 }
             }
             
