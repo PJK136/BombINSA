@@ -275,6 +275,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 map.removeSpawningLocation(gc);
             else
                 map.addSpawningLocation(gc);
+            
+            saved = false;
             updateMap();
         }
     }
