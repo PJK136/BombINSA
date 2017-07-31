@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -72,6 +74,22 @@ public class GamePanel extends JPanel implements ActionListener {
         playerStateGroup = new JPanel() ;
         playerStateGroup.setLayout(new WrapLayout(WrapLayout.LEFT));
         topBar.add(playerStateGroup);
+        
+        playerStateGroup.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                playerStateGroup.revalidate();
+            }
+            
+            @Override
+            public void componentShown(ComponentEvent e) { }
+            
+            @Override
+            public void componentMoved(ComponentEvent e) { }
+            
+            @Override
+            public void componentHidden(ComponentEvent e) { }
+        });
         
         Component horizontalGlue = Box.createHorizontalStrut(10);
         topBar.add(horizontalGlue);

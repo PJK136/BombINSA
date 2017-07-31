@@ -230,8 +230,9 @@ public class MainWindow implements WindowListener {
         return this.message;
     }
     
-    void expandSize(int width, int height) {
-        frame.setSize(frame.getWidth()+width, frame.getHeight()+height);
+    void pack() {
+        frame.pack();
+        frame.revalidate();
     }
 
     @objid ("5770124d-d120-44f6-bf06-0f01379bd988")
@@ -308,7 +309,7 @@ public class MainWindow implements WindowListener {
      */
     @objid ("d3f6e6d9-3541-4526-8433-d7a080952a55")
     public static void setFontSize(Component component, float size) {
-        component.setFont(component.getFont().deriveFont((float)size));
+        component.setFont(component.getFont().deriveFont(size));
     }
 
 }

@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.net.InetAddress;
 
 import javax.swing.JOptionPane;
@@ -83,9 +84,19 @@ public class GameWorker implements Runnable, GameListener {
                 
                 if (adjustWindowSize) {
                     SwingUtilities.invokeAndWait(() -> {
-                        panel.showGameStatus(world);
-                        adjustMainWindowSize();
+                        Insets insets = viewer.getInsets();
+                        Dimension preferredSize = new Dimension();
+                        preferredSize.width = world.getMap().getColumnCount()*settings.scale(settings.tileSize)+insets.left+insets.right;
+                        preferredSize.height = world.getMap().getRowCount()*settings.scale(settings.tileSize)+insets.top+insets.bottom;
+                        viewer.setPreferredSize(preferredSize);
                     });
+                    
+                    if (viewer.getScaleFactor() < 1) {
+                        SwingUtilities.invokeAndWait(() -> mainWindow.pack());
+                        // Laise le temps aux autres composants de s'actualiser
+                        SwingUtilities.invokeAndWait(() -> mainWindow.pack());
+                    }
+
                     adjustWindowSize = false;
                 }
                 
@@ -254,13 +265,5 @@ public class GameWorker implements Runnable, GameListener {
             viewer.addKeyListener(kbController);
             world.newPlayer(kbController);
         }
-    }
-    
-    private void adjustMainWindowSize() {
-        Dimension vsize = viewer.getSize();
-        int preferredWidth = world.getMap().getColumnCount()*settings.scale(settings.tileSize)+1;
-        int preferredHeight = world.getMap().getRowCount()*settings.scale(settings.tileSize)+1;
-        mainWindow.expandSize(Math.max(0, preferredWidth-vsize.width),
-                Math.max(0, preferredHeight-vsize.height));
     }
 }
