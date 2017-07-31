@@ -77,6 +77,28 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     
     private JMenuItem itmReturn;
     
+    private JMenuItem itmUndo;
+    
+    private JMenuItem itmRedo;
+    
+    private JMenuItem itmBorders;
+    
+    private JMenuItem itmMirrorLtR;
+    
+    private JMenuItem itmMirrorRtL;
+    
+    private JMenuItem itmMirrorTtB;
+    
+    private JMenuItem itmMirrorBtT;
+    
+    private JMenuItem itmMirrorTL;
+    
+    private JMenuItem itmMirrorTR;
+    
+    private JMenuItem itmMirrorBL;
+    
+    private JMenuItem itmMirrorBR;
+    
     private JMenuItem itmHelp;
     
     @objid ("95094d21-2d75-4c57-8308-9c56f2cc1b29")
@@ -162,6 +184,60 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         itmReturn = new JMenuItem("Retour au menu");
         itmReturn.addActionListener(this);
         fileMenu.add(itmReturn);
+        
+        JMenu editMenu = new JMenu("Édition");
+        menuBar.add(editMenu);
+        
+        itmUndo = new JMenuItem("Annuler");
+        itmUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
+        itmUndo.addActionListener(this);
+        itmUndo.setEnabled(false);
+        editMenu.add(itmUndo);
+
+        itmRedo = new JMenuItem("Répéter");
+        itmRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+        itmRedo.addActionListener(this);
+        itmRedo.setEnabled(false);
+        editMenu.add(itmRedo);
+        
+        itmBorders = new JMenuItem("Bordures indestructibles");
+        itmBorders.addActionListener(this);
+        editMenu.add(itmBorders);
+        
+        JMenu mirrorMenu = new JMenu("Mirroir");
+        editMenu.add(mirrorMenu);
+        
+        itmMirrorLtR = new JMenuItem("Gauche vers la droite");
+        itmMirrorLtR.addActionListener(this);
+        mirrorMenu.add(itmMirrorLtR);
+        
+        itmMirrorRtL = new JMenuItem("Droite vers la gauche");
+        itmMirrorRtL.addActionListener(this);
+        mirrorMenu.add(itmMirrorRtL);
+        
+        itmMirrorTtB = new JMenuItem("Haut vers le bas");
+        itmMirrorTtB.addActionListener(this);
+        mirrorMenu.add(itmMirrorTtB);
+        
+        itmMirrorBtT = new JMenuItem("Bas vers le haut");
+        itmMirrorBtT.addActionListener(this);
+        mirrorMenu.add(itmMirrorBtT);
+        
+        itmMirrorTL = new JMenuItem("Haut-gauche vers autres");
+        itmMirrorTL.addActionListener(this);
+        mirrorMenu.add(itmMirrorTL);
+        
+        itmMirrorTR = new JMenuItem("Haut-droite vers autres");
+        itmMirrorTR.addActionListener(this);
+        mirrorMenu.add(itmMirrorTR);
+        
+        itmMirrorBL = new JMenuItem("Bas-gauche vers autres");
+        itmMirrorBL.addActionListener(this);
+        mirrorMenu.add(itmMirrorBL);
+        
+        itmMirrorBR = new JMenuItem("Bas-droite vers autres");
+        itmMirrorBR.addActionListener(this);
+        mirrorMenu.add(itmMirrorBR);
         
         JMenu questionMenu = new JMenu("?");
         menuBar.add(questionMenu);
@@ -385,22 +461,43 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("2949aafd-f13a-4c7a-a4bc-750ccef814a4")
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ((e.getSource() == btnNew || e.getSource() == itmNew) && checkSaved()) {
+        if ((e.getSource() == btnNew || e.getSource() == itmNew) && checkSaved())
             newMap();
-        }
-        if (e.getSource() == btnOpen || e.getSource() == itmOpen)
+        else if (e.getSource() == btnOpen || e.getSource() == itmOpen)
             openFile();
         else if (e.getSource() == btnSave || e.getSource() == itmSave)
             saveToFile(false);
         else if (e.getSource() == itmSaveAs)
             saveToFile(true);
-        else if (e.getSource() == btnReturn || e.getSource() == itmReturn)
-        {
+        else if (e.getSource() == btnReturn || e.getSource() == itmReturn) {
             if (checkSaved())
                 mainWindow.showMenu();
-        } else if (e.getSource() == itmHelp) {
-            showHelp();
         }
+        else if (e.getSource() == itmBorders)
+            createUnbreakableBorders();
+        else if (e.getSource() == itmMirrorLtR)
+            mirrorLtR();
+        else if (e.getSource() == itmMirrorRtL)
+            mirrorRtL();
+        else if (e.getSource() == itmMirrorTtB)
+            mirrorTtB();
+        else if (e.getSource() == itmMirrorBtT)
+            mirrorBtT(); 
+        else if (e.getSource() == itmMirrorTL) {
+            mirrorTtB();
+            mirrorLtR();
+        } else if (e.getSource() == itmMirrorTR) {
+            mirrorTtB();
+            mirrorRtL();
+        } else if (e.getSource() == itmMirrorBL) {
+            mirrorBtT();
+            mirrorLtR();
+        } else if (e.getSource() == itmMirrorBR) {
+            mirrorBtT();
+            mirrorRtL();
+        }
+        else if (e.getSource() == itmHelp)
+            showHelp();
     }
 
     /**
@@ -525,5 +622,57 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                     "Clic-milieu : placer/enlever un emplacement d'apparition",
                 "Aide",
                 JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void createUnbreakableBorders() {
+        for (int x = 0; x < map.getColumnCount(); x++) {
+            map.setTileType(TileType.Unbreakable, new GridCoordinates(x, 0));
+            map.setTileType(TileType.Unbreakable, new GridCoordinates(x, map.getRowCount()-1));
+        }
+        
+        for (int y = 0; y < map.getRowCount(); y++) {
+            map.setTileType(TileType.Unbreakable, new GridCoordinates(0, y));
+            map.setTileType(TileType.Unbreakable, new GridCoordinates(map.getColumnCount()-1, y));
+        }
+    }
+    
+    private void mirrorLtR() {
+        GridCoordinates from = new GridCoordinates();
+        GridCoordinates to = new GridCoordinates();
+        for (from.x = 0, to.x = map.getColumnCount()-1; to.x >= 0; from.x++, to.x--) {
+            for (from.y = 0, to.y = 0; from.y < map.getRowCount(); from.y++, to.y++) {
+                map.setTileType(map.getTileType(from), to);
+            }
+        }
+    }
+    
+    private void mirrorRtL() {
+        GridCoordinates from = new GridCoordinates();
+        GridCoordinates to = new GridCoordinates();
+        for (from.x = map.getColumnCount()-1, to.x = 0; from.x >= 0; from.x--, to.x++) {
+            for (from.y = 0, to.y = 0; from.y < map.getRowCount(); from.y++, to.y++) {
+                map.setTileType(map.getTileType(from), to);
+            }
+        }
+    }
+    
+    private void mirrorTtB() {
+        GridCoordinates from = new GridCoordinates();
+        GridCoordinates to = new GridCoordinates();
+        for (from.y = 0, to.y = map.getRowCount()-1; to.y >= 0; from.y++, to.y--) {
+            for (from.x = 0, to.x = 0; from.x < map.getColumnCount(); from.x++, to.x++) {
+                map.setTileType(map.getTileType(from), to);
+            }
+        }
+    }
+    
+    private void mirrorBtT() {
+        GridCoordinates from = new GridCoordinates();
+        GridCoordinates to = new GridCoordinates();
+        for (from.y = map.getRowCount()-1, to.y = 0; from.y >= 0; from.y--, to.y++) {
+            for (from.x = 0, to.x = 0; from.x < map.getColumnCount(); from.x++, to.x++) {
+                map.setTileType(map.getTileType(from), to);
+            }
+        }
     }
 }
