@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,12 +10,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
-import javax.swing.JComponent;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.UIManager;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
@@ -60,6 +62,7 @@ public class MainWindow implements WindowListener {
         /* Crée et affiche window dans l'Event Dispatch Thread (EDT)
          * car toute modification de la fenêtre doit se faire seulement depuis l'EDT */
         EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     MainWindow window = new MainWindow();
@@ -304,7 +307,7 @@ public class MainWindow implements WindowListener {
      * @param size Taille à appliquer
      */
     @objid ("d3f6e6d9-3541-4526-8433-d7a080952a55")
-    public static void setFontSize(JComponent component, float size) {
+    public static void setFontSize(Component component, float size) {
         component.setFont(component.getFont().deriveFont((float)size));
     }
 

@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.File;
@@ -8,7 +10,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComponent;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
@@ -164,9 +166,21 @@ public class GameSettings {
      * @param component Composant à mettre à l'échelle
      */
     @objid ("e0876dec-e217-40cd-b8f3-584fd78d5e6e")
-    public void scaleFont(JComponent component) {
+    public void scaleFont(Component component) {
         MainWindow.setFontSize(component, scale(component.getFont().getSize()));
     }
+    
+    public void scaleFontComponents(Component[] components)
+    {  
+      for (Component component : components) {
+          if (component instanceof Container)
+              scaleFontComponents(((Container) component).getComponents());
+          
+          try {
+              scaleFont(component);
+          } catch (Exception e) {  }
+      }
+    }  
 
     /**
      * @return Une instance des paramètres

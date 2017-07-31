@@ -206,8 +206,10 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             AbstractButton button = buttons.nextElement();
             button.setIcon(new ImageIcon(tileImages[type.ordinal()].getImage(size)));
         }
+        
+        settings.scaleFontComponents(fileChooser.getComponents());
     }
-
+    
     /**
      * Crée une nouvelle carte vierge
      */
