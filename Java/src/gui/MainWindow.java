@@ -90,7 +90,6 @@ public class MainWindow implements WindowListener {
     private void initialize() {
         frame = new JFrame();
         frame.setSize(settings.scale(START_WIDTH), settings.scale(START_HEIGHT));
-        frame.setTitle("BombINSA");
         frame.setIconImage(SpriteFactory.getInstance().getScaledImage("bomb", 256));
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(this);
@@ -166,11 +165,19 @@ public class MainWindow implements WindowListener {
      */
     @objid ("030bbdba-dcc6-4a25-9366-dab889f9d934")
     void setPage(JPanel page) {
+        setSuffixTitle(null);
         clearMessage();
         frame.setContentPane(page);
         frame.revalidate();
     }
 
+    void setSuffixTitle(String suffix) {
+        if (suffix == null || suffix.isEmpty())
+            frame.setTitle("BombINSA");
+        else
+            frame.setTitle("BombINSA - " + suffix);
+    }
+    
     private void setMessage(String message, Color color) {
         this.message = message;
         this.messageColor = color;

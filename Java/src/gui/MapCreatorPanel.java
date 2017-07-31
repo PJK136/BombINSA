@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -21,11 +22,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
@@ -62,6 +67,18 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("eff07d4d-ac61-40ee-9ef3-63a075e20b93")
     private GameViewer gameViewer;
 
+    private JMenuItem itmNew;
+    
+    private JMenuItem itmOpen;
+    
+    private JMenuItem itmSave;
+    
+    private JMenuItem itmSaveAs;
+    
+    private JMenuItem itmReturn;
+    
+    private JMenuItem itmHelp;
+    
     @objid ("95094d21-2d75-4c57-8308-9c56f2cc1b29")
     private JButton btnNew;
 
@@ -93,10 +110,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     private ButtonGroup tileTypeGroup;
 
     @objid ("acd0f57d-4333-48b5-b372-d90eaf606e91")
-    private JButton btnExit;
+    private JButton btnReturn;
 
     @objid ("0557317e-dc8a-4c00-a7a9-e1ed7ce62fa8")
     private Map map;
+    
+    private File file;
 
     private static final int ICON_SIZE = 24;
     
@@ -111,8 +130,51 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         this.settings = GameSettings.getInstance();
         
+        
+        JMenuBar menuBar = new JMenuBar();
+        add(menuBar, BorderLayout.NORTH);
+        
+        JMenu fileMenu = new JMenu("Fichier");
+        menuBar.add(fileMenu);
+        
+        itmNew = new JMenuItem("Nouveau");
+        itmNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+        itmNew.addActionListener(this);
+        fileMenu.add(itmNew);
+        
+        itmOpen = new JMenuItem("Ouvrir...");
+        itmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        itmOpen.addActionListener(this);
+        fileMenu.add(itmOpen);
+        
+        itmSave = new JMenuItem("Enregistrer");
+        itmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        itmSave.addActionListener(this);
+        fileMenu.add(itmSave);
+        
+        itmSaveAs = new JMenuItem("Enregistrer sous...");
+        itmSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+        itmSaveAs.addActionListener(this);
+        fileMenu.add(itmSaveAs);
+        
+        fileMenu.addSeparator();
+        
+        itmReturn = new JMenuItem("Retour au menu");
+        itmReturn.addActionListener(this);
+        fileMenu.add(itmReturn);
+        
+        JMenu questionMenu = new JMenu("?");
+        menuBar.add(questionMenu);
+        
+        itmHelp = new JMenuItem("Aide...");
+        itmHelp.addActionListener(this);
+        questionMenu.add(itmHelp);
+        
+        JPanel content = new JPanel(new BorderLayout(0,0));
+        add(content, BorderLayout.CENTER);
+        
         JToolBar toolBar = new JToolBar();
-        add(toolBar, BorderLayout.NORTH);
+        content.add(toolBar, BorderLayout.NORTH);
         
         btnNew = new JButton();
         btnNew.addActionListener(this);
@@ -151,7 +213,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         gameViewer.setShowSpawningLocations(true);
         gameViewer.addMouseListener(this);
         gameViewer.addMouseMotionListener(this);
-        add(gameViewer, BorderLayout.CENTER);
+        content.add(gameViewer, BorderLayout.CENTER);
         
         tileTypeGroup = new ButtonGroup();
         for (TileType type : TileType.values()) {
@@ -166,10 +228,10 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         toolBar.add(Box.createHorizontalGlue());
         
-        btnExit = new JButton();
-        btnExit.addActionListener(this);
-        toolBar.add(btnExit);
-        
+        btnReturn = new JButton();
+        btnReturn.addActionListener(this);
+        toolBar.add(btnReturn);
+
         updateUISize();
         
         newMap();
@@ -185,7 +247,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         btnNew.setIcon(factory.getImageIcon("New24", size));
         btnOpen.setIcon(factory.getImageIcon("Open24", size));
         btnSave.setIcon(factory.getImageIcon("Save24", size));
-        btnExit.setIcon(factory.getImageIcon("Stop24", size));
+        btnReturn.setIcon(factory.getImageIcon("Stop24", size));
         
         MainWindow.setFontSize(lblColumns, size/2);
         MainWindow.setFontSize(columnCount, size/2);
@@ -323,17 +385,21 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("2949aafd-f13a-4c7a-a4bc-750ccef814a4")
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnNew && checkSaved()) {
+        if ((e.getSource() == btnNew || e.getSource() == itmNew) && checkSaved()) {
             newMap();
         }
-        if (e.getSource() == btnOpen)
+        if (e.getSource() == btnOpen || e.getSource() == itmOpen)
             openFile();
-        else if (e.getSource() == btnSave)
-            saveToFile();     
-        else if (e.getSource() == btnExit)
+        else if (e.getSource() == btnSave || e.getSource() == itmSave)
+            saveToFile(false);
+        else if (e.getSource() == itmSaveAs)
+            saveToFile(true);
+        else if (e.getSource() == btnReturn || e.getSource() == itmReturn)
         {
             if (checkSaved())
                 mainWindow.showMenu();
+        } else if (e.getSource() == itmHelp) {
+            showHelp();
         }
     }
 
@@ -349,12 +415,17 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                                                 "Modifications non sauvegardées",
                                                 JOptionPane.YES_NO_OPTION,
                                                JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
-            saveToFile();
+            saveToFile(false);
             return saved;
         } else
             return true;
     }
 
+    private void setFile(File file) {
+        this.file = file;
+        mainWindow.setSuffixTitle(file.getName());
+    }
+    
     /**
      * Propose à l'utilisateur d'ouvrir un fichier
      */
@@ -370,6 +441,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 map.loadMap(new String(Files.readAllBytes(fileChooser.getSelectedFile().toPath())));
                 columnCount.setValue(map.getColumnCount());
                 rowCount.setValue(map.getRowCount());
+                setFile(fileChooser.getSelectedFile());
                 updateMap();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,
@@ -382,29 +454,49 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         }
     }
 
+    private File askSaveFile() {
+        int ret = fileChooser.showSaveDialog(this);
+        if (ret == JFileChooser.APPROVE_OPTION) {
+            File f = fileChooser.getSelectedFile();
+            if (!f.getAbsolutePath().endsWith("." + MAP_EXTENSION)) {
+                f = new File(fileChooser.getSelectedFile() + "." + MAP_EXTENSION);
+            }
+            
+            return f;
+        }
+        
+        return null;
+    }
+    
     /**
      * Propose à l'utilisateur d'enregistrer la carte
      */
     @objid ("769a1578-c2bd-4c61-bcca-133d69c17718")
-    private void saveToFile() {
-        int ret = fileChooser.showSaveDialog(this);
-        if (ret == JFileChooser.APPROVE_OPTION) {
-            try {
-                File file = fileChooser.getSelectedFile();
+    private void saveToFile(boolean ask) {
+        if (file == null || ask) {
+            File f = askSaveFile();
+            if (f != null && saveToFile(f))
+                setFile(f);
+        } else
+            saveToFile(file);
+    }
+    
+    private boolean saveToFile(File f) {
+        if (f == null)
+            return false;
         
-                if(!file.getAbsolutePath().endsWith("." + MAP_EXTENSION)){
-                    file = new File(fileChooser.getSelectedFile() + "." + MAP_EXTENSION);
-                }
-                PrintWriter printWriter = new PrintWriter(file);
-                printWriter.write(map.saveMap());
-                printWriter.close();
-                saved = true;
-            } catch (FileNotFoundException e) {
-                JOptionPane.showMessageDialog(this,
-                        "Impossible de sauvegarder dans le fichier spécifié !",
-                        "Erreur lors de la sauvegarde",
-                        JOptionPane.ERROR_MESSAGE);
-            }
+        try {
+            PrintWriter printWriter = new PrintWriter(f);
+            printWriter.write(map.saveMap());
+            printWriter.close();
+            saved = true;
+            return true;
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Impossible de sauvegarder dans" + file.getName() + "!",
+                    "Erreur lors de la sauvegarde",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 
@@ -424,5 +516,14 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         updateMap();
+    }
+    
+    private void showHelp() {
+        JOptionPane.showMessageDialog(this,
+                "Clic-gauche : placer la tuile sélectionnée\n"+
+                    "Clic-droit : placer une tuile vide\n"+
+                    "Clic-milieu : placer/enlever un emplacement d'apparition",
+                "Aide",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }
