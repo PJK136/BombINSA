@@ -438,10 +438,14 @@ public class GameViewer extends JPanel {
     }
 
     public int getOffsetX() {
-        return (getWidth()-world.getWidth())/2;
+        if (world != null)
+            return (getWidth()-world.getWidth())/2;
+        return 0;
     }
     
     public int getOffsetY() {
-        return (getHeight()-world.getHeight())/2;
+        if (world != null)
+            return (getHeight()-world.getHeight())/2;
+        return 0;
     }
 }
