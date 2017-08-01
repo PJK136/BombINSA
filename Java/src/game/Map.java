@@ -235,10 +235,16 @@ public class Map implements MapView {
     @objid ("63d25698-a5f4-4701-a7ed-10309284ddb6")
     public void addSpawningLocation(GridCoordinates gc) {
         if (!isInsideMap(gc))
-            throw new RuntimeException("Coordonées du lieu de spawn invalides : " + gc);
+            throw new RuntimeException("Coordonnées du lieu de spawn invalides : " + gc);
         spawningLocations.add(gc);
     }
 
+    public void addSpawningLocation(int index, GridCoordinates gc) {
+        if (!isInsideMap(gc))
+            throw new RuntimeException("Coordonnées du lieu de spawn invalides : " + gc);
+        spawningLocations.add(index, gc);
+    }
+    
     @objid ("3e625452-8ef8-40e1-ae3b-de5858f727c6")
     public void removeSpawningLocation(GridCoordinates gc) {
         spawningLocations.remove(gc);

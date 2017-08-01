@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.Enumeration;
+import java.util.Stack;
 
 import javax.swing.AbstractButton;
 import javax.swing.Box;
@@ -148,8 +149,44 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     private Map map;
     
     private File file;
+    
+    private Stack<Stack<UndoTask>> undoStack;
+    
+    private Stack<Stack<UndoTask>> redoStack;
 
     private static final int ICON_SIZE = 24;
+    
+    private interface UndoTask { }
+    
+    private class PlaceTileTask implements UndoTask {
+        public TileType type;
+        public GridCoordinates position;
+        
+        public PlaceTileTask(TileType type, GridCoordinates gc) {
+            this.type = type;
+            this.position = new GridCoordinates(gc);
+        }
+    }
+    
+    private class PlaceSpawnTask implements UndoTask {
+        public int index;
+        public GridCoordinates position;
+        
+        public PlaceSpawnTask(int index, GridCoordinates gc) {
+            this.index = index;
+            this.position = new GridCoordinates(gc);
+        }
+    }
+    
+    private class SetSizeTask implements UndoTask {
+        public int width;
+        public int height;
+        
+        public SetSizeTask(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+    }
     
     /**
      * Construit le créateur de carte
@@ -319,7 +356,11 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         btnReturn = new JButton();
         btnReturn.addActionListener(this);
         toolBar.add(btnReturn);
-
+        
+        undoStack = new Stack<>();
+        
+        redoStack = new Stack<>();
+        
         updateUISize();
         
         newMap();
@@ -422,37 +463,46 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
      */
     @objid ("97716585-b324-4d2b-9f0c-a120bcf0b328")
     private void placeTile(MouseEvent e) {
+        if (SwingUtilities.isLeftMouseButton(e) == SwingUtilities.isRightMouseButton(e))
+            return;
+        
         GridCoordinates gc = mousePosition(e);
         if (tileTypeGroup.getSelection() != null && map.isInsideMap(gc)) {
             TileType type;
+            
             if (SwingUtilities.isLeftMouseButton(e))
                 type = getActualType();
-            else if (SwingUtilities.isRightMouseButton(e))
+            else //Right
                 type = TileType.Empty;
-            else
-                return;
             
             if (map.getTileType(gc) != type) {
-                saved = false;
-                map.setTileType(type, gc);
+                setTileType(type, gc);
                 updateMap();
             }
         }
+    }
+    
+    private void placeSpawningLocation(GridCoordinates gc) {
+        placeSpawningLocation(-1, gc);
+    }
+    
+    private void placeSpawningLocation(int index, GridCoordinates gc) {
+        int previous = map.getSpawningLocations().indexOf(gc);
+        if (previous >= 0)
+            map.removeSpawningLocation(gc);
+        else {
+            if (index >= 0)
+                map.addSpawningLocation(index, gc);
+            else
+                map.addSpawningLocation(gc);
+        }
+        
+        addUndoTask(new PlaceSpawnTask(previous, gc));
     }
 
     @objid ("02364307-a9ca-449a-8110-2e7ee527d368")
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (SwingUtilities.isMiddleMouseButton(e)) {
-            GridCoordinates gc = mousePosition(e);
-            if (map.getSpawningLocations().contains(gc))
-                map.removeSpawningLocation(gc);
-            else
-                map.addSpawningLocation(gc);
-            
-            saved = false;
-            updateMap();
-        }
     }
 
     @objid ("41e7252e-3fe2-4ef8-89c1-e2026e638132")
@@ -464,18 +514,26 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @Override
     public void mouseExited(MouseEvent e) {
     }
-
+    
     @objid ("21292e44-21b2-4f77-bd31-c1f442411cab")
     @Override
     public void mousePressed(MouseEvent e) {
         GridCoordinates gc = mousePosition(e);
-        if (getActualType() == TileType.Arrow && map.isInsideMap(gc) && map.getTileType(gc) == TileType.Arrow) {
+        if (e.getButton() == MouseEvent.BUTTON2) {
+            if (map.isInsideMap(gc)) {
+                newUndoTask();
+                placeSpawningLocation(gc);
+                updateMap();
+            }
+        } else if (getActualType() == TileType.Arrow && map.isInsideMap(gc) && map.getTileType(gc) == TileType.Arrow) {
             Direction[] directions = Direction.values();
             int i = (map.getArrowDirection(gc).ordinal()+1)%directions.length;
             map.setArrowDirection(directions[i], gc);
             updateMap();
-        } else
+        } else if (SwingUtilities.isLeftMouseButton(e) != SwingUtilities.isRightMouseButton(e)) {
+            newUndoTask();
             placeTile(e);
+        }
     }
 
     @objid ("c8bed0d2-ee70-454d-b575-724198d71c59")
@@ -509,6 +567,10 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             if (checkSaved())
                 mainWindow.showMenu();
         }
+        else if (e.getSource() == itmUndo)
+            undo();
+        else if (e.getSource() == itmRedo)
+            redo();
         else if (e.getSource() == itmBorders)
             createUnbreakableBorders();
         else if (e.getSource() == itmMirrorLtR)
@@ -638,17 +700,17 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     public void stateChanged(ChangeEvent e) {
         if (e.getSource() == columnCount || e.getSource() == rowCount) {
             if (!isLoading) {
-                map.setSize((int) columnCount.getValue(), (int) rowCount.getValue());
+                newUndoTask();
+                setMapSize((int) columnCount.getValue(), (int) rowCount.getValue());
                 updateMap();
-                saved = false;
             }
         }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
         updateMap();
+        super.paintComponent(g);
     }
     
     private void showHelp() {
@@ -660,55 +722,165 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 JOptionPane.INFORMATION_MESSAGE);
     }
     
-    private void createUnbreakableBorders() {
-        for (int x = 0; x < map.getColumnCount(); x++) {
-            map.setTileType(TileType.Unbreakable, new GridCoordinates(x, 0));
-            map.setTileType(TileType.Unbreakable, new GridCoordinates(x, map.getRowCount()-1));
-        }
+    private void newUndoTask() {
+        newUndoTask(true);
+    }
+    
+    private void newUndoTask(boolean clearRedo) {
+        undoStack.push(new Stack<>());
+        itmUndo.setEnabled(true);
         
-        for (int y = 0; y < map.getRowCount(); y++) {
-            map.setTileType(TileType.Unbreakable, new GridCoordinates(0, y));
-            map.setTileType(TileType.Unbreakable, new GridCoordinates(map.getColumnCount()-1, y));
+        if (clearRedo) {
+            redoStack.clear();
+            itmRedo.setEnabled(false);
         }
     }
     
+    private void addUndoTask(UndoTask task) {
+        undoStack.peek().push(task);
+        saved = false;
+    }
+    
+    private void setTileType(TileType type, GridCoordinates gc) {
+        addUndoTask(new PlaceTileTask(map.getTileType(gc), gc));
+        map.setTileType(type, gc);
+    }
+    
+    private void setMapSize(int width, int height) {
+        if (map.getColumnCount() == width && map.getRowCount() == height)
+            return;
+        
+        GridCoordinates gc = new GridCoordinates();
+        for (gc.x = width; gc.x < map.getColumnCount(); gc.x++) {
+            for (gc.y = 0; gc.y < map.getRowCount(); gc.y++)
+                setTileType(TileType.Empty, gc);
+        }
+        
+        for (gc.y = height; gc.y < map.getRowCount(); gc.y++) {
+            for (gc.x = 0; gc.x < Math.min(width, map.getColumnCount()); gc.x++)
+                setTileType(TileType.Empty, gc);
+        }
+        
+        addUndoTask(new SetSizeTask(map.getColumnCount(), map.getRowCount()));
+        
+        map.setSize(width, height);
+        
+        isLoading = true;
+        if ((int)columnCount.getValue() != width)
+            columnCount.setValue(width);
+        if ((int)columnCount.getValue() != height)
+            rowCount.setValue(height);
+        isLoading = false;
+    }
+    
+    private void undo() {
+        if (undoStack.isEmpty())
+            return;
+        
+        Stack<UndoTask> infos = undoStack.pop();
+        
+        newUndoTask(false);
+        executeTask(infos);
+        redoStack.push(undoStack.pop());
+        itmRedo.setEnabled(true);
+        
+        if (undoStack.isEmpty())
+            itmUndo.setEnabled(false);
+    }
+    
+    private void redo() {
+        if (redoStack.isEmpty())
+            return;
+        
+        Stack<UndoTask> infos = redoStack.pop();
+        
+        newUndoTask(false);
+        executeTask(infos);
+        itmUndo.setEnabled(true);
+        
+        if (redoStack.isEmpty())
+            itmRedo.setEnabled(false);
+    }
+    
+    private void executeTask(Stack<UndoTask> tasks) {
+        while (!tasks.isEmpty()) {
+            UndoTask task = tasks.pop();
+            
+            if (task instanceof PlaceTileTask)
+                setTileType(((PlaceTileTask)task).type, ((PlaceTileTask)task).position);
+            else if (task instanceof PlaceSpawnTask)
+                placeSpawningLocation(((PlaceSpawnTask)task).index, ((PlaceSpawnTask)task).position);
+            else if (task instanceof SetSizeTask)
+                setMapSize(((SetSizeTask)task).width, ((SetSizeTask)task).height);
+        }
+        
+        updateMap();
+    }
+    
+    private void createUnbreakableBorders() {
+        newUndoTask();
+        for (int x = 0; x < map.getColumnCount(); x++) {
+            setTileType(TileType.Unbreakable, new GridCoordinates(x, 0));
+            setTileType(TileType.Unbreakable, new GridCoordinates(x, map.getRowCount()-1));
+        }
+        
+        for (int y = 0; y < map.getRowCount(); y++) {
+            setTileType(TileType.Unbreakable, new GridCoordinates(0, y));
+            setTileType(TileType.Unbreakable, new GridCoordinates(map.getColumnCount()-1, y));
+        }
+        
+        updateMap();
+    }
+    
     private void mirrorLtR() {
+        newUndoTask();
         GridCoordinates from = new GridCoordinates();
         GridCoordinates to = new GridCoordinates();
         for (from.x = 0, to.x = map.getColumnCount()-1; to.x >= 0; from.x++, to.x--) {
             for (from.y = 0, to.y = 0; from.y < map.getRowCount(); from.y++, to.y++) {
-                map.setTileType(map.getTileType(from), to);
+                setTileType(map.getTileType(from), to);
             }
         }
+        
+        updateMap();
     }
     
     private void mirrorRtL() {
+        newUndoTask();
         GridCoordinates from = new GridCoordinates();
         GridCoordinates to = new GridCoordinates();
         for (from.x = map.getColumnCount()-1, to.x = 0; from.x >= 0; from.x--, to.x++) {
             for (from.y = 0, to.y = 0; from.y < map.getRowCount(); from.y++, to.y++) {
-                map.setTileType(map.getTileType(from), to);
+                setTileType(map.getTileType(from), to);
             }
         }
+        
+        updateMap();
     }
     
     private void mirrorTtB() {
+        newUndoTask();
         GridCoordinates from = new GridCoordinates();
         GridCoordinates to = new GridCoordinates();
         for (from.y = 0, to.y = map.getRowCount()-1; to.y >= 0; from.y++, to.y--) {
             for (from.x = 0, to.x = 0; from.x < map.getColumnCount(); from.x++, to.x++) {
-                map.setTileType(map.getTileType(from), to);
+                setTileType(map.getTileType(from), to);
             }
         }
+        
+        updateMap();
     }
     
     private void mirrorBtT() {
+        newUndoTask();
         GridCoordinates from = new GridCoordinates();
         GridCoordinates to = new GridCoordinates();
         for (from.y = map.getRowCount()-1, to.y = 0; from.y >= 0; from.y--, to.y++) {
             for (from.x = 0, to.x = 0; from.x < map.getColumnCount(); from.x++, to.x++) {
-                map.setTileType(map.getTileType(from), to);
+                setTileType(map.getTileType(from), to);
             }
         }
+        
+        updateMap();
     }
 }
