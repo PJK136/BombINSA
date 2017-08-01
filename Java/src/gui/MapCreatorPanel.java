@@ -67,6 +67,16 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("eff07d4d-ac61-40ee-9ef3-63a075e20b93")
     private GameViewer gameViewer;
 
+    private JMenuBar menuBar;
+    
+    private JMenu fileMenu;
+    
+    private JMenu editMenu;
+    
+    private JMenu mirrorMenu;
+    
+    private JMenu questionMenu;
+    
     private JMenuItem itmNew;
     
     private JMenuItem itmOpen;
@@ -153,10 +163,10 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         this.settings = GameSettings.getInstance();
         
         
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
         add(menuBar, BorderLayout.NORTH);
         
-        JMenu fileMenu = new JMenu("Fichier");
+        fileMenu = new JMenu("Fichier");
         menuBar.add(fileMenu);
         
         itmNew = new JMenuItem("Nouveau");
@@ -185,7 +195,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         itmReturn.addActionListener(this);
         fileMenu.add(itmReturn);
         
-        JMenu editMenu = new JMenu("Édition");
+        editMenu = new JMenu("Édition");
         menuBar.add(editMenu);
         
         itmUndo = new JMenuItem("Annuler");
@@ -194,7 +204,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         itmUndo.setEnabled(false);
         editMenu.add(itmUndo);
 
-        itmRedo = new JMenuItem("Répéter");
+        itmRedo = new JMenuItem("Rétablir");
         itmRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
         itmRedo.addActionListener(this);
         itmRedo.setEnabled(false);
@@ -204,7 +214,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         itmBorders.addActionListener(this);
         editMenu.add(itmBorders);
         
-        JMenu mirrorMenu = new JMenu("Mirroir");
+        mirrorMenu = new JMenu("Mirroir");
         editMenu.add(mirrorMenu);
         
         itmMirrorLtR = new JMenuItem("Gauche vers la droite");
@@ -239,7 +249,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         itmMirrorBR.addActionListener(this);
         mirrorMenu.add(itmMirrorBR);
         
-        JMenu questionMenu = new JMenu("?");
+        questionMenu = new JMenu("?");
         menuBar.add(questionMenu);
         
         itmHelp = new JMenuItem("Aide...");
@@ -272,6 +282,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         lblColumns = new JLabel("L : ");
         toolBar.add(lblColumns);
         columnCount = new JSpinner(new SpinnerNumberModel(new Integer(20), new Integer(1), null, new Integer(1)));
+        columnCount.setAlignmentX(JSpinner.LEFT_ALIGNMENT);
         columnCount.addChangeListener(this);
         toolBar.add(columnCount);
         toolBar.addSeparator();
@@ -279,6 +290,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         lblRows = new JLabel("H : ");
         toolBar.add(lblRows);
         rowCount = new JSpinner(new SpinnerNumberModel(new Integer(15), new Integer(1), null, new Integer(1)));
+        rowCount.setAlignmentX(JSpinner.LEFT_ALIGNMENT);
         rowCount.addChangeListener(this);
         toolBar.add(rowCount);
         toolBar.addSeparator();
@@ -302,7 +314,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 button.setSelected(true);
         }
         
-        toolBar.add(Box.createHorizontalGlue());
+        toolBar.add(Box.createGlue());
         
         btnReturn = new JButton();
         btnReturn.addActionListener(this);
@@ -319,6 +331,30 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("d54323e5-69dc-4edd-8f55-4a3c3157f552")
     private void updateUISize() {
         final int size = settings.scale(ICON_SIZE);
+        
+        settings.scaleFont(menuBar);
+        settings.scaleFont(fileMenu);
+        settings.scaleFont(editMenu);
+        settings.scaleFont(mirrorMenu);
+        settings.scaleFont(questionMenu);
+        settings.scaleFont(itmNew);
+        settings.scaleFont(itmOpen);
+        settings.scaleFont(itmSave);
+        settings.scaleFont(itmSaveAs);
+        settings.scaleFont(itmReturn);
+        settings.scaleFont(itmUndo);
+        settings.scaleFont(itmRedo);
+        settings.scaleFont(itmBorders);
+        settings.scaleFont(itmMirrorLtR);
+        settings.scaleFont(itmMirrorRtL);
+        settings.scaleFont(itmMirrorTtB);
+        settings.scaleFont(itmMirrorBtT);
+        settings.scaleFont(itmMirrorTL);
+        settings.scaleFont(itmMirrorTR);
+        settings.scaleFont(itmMirrorBL);
+        settings.scaleFont(itmMirrorBR);
+        settings.scaleFont(itmHelp);
+        
         SpriteFactory factory = SpriteFactory.getInstance();
         btnNew.setIcon(factory.getImageIcon("New24", size));
         btnOpen.setIcon(factory.getImageIcon("Open24", size));
