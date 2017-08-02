@@ -2,9 +2,10 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -205,7 +206,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         this.settings = GameSettings.getInstance();
         
-        
         menuBar = new JMenuBar();
         add(menuBar, BorderLayout.NORTH);
         
@@ -340,10 +340,29 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         lblTiles = new JLabel("Tuiles : ");
         toolBar.add(lblTiles);
+        
         gameViewer = new GameViewer();
         gameViewer.setShowSpawningLocations(true);
         gameViewer.addMouseListener(this);
         gameViewer.addMouseMotionListener(this);
+        gameViewer.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+            }
+            
+            @Override
+            public void componentResized(ComponentEvent e) {
+                updateMap();
+            }
+            
+            @Override
+            public void componentMoved(ComponentEvent e) {
+            }
+            
+            @Override
+            public void componentHidden(ComponentEvent e) {
+            }
+        });
         content.add(gameViewer, BorderLayout.CENTER);
         
         tileTypeGroup = new ButtonGroup();
@@ -714,12 +733,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 updateMap();
             }
         }
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        updateMap();
-        super.paintComponent(g);
     }
     
     private void showHelp() {
