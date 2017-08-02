@@ -471,13 +471,21 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         settings.scaleFontComponents(fileChooser.getComponents());
     }
     
+    private void setSaved(boolean saved) {
+        this.saved = saved;
+        itmSave.setEnabled(!saved);
+        btnSave.setEnabled(!saved);
+    }
+    
     /**
      * Crée une nouvelle carte vierge
      */
     @objid ("b65fa18f-a789-4435-8290-32da712f6f42")
     public void newMap() {
         map = new Map((int) columnCount.getValue(), (int) rowCount.getValue(), settings.tileSize);
-        saved = true;
+        setSaved(true);
+        setFile(null);
+        clearUndoStack();
         updateMap();
     }
 
@@ -577,7 +585,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             Direction[] directions = Direction.values();
             int i = (map.getArrowDirection(gc).ordinal()+1)%directions.length;
             map.setArrowDirection(directions[i], gc);
-            saved = false;
+            setSaved(false);
             updateMap();
         } else if (SwingUtilities.isLeftMouseButton(e) != SwingUtilities.isRightMouseButton(e)) {
             newUndoTask();
@@ -667,7 +675,10 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
 
     private void setFile(File file) {
         this.file = file;
-        mainWindow.setSuffixTitle(file.getName());
+        if (file != null)
+            mainWindow.setSuffixTitle(file.getName());
+        else
+            mainWindow.setSuffixTitle(null);
     }
     
     /**
@@ -686,6 +697,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 columnCount.setValue(map.getColumnCount());
                 rowCount.setValue(map.getRowCount());
                 setFile(fileChooser.getSelectedFile());
+                clearUndoStack();
                 updateMap();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,
@@ -741,7 +753,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             PrintWriter printWriter = new PrintWriter(f);
             printWriter.write(map.saveMap());
             printWriter.close();
-            saved = true;
+            setSaved(true);
             return true;
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(this,
@@ -773,25 +785,36 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 JOptionPane.INFORMATION_MESSAGE);
     }
     
+    private void updateUndoRedo() {
+        itmUndo.setEnabled(!undoStack.isEmpty());
+        btnUndo.setEnabled(!undoStack.isEmpty());
+        itmRedo.setEnabled(!redoStack.isEmpty());
+        btnRedo.setEnabled(!redoStack.isEmpty());
+    }
+    
     private void newUndoTask() {
         newUndoTask(true);
     }
     
     private void newUndoTask(boolean clearRedo) {
         undoStack.push(new Stack<>());
-        itmUndo.setEnabled(true);
-        btnUndo.setEnabled(true);
         
-        if (clearRedo) {
+        if (clearRedo)
             redoStack.clear();
-            itmRedo.setEnabled(false);
-            btnRedo.setEnabled(false);
-        }
+        
+        updateUndoRedo();
     }
     
     private void addUndoTask(UndoTask task) {
         undoStack.peek().push(task);
-        saved = false;
+        setSaved(false);
+    }
+    
+    private void clearUndoStack() {
+        undoStack.clear();
+        redoStack.clear();
+        
+        updateUndoRedo();
     }
     
     private void setTileType(TileType type, GridCoordinates gc) {
@@ -840,13 +863,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         newUndoTask(false);
         executeTask(infos);
         redoStack.push(undoStack.pop());
-        itmRedo.setEnabled(true);
-        btnRedo.setEnabled(true);
-        
-        if (undoStack.isEmpty()) {
-            itmUndo.setEnabled(false);
-            btnUndo.setEnabled(false);
-        }
+
+        updateUndoRedo();
     }
     
     private void redo() {
@@ -857,13 +875,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         newUndoTask(false);
         executeTask(infos);
-        itmUndo.setEnabled(true);
-        btnUndo.setEnabled(true);
         
-        if (redoStack.isEmpty()) {
-            itmRedo.setEnabled(false);
-            btnRedo.setEnabled(false);
-        }
+        updateUndoRedo();
     }
     
     private void executeTask(Stack<UndoTask> tasks) {
