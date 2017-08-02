@@ -124,6 +124,10 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
 
     @objid ("a74309a1-8a29-49af-9580-683d214c1d58")
     private JFileChooser fileChooser;
+    
+    private JButton btnUndo;
+    
+    private JButton btnRedo;
 
     @objid ("71b49965-f22b-4c3b-8854-7b6478ecaa51")
     private JLabel lblColumns;
@@ -242,15 +246,15 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         menuBar.add(editMenu);
         
         itmUndo = new JMenuItem("Annuler");
+        itmUndo.setEnabled(false);
         itmUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
         itmUndo.addActionListener(this);
-        itmUndo.setEnabled(false);
         editMenu.add(itmUndo);
 
         itmRedo = new JMenuItem("Rétablir");
+        itmRedo.setEnabled(false);
         itmRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
         itmRedo.addActionListener(this);
-        itmRedo.setEnabled(false);
         editMenu.add(itmRedo);
         
         itmBorders = new JMenuItem("Bordures indestructibles");
@@ -316,9 +320,21 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         btnSave = new JButton();
         btnSave.addActionListener(this);
         toolBar.add(btnSave);
-        
+               
         fileChooser = new JFileChooser(".");
         fileChooser.setFileFilter(new FileNameExtensionFilter("Cartes BombINSA", MAP_EXTENSION));
+        
+        toolBar.addSeparator();
+        
+        btnUndo = new JButton();
+        btnUndo.setEnabled(false);
+        btnUndo.addActionListener(this);
+        toolBar.add(btnUndo);
+        
+        btnRedo = new JButton();
+        btnRedo.setEnabled(false);
+        btnRedo.addActionListener(this);
+        toolBar.add(btnRedo);
         
         toolBar.addSeparator();
         
@@ -425,6 +441,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         btnNew.setIcon(factory.getImageIcon("New24", size));
         btnOpen.setIcon(factory.getImageIcon("Open24", size));
         btnSave.setIcon(factory.getImageIcon("Save24", size));
+        btnUndo.setIcon(factory.getImageIcon("Undo24", size));
+        btnRedo.setIcon(factory.getImageIcon("Redo24", size));
         btnReturn.setIcon(factory.getImageIcon("Stop24", size));
         
         MainWindow.setFontSize(lblColumns, size/2);
@@ -434,7 +452,10 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         MainWindow.setFontSize(lblTiles, size/2);
         
-        int spinnerWidth = columnCount.getMinimumSize().width*3/2;
+        ((JSpinner.DefaultEditor) columnCount.getEditor()).getTextField().setColumns(2);
+        ((JSpinner.DefaultEditor) rowCount.getEditor()).getTextField().setColumns(2);
+
+        int spinnerWidth = columnCount.getMinimumSize().width;
         columnCount.setMaximumSize(new Dimension(spinnerWidth, btnNew.getMaximumSize().height));
         rowCount.setMaximumSize(new Dimension(spinnerWidth, btnNew.getMaximumSize().height));
         columnCount.setPreferredSize(new Dimension(spinnerWidth, btnNew.getPreferredSize().height));
@@ -595,9 +616,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             if (checkSaved())
                 mainWindow.showMenu();
         }
-        else if (e.getSource() == itmUndo)
+        else if (e.getSource() == itmUndo || e.getSource() == btnUndo)
             undo();
-        else if (e.getSource() == itmRedo)
+        else if (e.getSource() == itmRedo || e.getSource() == btnRedo)
             redo();
         else if (e.getSource() == itmBorders)
             createUnbreakableBorders();
@@ -751,10 +772,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     private void newUndoTask(boolean clearRedo) {
         undoStack.push(new Stack<>());
         itmUndo.setEnabled(true);
+        btnUndo.setEnabled(true);
         
         if (clearRedo) {
             redoStack.clear();
             itmRedo.setEnabled(false);
+            btnRedo.setEnabled(false);
         }
     }
     
@@ -810,9 +833,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         executeTask(infos);
         redoStack.push(undoStack.pop());
         itmRedo.setEnabled(true);
+        btnRedo.setEnabled(true);
         
-        if (undoStack.isEmpty())
+        if (undoStack.isEmpty()) {
             itmUndo.setEnabled(false);
+            btnUndo.setEnabled(false);
+        }
     }
     
     private void redo() {
@@ -824,9 +850,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         newUndoTask(false);
         executeTask(infos);
         itmUndo.setEnabled(true);
+        btnUndo.setEnabled(true);
         
-        if (redoStack.isEmpty())
+        if (redoStack.isEmpty()) {
             itmRedo.setEnabled(false);
+            btnRedo.setEnabled(false);
+        }
     }
     
     private void executeTask(Stack<UndoTask> tasks) {
