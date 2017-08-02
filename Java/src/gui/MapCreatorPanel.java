@@ -717,6 +717,14 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
      */
     @objid ("769a1578-c2bd-4c61-bcca-133d69c17718")
     private void saveToFile(boolean ask) {
+        if (map.getSpawningLocations().isEmpty() &&
+                JOptionPane.showConfirmDialog(this, "Aucun emplacement d'apparition n'a été défini.\n"
+                + "Êtes-vous sûr de vouloir enregistrer cette carte ?",
+                "Aucun emplacement d'apparition défini",
+                JOptionPane.YES_NO_OPTION,
+               JOptionPane.WARNING_MESSAGE) == JOptionPane.NO_OPTION)
+            return;
+        
         if (file == null || ask) {
             File f = askSaveFile();
             if (f != null && saveToFile(f))
