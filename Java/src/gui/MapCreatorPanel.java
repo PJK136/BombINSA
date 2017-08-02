@@ -161,10 +161,16 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     private class PlaceTileTask implements UndoTask {
         public TileType type;
         public GridCoordinates position;
+        public Direction direction;
         
         public PlaceTileTask(TileType type, GridCoordinates gc) {
+            this(type, gc, null);
+        }
+        
+        public PlaceTileTask(TileType type, GridCoordinates gc, Direction direction) {
             this.type = type;
             this.position = new GridCoordinates(gc);
+            this.direction = direction;
         }
     }
     
@@ -525,10 +531,13 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
                 placeSpawningLocation(gc);
                 updateMap();
             }
-        } else if (getActualType() == TileType.Arrow && map.isInsideMap(gc) && map.getTileType(gc) == TileType.Arrow) {
+        } else if (e.getButton() == MouseEvent.BUTTON1 &&
+                getActualType() == TileType.Arrow && map.isInsideMap(gc) &&
+                map.getTileType(gc) == TileType.Arrow) {
             Direction[] directions = Direction.values();
             int i = (map.getArrowDirection(gc).ordinal()+1)%directions.length;
             map.setArrowDirection(directions[i], gc);
+            saved = false;
             updateMap();
         } else if (SwingUtilities.isLeftMouseButton(e) != SwingUtilities.isRightMouseButton(e)) {
             newUndoTask();
@@ -742,7 +751,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     }
     
     private void setTileType(TileType type, GridCoordinates gc) {
-        addUndoTask(new PlaceTileTask(map.getTileType(gc), gc));
+        TileType previousType = map.getTileType(gc);
+        if (previousType != TileType.Arrow)
+            addUndoTask(new PlaceTileTask(previousType, gc));
+        else
+            addUndoTask(new PlaceTileTask(TileType.Arrow, gc, map.getArrowDirection(gc)));
+
         map.setTileType(type, gc);
     }
     
@@ -806,8 +820,11 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         while (!tasks.isEmpty()) {
             UndoTask task = tasks.pop();
             
-            if (task instanceof PlaceTileTask)
+            if (task instanceof PlaceTileTask) {
                 setTileType(((PlaceTileTask)task).type, ((PlaceTileTask)task).position);
+                if (((PlaceTileTask)task).type == TileType.Arrow)
+                    map.setArrowDirection(((PlaceTileTask)task).direction, ((PlaceTileTask)task).position);
+            }
             else if (task instanceof PlaceSpawnTask)
                 placeSpawningLocation(((PlaceSpawnTask)task).index, ((PlaceSpawnTask)task).position);
             else if (task instanceof SetSizeTask)
@@ -836,9 +853,15 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         newUndoTask();
         GridCoordinates from = new GridCoordinates();
         GridCoordinates to = new GridCoordinates();
-        for (from.x = 0, to.x = map.getColumnCount()-1; to.x >= 0; from.x++, to.x--) {
+        for (from.x = 0, to.x = map.getColumnCount()-1; to.x >= map.getColumnCount()/2; from.x++, to.x--) {
             for (from.y = 0, to.y = 0; from.y < map.getRowCount(); from.y++, to.y++) {
                 setTileType(map.getTileType(from), to);
+                if (map.getTileType(from) == TileType.Arrow) {
+                    if (Direction.doHaveSameAxis(map.getArrowDirection(from), Direction.Left))
+                        map.setArrowDirection(Direction.getOpposite(map.getArrowDirection(from)), to);
+                    else
+                        map.setArrowDirection(map.getArrowDirection(from), to);
+                }
             }
         }
         
@@ -849,9 +872,15 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         newUndoTask();
         GridCoordinates from = new GridCoordinates();
         GridCoordinates to = new GridCoordinates();
-        for (from.x = map.getColumnCount()-1, to.x = 0; from.x >= 0; from.x--, to.x++) {
+        for (from.x = map.getColumnCount()-1, to.x = 0; from.x >= map.getColumnCount()/2; from.x--, to.x++) {
             for (from.y = 0, to.y = 0; from.y < map.getRowCount(); from.y++, to.y++) {
                 setTileType(map.getTileType(from), to);
+                if (map.getTileType(from) == TileType.Arrow) {
+                    if (Direction.doHaveSameAxis(map.getArrowDirection(from), Direction.Right))
+                        map.setArrowDirection(Direction.getOpposite(map.getArrowDirection(from)), to);
+                    else
+                        map.setArrowDirection(map.getArrowDirection(from), to);
+                }
             }
         }
         
@@ -862,9 +891,15 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         newUndoTask();
         GridCoordinates from = new GridCoordinates();
         GridCoordinates to = new GridCoordinates();
-        for (from.y = 0, to.y = map.getRowCount()-1; to.y >= 0; from.y++, to.y--) {
+        for (from.y = 0, to.y = map.getRowCount()-1; to.y >= map.getRowCount()/2; from.y++, to.y--) {
             for (from.x = 0, to.x = 0; from.x < map.getColumnCount(); from.x++, to.x++) {
                 setTileType(map.getTileType(from), to);
+                if (map.getTileType(from) == TileType.Arrow) {
+                    if (Direction.doHaveSameAxis(map.getArrowDirection(from), Direction.Up))
+                        map.setArrowDirection(Direction.getOpposite(map.getArrowDirection(from)), to);
+                    else
+                        map.setArrowDirection(map.getArrowDirection(from), to);
+                }
             }
         }
         
@@ -875,9 +910,15 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         newUndoTask();
         GridCoordinates from = new GridCoordinates();
         GridCoordinates to = new GridCoordinates();
-        for (from.y = map.getRowCount()-1, to.y = 0; from.y >= 0; from.y--, to.y++) {
+        for (from.y = map.getRowCount()-1, to.y = 0; from.y >= map.getRowCount()/2; from.y--, to.y++) {
             for (from.x = 0, to.x = 0; from.x < map.getColumnCount(); from.x++, to.x++) {
                 setTileType(map.getTileType(from), to);
+                if (map.getTileType(from) == TileType.Arrow) {
+                    if (Direction.doHaveSameAxis(map.getArrowDirection(from), Direction.Down))
+                        map.setArrowDirection(Direction.getOpposite(map.getArrowDirection(from)), to);
+                    else
+                        map.setArrowDirection(map.getArrowDirection(from), to);
+                }
             }
         }
         
