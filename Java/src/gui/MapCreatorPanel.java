@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.util.Enumeration;
 import java.util.Stack;
 
+import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -381,6 +382,15 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         });
         content.add(gameViewer, BorderLayout.CENTER);
         
+        gameViewer.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, ActionEvent.CTRL_MASK), "move_up");
+        gameViewer.getActionMap().put("move_up", new MoveAction(Direction.Up));
+        gameViewer.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, ActionEvent.CTRL_MASK), "move_down");
+        gameViewer.getActionMap().put("move_down", new MoveAction(Direction.Down));
+        gameViewer.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, ActionEvent.CTRL_MASK), "move_left");
+        gameViewer.getActionMap().put("move_left", new MoveAction(Direction.Left));
+        gameViewer.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, ActionEvent.CTRL_MASK), "move_right");
+        gameViewer.getActionMap().put("move_right", new MoveAction(Direction.Right));
+        
         tileTypeGroup = new ButtonGroup();
         for (TileType type : TileType.values()) {
             JToggleButton button = new JToggleButton();
@@ -572,6 +582,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("21292e44-21b2-4f77-bd31-c1f442411cab")
     @Override
     public void mousePressed(MouseEvent e) {
+        gameViewer.requestFocusInWindow();
+        
         GridCoordinates gc = mousePosition(e);
         if (e.getButton() == MouseEvent.BUTTON2) {
             if (map.isInsideMap(gc)) {
@@ -780,7 +792,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         JOptionPane.showMessageDialog(this,
                 "Clic-gauche : placer la tuile sélectionnée\n"+
                     "Clic-droit : placer une tuile vide\n"+
-                    "Clic-milieu : placer/enlever un emplacement d'apparition",
+                    "Clic-milieu : placer/enlever un emplacement d'apparition\n"+
+                    "Ctrl + flèche : déplace toutes les tuiles dans une direction",
                 "Aide",
                 JOptionPane.INFORMATION_MESSAGE);
     }
@@ -986,5 +999,46 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         }
         
         updateMap();
+    }
+    
+    private class MoveAction extends AbstractAction {
+        private Direction direction;
+        
+        public MoveAction(Direction direction) {
+            this.direction = direction;
+        }
+        
+        private void copyTile(GridCoordinates from, GridCoordinates to) {
+            if (map.isInsideMap(from)) {
+                setTileType(map.getTileType(from), to);
+                if (map.getTileType(from) == TileType.Arrow)
+                    map.setArrowDirection(map.getArrowDirection(from), to);
+            }
+            else
+                setTileType(TileType.Empty, to);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            newUndoTask();
+
+            GridCoordinates to = new GridCoordinates();
+            Direction opposite = Direction.getOpposite(direction);
+            if (direction == Direction.Up || direction == Direction.Left) {
+                for (to.x = 0; to.x < map.getColumnCount(); to.x++) {
+                    for (to.y = 0; to.y < map.getRowCount(); to.y++) {
+                        copyTile(to.neighbor(opposite), to);
+                    }
+                }
+            } else {
+                for (to.x = map.getColumnCount()-1; to.x >= 0; to.x--) {
+                    for (to.y = map.getRowCount()-1; to.y >= 0; to.y--) {
+                        copyTile(to.neighbor(opposite), to);
+                    }
+                }
+            }
+            
+            updateMap();
+        }
     }
 }
