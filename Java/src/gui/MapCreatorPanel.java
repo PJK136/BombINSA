@@ -70,6 +70,15 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("eff07d4d-ac61-40ee-9ef3-63a075e20b93")
     private GameViewer gameViewer;
 
+    private NewAction newAction;
+    private OpenAction openAction;
+    private SaveAction saveAction;
+    private SaveAction saveAsAction;
+    private UndoAction undoAction;
+    private RedoAction redoAction;
+    private ReturnAction returnAction;
+    private HelpAction helpAction;
+    
     private JMenuBar menuBar;
     
     private JMenu fileMenu;
@@ -211,51 +220,56 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         this.settings = GameSettings.getInstance();
         
+        undoStack = new Stack<>();
+        redoStack = new Stack<>();
+        
+        newAction = new NewAction("Nouveau");
+        newAction.putValue(NewAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+        openAction = new OpenAction("Ouvrir...");
+        openAction.putValue(NewAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        saveAction = new SaveAction("Enregistrer", false);
+        saveAction.putValue(NewAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        saveAsAction = new SaveAction("Enregistrer sous...", true);
+        saveAsAction.putValue(NewAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+        undoAction = new UndoAction("Annuler");
+        undoAction.putValue(UndoAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
+        redoAction = new RedoAction("Rétablir");
+        redoAction.putValue(RedoAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+        returnAction = new ReturnAction("Retour au menu");
+        helpAction = new HelpAction("Aide...");
+
+        updateUndoRedo();
+        
         menuBar = new JMenuBar();
         add(menuBar, BorderLayout.NORTH);
         
         fileMenu = new JMenu("Fichier");
         menuBar.add(fileMenu);
         
-        itmNew = new JMenuItem("Nouveau");
-        itmNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-        itmNew.addActionListener(this);
+        itmNew = new JMenuItem(newAction);
         fileMenu.add(itmNew);
         
-        itmOpen = new JMenuItem("Ouvrir...");
-        itmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        itmOpen.addActionListener(this);
+        itmOpen = new JMenuItem(openAction);
         fileMenu.add(itmOpen);
         
-        itmSave = new JMenuItem("Enregistrer");
-        itmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        itmSave.addActionListener(this);
+        itmSave = new JMenuItem(saveAction);
         fileMenu.add(itmSave);
         
-        itmSaveAs = new JMenuItem("Enregistrer sous...");
-        itmSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
-        itmSaveAs.addActionListener(this);
+        itmSaveAs = new JMenuItem(saveAsAction);
         fileMenu.add(itmSaveAs);
         
         fileMenu.addSeparator();
         
-        itmReturn = new JMenuItem("Retour au menu");
-        itmReturn.addActionListener(this);
+        itmReturn = new JMenuItem(returnAction);
         fileMenu.add(itmReturn);
         
         editMenu = new JMenu("Édition");
         menuBar.add(editMenu);
         
-        itmUndo = new JMenuItem("Annuler");
-        itmUndo.setEnabled(false);
-        itmUndo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
-        itmUndo.addActionListener(this);
+        itmUndo = new JMenuItem(undoAction);
         editMenu.add(itmUndo);
 
-        itmRedo = new JMenuItem("Rétablir");
-        itmRedo.setEnabled(false);
-        itmRedo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
-        itmRedo.addActionListener(this);
+        itmRedo = new JMenuItem(redoAction);
         editMenu.add(itmRedo);
         
         itmBorders = new JMenuItem("Bordures indestructibles");
@@ -300,8 +314,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         questionMenu = new JMenu("?");
         menuBar.add(questionMenu);
         
-        itmHelp = new JMenuItem("Aide...");
-        itmHelp.addActionListener(this);
+        itmHelp = new JMenuItem(helpAction);
         questionMenu.add(itmHelp);
         
         JPanel content = new JPanel(new BorderLayout(0,0));
@@ -310,16 +323,16 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         JToolBar toolBar = new JToolBar();
         content.add(toolBar, BorderLayout.NORTH);
         
-        btnNew = new JButton();
-        btnNew.addActionListener(this);
+        btnNew = new JButton(newAction);
+        btnNew.setHideActionText(true);
         toolBar.add(btnNew);
         
-        btnOpen = new JButton();
-        btnOpen.addActionListener(this);
+        btnOpen = new JButton(openAction);
+        btnOpen.setHideActionText(true);
         toolBar.add(btnOpen);
         
-        btnSave = new JButton();
-        btnSave.addActionListener(this);
+        btnSave = new JButton(saveAction);
+        btnSave.setHideActionText(true);
         toolBar.add(btnSave);
                
         fileChooser = new JFileChooser(".");
@@ -327,14 +340,12 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         toolBar.addSeparator();
         
-        btnUndo = new JButton();
-        btnUndo.setEnabled(false);
-        btnUndo.addActionListener(this);
+        btnUndo = new JButton(undoAction);
+        btnUndo.setHideActionText(true);
         toolBar.add(btnUndo);
         
-        btnRedo = new JButton();
-        btnRedo.setEnabled(false);
-        btnRedo.addActionListener(this);
+        btnRedo = new JButton(redoAction);
+        btnRedo.setHideActionText(true);
         toolBar.add(btnRedo);
         
         toolBar.addSeparator();
@@ -404,16 +415,13 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         toolBar.add(Box.createGlue());
         
-        btnReturn = new JButton();
-        btnReturn.addActionListener(this);
+        btnReturn = new JButton(returnAction);
+        btnReturn.setHideActionText(true);
         toolBar.add(btnReturn);
-        
-        undoStack = new Stack<>();
-        
-        redoStack = new Stack<>();
         
         updateUISize();
         
+        setSaved(true);
         newMap();
     }
 
@@ -448,12 +456,24 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         settings.scaleFont(itmHelp);
         
         SpriteFactory factory = SpriteFactory.getInstance();
-        btnNew.setIcon(factory.getImageIcon("New24", size));
-        btnOpen.setIcon(factory.getImageIcon("Open24", size));
-        btnSave.setIcon(factory.getImageIcon("Save24", size));
-        btnUndo.setIcon(factory.getImageIcon("Undo24", size));
-        btnRedo.setIcon(factory.getImageIcon("Redo24", size));
-        btnReturn.setIcon(factory.getImageIcon("Stop24", size));
+        
+        newAction.putValue(UndoAction.SMALL_ICON, factory.getImageIcon("New16", settings.scale(16)));
+        openAction.putValue(UndoAction.SMALL_ICON, factory.getImageIcon("Open16", settings.scale(16)));
+        saveAction.putValue(UndoAction.SMALL_ICON, factory.getImageIcon("Save16", settings.scale(16)));
+        saveAsAction.putValue(UndoAction.SMALL_ICON, factory.getImageIcon("SaveAs16", settings.scale(16)));
+        undoAction.putValue(UndoAction.SMALL_ICON, factory.getImageIcon("Undo16", settings.scale(16)));
+        redoAction.putValue(RedoAction.SMALL_ICON, factory.getImageIcon("Redo16", settings.scale(16)));
+        returnAction.putValue(RedoAction.SMALL_ICON, factory.getImageIcon("Stop16", settings.scale(16)));
+        helpAction.putValue(RedoAction.SMALL_ICON, factory.getImageIcon("Help16", settings.scale(16)));
+        
+        newAction.putValue(UndoAction.LARGE_ICON_KEY, factory.getImageIcon("New24", size));
+        openAction.putValue(UndoAction.LARGE_ICON_KEY, factory.getImageIcon("Open24", size));
+        saveAction.putValue(UndoAction.LARGE_ICON_KEY, factory.getImageIcon("Save24", size));
+        saveAsAction.putValue(UndoAction.LARGE_ICON_KEY, factory.getImageIcon("SaveAs24", size));
+        undoAction.putValue(UndoAction.LARGE_ICON_KEY, factory.getImageIcon("Undo24", size));
+        redoAction.putValue(RedoAction.LARGE_ICON_KEY, factory.getImageIcon("Redo24", size));
+        returnAction.putValue(RedoAction.LARGE_ICON_KEY, factory.getImageIcon("Stop24", size));
+        helpAction.putValue(RedoAction.LARGE_ICON_KEY, factory.getImageIcon("Help24", size));
         
         MainWindow.setFontSize(lblColumns, size/2);
         MainWindow.setFontSize(columnCount, size/2);
@@ -483,8 +503,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     
     private void setSaved(boolean saved) {
         this.saved = saved;
-        itmSave.setEnabled(!saved);
-        btnSave.setEnabled(!saved);
+        saveAction.setEnabled(!saved);
     }
     
     /**
@@ -492,6 +511,9 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
      */
     @objid ("b65fa18f-a789-4435-8290-32da712f6f42")
     public void newMap() {
+        if (!checkSaved())
+            return;
+        
         map = new Map((int) columnCount.getValue(), (int) rowCount.getValue(), settings.tileSize);
         setSaved(true);
         setFile(null);
@@ -624,23 +646,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     @objid ("2949aafd-f13a-4c7a-a4bc-750ccef814a4")
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ((e.getSource() == btnNew || e.getSource() == itmNew) && checkSaved())
-            newMap();
-        else if (e.getSource() == btnOpen || e.getSource() == itmOpen)
-            openFile();
-        else if (e.getSource() == btnSave || e.getSource() == itmSave)
-            saveToFile(false);
-        else if (e.getSource() == itmSaveAs)
-            saveToFile(true);
-        else if (e.getSource() == btnReturn || e.getSource() == itmReturn) {
-            if (checkSaved())
-                mainWindow.showMenu();
-        }
-        else if (e.getSource() == itmUndo || e.getSource() == btnUndo)
-            undo();
-        else if (e.getSource() == itmRedo || e.getSource() == btnRedo)
-            redo();
-        else if (e.getSource() == itmBorders)
+        if (e.getSource() == itmBorders)
             createUnbreakableBorders();
         else if (e.getSource() == itmMirrorLtR)
             mirrorLtR();
@@ -663,8 +669,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
             mirrorBtT();
             mirrorRtL();
         }
-        else if (e.getSource() == itmHelp)
-            showHelp();
     }
 
     /**
@@ -799,10 +803,8 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     }
     
     private void updateUndoRedo() {
-        itmUndo.setEnabled(!undoStack.isEmpty());
-        btnUndo.setEnabled(!undoStack.isEmpty());
-        itmRedo.setEnabled(!redoStack.isEmpty());
-        btnRedo.setEnabled(!redoStack.isEmpty());
+        undoAction.setEnabled(!undoStack.isEmpty());
+        redoAction.setEnabled(!redoStack.isEmpty());
     }
     
     private void newUndoTask() {
@@ -1000,6 +1002,88 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         updateMap();
     }
+    
+    private class NewAction extends AbstractAction {
+        public NewAction(String name) {
+            super(name);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            newMap();
+        }
+    }
+    
+    private class OpenAction extends AbstractAction {
+        public OpenAction(String name) {
+            super(name);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            openFile();
+        }
+    }
+    
+    private class SaveAction extends AbstractAction {
+        private boolean ask;
+        
+        public SaveAction(String name, boolean ask) {
+            super(name);
+            this.ask = ask;
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            saveToFile(ask);
+        }
+    }
+    
+    private class UndoAction extends AbstractAction {
+        public UndoAction(String name) {
+            super(name);
+        }        
+   
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            undo();
+        }
+    }
+    
+    private class RedoAction extends AbstractAction {
+        public RedoAction(String name) {
+            super(name);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            redo();
+        }
+    }
+    
+    private class ReturnAction extends AbstractAction {
+        public ReturnAction(String name) {
+            super(name);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (checkSaved())
+                mainWindow.showMenu();
+        }
+    }
+    
+    private class HelpAction extends AbstractAction {
+        public HelpAction(String name) {
+            super(name);
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showHelp();
+        }
+    }
+    
     
     private class MoveAction extends AbstractAction {
         private Direction direction;
