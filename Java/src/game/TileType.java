@@ -3,12 +3,10 @@ package game;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Liste des types de tuiles présentes dans le jeu
  */
-@objid ("2ce1720a-2b07-4544-8d70-37232840e2d5")
 public enum TileType {
     Empty(EmptyTile.class),
     Breakable(BreakableTile.class),

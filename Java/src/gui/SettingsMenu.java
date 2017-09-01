@@ -14,51 +14,37 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Menu des paramètres
  */
-@objid ("ec66d53e-766d-4339-8432-33aa65df6754")
 public class SettingsMenu extends JPanel implements ActionListener {
-    @objid ("70085ad2-6022-49c2-8ad3-25385a796b42")
     private MainWindow mainWindow;
 
-    @objid ("1c93e53f-70bc-4220-abd7-099519fdd730")
     private GameSettings settings;
 
-    @objid ("06a0143e-b990-4704-bfe6-c1ae4c4366ef")
     private JSpinner fps;
 
-    @objid ("e6a26af7-1bfa-4874-a0e5-f8ae778ae431")
     private JSpinner tileSize;
 
-    @objid ("80f3d03e-bdcf-4863-8c9a-14230095343c")
     private JSpinner scale;
 
-    @objid ("d1c40aaa-15fd-40db-805a-048915eadf9c")
     private JTextField name0;
 
-    @objid ("48cd357d-bedf-43bb-92e8-123e37a31bc3")
     private JTextField name1;
 
-    @objid ("6b7250fc-6b45-40e7-8543-506fb861e07d")
     private JTextField name2;
 
-    @objid ("bb4166af-09c1-4aab-8338-65f2f8335ee7")
     private JTextField name3;
 
-    @objid ("4a04b1eb-9087-4e89-8a4b-afcf66f1788c")
     private JButton btnBack;
 
-    @objid ("ca5f7df7-542f-4692-a75e-a1e1d249df36")
     private JCheckBox tags;
 
     /**
      * Construit le menu des paramètres du programme
      * @param mainWindow Fenêtre principale
      */
-    @objid ("5e18fe14-f987-4eae-9a09-f63175dcdf1d")
     public SettingsMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         this.settings = GameSettings.getInstance();
@@ -230,7 +216,6 @@ public class SettingsMenu extends JPanel implements ActionListener {
     /**
      * Met à jour les paramètres
      */
-    @objid ("e613e7a2-75fa-4d80-b621-f10505b7d843")
     private void updateGameSettings() {
         settings.fps = (int) fps.getValue();
         settings.tileSize = (int) tileSize.getValue();
@@ -242,7 +227,6 @@ public class SettingsMenu extends JPanel implements ActionListener {
         settings.controls.get(3).name = name3.getText();
     }
 
-    @objid ("eaad01ae-6b98-4956-96ba-070790e48f6a")
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnBack) {

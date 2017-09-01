@@ -5,23 +5,19 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 import network.Network.CommandMap;
 
 /**
  * Carte avec historique
  */
-@objid ("12a42e28-45db-4083-a2d6-44f180711817")
 public class DeltaMap extends Map {
-    @objid ("8513eb13-92ef-4f66-b5dc-d2b6de90c84b")
      List<CommandMap> deltas = new LinkedList<CommandMap>();
 
     /**
      * Construit une carte avec historique
      * @param tileSize Taille des tuiles
      */
-    @objid ("ba393edb-4bdc-404e-a892-60d26b6d4fe2")
     public DeltaMap(int tileSize) {
         super(tileSize);
     }
@@ -32,55 +28,47 @@ public class DeltaMap extends Map {
      * @param rows Nombre de lignes
      * @param tileSize Taille des tuiles
      */
-    @objid ("b61d4be9-c0fa-4d56-b0c0-99997a3fd7c5")
     public DeltaMap(int columns, int rows, int tileSize) {
         super(tileSize);
         setSize(columns, rows);
     }
 
-    @objid ("e7f0c674-34e5-4026-9500-3e7d5d9dd3e4")
     @Override
     void loadMap(Scanner sc) throws InputMismatchException {
         super.loadMap(sc);
         deltas.add(new CommandMap(CommandMap.Name.loadMap, saveMap()));
     }
 
-    @objid ("f28abebd-0aeb-4aa5-9764-636b33d519a4")
     @Override
     public void setTileType(TileType type, GridCoordinates gc) {
         super.setTileType(type, gc);
         deltas.add(new CommandMap(CommandMap.Name.setTileType, type, new GridCoordinates(gc)));
     }
 
-    @objid ("ccfd115d-f352-4a10-8455-4f0a790be20a")
     @Override
     public void setBonusType(BonusType type, GridCoordinates gc) {
         super.setBonusType(type, gc);
         deltas.add(new CommandMap(CommandMap.Name.setBonusType, type, new GridCoordinates(gc)));
     }
 
-    @objid ("f5a3e8cc-5512-4f72-9c72-44f3c04f8b5e")
     @Override
     public void setArrowDirection(Direction direction, GridCoordinates gc) {
         super.setArrowDirection(direction, gc);
         deltas.add(new CommandMap(CommandMap.Name.setArrowDirection, direction, new GridCoordinates(gc)));
     }
 
-    @objid ("f54dd2fd-cb50-4922-af2f-1b03b84d701a")
     @Override
     void setExplosion(int duration, ExplosionType type, Direction direction, GridCoordinates gc) {
         super.setExplosion(duration, type, direction, gc);
         deltas.add(new CommandMap(CommandMap.Name.setExplosion, duration, type, direction, new GridCoordinates(gc)));
     }
 
-    @objid ("0447ca0d-ad8a-4004-ac97-ea09fd18b70e")
     @Override
     void setExplosionEnd(GridCoordinates gc) {
         super.setExplosionEnd(gc);
         deltas.add(new CommandMap(CommandMap.Name.setExplosionEnd, new GridCoordinates(gc)));
     }
 
-    @objid ("110a446a-967c-4b04-9d81-3dccc8738f46")
     @Override
     void setTile(Tile tile, GridCoordinates gc) {
         if (tiles[gc.x][gc.y] != tile) {
@@ -98,7 +86,6 @@ public class DeltaMap extends Map {
      * @param command Commande à exécuter
      * @param map Map sur laquelle exécuter
      */
-    @objid ("37f96f5b-ab0d-4d97-bf2c-f25c7efdb432")
     public static void executeDelta(CommandMap command, Map map) {
         switch (command.name) {
         case loadMap:
@@ -129,7 +116,6 @@ public class DeltaMap extends Map {
      * @param deltas Historique à charger
      * @param map Carte sur laquelle exécuter
      */
-    @objid ("a389a7b1-e2a5-445c-b765-4950785c76f5")
     public static void executeDeltas(List<CommandMap> deltas, Map map) {
         for (CommandMap command : deltas) {
             executeDelta(command, map);

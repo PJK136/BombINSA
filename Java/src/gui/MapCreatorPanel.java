@@ -40,7 +40,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 import game.Direction;
 import game.GridCoordinates;
@@ -50,24 +49,17 @@ import game.TileType;
 /**
  * Créateur de carte
  */
-@objid ("79589b62-c371-4298-9764-59fe82333d18")
 public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotionListener, ActionListener, ChangeListener {
-    @objid ("c7402902-b98b-4edd-bdc8-fd85d1bff610")
     public static final String MAP_EXTENSION = "map";
 
-    @objid ("7d6f4c24-acd8-4ff0-9039-879bd9a7eef8")
     private boolean isLoading;
 
-    @objid ("a44da426-ce92-44f2-a8bd-cf679893bd77")
     private boolean saved;
 
-    @objid ("6b055ef2-7efa-4cfe-bc18-5b61140d417a")
     private MainWindow mainWindow;
 
-    @objid ("41376f8b-3a86-4de1-b613-3f7ffd0dca79")
     private GameSettings settings;
 
-    @objid ("eff07d4d-ac61-40ee-9ef3-63a075e20b93")
     private GameViewer gameViewer;
 
     private NewAction newAction;
@@ -123,44 +115,32 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     
     private JMenuItem itmHelp;
     
-    @objid ("95094d21-2d75-4c57-8308-9c56f2cc1b29")
     private JButton btnNew;
 
-    @objid ("71a5e56e-3406-4bef-b348-adb5f831b0b6")
     private JButton btnOpen;
 
-    @objid ("234a003d-fede-43dd-a308-31de1c7e1404")
     private JButton btnSave;
 
-    @objid ("a74309a1-8a29-49af-9580-683d214c1d58")
     private JFileChooser fileChooser;
     
     private JButton btnUndo;
     
     private JButton btnRedo;
 
-    @objid ("71b49965-f22b-4c3b-8854-7b6478ecaa51")
     private JLabel lblColumns;
 
-    @objid ("924bdc0a-5fa1-492d-83b1-da05a91172bf")
     private JSpinner columnCount;
 
-    @objid ("38395be1-f6f0-4fa4-93b5-2a36b1ff1e16")
     private JLabel lblRows;
 
-    @objid ("33f032e8-510d-4492-9392-5e231a876963")
     private JSpinner rowCount;
 
-    @objid ("7303354e-0b01-45e3-810b-35c47aeb562f")
     private JLabel lblTiles;
 
-    @objid ("c4e22a4a-9f86-4e90-bbab-53b28a792a2d")
     private ButtonGroup tileTypeGroup;
 
-    @objid ("acd0f57d-4333-48b5-b372-d90eaf606e91")
     private JButton btnReturn;
 
-    @objid ("0557317e-dc8a-4c00-a7a9-e1ed7ce62fa8")
     private Map map;
     
     private File file;
@@ -213,7 +193,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
      * Construit le créateur de carte
      * @param mainWindow Fenêtre principale
      */
-    @objid ("3eb3ee4b-6c57-4bb6-a160-6e58e812f6e2")
     public MapCreatorPanel(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         setLayout(new BorderLayout(0, 0));
@@ -428,7 +407,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     /**
      * Met à jour la taille de l'interface
      */
-    @objid ("d54323e5-69dc-4edd-8f55-4a3c3157f552")
     private void updateUISize() {
         final int size = settings.scale(ICON_SIZE);
         
@@ -509,7 +487,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     /**
      * Crée une nouvelle carte vierge
      */
-    @objid ("b65fa18f-a789-4435-8290-32da712f6f42")
     public void newMap() {
         if (!checkSaved())
             return;
@@ -524,7 +501,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     /**
      * Met à jour l'affichage de la carte
      */
-    @objid ("584fc0de-2056-4b35-92aa-74f1525b0941")
     private void updateMap() {
         gameViewer.drawMap(map);
     }
@@ -532,7 +508,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     /**
      * @return Le type de la tuile actuellement sélectionnée
      */
-    @objid ("a60ab1b5-08e4-4dd7-8ef4-8c20d5a4c37c")
     private TileType getActualType() {
         return TileType.valueOf(tileTypeGroup.getSelection().getActionCommand());
     }
@@ -547,7 +522,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
      * Place une tuile à l'emplacement désignée par la souris
      * @param e Évènement de la souris
      */
-    @objid ("97716585-b324-4d2b-9f0c-a120bcf0b328")
     private void placeTile(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e) == SwingUtilities.isRightMouseButton(e))
             return;
@@ -586,22 +560,18 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         addUndoTask(new PlaceSpawnTask(previous, gc));
     }
 
-    @objid ("02364307-a9ca-449a-8110-2e7ee527d368")
     @Override
     public void mouseClicked(MouseEvent e) {
     }
 
-    @objid ("41e7252e-3fe2-4ef8-89c1-e2026e638132")
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
-    @objid ("fb60a80c-3a92-4752-9afd-d606bbed59f8")
     @Override
     public void mouseExited(MouseEvent e) {
     }
     
-    @objid ("21292e44-21b2-4f77-bd31-c1f442411cab")
     @Override
     public void mousePressed(MouseEvent e) {
         gameViewer.requestFocusInWindow();
@@ -627,23 +597,19 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         }
     }
 
-    @objid ("c8bed0d2-ee70-454d-b575-724198d71c59")
     @Override
     public void mouseReleased(MouseEvent e) {
     }
 
-    @objid ("21696904-e3c3-4b05-8eb7-48db03a86d58")
     @Override
     public void mouseDragged(MouseEvent e) {
         placeTile(e);
     }
 
-    @objid ("c19af884-3588-4b86-85ca-beb0112bafdf")
     @Override
     public void mouseMoved(MouseEvent e) {
     }
 
-    @objid ("2949aafd-f13a-4c7a-a4bc-750ccef814a4")
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == itmBorders)
@@ -674,7 +640,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     /**
      * @return vrai si toutes les modifications ont été sauvegardées ou si l'utilisateur ne veut pas les enregistrer
      */
-    @objid ("0d4a0b27-2c68-4e19-af8c-4959d1c79097")
     public boolean checkSaved() {
         if (saved)
             return true;
@@ -700,7 +665,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     /**
      * Propose à l'utilisateur d'ouvrir un fichier
      */
-    @objid ("2b651672-46d6-4d34-8cb8-b75257bc894e")
     private void openFile() {
         if (!checkSaved())
             return;
@@ -743,7 +707,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
     /**
      * Propose à l'utilisateur d'enregistrer la carte
      */
-    @objid ("769a1578-c2bd-4c61-bcca-133d69c17718")
     private void saveToFile(boolean ask) {
         if (map.getSpawningLocations().isEmpty() &&
                 JOptionPane.showConfirmDialog(this, "Aucun emplacement d'apparition n'a été défini.\n"
@@ -780,7 +743,6 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         }
     }
 
-    @objid ("b1fe0839-7272-4438-b2f9-74963a553532")
     @Override
     public void stateChanged(ChangeEvent e) {
         if (e.getSource() == columnCount || e.getSource() == rowCount) {

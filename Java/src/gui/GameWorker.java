@@ -8,7 +8,6 @@ import java.net.InetAddress;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 import game.AIController;
 import game.Client;
@@ -22,24 +21,17 @@ import game.World;
 /**
  * Classe qui gère l'exécution du jeu 
  */
-@objid ("0352607c-7ee6-4aa1-839f-fc6a174af9fd")
 public class GameWorker implements Runnable, GameListener {
-    @objid ("261a2da6-2f7b-4394-83a1-d38b8510f2cb")
     private boolean stop;
 
-    @objid ("e6c9ac41-77db-49aa-b718-1530b3eebbcd")
     private GameSettings settings;
 
-    @objid ("60d0171f-8216-483d-bb98-ccb1fb946a53")
     private MainWindow mainWindow;
 
-    @objid ("f996874c-1764-42a2-867d-851bf61a9f40")
     private World world;
 
-    @objid ("26747bae-5549-4449-8fc3-6aaccd6d8bf3")
     private GamePanel panel;
 
-    @objid ("0c0b3418-de2f-49f0-91d2-008a02cea763")
     private GameViewer viewer;
 
     /**
@@ -48,7 +40,6 @@ public class GameWorker implements Runnable, GameListener {
      * @param panel Panneau d'affichage du jeu
      * @throws Exception s'il y a une erreur lors du chargement du jeu
      */
-    @objid ("5510e2b1-78a5-4452-a177-88e5ac8f1590")
     public GameWorker(MainWindow mainWindow, GamePanel panel) throws Exception {
         this.settings = GameSettings.getInstance();
         this.mainWindow = mainWindow;
@@ -58,7 +49,6 @@ public class GameWorker implements Runnable, GameListener {
     }
 
     @Override
-    @objid ("57911ebe-31d3-4df2-b871-111cf25912bf")
     public void run() {
         try {
             this.stop = false;
@@ -201,7 +191,6 @@ public class GameWorker implements Runnable, GameListener {
     /**
      * Met fin au jeu
      */
-    @objid ("9f94bd39-ac7e-4e2f-8f19-afc50b48f9ad")
     public void stop() {
         this.stop = true;
     }
@@ -210,7 +199,6 @@ public class GameWorker implements Runnable, GameListener {
      * Crée une partie
      * @throws Exception s'il y a une erreur lors de la création
      */
-    @objid ("b5e7e42e-c73b-4130-bed6-7aa32aa55eb3")
     void createWorld() throws Exception {
         if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox) || settings.gameType.equals(GameType.Server)) {
             
@@ -258,7 +246,6 @@ public class GameWorker implements Runnable, GameListener {
     /**
      * Ajoute des controleurs clavier au jeu
      */
-    @objid ("9ce6b5e0-2241-473b-aafa-77d986bd3027")
     private void addKeyboardControllers() {
         for (int i = 0; i < Math.min(settings.playerCount, settings.controls.size()); i++) {
             KeyboardController kbController = new KeyboardController(settings.controls.get(i));

@@ -21,66 +21,47 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Menu des options d'une partie de jeu
  */
-@objid ("1792b20d-e79e-4f35-8f63-20089eca61f0")
 public class GameMenu extends JPanel implements ActionListener {
-    @objid ("a39767d1-eca3-41c4-85d7-7d0bde3a14cc")
     private MainWindow mainWindow;
 
-    @objid ("0b5dea46-9866-4b4e-9ccb-f30bb706f360")
     private GameSettings settings;
 
-    @objid ("56ed9616-f3e2-4c23-abc7-d31623572af8")
     private JButton btnPlay;
 
-    @objid ("91fe7324-e7a9-4479-9307-8183fa44e192")
     private JButton btnBack;
 
-    @objid ("276bf142-216c-48e8-b35b-b3b22b2bca83")
     private JComboBox<GameType> gameType;
 
-    @objid ("ebe3be16-6c91-4185-ba20-e70709d440fc")
     private JLabel lblIpAddress;
 
-    @objid ("6c5bd0c3-3cdf-4cb1-a9b1-3d89f281d2bb")
     private JTextField ipAddress;
 
-    @objid ("64ebf216-7ad1-4240-aa13-9df4b6de28e0")
     private JLabel lblMaps;
 
-    @objid ("ef8d0d33-3c2b-4e50-92ff-ea79a7776078")
     private JComboBox<String> maps;
 
-    @objid ("6fac6104-5782-4732-9bde-7820184bba18")
     private JSpinner playerCount;
 
-    @objid ("44ad3d3f-4c46-49fa-8722-811c1b65ab9b")
     private JLabel lblAiCount;
 
-    @objid ("0a56b5ff-f7dd-4db3-b7ce-44218221a273")
     private JSpinner aiCount;
 
-    @objid ("0ee42413-3d11-46fb-9f90-07cc6d282350")
     private JLabel lblRoundCount;
 
-    @objid ("e49ecd14-7c49-417a-95cd-2a58b03e06a7")
     private JSpinner roundCount;
 
-    @objid ("32c3be8d-7088-4d56-98ea-b4c79b8240a0")
     private JLabel lblRoundDuration;
 
-    @objid ("0963e96d-06f3-4813-bcde-a4a9cc51afc3")
     private JSpinner roundDuration;
 
     /**
      * Construit le menu des options avant une partie
      * @param mainWindow Fenêtre principale
      */
-    @objid ("9b4377fe-7088-4d49-ac76-20f2e508013d")
     public GameMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         this.settings = GameSettings.getInstance();
@@ -263,7 +244,6 @@ public class GameMenu extends JPanel implements ActionListener {
     /**
      * Met à jour la liste des cartes
      */
-    @objid ("774feb6e-66a6-4fc0-869a-297ed681852b")
     private void updateMapList() {
         maps.removeAllItems();
         
@@ -293,7 +273,6 @@ public class GameMenu extends JPanel implements ActionListener {
     /**
      * Met à jour l'affichage des champs
      */
-    @objid ("35b7bee0-ae68-4ea1-9884-96a447867da6")
     private void updateFields() {
         switch ((GameType)gameType.getSelectedItem()) {
         case Client:
@@ -330,7 +309,6 @@ public class GameMenu extends JPanel implements ActionListener {
     /**
      * Met à jour les paramètres
      */
-    @objid ("d1e9ba38-aebd-4bc4-b6f9-a97681e13fe0")
     private void updateGameSettings() {
         settings.gameType = (GameType) gameType.getSelectedItem();
         settings.ipAddress = ipAddress.getText();
@@ -341,7 +319,6 @@ public class GameMenu extends JPanel implements ActionListener {
         settings.duration = (int) roundDuration.getValue();
     }
 
-    @objid ("3c87a9f3-8dd6-480e-a2ae-5e1534c8c5a2")
     @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == gameType) {

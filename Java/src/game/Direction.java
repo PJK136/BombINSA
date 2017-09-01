@@ -1,9 +1,7 @@
 package game;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /** Représente les directions disponibles pour les joueurs */
-@objid ("4b1f3374-5785-401a-bd35-6347dc31d5a9")
 public enum Direction {
     Right,
     Up,
@@ -16,7 +14,6 @@ public enum Direction {
      * @param d2 la 2è direction
      * @return true si oui, false sinon
      */
-    @objid ("0a70e5cc-0ca6-4f98-b031-b505f443e474")
     public static boolean doHaveSameAxis(Direction d1, Direction d2) {
         if (d1 == null || d2 == null)
             return false;
@@ -34,7 +31,6 @@ public enum Direction {
      * Sélectionne une direction aléatoire
      * @return la direction aléatoire
      */
-    @objid ("f4ed90fa-af83-4ad9-b923-b5d10355cfbc")
     public static Direction getRandomDirection() {
         return values()[(int)(Math.random()*values().length)];
     }

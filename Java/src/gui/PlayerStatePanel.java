@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 import game.Character;
 import game.CharacterAbility;
@@ -17,25 +16,19 @@ import game.Player;
 /**
  * JPanel qui gère l'affichage de l'état d'un joueur 
  */
-@objid ("46db285b-3b47-467c-9f0f-477cd2eb3613")
 public class PlayerStatePanel extends JPanel {
     Player player;
     
     int size;
     
-    @objid ("a93c2a2a-7d08-409f-8eff-a00ecdf4e7ae")
      JLabel lives;
 
-    @objid ("3719b0d6-ed48-4e64-a269-e35145d82253")
      JLabel bombMax;
 
-    @objid ("3a94a784-a738-4e02-ba1d-acc59d9a4fb1")
      JLabel range;
 
-    @objid ("07d17f65-c576-4265-87c8-7e4c20174627")
      JLabel[] abilities;
 
-    @objid ("cc0439d1-6524-42e4-ae85-4fba137c27d9")
      JSeparator separator;
 
     /**
@@ -43,7 +36,6 @@ public class PlayerStatePanel extends JPanel {
      * @param playerID ID du joueur
      * @param size Taille des icônes
      */
-    @objid ("e8dc4fa0-32c2-4b8c-90c6-df91088eba72")
     PlayerStatePanel(Player player, int size) {       
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         
@@ -79,7 +71,6 @@ public class PlayerStatePanel extends JPanel {
      * Met à jour l'état du joueur
      * @param player Joueur
      */
-    @objid ("8536a41a-23a7-444d-8f96-1adeb430eee3")
     void updatePlayerState() {       
         Character character = player.getCharacter();
         

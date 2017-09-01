@@ -11,12 +11,9 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Random;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /** Cette classe gère une partie de type Local */
-@objid ("8d1e22ca-441c-437e-83a3-fee76166baff")
 public class Local extends World {
-    @objid ("f708fe23-9f16-4721-b206-d54749adf7fb")
      String mapFileName = new String();
     
      Random random = new Random();
@@ -25,16 +22,12 @@ public class Local extends World {
      
      public static final int SUDDEN_DEATH_DURATION = 60; //s
 
-    @objid ("bea83389-bb33-4211-97c6-1b6fc49e23eb")
      HashMap<Bomb, Direction> queueKickBomb = new HashMap<>();
 
-    @objid ("a6755987-9eb6-4703-a202-cad2bb6345a4")
      Queue<Character> queueCharacter = new LinkedList<Character>();
 
-    @objid ("8f67b398-0aba-4beb-872c-590118673a03")
      Queue<Bomb> queueBomb = new LinkedList<Bomb>();
 
-    @objid ("d09dce2a-6ccc-4d37-838d-8a1f201d7b56")
      Queue<GridCoordinates> queueBonus = new LinkedList<GridCoordinates>();
 
     /**
@@ -47,7 +40,6 @@ public class Local extends World {
      * @param restTime Durée entre deux rounds en images
      * @throws java.lang.Exception Erreur liée au chargement de la carte
      */
-    @objid ("560005cd-1e82-4dc8-8a17-39d3577463ae")
     public Local(String mapFilename, int tileSize, int fps, int roundMax, int duration, int warmup, int restTime) throws Exception {
         createMap(tileSize);
         loadMap(mapFilename);
@@ -63,7 +55,6 @@ public class Local extends World {
      * Crée une carte
      * @param tileSize taille des tuiles de la carte
      */
-    @objid ("55de5f31-b530-41eb-b641-653b03d061c8")
     void createMap(int tileSize) {
         map = new Map(tileSize);
     }
@@ -73,7 +64,6 @@ public class Local extends World {
      * @param filename Nom du fichier de la carte
      * @throws java.lang.Exception Erreur liée au chargement de la carte
      */
-    @objid ("4164c416-9e5c-461f-a7dc-1758c0f94d36")
     public void loadMap(String filename) throws Exception {
         if (filename == null || filename.isEmpty())
             throw new Exception("Nom de fichier vide");
@@ -92,12 +82,10 @@ public class Local extends World {
     }
 
     @Override
-    @objid ("57eecd7c-87d7-4fb4-933f-3928adf88bf1")
     public Player newPlayer(Controller controller) {
         return newPlayer(controller, players.size()); // Aucun joueur ne peut être enlevé
     }
     
-    @objid ("57eecd7c-87d7-4fb4-933f-3928adf88bf1")
     Player newPlayer(Controller controller, int playerID) {
         Player player = new Player(playerID, controller);
         players.put(playerID, player);
@@ -109,7 +97,6 @@ public class Local extends World {
      * Crée un personnage à partir du joueur
      * @param player le joueur
      */
-    @objid ("3201955a-ab70-48b8-b676-a53ca4da06a7")
     void newCharacter(Player player) {
         if (warmupTimeRemaining <= 0 && (isRoundEnded() || timeRemaining < 0)) //N'ajoute pas de joueur si le jeu est fini ou en mort subite
             return;
@@ -140,7 +127,6 @@ public class Local extends World {
      * - déplace toutes les bombes qui ont étés poussées
      */
     @Override
-    @objid ("15f9ba61-54f9-4783-8bd0-923098e480d7")
     public GameState update() {
         if (warmupTimeRemaining > 0) {
             return super.update();
@@ -258,7 +244,6 @@ public class Local extends World {
     }
     
     @Override
-    @objid ("a193a9c9-e032-4940-953b-5923c9da849e")
     public void nextRound() {
         super.nextRound();
         
@@ -277,25 +262,21 @@ public class Local extends World {
         }
     }
 
-    @objid ("b13fef2c-1897-428c-871d-8a201627e755")
     @Override
     void plantBomb(Character character) {
         queueCharacter.add(character);
     }
 
-    @objid ("d7b25576-cf20-47f5-9a75-9bc74eee10c2")
     @Override
     void createExplosion(Bomb bomb) {
         queueBomb.add(bomb);
     }
 
-    @objid ("1883d42c-f691-41ab-acc6-c37fc049f80c")
     @Override
     void pickUpBonus(double x, double y) {
         queueBonus.add(map.toGridCoordinates(x,y));
     }
 
-    @objid ("cd4f1181-89bd-4537-a370-4d025098310e")
     @Override
     void kickBomb(Bomb bomb, Direction direction) {
         if (queueKickBomb.containsKey(bomb)) {
@@ -306,13 +287,11 @@ public class Local extends World {
             queueKickBomb.put(bomb, direction);
     }
 
-    @objid ("d34bf143-a811-4bcf-abdb-39a06a2b3a43")
     @Override
     public boolean isReady() {
         return true;
     }
 
-    @objid ("493bb64c-48a4-42ed-8eb7-3d1173089dfd")
     @Override
     public boolean isRoundEnded() {
         if (getPlayerCount() == 1) {

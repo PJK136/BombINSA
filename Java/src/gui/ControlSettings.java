@@ -1,29 +1,21 @@
 package gui;
 
 import java.awt.event.KeyEvent;
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Définit les contrôles claviers des Joueurs
  */
-@objid ("a9e520e6-c602-4e73-9fe6-390ff4f5fabb")
 public class ControlSettings {
-    @objid ("ef47dcfe-ed1a-44b1-ab68-df9640e77ce1")
     public int up;
 
-    @objid ("bf2750b4-b25d-457e-8a9c-6e7a52503371")
     public int down;
 
-    @objid ("7d06b6c3-b596-4bac-bc4d-49b9172177c1")
     public int left;
 
-    @objid ("83e8e03e-0b20-43f7-bfb4-08d75c5ac81a")
     public int right;
 
-    @objid ("9f725747-d404-44fa-b88e-dffb549e8f13")
     public int plantBomb;
 
-    @objid ("e181df30-4e8b-41cf-9d1e-ae5d5bc698d9")
     public String name;
     
     /**
@@ -31,7 +23,6 @@ public class ControlSettings {
      * @param i ID des contrôles
      * @return Contrôles au clavier
      */
-    @objid ("948d2cb4-d3f5-4e61-a924-4b263d52c766")
     public static ControlSettings defaultControls(int i) {
         ControlSettings controls = new ControlSettings();
         switch (i) {

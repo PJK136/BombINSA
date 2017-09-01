@@ -5,24 +5,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /** Ce contrôleur est l'intelligence artificielle du jeu */
-@objid ("cbe503f7-eb4d-4747-9547-3001ad190b16")
 public class AIController extends Controller {
     private WorldView world;
     
-    @objid ("b3611ff7-8085-4126-9180-545efad68da8")
     private Direction currentDirection = null;
     
     private int timeElapsedSinceLastShuffle = 0;
 
     private boolean bombingSimulation = false;
     
-    @objid ("946744c7-3ebf-45d8-bab5-f2533cd24562")
     private boolean bombing = false;
 
-    @objid ("6acb90de-974c-4546-a93e-0b8cc35a6bd2")
     private GridCoordinates aiLocation;
     
     private ArrayList<Direction> directions;
@@ -30,7 +25,6 @@ public class AIController extends Controller {
     /**
      * Construit une intelligence artificielle
      */
-    @objid ("3d3cd868-87c6-4b1c-b1b2-335b1d2eb3e3")
     public AIController() {
         setName("IA");
         directions = new ArrayList<Direction>(Arrays.asList(Direction.values()));
@@ -45,7 +39,6 @@ public class AIController extends Controller {
 		bombingSimulation = false;
     }
 
-    @objid ("a6dfdad3-f290-4e15-ba75-694888e5d4c2")
     @Override
     public Direction getDirection() {
         if (!bombing) //Avance que si elle ne pose pas de bombe
@@ -54,7 +47,6 @@ public class AIController extends Controller {
             return null;
     }
 
-    @objid ("9603acc0-4525-461e-a093-393a85378044")
     @Override
     public boolean isPlantingBomb() {
         if (bombing) {
@@ -92,7 +84,6 @@ public class AIController extends Controller {
     /**
      * Met à jour l'intelligence artificielle
      */
-    @objid ("2960c0e0-6a89-4208-87eb-888ae75547e6")
     @Override
     public void update() {
         world = character.getWorldView();
@@ -224,7 +215,6 @@ public class AIController extends Controller {
      * @param target La tuile à vérifier
      * @return true Si la tuile est sécurisée, false sinon
      */
-    @objid ("cc20da1a-09e2-4259-b21e-47277450e318")
     private boolean isSafe(GridCoordinates target) {
         if (world.getMap().isCollidable(target))
             return true;
@@ -261,7 +251,6 @@ public class AIController extends Controller {
      * @param gc les coordonnées de grille de la tuile
      * @return true si oui, false sinon
      */
-    @objid ("83a5286c-60c1-409c-9714-d0a4f224cdf5")
     private boolean isEmpty(GridCoordinates gc) {
         return !world.getMap().isCollidable(gc) && !world.getMap().hasBomb(gc);
     }
@@ -271,7 +260,6 @@ public class AIController extends Controller {
      * @param gc les coordonnées de grille de la tuile
      * @return true si oui, false sinon
      */
-    @objid ("64edb969-c16b-4556-a23e-edffa2de598d")
     private boolean isEmptyAndSafe(GridCoordinates gc) {
         return isEmpty(gc) && isSafe(gc);
     }
@@ -331,7 +319,6 @@ public class AIController extends Controller {
      * Détermine si l'IA peut poser une bombe dans la situation actuelle
      * @return true si oui, false sinon
      */
-    @objid ("abcfe8f8-3507-4b7c-a175-d63eebfae72c")
     private boolean isReadyToBomb() {
         if(character.getBombCount() < character.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation)
         		&& Math.random() < 2./world.getFps() && hasTarget(character.getRange())) {

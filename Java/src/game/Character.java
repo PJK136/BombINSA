@@ -4,32 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 /**
  * Entité joueur
  */
-@objid ("7d9743df-c7cd-4679-9771-fa22b1be441d")
 public class Character extends Entity {
-    @objid ("c10c97b4-7ea2-4021-aff7-4c0b87aac71b")
      int lives;
 
-    @objid ("42154f7e-37fd-4c85-b8bf-440560e7ccdf")
      int bombCount;
 
-    @objid ("b8822ff6-0716-4acf-844b-19ea1d23faa0")
      int bombMax;
 
-    @objid ("0ec9b326-319f-4b00-8ebb-c02b47dc166f")
      int range;
 
-    @objid ("d3e49717-5f5c-49c0-b87a-e6ed29629386")
      List<Boolean> characterAbilities;
 
-    @objid ("efe71f6e-6ac1-4f9a-bb96-98975b970b23")
      int invulnerability;
 
-    @objid ("5b4c8db6-08b3-4215-8a96-4348f89623df")
     public static final double CHARACTER_DEFAULT_SPEED = 4; // tile/sec
     
      transient Player player;
@@ -37,7 +28,6 @@ public class Character extends Entity {
     /**
      * Constructeur Character par défaut
      */
-    @objid ("c346899f-0664-4813-bcc6-157babe0b50f")
     private Character() {
         super(null, 0, 0);
     }
@@ -53,7 +43,6 @@ public class Character extends Entity {
      * @param invulnerability Temps d'invulnérabilité (en nombre de ticks/frames)
      * @param player Joueur contrôlant le personnage
      */
-    @objid ("1c494051-0d17-471a-a273-fd48c48928d7")
     public Character(World world, double x, double y, int lives, int bombMax, int range, int invulnerability, Player player) {
         super(world, x, y);
         setLives(lives);
@@ -74,17 +63,14 @@ public class Character extends Entity {
      * Vérifie si le Joueur est vivant
      * @return boolean
      */
-    @objid ("d8c3c2ca-78cd-4d35-8d4a-df8c6f1cbe55")
     public boolean isAlive() {
         return lives > 0;
     }
 
-    @objid ("007b7078-5eba-4ff5-a413-43e779f00b19")
     public int getLives() {
         return this.lives;
     }
 
-    @objid ("c5f1c15a-e638-4096-9f19-f77708761f51")
     void setLives(int value) {
         if (value >= 0) {
             this.lives = value;
@@ -93,22 +79,18 @@ public class Character extends Entity {
         }
     }
 
-    @objid ("31123492-c96a-4af6-a1df-d35617285e33")
     public int getBombCount() {
         return this.bombCount;
     }
 
-    @objid ("778d6e7d-a16e-44d4-824d-f4ad18670c31")
     void decreaseBombCount() {
         this.bombCount = Math.max(0,this.bombCount-1);
     }
 
-    @objid ("38aca366-45f0-4745-934b-576af97cd356")
     public int getBombMax() {
         return this.bombMax;
     }
 
-    @objid ("c3b45755-91c1-4670-b1a9-c988acb88d59")
     void setBombMax(int value) {
         if (value >= 0) {
             this.bombMax = value;
@@ -117,12 +99,10 @@ public class Character extends Entity {
         }
     }
 
-    @objid ("869e644a-c1c8-4013-937b-a11e9ac05ada")
     public int getRange() {
         return this.range;
     }
 
-    @objid ("14a39b3e-b3ae-42e4-8757-4b67b7d510f6")
     void setRange(int value) {
         if (value >= 0) {
             this.range = value;
@@ -131,22 +111,18 @@ public class Character extends Entity {
         }
     }
 
-    @objid ("671682b3-f854-4f65-8616-a0dee38409f6")
     public List<Boolean> getCharacterAbilities() {
         return Collections.unmodifiableList(this.characterAbilities);
     }
 
-    @objid ("2559d9b8-e592-4923-928b-ebc444992c5c")
     void setCharacterAbilities(List<Boolean> value) {
         this.characterAbilities = value;
     }
 
-    @objid ("1c7621e2-784f-4508-933f-55ea6bea5b83")
     public int getInvulnerability() {
         return this.invulnerability;
     }
 
-    @objid ("3322d7de-cc32-48aa-8dde-e19bf6d5ba0c")
     void setInvulnerability(int value) {
         if (value >= 0) {
             this.invulnerability = value;
@@ -170,7 +146,6 @@ public class Character extends Entity {
         this.player = player;
     }
     
-    @objid ("e2e7b5c2-c647-40b9-b8e3-d980b80dde0d")
     public double getMaxSpeed() {
         double maxSpeed = CHARACTER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
         if (characterAbilities.get(CharacterAbility.MoreSpeed.ordinal()))
@@ -180,7 +155,6 @@ public class Character extends Entity {
         return maxSpeed;
     }
 
-    @objid ("8cb4ed00-b6b9-4918-86a9-6a90e6368f8f")
     void decreaseLives() {
         decreaseLives(1);
     }
@@ -190,37 +164,30 @@ public class Character extends Entity {
         world.fireEvent(GameEvent.Hit);
     }
     
-    @objid ("e0e09e0d-eb13-467a-b35f-235dff6e7fef")
     void increaseBombCount() {
         this.bombCount += 1;
     }
 
-    @objid ("cae42f54-c6d5-484a-a987-2f4d38798b99")
     void decreaseBombMax() {
         this.bombMax = Math.max(1, this.bombMax-1);
     }
 
-    @objid ("875e493f-36d6-4037-b1f4-235ed8b543b0")
     void increaseBombMax() {
         this.bombMax += 1;
     }
 
-    @objid ("0ccac578-1a45-4e1a-828d-56a96c7e7b2a")
     void decreaseRange() {
         this.range = Math.max(1, this.range-1);
     }
 
-    @objid ("6b5d4100-6a50-4fd6-b170-e9f343894c25")
     void increaseRange() {
         this.range += 1;
     }
 
-    @objid ("e1e22784-8fdf-4da6-9c9c-3b900eef4dd6")
     void decreaseInvulnerability() {
         this.invulnerability = Math.max(0, this.invulnerability-1);
     }
 
-    @objid ("4713a141-cd5b-4b52-aed7-d3a781156555")
     void removeShield() {
         this.characterAbilities.set(CharacterAbility.Shield.ordinal(), false);
     }
@@ -229,7 +196,6 @@ public class Character extends Entity {
      * Appelle la méthode canCollide de Entity et vérifie en plus la collision avec les bombes
      */
     @Override
-    @objid ("19e970e7-cbf2-4148-99bc-6828a561f8de")
     boolean canCollide(double x, double y) {
         if (!super.canCollide(x, y)) {
             return !world.getMap().toGridCoordinates(this.x, this.y).equals(world.getMap().toGridCoordinates(x, y))
@@ -248,7 +214,6 @@ public class Character extends Entity {
      * - Vérifie si le Joueur est encore vivant
      */
     @Override
-    @objid ("83716caf-4650-4a93-b6e4-a9f241a25c9c")
     void update() {
         Direction nextDirection = null;
         
@@ -336,7 +301,6 @@ public class Character extends Entity {
     /**
      * Gère les acquisitions de Bonus et Malus puis enlève les Bonus/Malus de la map
      */
-    @objid ("e8cbd4f6-a55d-4030-8e99-752530c9845d")
     private void updateBonusMalus() {
         if(this.world.getMap().getTileType(this.x , this.y) == TileType.Bonus){
             BonusType b = this.world.getMap().getBonusType(this.x, this.y);
@@ -393,7 +357,6 @@ public class Character extends Entity {
         }
     }
 
-    @objid ("0574ac7a-1eb8-4298-ad3f-788efa878621")
     @Override
     void updateFrom(Entity entity) {
         super.updateFrom(entity);
