@@ -317,10 +317,11 @@ public abstract class World implements WorldView {
         round++;
       
         //reinitialize entities
-        for (Entity entity : entities.values())
-            entity.remove();
-        removeEntities(new LinkedList<>(entities.keySet()));
-        entities.clear();
+        if (!entities.isEmpty()) {
+            for (Entity entity : entities.values())
+                entity.remove();
+            removeEntities(new LinkedList<>(entities.keySet()));
+        }
     }
 
     /**
