@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import gui.PlayerColor;
+
 
 /** Ce contrôleur est l'intelligence artificielle du jeu */
 public class AIController extends Controller {
@@ -18,7 +20,7 @@ public class AIController extends Controller {
     
     private boolean bombing = false;
 
-    private GridCoordinates aiLocation;
+    private GridCoordinates aiPosition;
     
     private ArrayList<Direction> directions;
 
@@ -37,6 +39,10 @@ public class AIController extends Controller {
 		currentDirection = null;
 		bombing = false;
 		bombingSimulation = false;
+		if (value.getPlayer() != null) {
+		    PlayerColor[] colors = PlayerColor.values();
+		    setName("IA " + colors[value.getPlayer().getID() % (colors.length - 1)]);
+		}
     }
 
     @Override
@@ -87,7 +93,7 @@ public class AIController extends Controller {
     @Override
     public void update() {
         world = character.getWorldView();
-        aiLocation = world.getMap().toGridCoordinates(character.getX(), character.getY());
+        aiPosition = world.getMap().toGridCoordinates(character.getX(), character.getY());
               
         if (isReadyToBomb()) {
             bombing = true;
@@ -95,7 +101,7 @@ public class AIController extends Controller {
         }
         
         if (currentDirection == null)
-            currentDirection = character.getDirection();
+            setCurrentDirection(character.getDirection());
         
         GridCoordinates nextPosition = nextPosition(currentDirection);
         
@@ -109,23 +115,31 @@ public class AIController extends Controller {
             shuffleDirections();
             if (!turnSafely(10))
                 turnRandomly();
-        } else if (!aiLocation.equals(nextPosition)) {
+        } else if (!aiPosition.equals(nextPosition)) {
             turnSafely(10);
         }
-        
-        if (currentDirection != null) {
+    }
+    
+    private void shuffleDirections() {
+        if (isSafe(aiPosition)) {
+            Collections.shuffle(directions);
+            timeElapsedSinceLastShuffle = 0;
+            updateDirectionList();
+        }
+    }
+    
+    private void setCurrentDirection(Direction direction) {
+        currentDirection = direction;
+        updateDirectionList();
+    }
+    
+    private void updateDirectionList() {
+        if (currentDirection != null && !bombingSimulation) {
             Direction opposite = Direction.getOpposite(currentDirection);
             if (directions.get(directions.size()-1) != opposite) {
                 directions.remove(opposite);
                 directions.add(opposite);
             }
-        }
-    }
-    
-    private void shuffleDirections() {
-        if (isSafe(aiLocation)) {
-            Collections.shuffle(directions);
-            timeElapsedSinceLastShuffle = 0;
         }
     }
     
@@ -153,18 +167,18 @@ public class AIController extends Controller {
             if (nextDirection == exclude)
                 continue;
                 
-            DirectionInfo next = isDirectionSafe(aiLocation, nextDirection, maxStep);
-            if (next.compareTo(safest) > 0) {
+            DirectionInfo next = isDirectionSafe(aiPosition, nextDirection, maxStep);
+            if (next.compareTo(safest, getPriorities()) > 0) {
                 safest = next;
                 direction = nextDirection;
             }
         }
         
-        if ((safest == null || safest.safe <= 0 || safest.step > 1 || safest.badBonus > 0) && isSafe(aiLocation)) {
-            currentDirection = null;
+        if ((safest == null || safest.safe <= 0 || safest.step > 1 || safest.badBonus > 0) && isSafe(aiPosition)) {
+            setCurrentDirection(null);
             return true;
         } else if (safest != null && safest.safe >= minSafe) {
-            currentDirection = direction;
+            setCurrentDirection(direction);
             return true;
         }
         else
@@ -174,7 +188,7 @@ public class AIController extends Controller {
     private void turnRandomly() {
         for (Direction direction : directions) {
             if (currentDirection != direction && !character.isColliding(direction, character.getMaxSpeed())) {
-                currentDirection = direction;
+                setCurrentDirection(direction);
                 return;
             }
         }
@@ -194,8 +208,8 @@ public class AIController extends Controller {
                         timeRemaining = bomb.getTimeRemaining();
                 }
                 
-                if (bombingSimulation && temp.equals(aiLocation)) {
-                    if (GridCoordinates.distance(target, aiLocation) <= character.getRange()) {
+                if (bombingSimulation && temp.equals(aiPosition)) {
+                    if (GridCoordinates.distance(target, aiPosition) <= character.getRange()) {
                         if (timeRemaining == -1)
                             timeRemaining = (int)World.TIME_BEFORE_EXPLOSION*world.getFps();
                         else
@@ -234,8 +248,8 @@ public class AIController extends Controller {
                 if(bomb != null && GridCoordinates.distance(target,temp) <= bomb.getRange())
                     return false;
                 
-                if (bombingSimulation && temp.equals(aiLocation)) {
-                    if (GridCoordinates.distance(target, aiLocation) <= character.getRange())
+                if (bombingSimulation && temp.equals(aiPosition)) {
+                    if (GridCoordinates.distance(target, aiPosition) <= character.getRange())
                         return false;
                 }
                 
@@ -284,7 +298,7 @@ public class AIController extends Controller {
         boolean hitCharacter = false;
         
         for (Direction direction : Direction.values()) {
-        	GridCoordinates position = aiLocation;
+        	GridCoordinates position = aiPosition;
             for (int i = 0; i < range; i++) {
             	position = position.neighbor(direction);
                 if (!world.getMap().isInsideMap(position))
@@ -320,8 +334,11 @@ public class AIController extends Controller {
      * @return true si oui, false sinon
      */
     private boolean isReadyToBomb() {
-        if(character.getBombCount() < character.getBombMax() && world.getTimeRemaining()>0 && isSafe(aiLocation)
-        		&& Math.random() < 2./world.getFps() && hasTarget(character.getRange())) {
+        if (world.getSuddenDeathType() == SuddenDeathType.BOMBS)
+            return false;
+        
+        if(character.getBombCount() < character.getBombMax() && isSafe(aiPosition) &&
+                Math.random() < 2./world.getFps() && hasTarget(character.getRange())) {
             Direction beforeSimulation = currentDirection;
             bombingSimulation = true;
             if (turnSafely(5, 1)) {
@@ -329,19 +346,24 @@ public class AIController extends Controller {
                 return true;
             } else {
                 bombingSimulation = false;
-                currentDirection = beforeSimulation;
+                setCurrentDirection(beforeSimulation);
             }
         }
+        
         return false;
     }
 
-    private static class DirectionInfo implements Comparable<DirectionInfo> {
+    private static class DirectionInfo {
         public int safe = -3;
         public int step = 0;
         public int badBonus = 0;
         public int goodBonus = 0;
         
-        public DirectionInfo() {
+        public static enum Attribute {
+            Safe,
+            Step,
+            BadBonus,
+            GoodBonus
         }
         
         public DirectionInfo(int safe, int step, int badBonus, int goodBonus) {
@@ -351,32 +373,69 @@ public class AIController extends Controller {
             this.goodBonus = goodBonus;
         }
         
-        @Override
-        public int compareTo(DirectionInfo o) {
+        public int compareTo(DirectionInfo o, Attribute[] attributePriority) {
             if (o == null)
                 return 1;
 
-            if (safe < o.safe)
-                return -1;
-            else if (safe > o.safe)
-                return 1;
-            
-            else if (badBonus > o.badBonus)
-                return -1;
-            else if (badBonus < o.badBonus)
-                return 1;
-            
-            else if (step > o.step)
-                return -1;
-            else if (step < o.step)
-                return 1;
-            
-            else if (goodBonus < o.goodBonus)
-                return -1;
-            else if (goodBonus > o.goodBonus)
-                return 1;
+            int ret = 0;
+            for (Attribute a : attributePriority) {
+                ret += compareTo(o, a);
+                if (ret != 0)
+                    return ret;
+            }
             
             return 0;
+        }
+        
+        private int compareTo(DirectionInfo o, Attribute a) {
+            switch (a) {
+            case Safe:
+                if (safe < o.safe)
+                    return -1;
+                else if (safe > o.safe)
+                    return 1;
+                break;
+            case Step:
+                if (step > o.step)
+                    return -1;
+                else if (step < o.step)
+                    return 1;
+                break;
+            case BadBonus:
+                if (badBonus > o.badBonus)
+                    return -1;
+                else if (badBonus < o.badBonus)
+                    return 1;
+                break;
+            case GoodBonus:
+                if (goodBonus < o.goodBonus)
+                    return -1;
+                else if (goodBonus > o.goodBonus)
+                    return 1;
+                break;
+            default:
+                break;
+            }
+            
+            return 0;
+        }
+    }
+    
+    private DirectionInfo.Attribute[] getPriorities() {
+        if (world.getSuddenDeathType() == SuddenDeathType.BOMBS) {
+            return new DirectionInfo.Attribute[] {
+                    DirectionInfo.Attribute.Safe,
+                    DirectionInfo.Attribute.Step,
+                    DirectionInfo.Attribute.BadBonus,
+                    DirectionInfo.Attribute.GoodBonus,
+                    };
+        } else {
+            return new DirectionInfo.Attribute[] {
+                    DirectionInfo.Attribute.Safe,
+                    DirectionInfo.Attribute.BadBonus,
+                    DirectionInfo.Attribute.GoodBonus,
+                    DirectionInfo.Attribute.Step
+                    };
         }
     }
     
@@ -425,7 +484,7 @@ public class AIController extends Controller {
                             continue;
                         
                         DirectionInfo next = isDirectionSafe(nextPosition, nextDirection, maxStep, step+1);
-                        if (next.compareTo(safest) > 0)
+                        if (next.compareTo(safest, getPriorities()) > 0)
                             safest = next;
                     }
                     
