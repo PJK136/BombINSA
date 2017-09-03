@@ -34,6 +34,8 @@ public interface WorldView {
      */
     int getWarmupTimeRemaining();
 
+    SuddenDeathType getSuddenDeathType();
+    
     int getRound();
 
     List<Entity> getEntities();

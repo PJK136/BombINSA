@@ -27,6 +27,8 @@ public abstract class World implements WorldView {
      int round = 0;
 
      int roundMax = 3;
+     
+     SuddenDeathType suddenDeathType = null;
 
     private int nextID = 1;
 
@@ -84,6 +86,11 @@ public abstract class World implements WorldView {
         return restTimeRemaining;
     }
 
+    @Override
+    public SuddenDeathType getSuddenDeathType() {
+        return suddenDeathType;
+    }
+    
     @Override
     public int getRound() {
         return round;
@@ -316,6 +323,8 @@ public abstract class World implements WorldView {
         restTimeRemaining = restTimeDuration;
         round++;
       
+        suddenDeathType = null;
+        
         //reinitialize entities
         if (!entities.isEmpty()) {
             for (Entity entity : entities.values())

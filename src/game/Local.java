@@ -18,8 +18,6 @@ public class Local extends World {
     
      Random random = new Random();
      
-     SuddenDeathType suddenDeath = null;
-     
      public static final int SUDDEN_DEATH_DURATION = 60; //s
 
      HashMap<Bomb, Direction> queueKickBomb = new HashMap<>();
@@ -149,12 +147,12 @@ public class Local extends World {
             }
             
             if(state == GameState.SuddenDeath) {
-                if (suddenDeath == null) {
+                if (suddenDeathType == null) {
                     SuddenDeathType[] types = SuddenDeathType.values();
-                    suddenDeath = types[random.nextInt(types.length)];
+                    suddenDeathType = types[random.nextInt(types.length)];
                 }
                 
-                if (suddenDeath == SuddenDeathType.BOMBS) {
+                if (suddenDeathType == SuddenDeathType.BOMBS) {
                     int interval = (SUDDEN_DEATH_DURATION*fps+timeRemaining)/120;
                     if (interval <= 0 || timeRemaining % interval == 0) {
                         boolean bombPlanted = false;
@@ -167,7 +165,7 @@ public class Local extends World {
                             }
                         }
                     }
-                } else if (suddenDeath == SuddenDeathType.WALLS) {
+                } else if (suddenDeathType == SuddenDeathType.WALLS) {
                     updateSuddenDeathWalls();
                 }
             }
@@ -236,7 +234,6 @@ public class Local extends World {
     void newRound() {
         super.newRound();
 
-        suddenDeath = null;
         queueCharacter.clear();
         queueBomb.clear();
         queueBonus.clear();

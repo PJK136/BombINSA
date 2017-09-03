@@ -93,6 +93,9 @@ public class Server extends Local implements Listener {
         } else if (!isRoundEnded() && timeRemaining % fps == 0)
             network.sendToAllUDP(new TimeRemaining(timeRemaining));
         
+        if (timeRemaining == 0)
+            network.sendToAllTCP(suddenDeathType);
+        
         if (!hasEnded) {
             if (timeRemaining % (fps/UPDATE_RATE) == 0 || isRoundEnded()) {              
                 List<Entity> updates = getEntities();
@@ -155,7 +158,7 @@ public class Server extends Local implements Listener {
      */
     public GameInfo getGameInfo() {
         return new GameInfo(fps, duration, timeRemaining, warmupDuration, warmupTimeRemaining,
-                            restTimeDuration, restTimeRemaining, round, roundMax, map.getTileSize(), map.saveMap());
+                            restTimeDuration, restTimeRemaining, round, roundMax, suddenDeathType, map.getTileSize(), map.saveMap());
     }
     
     private PlayerInfo getPlayerInfo(Player player) {

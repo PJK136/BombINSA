@@ -17,6 +17,7 @@ import game.Entity;
 import game.ExplosionType;
 import game.GridCoordinates;
 import game.Player;
+import game.SuddenDeathType;
 import game.TileType;
 
 /**
@@ -56,6 +57,7 @@ public class Network {
         kryo.register(ControllerUpdate.class);
         kryo.register(TimeRemaining.class);
         kryo.register(WarmupTimeRemaining.class);
+        kryo.register(SuddenDeathType.class);
         kryo.register(RoundEnded.class);
         kryo.register(NextRound.class);
         kryo.register(EntityToRemove.class);

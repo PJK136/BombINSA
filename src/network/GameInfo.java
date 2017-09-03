@@ -1,5 +1,6 @@
 package network;
 
+import game.SuddenDeathType;
 
 /**
  * Cette classe contient des informations sur une partie
@@ -22,6 +23,8 @@ public class GameInfo {
     public int round;
     
     public int roundMax;
+    
+    public SuddenDeathType suddenDeathType;
 
     public int tileSize;
 
@@ -45,7 +48,7 @@ public class GameInfo {
      * @param map Carte sérialisée
      */
     public GameInfo(int fps, int duration, int timeRemaining, int warmupDuration, int warmupTimeRemaining,
-            int restTimeDuration, int restTimeRemaining, int round, int roundMax, int tileSize, String map) {
+            int restTimeDuration, int restTimeRemaining, int round, int roundMax, SuddenDeathType suddenDeathType, int tileSize, String map) {
         this.fps = fps;
         this.duration = duration;
         this.timeRemaining = timeRemaining;
@@ -55,6 +58,7 @@ public class GameInfo {
         this.restTimeRemaining = restTimeRemaining;
         this.round = round;
         this.roundMax = roundMax;
+        this.suddenDeathType = suddenDeathType;
         this.tileSize = tileSize;
         this.map = map;
     }

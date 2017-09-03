@@ -228,6 +228,7 @@ public class Client extends World implements Listener {
             this.restTimeRemaining = info.restTimeRemaining;
             this.round = info.round;
             this.roundMax = info.roundMax;
+            this.suddenDeathType = info.suddenDeathType;
             this.map.setTileSize(info.tileSize);
             this.map.loadMap(info.map);
             
@@ -236,7 +237,7 @@ public class Client extends World implements Listener {
             
             init = true;
             
-            if (timeRemaining <= 0)
+            if (info.suddenDeathType != null)
                 suddenDeath = true;
         } else if (init)
             messages.offer(object);
@@ -287,13 +288,12 @@ public class Client extends World implements Listener {
                 }
             }
         } else if (object instanceof TimeRemaining) {
-            int newTime = ((TimeRemaining)object).timeRemaining;
-            if (timeRemaining > 1 && newTime <= 0)
-                suddenDeath = true;
-            
-            timeRemaining = newTime;
+            timeRemaining = ((TimeRemaining)object).timeRemaining;
         } else if (object instanceof WarmupTimeRemaining) {
             warmupTimeRemaining = ((WarmupTimeRemaining)object).warmupTimeRemaining;
+        } else if (object instanceof SuddenDeathType) {
+            suddenDeathType = (SuddenDeathType) object;
+            suddenDeath = true;
         } else if (object instanceof RoundEnded) {
             roundEnded = true;
             winner = (RoundEnded) object;
