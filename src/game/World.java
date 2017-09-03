@@ -316,7 +316,9 @@ public abstract class World implements WorldView {
         restTimeRemaining = restTimeDuration;
         round++;
       
-        //reinitialize entities 
+        //reinitialize entities
+        for (Entity entity : entities.values())
+            entity.remove();
         removeEntities(new LinkedList<>(entities.keySet()));
         entities.clear();
     }

@@ -302,8 +302,11 @@ public class Client extends World implements Listener {
             nextRound();
         } else if (object instanceof EntityToRemove) {
             EntityToRemove toRemove = (EntityToRemove)object;
-            for (Integer id : toRemove.toRemove)
-                entities.remove(id);
+            for (Integer id : toRemove.toRemove) {
+                Entity entity = entities.get(id);
+                if (entity != null)
+                    entity.remove();
+            }
         } else if (object instanceof PlayerToRemove) {
             PlayerToRemove toRemove = (PlayerToRemove)object;
             for (Integer id : toRemove.toRemove)
