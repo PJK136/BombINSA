@@ -12,8 +12,7 @@ public enum PlayerColor {
     Pink ("Rose", Color.pink),
     Turquoise ("Turquoise", Color.cyan),
     Orange ("Orange", Color.orange),
-    Purple ("Violet", Color.magenta),
-    Gray ("Gris", Color.gray);
+    Purple ("Violet", Color.magenta);
 
     private String name;
 

@@ -18,11 +18,14 @@ public class CharacterSprite {
      * @param color Couleur du jouer
      */
     public CharacterSprite(PlayerColor color) {
+        String colorName = "gray";
+        if (color != null)
+            colorName = color.name().toLowerCase();
         SpriteFactory factory = SpriteFactory.getInstance();
-        this.standing = factory.getOrientedSprite("bomberMan_"+color.name().toLowerCase());
+        this.standing = factory.getOrientedSprite("bomberMan_"+colorName);
         this.moving = new OrientedSprite[TOTAL_MOVES];
         for (int i = 0; i < TOTAL_MOVES; i++)
-            this.moving[i] = factory.getOrientedSprite("bomberMan_"+color.name().toLowerCase()+"_moving"+i);
+            this.moving[i] = factory.getOrientedSprite("bomberMan_"+colorName+"_moving"+i);
     }
 
     /**

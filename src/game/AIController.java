@@ -41,7 +41,7 @@ public class AIController extends Controller {
 		bombingSimulation = false;
 		if (value.getPlayer() != null) {
 		    PlayerColor[] colors = PlayerColor.values();
-		    setName("IA " + colors[value.getPlayer().getID() % (colors.length - 1)]);
+		    setName("IA " + colors[value.getPlayer().getID() % colors.length]);
 		}
     }
 

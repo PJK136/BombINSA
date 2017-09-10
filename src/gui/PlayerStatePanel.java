@@ -101,7 +101,7 @@ public class PlayerStatePanel extends JPanel {
         SpriteFactory factory = SpriteFactory.getInstance();
         
         PlayerColor[] colors = PlayerColor.values();
-        int color = player.getID() % (colors.length-1);
+        int color = player.getID() % colors.length;
         String bombermanIcon = "bomberMan_"+colors[color].name().toLowerCase();
         lives.setIcon(factory.getImageIcon(bombermanIcon, size));
         MainWindow.setFontSize(lives, size);

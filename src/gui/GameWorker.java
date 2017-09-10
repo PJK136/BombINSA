@@ -8,7 +8,6 @@ import java.net.InetAddress;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-
 import game.AIController;
 import game.Client;
 import game.GameEvent;

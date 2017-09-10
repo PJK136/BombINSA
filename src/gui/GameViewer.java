@@ -57,8 +57,10 @@ public class GameViewer extends JPanel {
     private Sprite[] tiles;
 
     private Sprite[] bonuses;
-
+   
     private CharacterSprite[] players;
+    
+    private CharacterSprite defaultPlayer;
 
     private Sprite[] bombs;
 
@@ -89,6 +91,8 @@ public class GameViewer extends JPanel {
         players = new CharacterSprite[PlayerColor.values().length];
         for (PlayerColor color : PlayerColor.values())
             players[color.ordinal()] = new CharacterSprite(color);
+        
+        defaultPlayer = new CharacterSprite(null);
         
         bombs = new Sprite[2];
         {
@@ -290,7 +294,7 @@ public class GameViewer extends JPanel {
             }
         }
         
-        final int colorCount = PlayerColor.values().length - 1; //On enlève le gris
+        final int colorCount = PlayerColor.values().length;
         //Dessine les joueurs ensuite
         for (Entity entity : worldView.getEntities()) {
             if (entity instanceof Character) {
@@ -298,14 +302,14 @@ public class GameViewer extends JPanel {
                 if (worldView.getWarmupTimeRemaining() != 0 || invulnerability == 0 ||
                     invulnerability % (2*HIT_BLINK_INTERVAL*worldView.getFps()) >= HIT_BLINK_INTERVAL*worldView.getFps()) {
                     
-                    int color = PlayerColor.Gray.ordinal();
+                    CharacterSprite sprite = defaultPlayer;
                     if (((Character)entity).getPlayer() != null && ((Character)entity).getPlayer().getID() >= 0)
-                        color = ((Character)entity).getPlayer().getID() % colorCount;
+                        sprite = players[((Character)entity).getPlayer().getID() % colorCount];
                     
                     if (entity.getSpeed() == 0.)
-                        drawEntity(g, entity, players[color].getStandingPlayer(entity.getDirection()));
+                        drawEntity(g, entity, sprite.getStandingPlayer(entity.getDirection()));
                     else
-                        drawEntity(g, entity, players[color].getMovingPlayer(entity.getDirection(), 10*Math.abs(worldView.getTimeRemaining())/worldView.getFps()%2));
+                        drawEntity(g, entity, sprite.getMovingPlayer(entity.getDirection(), 10*Math.abs(worldView.getTimeRemaining())/worldView.getFps()%2));
                 }
             }
         }
@@ -361,6 +365,8 @@ public class GameViewer extends JPanel {
         
         for (CharacterSprite sprite : players)
             sprite.setSize(size);
+        
+        defaultPlayer.setSize(size);
         
         cacheTileSize = size;
     }
