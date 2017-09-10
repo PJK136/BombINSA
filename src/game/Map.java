@@ -485,7 +485,7 @@ public class Map implements MapView {
                 iterator.remove();
             } else {
                 GridCoordinates pos = toGridCoordinates(entity.x, entity.y);
-                if((gc.x != pos.x) || (gc.y != pos.y)){
+                if (!gc.equals(pos)) {
                     //parcours les entités et déplace puis remove celles qui sont pas dans la bonne case
                     tiles[pos.x][pos.y].addEntity(entity);
                     iterator.remove();
