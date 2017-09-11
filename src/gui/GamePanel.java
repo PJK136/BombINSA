@@ -147,10 +147,10 @@ public class GamePanel extends JPanel implements ActionListener {
 
         updateTimeRemaining(view, size);
         if (btnExit.getIcon() == null || btnExit.getIcon().getIconHeight() != size) {
-            MainWindow.setFontSize(lblType, size);
-            MainWindow.setFontSize(type, size);
-            MainWindow.setFontSize(lblMap, size);
-            MainWindow.setFontSize(map, size);
+            MainWindow.setFontSize(lblType, size*3/4);
+            MainWindow.setFontSize(type, size*3/4);
+            MainWindow.setFontSize(lblMap, size*3/4);
+            MainWindow.setFontSize(map, size*3/4);
 
             spacer1.setPreferredSize(new Dimension(size/2, size));
             spacer2.setPreferredSize(new Dimension(size/2, size));
