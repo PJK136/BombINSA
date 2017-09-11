@@ -15,9 +15,9 @@ import java.util.Random;
 /** Cette classe gère une partie de type Local */
 public class Local extends World {
      String mapFileName = new String();
-    
+
      Random random = new Random();
-     
+
      public static final int SUDDEN_DEATH_DURATION = 60; //s
 
      HashMap<Bomb, Direction> queueKickBomb = new HashMap<>();
@@ -65,7 +65,7 @@ public class Local extends World {
     public void loadMap(String filename) throws Exception {
         if (filename == null || filename.isEmpty())
             throw new Exception("Nom de fichier vide");
-        
+
         try {
             map.loadMap(Paths.get(filename));
         } catch (IOException e) {
@@ -75,7 +75,12 @@ public class Local extends World {
             else
                 throw new Exception("Impossible de charger " + filename);
         }
-        
+
+        if (filename.endsWith(".map"))
+            map.setName(filename.substring(0, filename.length() - 4));
+        else
+            map.setName(filename);
+
         mapFileName = filename;
     }
 
@@ -83,7 +88,7 @@ public class Local extends World {
     public Player newPlayer(Controller controller) {
         return newPlayer(controller, players.size()); // Aucun joueur ne peut être enlevé
     }
-    
+
     Player newPlayer(Controller controller, int playerID) {
         Player player = new Player(playerID, controller);
         players.put(playerID, player);
@@ -98,10 +103,10 @@ public class Local extends World {
     void newCharacter(Player player) {
         if (warmupTimeRemaining <= 0 && (isRoundEnded() || timeRemaining < 0)) //N'ajoute pas de joueur si le jeu est fini ou en mort subite
             return;
-        
+
         if (map.spawningLocations.size() == 0)
             return;
-        
+
         int spawnIndex = getCharacterCount() % map.spawningLocations.size();
         Character character = new Character(this,
                                    map.toCenterX(map.spawningLocations.get(spawnIndex)),
@@ -111,7 +116,7 @@ public class Local extends World {
                                    START_RANGE,
                                    (int)(START_INVULNERABITY_DURATION*fps),
                                    player);
-        
+
         player.setCharacter(character);
         addEntity(character);
     }
@@ -129,29 +134,29 @@ public class Local extends World {
         if (warmupTimeRemaining > 0) {
             return super.update();
         }
-        
+
         GameState state = super.update();
-        
+
         if (state == GameState.Playing || state == GameState.SuddenDeath) {
             //sudden death case
             if (timeRemaining == 0) {
                 for (Entity entity : entities.values()) {
                     if (entity.toRemove)
                         continue;
-                    
+
                     if (entity instanceof Character) {
                         ((Character)entity).setLives(1);
                         ((Character)entity).removeShield();
                     }
                 }
             }
-            
+
             if(state == GameState.SuddenDeath) {
                 if (suddenDeathType == null) {
                     SuddenDeathType[] types = SuddenDeathType.values();
                     suddenDeathType = types[random.nextInt(types.length)];
                 }
-                
+
                 if (suddenDeathType == SuddenDeathType.BOMBS) {
                     int interval = (SUDDEN_DEATH_DURATION*fps+timeRemaining)/120;
                     if (interval <= 0 || timeRemaining % interval == 0) {
@@ -169,26 +174,26 @@ public class Local extends World {
                     updateSuddenDeathWalls();
                 }
             }
-            
+
             //update of the new bombs
             for(Character character : queueCharacter){
                 addEntity(new Bomb(this, character, (int)(TIME_BEFORE_EXPLOSION*fps)));
             }
-            
+
             //update of the bonus
             for(GridCoordinates bonus : queueBonus){
                 map.setTileType(TileType.Empty,bonus);
             }
-               
+
             //update of the bombs explosions
             for(Bomb bomb : queueBomb){
                 //locate center of the bomb impact
                 GridCoordinates bombGC = map.toGridCoordinates(bomb.getX(), bomb.getY());
                 GridCoordinates explosionGC = new GridCoordinates(bombGC);
-                
+
                 if (map.isExplodable(explosionGC)) {
                     map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Center, null, explosionGC);
-                
+
                     for (Direction direction : Direction.values()) {
                         explosionGC = bombGC;
                         GridCoordinates nextGC = bombGC.neighbor(direction);
@@ -204,7 +209,7 @@ public class Local extends World {
                     }
                 }
             }
-            
+
             //Update kicks
             for (Entry<Bomb, Direction> entry : queueKickBomb.entrySet()) {
                 if (entry.getValue() != null) {
@@ -212,21 +217,21 @@ public class Local extends World {
                     entry.getKey().setSpeed(Bomb.BOMB_DEFAULT_SPEED*map.getTileSize()/getFps());
                 }
             }
-            
-            if(!queueBomb.isEmpty()){  
+
+            if(!queueBomb.isEmpty()){
                 fireEvent(GameEvent.Explosion);
             }
             if(!queueBonus.isEmpty()){
                 fireEvent(GameEvent.PickUp);
             }
-            
+
             //clearing all the queue lists
             queueCharacter.clear();
             queueBomb.clear();
             queueBonus.clear();
             queueKickBomb.clear();
         }
-        
+
         return state;
     }
 
@@ -239,18 +244,18 @@ public class Local extends World {
         queueBonus.clear();
         queueKickBomb.clear();
     }
-    
+
     @Override
     public void nextRound() {
         super.nextRound();
-        
+
         //reload map
         try {
             loadMap(mapFileName);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-        
+
         //renew players
         List<Player> playerList = getPlayers();
         Collections.shuffle(playerList);
@@ -317,36 +322,36 @@ public class Local extends World {
         else
             return getCharacters().get(0).getPlayer().getID();
     }
-    
+
 
     public void updateSuddenDeathWalls() {
         final int interval = (SUDDEN_DEATH_DURATION*fps)/(map.getColumnCount()*map.getRowCount());
         if (timeRemaining % interval != 0)
             return;
-        
+
         for (GridCoordinates start = new GridCoordinates();
                 start.x != map.getColumnCount()-start.x && start.y != map.getRowCount()-start.y;
                 start.x++, start.y++) {
             GridCoordinates gc = new GridCoordinates(start);
-            
+
             for (; gc.x < map.getColumnCount()-start.x; gc.x++) {
                 if (makeWall(gc))
                     return;
             }
             gc.x--;
-            
+
             for (; gc.y < map.getRowCount()-start.y; gc.y++) {
                 if (makeWall(gc))
                     return;
             }
             gc.y--;
-            
+
             for (; gc.x >= start.x; gc.x--) {
                 if (makeWall(gc))
                     return;
             }
             gc.x++;
-            
+
             for (; gc.y > start.y; gc.y--) {
                 if (makeWall(gc))
                     return;
@@ -357,17 +362,17 @@ public class Local extends World {
 
     private boolean makeWall(GridCoordinates gc) {
         if (map.getTileType(gc) == TileType.Unbreakable)
-            return false; 
-        
+            return false;
+
         for (Entity entity : map.getEntities(gc)) {
             if (entity instanceof Character)
                 ((Character) entity).decreaseLives(((Character) entity).getLives());
-            
+
             entity.remove();
         }
-        
+
         map.setTileType(TileType.Unbreakable, gc);
         return true;
     }
-    
+
 }

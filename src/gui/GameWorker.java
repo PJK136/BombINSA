@@ -71,10 +71,9 @@ public class GameWorker implements Runnable, GameListener {
             else if (world instanceof Local)
                 SwingUtilities.invokeLater(() -> panel.setType("Local"));
             else if (world instanceof Client)
-                SwingUtilities.invokeLater(() -> panel.setType("Client"));
+                SwingUtilities.invokeLater(() -> panel.setType("Client @ " + ((Client)world).getInetAddress().toString()));
 
-            if (!(world instanceof Client))
-                SwingUtilities.invokeLater(() -> panel.setMap(settings.mapName));
+            SwingUtilities.invokeLater(() -> panel.setMap(world.getMap().getName()));
 
             while (!stop && world.update() != GameState.End) {
                 SwingUtilities.invokeLater(() -> panel.showGameStatus(world));

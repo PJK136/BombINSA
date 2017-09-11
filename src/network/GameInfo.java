@@ -15,18 +15,20 @@ public class GameInfo {
     public int warmupDuration;
 
     public int warmupTimeRemaining;
-    
+
     public int restTimeDuration;
-    
+
     public int restTimeRemaining;
 
     public int round;
-    
+
     public int roundMax;
-    
+
     public SuddenDeathType suddenDeathType;
 
     public int tileSize;
+
+    public String mapName;
 
     public String map;
 
@@ -48,7 +50,8 @@ public class GameInfo {
      * @param map Carte sérialisée
      */
     public GameInfo(int fps, int duration, int timeRemaining, int warmupDuration, int warmupTimeRemaining,
-            int restTimeDuration, int restTimeRemaining, int round, int roundMax, SuddenDeathType suddenDeathType, int tileSize, String map) {
+            int restTimeDuration, int restTimeRemaining, int round, int roundMax, SuddenDeathType suddenDeathType,
+            int tileSize, String mapName, String map) {
         this.fps = fps;
         this.duration = duration;
         this.timeRemaining = timeRemaining;
@@ -60,6 +63,7 @@ public class GameInfo {
         this.roundMax = roundMax;
         this.suddenDeathType = suddenDeathType;
         this.tileSize = tileSize;
+        this.mapName = mapName;
         this.map = map;
     }
 

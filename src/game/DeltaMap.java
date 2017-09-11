@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-
 import network.Network.CommandMap;
 
 /**
@@ -31,6 +30,12 @@ public class DeltaMap extends Map {
     public DeltaMap(int columns, int rows, int tileSize) {
         super(tileSize);
         setSize(columns, rows);
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+        deltas.add(new CommandMap(CommandMap.Name.setName, name));
     }
 
     @Override
@@ -88,6 +93,9 @@ public class DeltaMap extends Map {
      */
     public static void executeDelta(CommandMap command, Map map) {
         switch (command.name) {
+        case setName:
+            map.setName((String)command.args[0]);
+            break;
         case loadMap:
             map.loadMap((String)command.args[0]);
             break;

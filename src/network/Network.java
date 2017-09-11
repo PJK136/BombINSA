@@ -48,7 +48,7 @@ public class Network {
         kryo.register(Character.class);
         kryo.register(CharacterAbility.class);
         kryo.register(Bomb.class);
-        
+
         kryo.register(GameInfo.class);
         kryo.register(PlayerInfo.class);
         kryo.register(EntityPlayer.class);
@@ -82,6 +82,7 @@ public class Network {
         }
 
         public enum Name {
+            setName,
             loadMap,
             setTileType,
             setBonusType,
@@ -91,7 +92,7 @@ public class Network {
         }
 
     }
-    
+
     public static class PlayerInfo {
         public Player player;
         public String name;
@@ -106,14 +107,14 @@ public class Network {
             this.entityId = entityId;
         }
     }
-    
+
     public static class EntityPlayer {
         public int entityId;
         public int playerId;
-        
+
         public EntityPlayer() {
         }
-        
+
         public EntityPlayer(int entityId, int playerId) {
             this.entityId = entityId;
             this.playerId = playerId;
@@ -131,7 +132,7 @@ public class Network {
         }
 
     }
-    
+
     public static class ControllerPlayer {
         public int controllerId;
 
@@ -163,7 +164,7 @@ public class Network {
             this.bombing = controller.isPlantingBomb();
         }
 
-    }    
+    }
 
     public static class TimeRemaining {
         public int timeRemaining;
@@ -205,7 +206,7 @@ public class Network {
         }
 
     }
-    
+
     public static class PlayerToRemove {
         public ArrayList<Integer> toRemove;
 
@@ -226,10 +227,10 @@ public class Network {
     public static class RoundEnded {
         public String winnerName;
         public int winnerID;
-        
+
         public RoundEnded() {
         }
-        
+
         public RoundEnded(String winnerName, int winnerID) {
             this.winnerName = winnerName;
             this.winnerID = winnerID;
@@ -242,10 +243,10 @@ public class Network {
     public static class EntityUpdateList {
         public int timestamp;
         public ArrayList<Entity> entities;
-        
+
         public EntityUpdateList() {
         }
-        
+
         public EntityUpdateList(int timestamp, List<Entity> entities) {
             this.timestamp = timestamp;
             this.entities = new ArrayList<>(entities);
