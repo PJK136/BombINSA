@@ -18,7 +18,7 @@ import game.Server;
 import game.World;
 
 /**
- * Classe qui gère l'exécution du jeu 
+ * Classe qui gère l'exécution du jeu
  */
 public class GameWorker implements Runnable, GameListener {
     private boolean stop;
@@ -51,26 +51,35 @@ public class GameWorker implements Runnable, GameListener {
     public void run() {
         try {
             this.stop = false;
-            
+
             while (!stop && !world.isReady()) {
                 Thread.sleep(1000/settings.fps, 0);
             }
-            
+
             final long timeStep = 1000000000/world.getFps();
-                                        
+
             long offset = 0;
             long start = System.nanoTime();
-            
+
             //int frame = 0;
             //long lastDisplay = System.nanoTime();
-            
+
             boolean adjustWindowSize = true;
-            
-            while (!stop && world.update() != GameState.End)
-            {          
+
+            if (world instanceof Server)
+                SwingUtilities.invokeLater(() -> panel.setType("Serveur"));
+            else if (world instanceof Local)
+                SwingUtilities.invokeLater(() -> panel.setType("Local"));
+            else if (world instanceof Client)
+                SwingUtilities.invokeLater(() -> panel.setType("Client"));
+
+            if (!(world instanceof Client))
+                SwingUtilities.invokeLater(() -> panel.setMap(settings.mapName));
+
+            while (!stop && world.update() != GameState.End) {
                 SwingUtilities.invokeLater(() -> panel.showGameStatus(world));
                 viewer.drawWorld(world);
-                
+
                 if (adjustWindowSize) {
                     SwingUtilities.invokeAndWait(() -> {
                         Insets insets = viewer.getInsets();
@@ -79,7 +88,7 @@ public class GameWorker implements Runnable, GameListener {
                         preferredSize.height = world.getMap().getRowCount()*settings.scale(settings.tileSize)+insets.top+insets.bottom;
                         viewer.setPreferredSize(preferredSize);
                     });
-                    
+
                     if (viewer.getScaleFactor() < 1) {
                         SwingUtilities.invokeAndWait(() -> mainWindow.pack());
                         // Laise le temps aux autres composants de s'actualiser
@@ -88,7 +97,7 @@ public class GameWorker implements Runnable, GameListener {
 
                     adjustWindowSize = false;
                 }
-                
+
                 if (world.getWarmupTimeRemaining() > 0) {
                     final String[] messages = new String[]{"Round " + world.getRound(), //Ralongement du temps
                                                            "Round " + world.getRound(), //d'affichage
@@ -99,15 +108,15 @@ public class GameWorker implements Runnable, GameListener {
                     int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
                     if (!messages[i].equals(mainWindow.getMessageShown()))
                         SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black, 1000*world.getWarmupTimeRemaining()/world.getFps()));
-                    
+
                     Audio.getInstance().stop();
                 } else if (world.isRoundEnded()) {
                     if (settings.gameType != GameType.Sandbox) {
                         String message = null;
                         Color color = null;
-                        
+
                         String winnerName = world.getWinnerName();
-                        
+
                         if (winnerName != null) {
                             PlayerColor[] colors = PlayerColor.values();
                             message = winnerName + " gagne !";
@@ -119,11 +128,11 @@ public class GameWorker implements Runnable, GameListener {
                             message = "Égalité !";
                             color = Color.black;
                         }
-                        
+
                         if (!message.equals(mainWindow.getMessageShown())) {
-                            final String x = message; 
+                            final String x = message;
                             final Color y = color;
-                            
+
                             if (world.getRestTimeRemaining() >= 10)
                                 SwingUtilities.invokeLater(() -> mainWindow.showMessage(x, y, 1000*world.getRestTimeRemaining()/world.getFps()));
                             else
@@ -131,17 +140,17 @@ public class GameWorker implements Runnable, GameListener {
                         }
                     }
                 }
-                
+
                 long duration = System.nanoTime() - start;
-                
+
                 if (timeStep-duration-offset > 0) {
                     Thread.sleep((timeStep-duration-offset)/1000000, (int)(timeStep-duration-offset)%1000000);
                 }
-                
+
                 offset += (System.nanoTime() - start) - timeStep;
-                
+
                 start = System.nanoTime();
-                
+
                 /*frame++;
 
                 if (System.nanoTime() - lastDisplay >= 1000000000) {
@@ -150,10 +159,10 @@ public class GameWorker implements Runnable, GameListener {
                     lastDisplay = System.nanoTime();
                 }*/
             }
-            
+
             if (!stop && settings.gameType == GameType.Client && !((Client)world).isConnected())
                 SwingUtilities.invokeAndWait(() -> mainWindow.showMessage("Déconnecté.", Color.darkGray, 5000));
-            
+
             Audio.getInstance().stop();
         } catch (InterruptedException e) {
             //Interrompu
@@ -174,7 +183,7 @@ public class GameWorker implements Runnable, GameListener {
         }
     }
 
-    
+
     @Override
     public void gameChanged(GameEvent e) {
         switch (e) {
@@ -183,10 +192,10 @@ public class GameWorker implements Runnable, GameListener {
             break;
         default:
             break;
-        
+
         }
     }
-    
+
     /**
      * Met fin au jeu
      */
@@ -200,7 +209,7 @@ public class GameWorker implements Runnable, GameListener {
      */
     void createWorld() throws Exception {
         if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox) || settings.gameType.equals(GameType.Server)) {
-            
+
             if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox)) {
                 world = new Local(settings.mapName+".map",
                                   settings.tileSize,
@@ -218,14 +227,14 @@ public class GameWorker implements Runnable, GameListener {
                                    (int)(settings.warmupDuration*settings.fps),
                                    (int)(settings.restTimeDuration*settings.fps));
             }
-            
+
             addKeyboardControllers();
-            
+
             for (int i = 0; i < settings.aiCount; i++) {
                 AIController aiController = new AIController();
                 world.newPlayer(aiController);
             }
-            
+
             if (settings.gameType.equals(GameType.Local) && world.getPlayerCount() <= 1)
                 throw new Exception("Il faut au moins deux joueurs !");
         } else if (settings.gameType.equals(GameType.Client)) {
@@ -237,7 +246,7 @@ public class GameWorker implements Runnable, GameListener {
         } else {
             throw new Exception("Non implémenté !");
         }
-        
+
         world.addGameListener(this);
         world.addGameListener(Audio.getInstance());
     }
