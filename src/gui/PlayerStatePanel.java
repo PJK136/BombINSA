@@ -154,7 +154,7 @@ public class PlayerStatePanel extends JPanel {
             MainWindow.setFontSize(abilities[i], size);
         }
 
-        placeholder = factory.getImageIcon("bonus0", size);
+        placeholder = factory.getImageIcon("noBonus", size);
 
         abilityIcons[CharacterAbility.MoreSpeed.ordinal()] =
                 factory.getImageIcon("moreSpeed", size);
