@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -14,6 +15,7 @@ import java.io.FileNotFoundException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
@@ -28,19 +30,13 @@ public class MainWindow implements WindowListener {
 
     private JFrame frame;
 
-    private JPanel glassPanel;
-    
-    private String message;
-    
-    private Timer messageTimer;
+    private GlassPanel glassPanel;
 
     private GameSettings settings;
 
     private GameWorker gameWorker;
 
     private Thread gameWorkerThread;
-
-    private Color messageColor;
 
     /**
      * Méthode principale main pour lancer le jeu
@@ -62,6 +58,73 @@ public class MainWindow implements WindowListener {
         });
     }
 
+    private class GlassPanel extends JPanel {
+        private String message;
+
+        private Timer messageTimer;
+
+        private Color messageColor;
+
+        private Component target;
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            if (target == null)
+                return;
+
+            setOpaque(false);
+
+            Rectangle dest = SwingUtilities.convertRectangle(target, new Rectangle(0, 0, target.getWidth(), target.getHeight()), this);
+
+            g.setColor(new Color(Color.gray.getRed(), Color.gray.getGreen(), Color.gray.getBlue(), 127));
+            g.fillRect(dest.x, dest.y, dest.width, dest.height);
+            g.setColor(messageColor);
+            g.setFont(g.getFont().deriveFont((float)settings.scale(60.)));
+
+            GameViewer.drawCenteredString(g, message, (int) dest.getCenterX(), (int) dest.getCenterY());
+        }
+
+        private void setMessage(String message, Color color, Component target) {
+            this.message = message;
+            this.messageColor = color;
+            this.target = target;
+            frame.getGlassPane().setVisible(true);
+            frame.repaint();
+        }
+
+        void showMessage(String message, Color color, Component target) {
+            if (glassPanel.messageTimer != null)
+                glassPanel.messageTimer.stop();
+
+            setMessage(message, color, target);
+        }
+
+        public void showMessage(String message, Color color, int duration, Component target) {
+            if (messageTimer == null) {
+                messageTimer = new Timer(duration, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        clear();
+                    }
+                });
+                messageTimer.setRepeats(false);
+            }
+            else
+                messageTimer.stop();
+
+            setMessage(message, color, target);
+
+            messageTimer.setInitialDelay(duration);
+            messageTimer.restart();
+        }
+
+        public void clear() {
+            message = null;
+            target = null;
+            setVisible(false);
+        }
+    }
+
     /**
      * Construit la fenêtre principale
      */
@@ -79,26 +142,16 @@ public class MainWindow implements WindowListener {
         frame.setIconImage(SpriteFactory.getInstance().getScaledImage("bomb", 256));
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(this);
-        
+
         Font defaultFont = settings.scale((Font)UIManager.get("OptionPane.font"));
         for (String font : new String[]{"OptionPane.font", "OptionPane.messageFont", "OptionPane.buttonFont"}) {
             UIManager.put(font, defaultFont);
         }
-        
-        glassPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                setOpaque(false);
-                g.setColor(new Color(Color.gray.getRed(), Color.gray.getGreen(), Color.gray.getBlue(), 127));
-                g.fillRect(0, 0, getWidth(), getHeight());
-                g.setColor(messageColor);
-                g.setFont(g.getFont().deriveFont((float)settings.scale(60.)));
-                GameViewer.drawCenteredString(g, message, getWidth()/2, getHeight()/2);
-            }
-        };
+
+        glassPanel = new GlassPanel();
         glassPanel.setOpaque(false);
         frame.setGlassPane(glassPanel);
-        
+
         showMenu();
     }
 
@@ -111,7 +164,7 @@ public class MainWindow implements WindowListener {
             gameWorker = null;
             gameWorkerThread = null;
         }
-        
+
         setPage(new MainMenu(this));
     }
 
@@ -125,7 +178,7 @@ public class MainWindow implements WindowListener {
             setPage(gamePanel);
             gameWorkerThread = new Thread(gameWorker);
             gameWorkerThread.start();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this.frame,
                                          e.getMessage(),
@@ -159,13 +212,6 @@ public class MainWindow implements WindowListener {
         else
             frame.setTitle("BombINSA - " + suffix);
     }
-    
-    private void setMessage(String message, Color color) {
-        this.message = message;
-        this.messageColor = color;
-        frame.getGlassPane().setVisible(true);
-        frame.repaint();
-    }
 
     /**
      * Affiche un message en semi-transparence avec un fond gris par dessus les autres composants
@@ -173,10 +219,11 @@ public class MainWindow implements WindowListener {
      * @param color Couleur du message
      */
     void showMessage(String message, Color color) {
-        if (messageTimer != null)
-            messageTimer.stop();
-        
-        setMessage(message, color);
+        glassPanel.showMessage(message, color, frame.getContentPane());
+    }
+
+    void showMessage(String message, Color color, Component target) {
+        glassPanel.showMessage(message, color, target);
     }
 
     /**
@@ -186,36 +233,24 @@ public class MainWindow implements WindowListener {
      * @param duration Durée avant effacement en millisecondes
      */
     void showMessage(String message, Color color, int duration) {
-        if (messageTimer == null) {
-            messageTimer = new Timer(duration, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    clearMessage();
-                }
-            });
-            messageTimer.setRepeats(false);
-        }
-        else
-            messageTimer.stop();
-        
-        setMessage(message, color);
-        
-        messageTimer.setInitialDelay(duration);
-        messageTimer.restart();
+        glassPanel.showMessage(message, color, duration, frame.getContentPane());
+    }
+
+    void showMessage(String message, Color color, int duration, Component target) {
+        glassPanel.showMessage(message, color, duration, target);
     }
 
     /**
      * Enlève le message en semi-transparence s'il y en a un
      */
     void clearMessage() {
-        this.message = null;
-        frame.getGlassPane().setVisible(false);
+        glassPanel.clear();
     }
 
     String getMessageShown() {
-        return this.message;
+        return this.glassPanel.message;
     }
-    
+
     void pack() {
         frame.pack();
         frame.revalidate();
@@ -235,13 +270,13 @@ public class MainWindow implements WindowListener {
             if (!((MapCreatorPanel)frame.getContentPane()).checkSaved())
                 return;
         }
-        
+
         frame.dispose();
-        
+
         if (gameWorker != null) {
             gameWorker.stop();
             gameWorker = null;
-            
+
             try {
                 gameWorkerThread.interrupt();
             } catch (SecurityException e) {
@@ -252,16 +287,16 @@ public class MainWindow implements WindowListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-              
+
             gameWorkerThread = null;
         }
-        
+
         try {
             settings.save();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        
+
         System.err.println("Ended !");
     }
 

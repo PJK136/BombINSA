@@ -107,7 +107,7 @@ public class GameWorker implements Runnable, GameListener {
                                                            "Jouez !"};
                     int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
                     if (!messages[i].equals(mainWindow.getMessageShown()))
-                        SwingUtilities.invokeLater(() -> mainWindow.showMessage(messages[i], Color.black, 1000*world.getWarmupTimeRemaining()/world.getFps()));
+                        showMessage(messages[i], Color.black, 1000*world.getWarmupTimeRemaining()/world.getFps());
 
                     Audio.getInstance().stop();
                 } else if (world.isRoundEnded()) {
@@ -134,9 +134,9 @@ public class GameWorker implements Runnable, GameListener {
                             final Color y = color;
 
                             if (world.getRestTimeRemaining() >= 10)
-                                SwingUtilities.invokeLater(() -> mainWindow.showMessage(x, y, 1000*world.getRestTimeRemaining()/world.getFps()));
+                                showMessage(x, y, 1000*world.getRestTimeRemaining()/world.getFps());
                             else
-                                SwingUtilities.invokeLater(() -> mainWindow.showMessage(x, y, 10));
+                                showMessage(x, y, 10);
                         }
                     }
                 }
@@ -161,7 +161,7 @@ public class GameWorker implements Runnable, GameListener {
             }
 
             if (!stop && settings.gameType == GameType.Client && !((Client)world).isConnected())
-                SwingUtilities.invokeAndWait(() -> mainWindow.showMessage("Déconnecté.", Color.darkGray, 5000));
+                showMessage("Déconnecté.", Color.darkGray, 5000);
 
             Audio.getInstance().stop();
         } catch (InterruptedException e) {
@@ -183,12 +183,15 @@ public class GameWorker implements Runnable, GameListener {
         }
     }
 
+    private void showMessage(String message, Color color, int duration) {
+        SwingUtilities.invokeLater(() -> mainWindow.showMessage(message, color, duration, viewer));
+    }
 
     @Override
     public void gameChanged(GameEvent e) {
         switch (e) {
         case SuddenDeath:
-            SwingUtilities.invokeLater(() -> mainWindow.showMessage("Mort subite !", Color.red, 750));
+            showMessage("Mort subite !", Color.red, 750);
             break;
         default:
             break;
