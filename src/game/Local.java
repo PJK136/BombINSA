@@ -3,6 +3,7 @@ package game;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,7 +15,9 @@ import java.util.Random;
 
 /** Cette classe gère une partie de type Local */
 public class Local extends World {
-     String mapFileName = new String();
+     List<String> maps;
+
+     int actualMap = 0;
 
      Random random = new Random();
 
@@ -38,9 +41,10 @@ public class Local extends World {
      * @param restTime Durée entre deux rounds en images
      * @throws java.lang.Exception Erreur liée au chargement de la carte
      */
-    public Local(String mapFilename, int tileSize, int fps, int roundMax, int duration, int warmup, int restTime) throws Exception {
+    public Local(List<String> maps, int tileSize, int fps, int roundMax, int duration, int warmup, int restTime) throws Exception {
+        this.maps = new ArrayList<>(maps);
         createMap(tileSize);
-        loadMap(mapFilename);
+        loadMap(0);
         setFps(fps);
         setRoundMax(roundMax);
         setDuration(duration);
@@ -58,13 +62,12 @@ public class Local extends World {
     }
 
     /**
-     * Charge une carte qui existe déjà
-     * @param filename Nom du fichier de la carte
+     * Charge une carte parmi la liste donnée
+     * @param index Position de la carte dans la liste
      * @throws java.lang.Exception Erreur liée au chargement de la carte
      */
-    public void loadMap(String filename) throws Exception {
-        if (filename == null || filename.isEmpty())
-            throw new Exception("Nom de fichier vide");
+    public void loadMap(int index) throws Exception {
+        String filename = maps.get(index) + ".map";
 
         try {
             map.loadMap(Paths.get(filename));
@@ -76,12 +79,7 @@ public class Local extends World {
                 throw new Exception("Impossible de charger " + filename);
         }
 
-        if (filename.endsWith(".map"))
-            map.setName(filename.substring(0, filename.length() - 4));
-        else
-            map.setName(filename);
-
-        mapFileName = filename;
+        map.setName(maps.get(index));
     }
 
     @Override
@@ -251,7 +249,8 @@ public class Local extends World {
 
         //reload map
         try {
-            loadMap(mapFileName);
+            actualMap = (actualMap+1) % maps.size();
+            loadMap(actualMap);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

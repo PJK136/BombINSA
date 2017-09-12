@@ -211,9 +211,11 @@ public class GameWorker implements Runnable, GameListener {
      */
     void createWorld() throws Exception {
         if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox) || settings.gameType.equals(GameType.Server)) {
+            if (settings.maps.isEmpty())
+                throw new Exception("Il faut sélectionner au moins une carte !");
 
             if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox)) {
-                world = new Local(settings.mapName+".map",
+                world = new Local(settings.maps,
                                   settings.tileSize,
                                   settings.fps,
                                   settings.roundCount,
@@ -221,7 +223,7 @@ public class GameWorker implements Runnable, GameListener {
                                   (int)(settings.warmupDuration*settings.fps),
                                   (int)(settings.restTimeDuration*settings.fps));
             } else {
-                world = new Server(settings.mapName+".map",
+                world = new Server(settings.maps,
                                    settings.tileSize,
                                    settings.fps,
                                    settings.roundCount,

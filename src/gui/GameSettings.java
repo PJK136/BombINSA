@@ -24,7 +24,7 @@ public class GameSettings {
 
     public String ipAddress;
 
-    public String mapName;
+    public List<String> maps;
 
     public int tileSize;
 
@@ -57,7 +57,7 @@ public class GameSettings {
         //Configuration par défaut
         gameType = GameType.Local;
         ipAddress = "";
-        mapName = "default";
+        maps = new ArrayList<>();
         playerCount = 1;
         aiCount = 1;
         roundCount = 1;
@@ -144,18 +144,18 @@ public class GameSettings {
     public void scaleFont(Component component) {
         MainWindow.setFontSize(component, scale(component.getFont().getSize()));
     }
-    
+
     public void scaleFontComponents(Component[] components)
-    {  
+    {
       for (Component component : components) {
           if (component instanceof Container)
               scaleFontComponents(((Container) component).getComponents());
-          
+
           try {
               scaleFont(component);
           } catch (Exception e) {  }
       }
-    }  
+    }
 
     /**
      * @return Une instance des paramètres

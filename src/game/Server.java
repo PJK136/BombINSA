@@ -50,8 +50,8 @@ public class Server extends Local implements Listener {
      * @param warmup Durée du temps d'échauffement en images
      * @throws java.lang.Exception Erreur liée au chargement de la carte
      */
-    public Server(String mapFilename, int tileSize, int fps, int roundMax, int duration, int warmup, int restTime) throws Exception {
-        super(mapFilename, tileSize, fps, roundMax, duration, warmup, restTime);
+    public Server(List<String> maps, int tileSize, int fps, int roundMax, int duration, int warmup, int restTime) throws Exception {
+        super(maps, tileSize, fps, roundMax, duration, warmup, restTime);
 
         timestamp = 0;
 
