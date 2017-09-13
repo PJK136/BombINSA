@@ -168,6 +168,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 pState.setAlignmentX(Component.LEFT_ALIGNMENT);
                 playerStates.put(player, pState);
                 playerStatePanel.add(pState);
+                playerStatePanel.repaint();
             } else
                 pState.updatePlayerState();
         }
@@ -179,6 +180,7 @@ public class GamePanel extends JPanel implements ActionListener {
             if (!playerList.contains(player.getKey())) {
                 playerStatePanel.remove(player.getValue());
                 iterator.remove();
+                playerStatePanel.repaint();
             }
         }
 
