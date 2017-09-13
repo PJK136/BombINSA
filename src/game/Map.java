@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringJoiner;
@@ -301,20 +300,7 @@ public class Map implements MapView {
 
         sc.close();
 
-        List<Entity> entities = new LinkedList<>();
-
-        GridCoordinates gc = new GridCoordinates();
-        for (gc.x = 0; gc.x < getColumnCount(); gc.x++) {
-            for (gc.y = 0; gc.y < getRowCount(); gc.y++) {
-                entities.addAll(tiles[gc.x][gc.y].getEntities());
-            }
-        }
-
         tiles = newTiles;
-
-        for (Entity entity : entities) {
-            addEntity(entity);
-        }
     }
 
     /**

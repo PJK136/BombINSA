@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -27,7 +28,7 @@ public abstract class World implements WorldView {
      int round = 0;
 
      int roundMax = 3;
-     
+
      SuddenDeathType suddenDeathType = null;
 
     private int nextID = 1;
@@ -90,7 +91,7 @@ public abstract class World implements WorldView {
     public SuddenDeathType getSuddenDeathType() {
         return suddenDeathType;
     }
-    
+
     @Override
     public int getRound() {
         return round;
@@ -99,7 +100,7 @@ public abstract class World implements WorldView {
     public void setRoundMax(int roundMax) {
         if (roundMax < 0)
             throw new RuntimeException("Round max not positive");
-        
+
         this.roundMax = roundMax;
     }
 
@@ -107,7 +108,7 @@ public abstract class World implements WorldView {
     public List<Entity> getEntities() {
         //Thread-safety
         synchronized (entities) {
-            return new LinkedList<Entity>(entities.values());            
+            return new LinkedList<Entity>(entities.values());
         }
     }
 
@@ -120,7 +121,7 @@ public abstract class World implements WorldView {
     public List<Player> getPlayers() {
         return new ArrayList<Player>(players.values());
     }
-    
+
     @Override
     public int getPlayerCount() {
         return players.size();
@@ -132,7 +133,7 @@ public abstract class World implements WorldView {
         for (Entity entity : getEntities()) { //Thread-safety
             if (entity instanceof Character) {
                 sum++;
-            }       
+            }
         }
         return sum;
     }
@@ -153,7 +154,7 @@ public abstract class World implements WorldView {
         for(Entity entity : getEntities()){ //Thread-safety
             if(entity instanceof Character && !(((Character)entity).getController() instanceof AIController)){
                 sum ++;
-            }       
+            }
         }
         return sum;
     }
@@ -264,50 +265,64 @@ public abstract class World implements WorldView {
     public GameState update() {
         if (warmupTimeRemaining > 0) {
             warmupTimeRemaining--;
+            warmupUpdate();
             return GameState.WarmUp;
         } else if (!isRoundEnded()) {
-            //update of timeRemaining
-            timeRemaining -= 1;
-        
-            if (timeRemaining == 0) {
+            timeRemaining--;
+            roundUpdate();
+
+            if (timeRemaining == 0)
                 fireEvent(GameEvent.SuddenDeath);
-            }
-            
-            List<Integer> toRemove = new ArrayList<Integer>();
-        
-            synchronized (entities) {
-                //update of Entities
-                for (Entry<Integer, Entity> entry : entities.entrySet()) {
-                    Entity entity = entry.getValue();
-                    entity.update();
-                    if (entity.isToRemove())
-                        toRemove.add(entry.getKey());
-                }
-            }
-        
-            removeEntities(toRemove);
-        
-            //update of the map
-            map.update();
-            
+
             if (timeRemaining > 0)
                 return GameState.Playing;
             else
                 return GameState.SuddenDeath;
         } else if (round < roundMax || restTimeRemaining > 0) { //S'il reste des rounds ou si le
-            restTimeRemaining--;                              // dernier temps de repos n'est pas fini
-            
-            if (round < roundMax && restTimeRemaining <= 0) //On relance s'il reste des rounds
-                nextRound();
-            
+            restTimeRemaining--;                                //dernier temps de repos n'est pas fini
+            roundEndUpdate();
             return GameState.EndRound;
         } else
             return GameState.End;
     }
-    
-    void removeEntities(List<Integer> entityIDs) {
+
+    void warmupUpdate() {
+    }
+
+    void roundUpdate() {
+        List<Integer> toRemove = new ArrayList<Integer>();
+
+        synchronized (entities) {
+            //update of Entities
+            for (Entry<Integer, Entity> entry : entities.entrySet()) {
+                Entity entity = entry.getValue();
+                entity.update();
+                if (entity.isToRemove())
+                    toRemove.add(entry.getKey());
+            }
+        }
+
+        removeEntities(toRemove);
+
+        //update of the map
+        map.update();
+    }
+
+    void roundEndUpdate() {
+        if (round < roundMax && restTimeRemaining <= 0) //On relance s'il reste des rounds
+            nextRound();
+    }
+
+    void removeEntities(Collection<Integer> entityIDs) {
         for (Integer id : entityIDs)
             entities.remove(id);
+    }
+
+    void destroyEntities(Collection<Integer> entityIDs) {
+        for (Integer id : entityIDs)
+            entities.get(id).remove();
+
+        removeEntities(entityIDs);
     }
 
     /**
@@ -317,27 +332,33 @@ public abstract class World implements WorldView {
     }
 
     void newRound() {
+        prepareRound();
+        fireEvent(GameEvent.NewRound);
+    }
+
+    void prepareRound() {
         //time remaining back to beginning
         timeRemaining = duration;
         warmupTimeRemaining = warmupDuration;
         restTimeRemaining = restTimeDuration;
         round++;
-      
+
         suddenDeathType = null;
-        
-        //reinitialize entities
-        if (!entities.isEmpty()) {
-            for (Entity entity : entities.values())
-                entity.remove();
-            removeEntities(new LinkedList<>(entities.keySet()));
-        }
+
+        destroyEntities(new ArrayList<>(entities.keySet()));
     }
 
     /**
      * Relance la partie
      */
     public void nextRound() {
-        newRound();
+        prepareRound();
+        prepareNextRound();
+        fireEvent(GameEvent.NewRound);
+    }
+
+    void prepareNextRound() {
+
     }
 
     @Override
@@ -358,7 +379,7 @@ public abstract class World implements WorldView {
     public void addGameListener(GameListener listener) {
         listeners.add(listener);
     }
-    
+
     /**
      * Envoie l'événement aux listeners
      * @param e Événement

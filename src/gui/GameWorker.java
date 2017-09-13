@@ -107,8 +107,6 @@ public class GameWorker implements Runnable, GameListener {
                     int i = messages.length*(world.getWarmupDuration()-world.getWarmupTimeRemaining())/world.getWarmupDuration();
                     if (!messages[i].equals(mainWindow.getMessageShown()))
                         showMessage(messages[i], Color.black, 1000*world.getWarmupTimeRemaining()/world.getFps());
-
-                    Audio.getInstance().stop();
                 } else if (world.isRoundEnded()) {
                     if (settings.gameType != GameType.Sandbox) {
                         String message = null;
@@ -189,6 +187,9 @@ public class GameWorker implements Runnable, GameListener {
     @Override
     public void gameChanged(GameEvent e) {
         switch (e) {
+        case NewRound:
+            SwingUtilities.invokeLater(() -> panel.setMap(world.getMap().getName()));
+            Audio.getInstance().stop();
         case SuddenDeath:
             showMessage("Mort subite !", Color.red, 750);
             break;

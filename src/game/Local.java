@@ -17,7 +17,7 @@ import java.util.Random;
 public class Local extends World {
      List<String> maps;
 
-     int actualMap = 0;
+     int actualMap = -1;
 
      Random random = new Random();
 
@@ -44,7 +44,6 @@ public class Local extends World {
     public Local(List<String> maps, int tileSize, int fps, int roundMax, int duration, int warmup, int restTime) throws Exception {
         this.maps = new ArrayList<>(maps);
         createMap(tileSize);
-        loadMap(0);
         setFps(fps);
         setRoundMax(roundMax);
         setDuration(duration);
@@ -66,7 +65,7 @@ public class Local extends World {
      * @param index Position de la carte dans la liste
      * @throws java.lang.Exception Erreur liée au chargement de la carte
      */
-    public void loadMap(int index) throws Exception {
+    void loadMap(int index) {
         String filename = maps.get(index) + ".map";
 
         try {
@@ -76,10 +75,12 @@ public class Local extends World {
             if (input != null)
                 map.loadMap(input);
             else
-                throw new Exception("Impossible de charger " + filename);
+                throw new RuntimeException("Impossible de charger " + filename);
         }
 
         map.setName(maps.get(index));
+
+        destroyEntities(entities.keySet());
     }
 
     @Override
@@ -119,8 +120,20 @@ public class Local extends World {
         addEntity(character);
     }
 
+    @Override
+    void prepareRound() {
+        super.prepareRound();
+        queueCharacter.clear();
+        queueBomb.clear();
+        queueBonus.clear();
+        queueKickBomb.clear();
+
+        actualMap = (actualMap+1) % maps.size();
+        loadMap(actualMap);
+    }
+
     /**
-     * Met à jour la partie locale en faisant les actions supplémentaires suivantes :
+     * Met à jour la partie locale en faisant les actions suivantes :
      * - fait apparaitre des bombes aléatoirement et rend les joueurs "fragiles" en cas de mort subite
      * - crée toutes les bombes que les joueurs plantent
      * - supprime tous les bonus qui ont été ramassés
@@ -128,115 +141,97 @@ public class Local extends World {
      * - déplace toutes les bombes qui ont étés poussées
      */
     @Override
-    public GameState update() {
-        if (warmupTimeRemaining > 0) {
-            return super.update();
+    void roundUpdate() {
+        super.roundUpdate();
+
+        //sudden death case
+        if (timeRemaining == 0) {
+            for (Entity entity : entities.values()) {
+                if (entity.toRemove)
+                    continue;
+
+                if (entity instanceof Character) {
+                    ((Character)entity).setLives(1);
+                    ((Character)entity).removeShield();
+                }
+            }
         }
 
-        GameState state = super.update();
-
-        if (state == GameState.Playing || state == GameState.SuddenDeath) {
-            //sudden death case
-            if (timeRemaining == 0) {
-                for (Entity entity : entities.values()) {
-                    if (entity.toRemove)
-                        continue;
-
-                    if (entity instanceof Character) {
-                        ((Character)entity).setLives(1);
-                        ((Character)entity).removeShield();
-                    }
-                }
+        if (timeRemaining <= 0) {
+            if (suddenDeathType == null) {
+                SuddenDeathType[] types = SuddenDeathType.values();
+                suddenDeathType = types[random.nextInt(types.length)];
             }
 
-            if(state == GameState.SuddenDeath) {
-                if (suddenDeathType == null) {
-                    SuddenDeathType[] types = SuddenDeathType.values();
-                    suddenDeathType = types[random.nextInt(types.length)];
-                }
-
-                if (suddenDeathType == SuddenDeathType.BOMBS) {
-                    int interval = (SUDDEN_DEATH_DURATION*fps+timeRemaining)/120;
-                    if (interval <= 0 || timeRemaining % interval == 0) {
-                        boolean bombPlanted = false;
-                        while(!bombPlanted){
-                            double x = Math.random()*map.getWidth();
-                            double y = Math.random()*map.getHeight();
-                            if(!map.isCollidable(x, y)) {
-                                addEntity(new Bomb(this, map.toCenterX(x), map.toCenterY(y), 4,(int)(TIME_BEFORE_EXPLOSION*fps)));
-                                bombPlanted = true;
-                            }
+            if (suddenDeathType == SuddenDeathType.BOMBS) {
+                int interval = (SUDDEN_DEATH_DURATION*fps+timeRemaining)/120;
+                if (interval <= 0 || timeRemaining % interval == 0) {
+                    boolean bombPlanted = false;
+                    while(!bombPlanted){
+                        double x = Math.random()*map.getWidth();
+                        double y = Math.random()*map.getHeight();
+                        if(!map.isCollidable(x, y)) {
+                            addEntity(new Bomb(this, map.toCenterX(x), map.toCenterY(y), 4,(int)(TIME_BEFORE_EXPLOSION*fps)));
+                            bombPlanted = true;
                         }
                     }
-                } else if (suddenDeathType == SuddenDeathType.WALLS) {
-                    updateSuddenDeathWalls();
                 }
+            } else if (suddenDeathType == SuddenDeathType.WALLS) {
+                updateSuddenDeathWalls();
             }
-
-            //update of the new bombs
-            for(Character character : queueCharacter){
-                addEntity(new Bomb(this, character, (int)(TIME_BEFORE_EXPLOSION*fps)));
-            }
-
-            //update of the bonus
-            for(GridCoordinates bonus : queueBonus){
-                map.setTileType(TileType.Empty,bonus);
-            }
-
-            //update of the bombs explosions
-            for(Bomb bomb : queueBomb){
-                //locate center of the bomb impact
-                GridCoordinates bombGC = map.toGridCoordinates(bomb.getX(), bomb.getY());
-                GridCoordinates explosionGC = new GridCoordinates(bombGC);
-
-                if (map.isExplodable(explosionGC)) {
-                    map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Center, null, explosionGC);
-
-                    for (Direction direction : Direction.values()) {
-                        explosionGC = bombGC;
-                        GridCoordinates nextGC = bombGC.neighbor(direction);
-                        boolean hasCollided = false;
-                        while (GridCoordinates.distance(bombGC, nextGC) <= bomb.getRange() &&
-                                map.isInsideMap(nextGC) && !hasCollided && map.isExplodable(nextGC)) {
-                            explosionGC = nextGC;
-                            map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, direction, explosionGC);
-                            hasCollided = map.isCollidable(explosionGC) || map.hasBomb(explosionGC);
-                            nextGC = explosionGC.neighbor(direction);
-                        }
-                        map.setExplosionEnd(explosionGC);
-                    }
-                }
-            }
-
-            //Update kicks
-            for (Entry<Bomb, Direction> entry : queueKickBomb.entrySet()) {
-                if (entry.getValue() != null) {
-                    entry.getKey().setDirection(entry.getValue());
-                    entry.getKey().setSpeed(Bomb.BOMB_DEFAULT_SPEED*map.getTileSize()/getFps());
-                }
-            }
-
-            if(!queueBomb.isEmpty()){
-                fireEvent(GameEvent.Explosion);
-            }
-            if(!queueBonus.isEmpty()){
-                fireEvent(GameEvent.PickUp);
-            }
-
-            //clearing all the queue lists
-            queueCharacter.clear();
-            queueBomb.clear();
-            queueBonus.clear();
-            queueKickBomb.clear();
         }
 
-        return state;
-    }
+        //update of the new bombs
+        for (Character character : queueCharacter) {
+            addEntity(new Bomb(this, character, (int)(TIME_BEFORE_EXPLOSION*fps)));
+        }
 
-    @Override
-    void newRound() {
-        super.newRound();
+        //update of the bonus
+        for (GridCoordinates bonus : queueBonus) {
+            map.setTileType(TileType.Empty,bonus);
+        }
 
+        //update of the bombs explosions
+        for (Bomb bomb : queueBomb) {
+            //locate center of the bomb impact
+            GridCoordinates bombGC = map.toGridCoordinates(bomb.getX(), bomb.getY());
+            GridCoordinates explosionGC = new GridCoordinates(bombGC);
+
+            if (map.isExplodable(explosionGC)) {
+                map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Center, null, explosionGC);
+
+                for (Direction direction : Direction.values()) {
+                    explosionGC = bombGC;
+                    GridCoordinates nextGC = bombGC.neighbor(direction);
+                    boolean hasCollided = false;
+                    while (GridCoordinates.distance(bombGC, nextGC) <= bomb.getRange() &&
+                            map.isInsideMap(nextGC) && !hasCollided && map.isExplodable(nextGC)) {
+                        explosionGC = nextGC;
+                        map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, direction, explosionGC);
+                        hasCollided = map.isCollidable(explosionGC) || map.hasBomb(explosionGC);
+                        nextGC = explosionGC.neighbor(direction);
+                    }
+                    map.setExplosionEnd(explosionGC);
+                }
+            }
+        }
+
+        //Update kicks
+        for (Entry<Bomb, Direction> entry : queueKickBomb.entrySet()) {
+            if (entry.getValue() != null) {
+                entry.getKey().setDirection(entry.getValue());
+                entry.getKey().setSpeed(Bomb.BOMB_DEFAULT_SPEED*map.getTileSize()/getFps());
+            }
+        }
+
+        if (!queueBomb.isEmpty()) {
+            fireEvent(GameEvent.Explosion);
+        }
+        if (!queueBonus.isEmpty()) {
+            fireEvent(GameEvent.PickUp);
+        }
+
+        //clearing all the queue lists
         queueCharacter.clear();
         queueBomb.clear();
         queueBonus.clear();
@@ -244,16 +239,8 @@ public class Local extends World {
     }
 
     @Override
-    public void nextRound() {
-        super.nextRound();
-
-        //reload map
-        try {
-            actualMap = (actualMap+1) % maps.size();
-            loadMap(actualMap);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
+    void prepareNextRound() {
+        super.prepareNextRound();
 
         //renew players
         List<Player> playerList = getPlayers();

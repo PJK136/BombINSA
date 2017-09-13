@@ -1,5 +1,6 @@
 package game;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -13,6 +14,7 @@ import network.GameConnection;
 import network.GameInfo;
 import network.Network;
 import network.Network.AddController;
+import network.Network.CommandMap;
 import network.Network.ControllerPlayer;
 import network.Network.ControllerUpdate;
 import network.Network.EntityPlayer;
@@ -81,6 +83,11 @@ public class Server extends Local implements Listener {
     }
 
     @Override
+    public void loadMap(int index) {
+        super.loadMap(index);
+    }
+
+    @Override
     public GameState update() {
         timestamp++;
 
@@ -88,42 +95,65 @@ public class Server extends Local implements Listener {
 
         GameState state = super.update();
 
-        if (state == GameState.WarmUp && warmupTimeRemaining % (fps/2) == 0) {
-            network.sendToAllUDP(new WarmupTimeRemaining(warmupTimeRemaining));
-        } else if (!isRoundEnded() && timeRemaining % fps == 0)
-            network.sendToAllUDP(new TimeRemaining(timeRemaining));
-
-        if (timeRemaining == 0)
-            network.sendToAllTCP(suddenDeathType);
-
-        if (!hasEnded) {
-            if (timeRemaining % (fps/UPDATE_RATE) == 0 || isRoundEnded()) {
-                List<Entity> updates = getEntities();
-                for (int start = 0; start < updates.size(); start += 5)
-                    network.sendToAllUDP(new EntityUpdateList(timestamp, updates.subList(start, Math.min(start+5, updates.size()))));
-
-                network.sendToAllTCP(((DeltaMap)map).deltas);
-                ((DeltaMap)map).deltas.clear();
-            }
-        }
-
-        if (!hasEnded && isRoundEnded())
+        if (!hasEnded && isRoundEnded()) {
+            sendEntityUpdates();
+            sendMapUpdates();
             network.sendToAllTCP(new RoundEnded(getWinnerName(), getWinnerID()));
+        }
 
         return state;
     }
 
     @Override
-    void removeEntities(List<Integer> entityIDs) {
+    void warmupUpdate() {
+        super.warmupUpdate();
+        if (warmupTimeRemaining % (fps/2) == 0)
+            network.sendToAllUDP(new WarmupTimeRemaining(warmupTimeRemaining));
+    }
+
+    @Override
+    void roundUpdate() {
+        super.roundUpdate();
+
+        if (timeRemaining % (fps/UPDATE_RATE) == 0) {
+            sendEntityUpdates();
+            sendMapUpdates();
+        }
+
+        if (timeRemaining % fps == 0)
+            network.sendToAllUDP(new TimeRemaining(timeRemaining));
+
+        if (timeRemaining == 0)
+            network.sendToAllTCP(suddenDeathType);
+    }
+
+    private void sendEntityUpdates() {
+        List<Entity> updates = getEntities();
+        for (int start = 0; start < updates.size(); start += 5)
+            network.sendToAllUDP(new EntityUpdateList(timestamp, updates.subList(start, Math.min(start+5, updates.size()))));
+    }
+
+    private void sendMapUpdates() {
+        List<CommandMap> deltas = ((DeltaMap)map).deltas;
+        if (!deltas.isEmpty()) {
+            network.sendToAllTCP(deltas);
+            deltas.clear();
+        }
+    }
+
+    @Override
+    void removeEntities(Collection<Integer> entityIDs) {
         EntityToRemove message = new EntityToRemove();
 
         for (Integer id : entityIDs) {
-            if (entities.get(id) instanceof Character)
-                message.toRemove.add(id);
+            //if (entities.get(id) instanceof Character)
+            message.toRemove.add(id);
         }
 
         super.removeEntities(entityIDs);
-        network.sendToAllTCP(message);
+
+        if (!message.toRemove.isEmpty())
+            network.sendToAllTCP(message);
     }
 
     @Override
@@ -135,11 +165,16 @@ public class Server extends Local implements Listener {
 
     @Override
     public void nextRound() {
-        network.sendToAllTCP(new NextRound());
-
         synchronized (players) {
             super.nextRound();
         }
+    }
+
+    @Override
+    void prepareNextRound() {
+        sendMapUpdates(); // Send new map
+        network.sendToAllTCP(new NextRound());
+        super.prepareNextRound();
     }
 
     @Override

@@ -139,16 +139,21 @@ public class Client extends World implements Listener {
         if (!isConnected())
             return GameState.End;
 
-        for (int i = 0; i < controllers.size(); i++) {
-            network.sendUDP(new ControllerUpdate(i, controllers.get(i)));
-        }
-
         Object message = null;
         while ((message = messages.poll()) != null) {
             processMessage(message);
         }
 
-        GameState state = super.update();
+        return super.update();
+    }
+
+    @Override
+    void roundUpdate() {
+        for (int i = 0; i < controllers.size(); i++) {
+            network.sendUDP(new ControllerUpdate(i, controllers.get(i)));
+        }
+
+        super.roundUpdate();
 
         if (suddenDeath) {
             fireEvent(GameEvent.SuddenDeath);
@@ -164,8 +169,6 @@ public class Client extends World implements Listener {
             fireEvent(GameEvent.Explosion);
             explosion = false;
         }
-
-        return state;
     }
 
     @Override
@@ -208,8 +211,8 @@ public class Client extends World implements Listener {
     }
 
     @Override
-    void newRound() {
-        super.newRound();
+    void prepareRound() {
+        super.prepareRound();
         roundEnded = false;
         nextRound = false;
         winner = null;
