@@ -188,6 +188,17 @@ public class Server extends Local implements Listener {
         }
     }
 
+    @Override
+    void fireEvent(GameEvent e) {
+        super.fireEvent(e);
+        if (network != null) {
+            if (e != GameEvent.SuddenDeath)
+                network.sendToAllUDP(e);
+            else
+                network.sendToAllTCP(e);
+        }
+    }
+
     /**
      * @return Les informations de la partie en cours
      */

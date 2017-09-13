@@ -15,6 +15,7 @@ import game.Controller;
 import game.Direction;
 import game.Entity;
 import game.ExplosionType;
+import game.GameEvent;
 import game.GridCoordinates;
 import game.Player;
 import game.SuddenDeathType;
@@ -63,6 +64,7 @@ public class Network {
         kryo.register(EntityToRemove.class);
         kryo.register(PlayerToRemove.class);
         kryo.register(EntityUpdateList.class);
+        kryo.register(GameEvent.class);
     }
 
     private Network() {

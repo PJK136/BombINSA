@@ -38,12 +38,6 @@ public class Client extends World implements Listener {
 
      RoundEnded winner;
 
-     boolean pickUp;
-
-     boolean explosion;
-
-     boolean suddenDeath;
-
      com.esotericsoftware.kryonet.Client network;
 
     List<Controller> controllers;
@@ -117,12 +111,12 @@ public class Client extends World implements Listener {
 
     @Override
     void createExplosion(Bomb bomb) {
-        explosion = true;
+        // TODO Auto-generated method stub
     }
 
     @Override
     void pickUpBonus(double x, double y) {
-        pickUp = true;
+        // TODO Auto-generated method stub
     }
 
     @Override
@@ -154,21 +148,6 @@ public class Client extends World implements Listener {
         }
 
         super.roundUpdate();
-
-        if (suddenDeath) {
-            fireEvent(GameEvent.SuddenDeath);
-            suddenDeath = false;
-        }
-
-        if (pickUp) {
-            fireEvent(GameEvent.PickUp);
-            pickUp = false;
-        }
-
-        if (explosion) {
-            fireEvent(GameEvent.Explosion);
-            explosion = false;
-        }
     }
 
     @Override
@@ -248,7 +227,8 @@ public class Client extends World implements Listener {
             init = true;
 
             if (info.suddenDeathType != null)
-                suddenDeath = true;
+                fireEvent(GameEvent.SuddenDeath);
+                //suddenDeath = true;
         } else if (init)
             messages.offer(object);
     }
@@ -303,7 +283,6 @@ public class Client extends World implements Listener {
             warmupTimeRemaining = ((WarmupTimeRemaining)object).warmupTimeRemaining;
         } else if (object instanceof SuddenDeathType) {
             suddenDeathType = (SuddenDeathType) object;
-            suddenDeath = true;
         } else if (object instanceof RoundEnded) {
             roundEnded = true;
             winner = (RoundEnded) object;
@@ -321,6 +300,8 @@ public class Client extends World implements Listener {
             PlayerToRemove toRemove = (PlayerToRemove)object;
             for (Integer id : toRemove.toRemove)
                 players.remove(id);
+        } else if (object instanceof GameEvent) {
+            fireEvent((GameEvent)object);
         } else if (object instanceof List<?>) {
             if (((List<?>)object).isEmpty())
                 return;
