@@ -179,10 +179,9 @@ public class MainWindow implements WindowListener {
             setPage(gamePanel);
             gameWorkerThread = new Thread(gameWorker);
             gameWorkerThread.start();
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this.frame,
-                                         e.getMessage(),
+                                         e.toString(),
                                          "Une erreur est survenue...",
                                          JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();

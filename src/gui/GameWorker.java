@@ -169,7 +169,7 @@ public class GameWorker implements Runnable, GameListener {
                 @Override
                 public void run() {
                     JOptionPane.showMessageDialog(panel,
-                                                  e.getMessage(),
+                                                  e.toString(),
                                                   "Une erreur est survenue...",
                                                   JOptionPane.ERROR_MESSAGE);
                 }
