@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,7 @@ import java.util.Stack;
 
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
+import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -39,7 +41,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
 
 import game.Direction;
 import game.GridCoordinates;
@@ -203,17 +204,17 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         redoStack = new Stack<>();
         
         newAction = new NewAction("Nouveau");
-        newAction.putValue(NewAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+        newAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         openAction = new OpenAction("Ouvrir...");
-        openAction.putValue(NewAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        openAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveAction = new SaveAction("Enregistrer", false);
-        saveAction.putValue(NewAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        saveAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         saveAsAction = new SaveAction("Enregistrer sous...", true);
-        saveAsAction.putValue(NewAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+        saveAsAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
         undoAction = new UndoAction("Annuler");
-        undoAction.putValue(UndoAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
+        undoAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
         redoAction = new RedoAction("Rétablir");
-        redoAction.putValue(RedoAction.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
+        redoAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK | ActionEvent.SHIFT_MASK));
         returnAction = new ReturnAction("Retour au menu");
         helpAction = new HelpAction("Aide...");
 
@@ -332,7 +333,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         lblColumns = new JLabel("L : ");
         toolBar.add(lblColumns);
         columnCount = new JSpinner(new SpinnerNumberModel(new Integer(20), new Integer(1), null, new Integer(1)));
-        columnCount.setAlignmentX(JSpinner.LEFT_ALIGNMENT);
+        columnCount.setAlignmentX(Component.LEFT_ALIGNMENT);
         columnCount.addChangeListener(this);
         toolBar.add(columnCount);
         toolBar.addSeparator();
@@ -340,7 +341,7 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         lblRows = new JLabel("H : ");
         toolBar.add(lblRows);
         rowCount = new JSpinner(new SpinnerNumberModel(new Integer(15), new Integer(1), null, new Integer(1)));
-        rowCount.setAlignmentX(JSpinner.LEFT_ALIGNMENT);
+        rowCount.setAlignmentX(Component.LEFT_ALIGNMENT);
         rowCount.addChangeListener(this);
         toolBar.add(rowCount);
         toolBar.addSeparator();
@@ -435,23 +436,23 @@ public class MapCreatorPanel extends JPanel implements MouseListener, MouseMotio
         
         SpriteFactory factory = SpriteFactory.getInstance();
         
-        newAction.putValue(UndoAction.SMALL_ICON, factory.getImageIcon("New16", settings.scale(16)));
-        openAction.putValue(UndoAction.SMALL_ICON, factory.getImageIcon("Open16", settings.scale(16)));
-        saveAction.putValue(UndoAction.SMALL_ICON, factory.getImageIcon("Save16", settings.scale(16)));
-        saveAsAction.putValue(UndoAction.SMALL_ICON, factory.getImageIcon("SaveAs16", settings.scale(16)));
-        undoAction.putValue(UndoAction.SMALL_ICON, factory.getImageIcon("Undo16", settings.scale(16)));
-        redoAction.putValue(RedoAction.SMALL_ICON, factory.getImageIcon("Redo16", settings.scale(16)));
-        returnAction.putValue(RedoAction.SMALL_ICON, factory.getImageIcon("Stop16", settings.scale(16)));
-        helpAction.putValue(RedoAction.SMALL_ICON, factory.getImageIcon("Help16", settings.scale(16)));
+        newAction.putValue(Action.SMALL_ICON, factory.getImageIcon("New16", settings.scale(16)));
+        openAction.putValue(Action.SMALL_ICON, factory.getImageIcon("Open16", settings.scale(16)));
+        saveAction.putValue(Action.SMALL_ICON, factory.getImageIcon("Save16", settings.scale(16)));
+        saveAsAction.putValue(Action.SMALL_ICON, factory.getImageIcon("SaveAs16", settings.scale(16)));
+        undoAction.putValue(Action.SMALL_ICON, factory.getImageIcon("Undo16", settings.scale(16)));
+        redoAction.putValue(Action.SMALL_ICON, factory.getImageIcon("Redo16", settings.scale(16)));
+        returnAction.putValue(Action.SMALL_ICON, factory.getImageIcon("Stop16", settings.scale(16)));
+        helpAction.putValue(Action.SMALL_ICON, factory.getImageIcon("Help16", settings.scale(16)));
         
-        newAction.putValue(UndoAction.LARGE_ICON_KEY, factory.getImageIcon("New24", size));
-        openAction.putValue(UndoAction.LARGE_ICON_KEY, factory.getImageIcon("Open24", size));
-        saveAction.putValue(UndoAction.LARGE_ICON_KEY, factory.getImageIcon("Save24", size));
-        saveAsAction.putValue(UndoAction.LARGE_ICON_KEY, factory.getImageIcon("SaveAs24", size));
-        undoAction.putValue(UndoAction.LARGE_ICON_KEY, factory.getImageIcon("Undo24", size));
-        redoAction.putValue(RedoAction.LARGE_ICON_KEY, factory.getImageIcon("Redo24", size));
-        returnAction.putValue(RedoAction.LARGE_ICON_KEY, factory.getImageIcon("Stop24", size));
-        helpAction.putValue(RedoAction.LARGE_ICON_KEY, factory.getImageIcon("Help24", size));
+        newAction.putValue(Action.LARGE_ICON_KEY, factory.getImageIcon("New24", size));
+        openAction.putValue(Action.LARGE_ICON_KEY, factory.getImageIcon("Open24", size));
+        saveAction.putValue(Action.LARGE_ICON_KEY, factory.getImageIcon("Save24", size));
+        saveAsAction.putValue(Action.LARGE_ICON_KEY, factory.getImageIcon("SaveAs24", size));
+        undoAction.putValue(Action.LARGE_ICON_KEY, factory.getImageIcon("Undo24", size));
+        redoAction.putValue(Action.LARGE_ICON_KEY, factory.getImageIcon("Redo24", size));
+        returnAction.putValue(Action.LARGE_ICON_KEY, factory.getImageIcon("Stop24", size));
+        helpAction.putValue(Action.LARGE_ICON_KEY, factory.getImageIcon("Help24", size));
         
         MainWindow.setFontSize(lblColumns, size/2);
         MainWindow.setFontSize(columnCount, size/2);

@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import game.Character;
 import game.CharacterAbility;
@@ -51,7 +52,7 @@ public class PlayerStatePanel extends JPanel {
     PlayerStatePanel(Player player, int size) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
+        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
         separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
         add(separator);
 

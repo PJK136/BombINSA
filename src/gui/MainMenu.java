@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -116,6 +117,7 @@ public class MainMenu extends JPanel implements ActionListener {
         }
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         int wallPaperSize = Math.max(lblWallpaper.getHeight(), lblWallpaper.getWidth());
         if (wallPaperSize != wallPaperSprite.getSize()) {

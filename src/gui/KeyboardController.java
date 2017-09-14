@@ -3,9 +3,10 @@ package gui;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
+
+import game.Character;
 import game.Controller;
 import game.Direction;
-import game.Character;
 
 /**
  * Gère les contrôles clavier : renvoie la direction associée à la touche appuyée

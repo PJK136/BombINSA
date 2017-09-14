@@ -3,8 +3,8 @@ package game;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Map.Entry;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.esotericsoftware.kryonet.Connection;

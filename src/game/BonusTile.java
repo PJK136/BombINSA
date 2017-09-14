@@ -27,6 +27,7 @@ public class BonusTile extends ExplodableTile {
         return TileType.Bonus;
     }
 
+    @Override
     public boolean isCollidable() {
         return false;
     }

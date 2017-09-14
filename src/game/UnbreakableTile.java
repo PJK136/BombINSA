@@ -10,6 +10,7 @@ public class UnbreakableTile extends Tile {
         return TileType.Unbreakable;
     }
 
+    @Override
     public boolean isCollidable() {
         return true;
     }

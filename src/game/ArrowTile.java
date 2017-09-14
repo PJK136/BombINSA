@@ -27,6 +27,7 @@ public class ArrowTile extends ExplodableTile {
         return TileType.Arrow;
     }
 
+    @Override
     public boolean isCollidable() {
         return false;
     }

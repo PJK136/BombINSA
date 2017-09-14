@@ -19,6 +19,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 import game.Player;
 import game.WorldView;
@@ -82,7 +84,7 @@ public class GamePanel extends JPanel implements ActionListener {
         spacer1 = Box.createHorizontalStrut(5);
         topBar.add(spacer1);
 
-        JSeparator separator = new JSeparator(JSeparator.VERTICAL);
+        JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
         separator.setMaximumSize(new Dimension(1, Integer.MAX_VALUE));
         topBar.add(separator);
 
@@ -106,7 +108,7 @@ public class GamePanel extends JPanel implements ActionListener {
         playerStatePanel = new JPanel() ;
         playerStatePanel.setLayout(new BoxLayout(playerStatePanel, BoxLayout.Y_AXIS));
 
-        JScrollPane scrollPane = new JScrollPane(playerStatePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scrollPane = new JScrollPane(playerStatePanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         add(scrollPane, BorderLayout.WEST);
 
         btnExit = new JButton();

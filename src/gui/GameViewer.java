@@ -15,7 +15,6 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-
 import game.Bomb;
 import game.BonusType;
 import game.Character;

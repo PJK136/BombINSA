@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Image;
+
 import game.Direction;
 
 /**

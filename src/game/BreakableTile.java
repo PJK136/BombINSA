@@ -12,6 +12,7 @@ public class BreakableTile extends ExplodableTile {
         return TileType.Breakable;
     }
 
+    @Override
     public boolean isCollidable() {
         return true;
     }
