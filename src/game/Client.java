@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.esotericsoftware.kryonet.Connection;
@@ -148,6 +149,21 @@ public class Client extends World implements Listener {
         }
 
         super.roundUpdate();
+    }
+
+    @Override
+    void roundEndUpdate() {
+        List<Integer> toRemove = new ArrayList<Integer>();
+        synchronized (entities) {
+            for (Entry<Integer, Entity> entry : entities.entrySet()) {
+                if (entry.getValue().isToRemove())
+                    toRemove.add(entry.getKey());
+            }
+        }
+        removeEntities(toRemove);
+
+        if (nextRound)
+            nextRound();
     }
 
     @Override
