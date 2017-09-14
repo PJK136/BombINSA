@@ -11,11 +11,12 @@ Jeu inspiré des jeux Bomberman
 Réaliser un jeu de type Bomberman jouable en réseau par plusieurs participants en Java.
 
 ## Logiciels utilisés
-- Modelio (https://www.modelio.org/downloads/download-modelio.html)
+- Maven (https://maven.apache.org/)
 
-   Pour ouvrir le modèle UML dans Modelio : *File* > *Switch workspace...* > Sélectionnez le dépot du projet
+   Pour compiler le projet : *mvn clean compile*
+
+   Pour générer un JAR standalone du jeu : *mvn assembly:single*
 
 - Eclipse (https://www.eclipse.org/downloads/)
 
    Pour ouvrir le projet Java dans Eclipse : *File* > *Open Projects from File System...* > *Directory...* > Sélectionnez le dépôt du projet > *Finish*
-
