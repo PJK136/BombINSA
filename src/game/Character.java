@@ -22,7 +22,7 @@ public class Character extends Entity {
      int invulnerability;
 
     public static final double CHARACTER_DEFAULT_SPEED = 4; // tile/sec
-    
+
      transient Player player;
 
     /**
@@ -50,15 +50,21 @@ public class Character extends Entity {
         setRange(range);
         setInvulnerability(invulnerability);
         setPlayer(player);
-        
+
         this.bombCount = 0;
-        
+
         CharacterAbility[] pa = CharacterAbility.values();
         this.characterAbilities = new ArrayList<Boolean>(pa.length);
         for (int i = 0; i < pa.length; i++)
             this.characterAbilities.add(false);
     }
-    
+
+    @Override
+    void remove() {
+        setLives(0);
+        super.remove();
+    }
+
     /**
      * Vérifie si le Joueur est vivant
      * @return boolean
@@ -134,23 +140,23 @@ public class Character extends Entity {
     public Player getPlayer() {
         return this.player;
     }
-    
+
     public Controller getController() {
         if (this.player != null)
             return this.player.getController();
         else
             return null;
     }
-    
+
     void setPlayer(Player player) {
         this.player = player;
     }
-    
+
     public double getMaxSpeed() {
         double maxSpeed = CHARACTER_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
         if (characterAbilities.get(CharacterAbility.MoreSpeed.ordinal()))
             maxSpeed *= 1.5;
-        else if (characterAbilities.get(CharacterAbility.LessSpeed.ordinal())) 
+        else if (characterAbilities.get(CharacterAbility.LessSpeed.ordinal()))
             maxSpeed /= 1.5;
         return maxSpeed;
     }
@@ -163,7 +169,7 @@ public class Character extends Entity {
         this.lives = Math.max(0, this.lives-amount);
         world.fireEvent(GameEvent.Hit);
     }
-    
+
     void increaseBombCount() {
         this.bombCount += 1;
     }
@@ -191,7 +197,7 @@ public class Character extends Entity {
     void removeShield() {
         this.characterAbilities.set(CharacterAbility.Shield.ordinal(), false);
     }
-    
+
     /**
      * Appelle la méthode canCollide de Entity et vérifie en plus la collision avec les bombes
      */
@@ -203,7 +209,7 @@ public class Character extends Entity {
         }
         return true;
     }
-    
+
     /**
      * Met à jour le Joueur en faisant les actions suivantes :
      * - Update controller pour fixer la direction et la vitesse du Joueur
@@ -216,7 +222,7 @@ public class Character extends Entity {
     @Override
     void update() {
         Direction nextDirection = null;
-        
+
         if (getController() != null) {
             getController().update();
             nextDirection = getController().getDirection();
@@ -228,14 +234,14 @@ public class Character extends Entity {
             else
                 speed = 0.;
         }
-        
+
         super.update();
-        
+
         //Kick
         if (nextDirection != null) {
             double footX = -1;
             double footY = -1;
-            
+
             switch (direction) {
             case Left:
                 footX = getBorderLeft()-1;
@@ -253,26 +259,26 @@ public class Character extends Entity {
                 footX = this.x;
                 footY = getBorderDown()+1;
                 break;
-            }         
-            
+            }
+
             if (world.getMap().isInsideMap(footX, footY) &&
                 !world.getMap().toGridCoordinates(footX, footY).equals(world.getMap().toGridCoordinates(x, y))) {
-                
+
                 if (characterAbilities.get(CharacterAbility.Kick.ordinal()) ||
                         world.getMap().getTileType(footX, footY) == TileType.Frozen) {
                     Bomb target = world.getMap().getFirstBomb(footX, footY);
-            
+
                     if (target != null)
                         this.world.kickBomb(target, nextDirection);
                 }
             }
         }
-        
+
         //Update acquisition Bonus/Malus (Random, More/Less Bomb, More/Less Range, More/Less Speed, Shield, Kick)
         updateBonusMalus();
-        
+
         //Update Marche sur une case en Explosion (diminuer le nb de vie du joueur touché + vérification du Shield)
-        
+
         if(this.world.getMap().isExploding(this.x, this.y)) { // On vérifie si la case où se trouve le CENTRE du joueur explose
             if (getInvulnerability() == 0) { //S'il n'est pas invulnérable
                 if(characterAbilities.get(CharacterAbility.Shield.ordinal()) == true){
@@ -281,23 +287,23 @@ public class Character extends Entity {
                     decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
                 }
             }
-        
+
             setInvulnerability(Math.max(invulnerability, world.getFps()+1));
         }
         else
             decreaseInvulnerability(); // On diminue progressivement l'invulnérabilité pour ramener à 0
-        
+
         if (getController() != null && getController().isPlantingBomb() && bombCount < bombMax && !world.getMap().isExploding(x, y) && !world.getMap().hasBomb(x,y)) {
             bombCount++;
             world.plantBomb(this);
         }
-        
+
         // Vérifier si le joueur est encore vivant
         if(isAlive() == false){
             remove(); // On indique qu'il faut enlever le character qui a perdu toutes ses vies
         }
     }
-    
+
     /**
      * Gère les acquisitions de Bonus et Malus puis enlève les Bonus/Malus de la map
      */
@@ -307,27 +313,27 @@ public class Character extends Entity {
             while (b == BonusType.Random) {
                 b = BonusTile.randomBonus();
             }
-            
-            switch(b){ 
+
+            switch(b){
             case Random:
                 break;
-                
+
             case MoreBomb:
                 increaseBombMax();
                 break;
-                
+
             case LessBomb:
                 decreaseBombMax();
                 break;
-                
+
             case MoreRange:
                 increaseRange();
                 break;
-                
+
             case LessRange:
                 decreaseRange();
                 break;
-                
+
             case MoreSpeed:
                 if(characterAbilities.get(CharacterAbility.LessSpeed.ordinal()) == true){
                     characterAbilities.set(CharacterAbility.LessSpeed.ordinal(), false);
@@ -335,7 +341,7 @@ public class Character extends Entity {
                     characterAbilities.set(CharacterAbility.MoreSpeed.ordinal(), true);
                 }
                 break;
-                
+
             case LessSpeed:
                 if(characterAbilities.get(CharacterAbility.MoreSpeed.ordinal()) == true){
                     characterAbilities.set(CharacterAbility.MoreSpeed.ordinal(), false);
@@ -343,16 +349,16 @@ public class Character extends Entity {
                     characterAbilities.set(CharacterAbility.LessSpeed.ordinal(), true);
                 }
                 break;
-                
+
             case Shield:
                 characterAbilities.set(CharacterAbility.Shield.ordinal(), true);
                 break;
-                
+
             case Kick:
                 characterAbilities.set(CharacterAbility.Kick.ordinal(), true);
                 break;
             }
-            
+
             this.world.pickUpBonus(this.x, this.y);
         }
     }
