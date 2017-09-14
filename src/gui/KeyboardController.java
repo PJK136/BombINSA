@@ -13,7 +13,7 @@ import game.Direction;
  */
 public class KeyboardController extends Controller implements KeyListener {
     /**
-     * Liste des directions qui sont enfoncées triées dans l'ordre d'apparition 
+     * Liste des directions qui sont enfoncées triées dans l'ordre d'apparition
      * décroissant (^plus récente en début et plus ancienne à la fin)
      */
     private LinkedList<Direction> keysPressed;
@@ -42,7 +42,7 @@ public class KeyboardController extends Controller implements KeyListener {
     	super.setCharacter(value);
     	bombing = false;
     }
-    
+
     @Override
     public Direction getDirection() {
         // renvoie la direction qui correspond a la touche qui est enfoncée
@@ -68,9 +68,9 @@ public class KeyboardController extends Controller implements KeyListener {
 
     @Override
     /**
-     * Rajoute à la liste en attribut la direction qui correspond a une 
+     * Rajoute à la liste en attribut la direction qui correspond a une
      * touche quand elle est appuyée.
-     * Pour éviter les effets du rebond on efface de la liste l'instance 
+     * Pour éviter les effets du rebond on efface de la liste l'instance
      * de la direction avant de l'ajouter
      */
     public void keyPressed(KeyEvent e) {
@@ -105,6 +105,8 @@ public class KeyboardController extends Controller implements KeyListener {
             keysPressed.remove(Direction.Left);
         } else if(e.getKeyCode() == settings.down){
             keysPressed.remove(Direction.Down);
+        } else if(e.getKeyCode() == settings.plantBomb){
+            bombing = false;
         }
     }
 
