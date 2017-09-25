@@ -16,6 +16,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
+import game.AIController;
+
 /**
  * Paramètres du jeu
  */
@@ -42,6 +44,8 @@ public class GameSettings {
 
     public int aiCount;
 
+    public AIController.Level aiLevel;
+
     public static final String SETTINGS_FILENAME = "settings.json";
 
     public double scale;
@@ -60,6 +64,7 @@ public class GameSettings {
         maps = new ArrayList<>();
         playerCount = 1;
         aiCount = 1;
+        aiLevel = AIController.Level.MEDIUM;
         roundCount = 1;
         duration = 180;
         warmupDuration = 2;

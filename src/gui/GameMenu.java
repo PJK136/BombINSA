@@ -29,6 +29,8 @@ import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
 
+import game.AIController;
+
 /**
  * Menu des options d'une partie de jeu
  */
@@ -67,6 +69,8 @@ public class GameMenu extends JPanel implements ActionListener {
 
     private JSpinner roundDuration;
     private JPanel buttonPanel;
+    private JLabel lblAiLevel;
+    private JComboBox<AIController.Level> aiLevel;
 
     /**
      * Construit le menu des options avant une partie
@@ -78,9 +82,9 @@ public class GameMenu extends JPanel implements ActionListener {
 
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{0, 0, 0, 25, 0, 64, 25, 0, 0, 0, 0};
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 32, 0, 0, 0};
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 32, 0, 0, 0};
         gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-        gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+        gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
         setLayout(gridBagLayout);
 
         JLabel lblTypeDuJeu = new JLabel("Type du jeu :");
@@ -141,7 +145,7 @@ public class GameMenu extends JPanel implements ActionListener {
 
         mapPane = new JScrollPane(maps);
         GridBagConstraints gbc_map = new GridBagConstraints();
-        gbc_map.gridheight = 4;
+        gbc_map.gridheight = 5;
         gbc_map.insets = new Insets(0, 0, 5, 5);
         gbc_map.fill = GridBagConstraints.BOTH;
         gbc_map.gridx = 8;
@@ -187,13 +191,32 @@ public class GameMenu extends JPanel implements ActionListener {
         add(aiCount, gbc_aiCount);
         loadSelectedMaps();
 
+        lblAiLevel = new JLabel("Niveau de l'IA :");
+        settings.scaleFont(lblAiLevel);
+        GridBagConstraints gbc_lblAiLevel = new GridBagConstraints();
+        gbc_lblAiLevel.anchor = GridBagConstraints.WEST;
+        gbc_lblAiLevel.insets = new Insets(0, 0, 5, 5);
+        gbc_lblAiLevel.gridx = 4;
+        gbc_lblAiLevel.gridy = 3;
+        add(lblAiLevel, gbc_lblAiLevel);
+
+        aiLevel = new JComboBox<>(AIController.Level.values());
+        aiLevel.setSelectedItem(settings.aiLevel);
+        settings.scaleFont(aiLevel);
+        GridBagConstraints gbc_aiLevel = new GridBagConstraints();
+        gbc_aiLevel.insets = new Insets(0, 0, 5, 5);
+        gbc_aiLevel.fill = GridBagConstraints.HORIZONTAL;
+        gbc_aiLevel.gridx = 5;
+        gbc_aiLevel.gridy = 3;
+        add(aiLevel, gbc_aiLevel);
+
         lblRoundCount = new JLabel("Nombre de round :");
         settings.scaleFont(lblRoundCount);
         GridBagConstraints gbc_lblNombreDeRound = new GridBagConstraints();
         gbc_lblNombreDeRound.anchor = GridBagConstraints.WEST;
         gbc_lblNombreDeRound.insets = new Insets(0, 0, 5, 5);
         gbc_lblNombreDeRound.gridx = 4;
-        gbc_lblNombreDeRound.gridy = 3;
+        gbc_lblNombreDeRound.gridy = 4;
         add(lblRoundCount, gbc_lblNombreDeRound);
 
         roundCount = new JSpinner();
@@ -203,7 +226,7 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_roundCount.fill = GridBagConstraints.HORIZONTAL;
         gbc_roundCount.insets = new Insets(0, 0, 5, 5);
         gbc_roundCount.gridx = 5;
-        gbc_roundCount.gridy = 3;
+        gbc_roundCount.gridy = 4;
         add(roundCount, gbc_roundCount);
 
         lblRoundDuration = new JLabel("Durée d'un round (s) :");
@@ -212,7 +235,7 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_lblDureeRound.anchor = GridBagConstraints.NORTHWEST;
         gbc_lblDureeRound.insets = new Insets(0, 0, 5, 5);
         gbc_lblDureeRound.gridx = 4;
-        gbc_lblDureeRound.gridy = 4;
+        gbc_lblDureeRound.gridy = 5;
         add(lblRoundDuration, gbc_lblDureeRound);
 
         roundDuration = new JSpinner();
@@ -223,7 +246,7 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_roundDuration.fill = GridBagConstraints.HORIZONTAL;
         gbc_roundDuration.insets = new Insets(0, 0, 5, 5);
         gbc_roundDuration.gridx = 5;
-        gbc_roundDuration.gridy = 4;
+        gbc_roundDuration.gridy = 5;
         add(roundDuration, gbc_roundDuration);
 
         buttonPanel = new JPanel();
@@ -231,7 +254,7 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_buttonPanel.gridwidth = 8;
         gbc_buttonPanel.insets = new Insets(0, 0, 5, 5);
         gbc_buttonPanel.gridx = 1;
-        gbc_buttonPanel.gridy = 6;
+        gbc_buttonPanel.gridy = 7;
         add(buttonPanel, gbc_buttonPanel);
         buttonPanel.setLayout(new GridLayout(0, 5, 0, 0));
 
@@ -366,6 +389,7 @@ public class GameMenu extends JPanel implements ActionListener {
         settings.maps = maps.getSelectedValuesList();
         settings.playerCount = (int) playerCount.getValue();
         settings.aiCount = (int) aiCount.getValue();
+        settings.aiLevel = (AIController.Level) aiLevel.getSelectedItem();
         settings.roundCount = (int) roundCount.getValue();
         settings.duration = (int) roundDuration.getValue();
     }

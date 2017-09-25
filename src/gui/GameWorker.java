@@ -236,7 +236,7 @@ public class GameWorker implements Runnable, GameListener {
             addKeyboardControllers();
 
             for (int i = 0; i < settings.aiCount; i++) {
-                AIController aiController = new AIController();
+                AIController aiController = new AIController(settings.aiLevel);
                 world.newPlayer(aiController);
             }
 
