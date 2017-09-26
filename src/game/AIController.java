@@ -192,6 +192,16 @@ public class AIController extends Controller {
         }
     }
 
+    private boolean isSafeToStand() {
+        if (isSafe(aiPosition)) {
+            if (world.getMap().getTileType(aiPosition) != TileType.Frozen ||
+                    character.getSpeed() == 0.)
+                return true;
+        }
+
+        return false;
+    }
+
     private boolean turnSafely(int maxStep) {
         return turnSafely(maxStep, -1, null);
     }
@@ -226,7 +236,7 @@ public class AIController extends Controller {
             }
         }
 
-        if ((safest == null || safest.safe <= 0 || safest.step > 1 || safest.badBonus > 0) && isSafe(aiPosition)) {
+        if ((safest == null || safest.safe <= 0 || safest.step > 1 || safest.badBonus > 0) && isSafeToStand()) {
             setCurrentDirection(null);
             return true;
         } else if (safest != null && safest.safe >= minSafe) {
