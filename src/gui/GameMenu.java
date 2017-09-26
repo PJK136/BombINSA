@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -71,6 +72,7 @@ public class GameMenu extends JPanel implements ActionListener {
     private JPanel buttonPanel;
     private JLabel lblAiLevel;
     private JComboBox<AIController.Level> aiLevel;
+    private JCheckBox randomMaps;
 
     /**
      * Construit le menu des options avant une partie
@@ -82,9 +84,9 @@ public class GameMenu extends JPanel implements ActionListener {
 
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{0, 0, 0, 25, 0, 64, 25, 0, 0, 0, 0};
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 32, 0, 0, 0};
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0};
         gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-        gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+        gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
         setLayout(gridBagLayout);
 
         JLabel lblTypeDuJeu = new JLabel("Type du jeu :");
@@ -249,12 +251,21 @@ public class GameMenu extends JPanel implements ActionListener {
         gbc_roundDuration.gridy = 5;
         add(roundDuration, gbc_roundDuration);
 
+        randomMaps = new JCheckBox("Aléatoire");
+        randomMaps.setSelected(settings.randomMaps);
+        settings.scaleFont(randomMaps);
+        GridBagConstraints gbc_randomMap = new GridBagConstraints();
+        gbc_randomMap.insets = new Insets(0, 0, 5, 5);
+        gbc_randomMap.gridx = 8;
+        gbc_randomMap.gridy = 6;
+        add(randomMaps, gbc_randomMap);
+
         buttonPanel = new JPanel();
         GridBagConstraints gbc_buttonPanel = new GridBagConstraints();
         gbc_buttonPanel.gridwidth = 8;
         gbc_buttonPanel.insets = new Insets(0, 0, 5, 5);
         gbc_buttonPanel.gridx = 1;
-        gbc_buttonPanel.gridy = 7;
+        gbc_buttonPanel.gridy = 8;
         add(buttonPanel, gbc_buttonPanel);
         buttonPanel.setLayout(new GridLayout(0, 5, 0, 0));
 
@@ -334,8 +345,11 @@ public class GameMenu extends JPanel implements ActionListener {
             ipAddress.setVisible(true);
             lblMaps.setVisible(false);
             mapPane.setVisible(false);
+            randomMaps.setVisible(false);
             lblAiCount.setVisible(false);
             aiCount.setVisible(false);
+            lblAiLevel.setVisible(false);
+            aiLevel.setVisible(false);
             lblRoundCount.setVisible(false);
             roundCount.setVisible(false);
             lblRoundDuration.setVisible(false);
@@ -358,8 +372,11 @@ public class GameMenu extends JPanel implements ActionListener {
             ipAddress.setVisible(false);
             lblMaps.setVisible(true);
             mapPane.setVisible(true);
+            randomMaps.setVisible(true);
             lblAiCount.setVisible(true);
             aiCount.setVisible(true);
+            lblAiLevel.setVisible(true);
+            aiLevel.setVisible(true);
             lblRoundCount.setVisible(true);
             roundCount.setVisible(true);
             lblRoundDuration.setVisible(true);
@@ -387,6 +404,7 @@ public class GameMenu extends JPanel implements ActionListener {
         settings.gameType = (GameType) gameType.getSelectedItem();
         settings.ipAddress = ipAddress.getText();
         settings.maps = maps.getSelectedValuesList();
+        settings.randomMaps = randomMaps.isSelected();
         settings.playerCount = (int) playerCount.getValue();
         settings.aiCount = (int) aiCount.getValue();
         settings.aiLevel = (AIController.Level) aiLevel.getSelectedItem();

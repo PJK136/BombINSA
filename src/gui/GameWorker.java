@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.net.InetAddress;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -215,8 +217,13 @@ public class GameWorker implements Runnable, GameListener {
             if (settings.maps.isEmpty())
                 throw new Exception("Il faut sélectionner au moins une carte !");
 
+            List<String> maps = settings.maps;
+
+            if (settings.randomMaps)
+                Collections.shuffle(maps);
+
             if (settings.gameType.equals(GameType.Local) || settings.gameType.equals(GameType.Sandbox)) {
-                world = new Local(settings.maps,
+                world = new Local(maps,
                                   settings.tileSize,
                                   settings.fps,
                                   settings.roundCount,
@@ -224,7 +231,7 @@ public class GameWorker implements Runnable, GameListener {
                                   (int)(settings.warmupDuration*settings.fps),
                                   (int)(settings.restTimeDuration*settings.fps));
             } else {
-                world = new Server(settings.maps,
+                world = new Server(maps,
                                    settings.tileSize,
                                    settings.fps,
                                    settings.roundCount,

@@ -28,6 +28,8 @@ public class GameSettings {
 
     public List<String> maps;
 
+    public boolean randomMaps;
+
     public int tileSize;
 
     public int fps;
@@ -62,6 +64,7 @@ public class GameSettings {
         gameType = GameType.Local;
         ipAddress = "";
         maps = new ArrayList<>();
+        randomMaps = true;
         playerCount = 1;
         aiCount = 1;
         aiLevel = AIController.Level.MEDIUM;
