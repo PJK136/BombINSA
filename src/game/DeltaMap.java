@@ -63,8 +63,8 @@ public class DeltaMap extends Map {
     }
 
     @Override
-    void setExplosion(int duration, ExplosionType type, Direction direction, GridCoordinates gc) {
-        super.setExplosion(duration, type, direction, gc);
+    void setExplosion(int duration, ExplosionType type, Direction direction, Character owner, GridCoordinates gc) {
+        super.setExplosion(duration, type, direction, owner, gc);
         deltas.add(new CommandMap(CommandMap.Name.setExplosion, duration, type, direction, new GridCoordinates(gc)));
     }
 
@@ -109,7 +109,7 @@ public class DeltaMap extends Map {
             map.setArrowDirection((Direction)command.args[0], (GridCoordinates)command.args[1]);
             break;
         case setExplosion:
-            map.setExplosion((int)command.args[0], (ExplosionType)command.args[1], (Direction)command.args[2], (GridCoordinates)command.args[3]);
+            map.setExplosion((int)command.args[0], (ExplosionType)command.args[1], (Direction)command.args[2], null, (GridCoordinates)command.args[3]);
             break;
         case setExplosionEnd:
             map.setExplosionEnd((GridCoordinates)command.args[0]);

@@ -44,9 +44,9 @@ public class GameViewer extends JPanel {
     private GameSettings settings;
 
     private double scale;
-    
+
     private Object lock;
-    
+
     private VolatileImage world;
 
     private VolatileImage wait;
@@ -56,15 +56,15 @@ public class GameViewer extends JPanel {
     private Sprite[] tiles;
 
     private Sprite[] bonuses;
-   
+
     private CharacterSprite[] players;
-    
+
     private CharacterSprite defaultPlayer;
 
     private Sprite[] bombs;
 
     private Sprite[] explosions;
-    
+
     private Sprite wallpaper;
 
     /**
@@ -72,7 +72,7 @@ public class GameViewer extends JPanel {
      */
     public GameViewer() {
         settings = GameSettings.getInstance();
-        
+
         SpriteFactory factory = SpriteFactory.getInstance();
         tiles = new Sprite[TileType.values().length];
         for (TileType type : TileType.values()) {
@@ -81,24 +81,24 @@ public class GameViewer extends JPanel {
             else
                 tiles[type.ordinal()] = factory.getSprite(type.name().toLowerCase());
         }
-        
+
         bonuses = new Sprite[BonusType.values().length];
         for (BonusType type : BonusType.values()) {
-            bonuses[type.ordinal()] = factory.getSprite("bonus" + type.ordinal()); 
+            bonuses[type.ordinal()] = factory.getSprite("bonus" + type.ordinal());
         }
-        
+
         players = new CharacterSprite[PlayerColor.values().length];
         for (PlayerColor color : PlayerColor.values())
             players[color.ordinal()] = new CharacterSprite(color);
-        
+
         defaultPlayer = new CharacterSprite(null);
-        
+
         bombs = new Sprite[2];
         {
             bombs[0] = factory.getSprite("bomb");
             bombs[1]= factory.getSprite("bomb_exploding");
         }
-        
+
         explosions = new Sprite[ExplosionType.values().length];
         for (ExplosionType type : ExplosionType.values()) {
             if (type == ExplosionType.Center)
@@ -106,15 +106,15 @@ public class GameViewer extends JPanel {
             else
                 explosions[type.ordinal()] = factory.getOrientedSprite("explosion_"+type.name().toLowerCase());
         }
-        
+
         wallpaper = SpriteFactory.getInstance().getSprite("wallpaper");
-        
+
         showSpawningLocations = false;
-        
+
         cacheTileSize = 0;
-        
+
         lock = new Object();
-        
+
         setFocusable(true);
         setDoubleBuffered(true);
     }
@@ -142,7 +142,7 @@ public class GameViewer extends JPanel {
         scale = (double)Math.min(getWidth()/map.getColumnCount(), getHeight()/map.getRowCount())/map.getTileSize();
         final int width = scale(map.getColumnCount()*map.getTileSize());
         final int height = scale(map.getRowCount()*map.getTileSize());
-        
+
         if (draw == null || draw.getWidth() != width || draw.getHeight() != height) {
             GraphicsConfiguration gc = getGraphicsConfiguration();
             if (gc == null)
@@ -154,15 +154,15 @@ public class GameViewer extends JPanel {
     private int scale(int n) {
         return (int)(n*scale);
     }
-    
+
     private double scale(double n) {
         return n*scale;
     }
-    
+
     private Font scale(Font font, MapView map) {
         return font.deriveFont((float)scale(font.getSize()*map.getTileSize()/32));
     }
-    
+
     /**
      * Dessine la partie
      * @param worldView Vue de la partie
@@ -204,28 +204,28 @@ public class GameViewer extends JPanel {
         int size = scale(map.getTileSize());
         if (size <= 0)
             return;
-            
+
         if (cacheTileSize != size)
             updateCaches(size);
-        
+
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                            RenderingHints.VALUE_ANTIALIAS_ON);
-        
+
         {
             GridCoordinates gc = new GridCoordinates();
             for (gc.x = 0; gc.x < map.getColumnCount(); gc.x++) {
                 for (gc.y = 0; gc.y < map.getRowCount(); gc.y++) {
                     Image image;
                     if (map.getTileType(gc) == TileType.Bonus) {
-                        image = bonuses[map.getBonusType(gc).ordinal()].getImage(); 
+                        image = bonuses[map.getBonusType(gc).ordinal()].getImage();
                     } else if (map.getTileType(gc) == TileType.Arrow) {
                         g.drawImage(tiles[TileType.Empty.ordinal()].getImage(), gc.x*size, gc.y*size, null);
                         image = ((OrientedSprite)tiles[TileType.Arrow.ordinal()]).getOrientedImage(map.getArrowDirection(gc));
                     } else
                         image = tiles[map.getTileType(gc).ordinal()].getImage();
-                    
+
                     g.drawImage(image, gc.x*size, gc.y*size, null);
-                    
+
                     if (map.isExploding(gc)) {
                         if (map.getExplosionType(gc) != ExplosionType.Center)
                             g.drawImage(((OrientedSprite)explosions[map.getExplosionType(gc).ordinal()]).getOrientedImage(map.getExplosionDirection(gc)),
@@ -237,14 +237,14 @@ public class GameViewer extends JPanel {
                 }
             }
         }
-        
+
         if (showSpawningLocations) {
             g.setColor(Color.blue);
             List<GridCoordinates> spawningLocations = map.getSpawningLocations();
             for (int i = 0; i < spawningLocations.size(); i++) {
                 GridCoordinates gc = spawningLocations.get(i);
                 g.drawOval(gc.x*size, gc.y*size, size, size);
-                
+
                 drawCenteredString(g, String.valueOf(i+1), (int)scale(map.toCenterX(gc)), (int)scale(map.toCenterY(gc)));
             }
         }
@@ -254,7 +254,7 @@ public class GameViewer extends JPanel {
     private static double pingPong(double time, double length) {
         double l = 2 * length;
         double t = time % l;
-        
+
         if (0 <= t && t < length)
             return t;
         else
@@ -273,7 +273,7 @@ public class GameViewer extends JPanel {
         double interval = intervalMin + remaining*(intervalMax - intervalMin)/duration;
         return pingPong(duration - remaining, interval) > interval/2; //Ping pong sur la durée écoulée
     }
-    
+
     /**
      * Dessine la partie sur un Graphics2D
      * @param g Graphics2D sur lequel dessiner
@@ -292,7 +292,7 @@ public class GameViewer extends JPanel {
                 }
             }
         }
-        
+
         final int colorCount = PlayerColor.values().length;
         //Dessine les joueurs ensuite
         for (Entity entity : worldView.getEntities()) {
@@ -300,11 +300,11 @@ public class GameViewer extends JPanel {
                 int invulnerability = ((Character)entity).getInvulnerability();
                 if (worldView.getWarmupTimeRemaining() != 0 || invulnerability == 0 ||
                     invulnerability % (2*HIT_BLINK_INTERVAL*worldView.getFps()) >= HIT_BLINK_INTERVAL*worldView.getFps()) {
-                    
+
                     CharacterSprite sprite = defaultPlayer;
                     if (((Character)entity).getPlayer() != null && ((Character)entity).getPlayer().getID() >= 0)
                         sprite = players[((Character)entity).getPlayer().getID() % colorCount];
-                    
+
                     if (entity.getSpeed() == 0.)
                         drawEntity(g, entity, sprite.getStandingPlayer(entity.getDirection()));
                     else
@@ -312,7 +312,7 @@ public class GameViewer extends JPanel {
                 }
             }
         }
-        
+
         if (settings.tags) {
             //Dessine les noms en dernier
             for (Entity entity : worldView.getEntities()) {
@@ -341,14 +341,14 @@ public class GameViewer extends JPanel {
     /**
      * Met à jour l'affichage
      */
-    private void updateDisplay() {        
+    private void updateDisplay() {
         synchronized (lock) {
             VolatileImage cache = wait;
             wait = draw;
             draw = cache;
             updatePending = true;
         }
-    
+
         repaint();
     }
 
@@ -361,12 +361,12 @@ public class GameViewer extends JPanel {
             for (Sprite sprite : sprites)
                 sprite.setSize(size);
         }
-        
+
         for (CharacterSprite sprite : players)
             sprite.setSize(size);
-        
+
         defaultPlayer.setSize(size);
-        
+
         cacheTileSize = size;
     }
 
@@ -380,12 +380,23 @@ public class GameViewer extends JPanel {
     public static void drawCenteredString(Graphics g, String str, int centerX, int centerY) {
         if (str == null)
             return;
-        
-        int height = g.getFontMetrics().getHeight();
-        int width = g.getFontMetrics().stringWidth(str);
-        g.drawString(str, centerX-width/2, centerY+height/4);
+
+        String[] strs = str.split("\n");
+
+        if (strs.length == 1) {
+            int height = g.getFontMetrics().getHeight();
+            int width = g.getFontMetrics().stringWidth(str);
+            g.drawString(str, centerX-width/2, centerY+height/4);
+        } else {
+            int height = g.getFontMetrics().getHeight();
+            int offset = (height*strs.length)/2+height/4;
+            for (int i = 0; i < strs.length; i++) {
+                int width = g.getFontMetrics().stringWidth(strs[i]);
+                g.drawString(strs[i], centerX-width/2, centerY-offset+i*height);
+            }
+        }
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         if (updatePending) {
@@ -396,16 +407,16 @@ public class GameViewer extends JPanel {
                 updatePending = false;
             }
         }
-        
+
         int wallPaperSize = Math.max(getHeight(), getWidth());
         g.drawImage(wallpaper.getImage(wallPaperSize), 0, 0, null);
-        
+
         if (world != null)
             g.drawImage(world, (getWidth()-world.getWidth())/2, (getHeight()-world.getHeight())/2, null);
-        
+
         g.dispose();
     }
-    
+
     public double getScaleFactor() {
         return scale;
     }
@@ -415,7 +426,7 @@ public class GameViewer extends JPanel {
             return (getWidth()-world.getWidth())/2;
         return 0;
     }
-    
+
     public int getOffsetY() {
         if (world != null)
             return (getHeight()-world.getHeight())/2;

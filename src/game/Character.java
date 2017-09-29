@@ -285,6 +285,16 @@ public class Character extends Entity {
                     characterAbilities.set(CharacterAbility.Shield.ordinal(), false); // On enlève le Shield
                 } else {
                     decreaseLives(); //Perte d'une vie si les conditions sont vérifiées
+                    if (!isAlive()) {
+                        Character owner = world.getMap().getExplosionOwner(world.getMap().toGridCoordinates(x, y));
+                        if (owner != null && owner.getPlayer() != null) {
+                            if (owner == this)
+                                owner.getPlayer().decreaseScore();
+                            else
+                                owner.getPlayer().increaseScore();
+                        }
+                    }
+
                 }
             }
 

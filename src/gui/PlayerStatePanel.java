@@ -98,8 +98,11 @@ public class PlayerStatePanel extends JPanel {
      * @param player Joueur
      */
     void updatePlayerState() {
+        String nameText = "";
         if (player.getController() != null)
-            name.setText(player.getController().getName());
+            nameText = player.getController().getName();
+        nameText = nameText + " : " + player.getScore();
+        name.setText(nameText);
 
         Character character = player.getCharacter();
 

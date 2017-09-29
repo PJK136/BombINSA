@@ -36,11 +36,11 @@ public class Bomb extends Entity {
         this.duration = duration;
         this.timeRemaining = duration;
     }
-    
+
     /**
      * Construit une Bombe à partir du joueur qui l'a posée
      * @param world Monde dans lequel est la bombe
-     * @param owner Joueur à qui appartient la bombe 
+     * @param owner Joueur à qui appartient la bombe
      * @param duration Durée avant explosion (en ticks)
      */
     public Bomb(World world, Character owner, int duration) {
@@ -76,22 +76,26 @@ public class Bomb extends Entity {
     public int getTimeRemaining() {
         return this.timeRemaining;
     }
-    
+
+    Character getOwner() {
+        return owner;
+    }
+
     /**
      * Mise à jour de la bombe :
      * - Diminue le temps jusqu'à l'explosion
      * - Mise à jour de la position
      * - Vérifie si elle est sur une case avec flèche
-     * - Vérifie si la bombe doit exploser 
+     * - Vérifie si la bombe doit exploser
      */
     @Override
     void update() {
         // Decrease TimeRemaining
         timeRemaining -= 1;
-        
+
         // Update Position
         super.update();
-        
+
         // Update Marche sur une flèche (Déplacement dans la direction de la
         // flèche d'un nombre de case déterminé)
         if (this.world.getMap().getTileType(this.x, this.y) == TileType.Arrow) {
@@ -108,30 +112,30 @@ public class Bomb extends Entity {
             } else if ((this.direction == Direction.Left) && (this.x <= this.world.getMap().toCenterX(this.world.getMap().toGridCoordinates(this.x, this.y)))){
                 changeDir = true;
             }
-        
+
             if (changeDir) {
                 this.direction = this.world.getMap().getArrowDirection(this.x, this.y);
                 this.speed = BOMB_DEFAULT_SPEED*world.map.getTileSize()/world.getFps();
             }
         }
-        
+
         if (this.world.getMap().isExploding(this.x, this.y))
             timeRemaining /= 2;
-            
+
         // On vérifie le TimeRemaining et on fait exploser si nulle
         if (this.timeRemaining == 0) {
             this.world.createExplosion(this);
             remove();
         }
     }
-    
+
     @Override
     void remove() {
         if (owner != null)
             owner.decreaseBombCount();
         super.remove();
     }
-    
+
     @Override
     boolean canCollide(double x, double y) {
         if (!super.canCollide(x, y)) {

@@ -167,6 +167,11 @@ public class Map implements MapView {
     }
 
     @Override
+    public Character getExplosionOwner(GridCoordinates gc) {
+        return ((ExplodableTile)tiles[gc.x][gc.y]).getExplosionOwner();
+    }
+
+    @Override
     public TileType getTileType(GridCoordinates gc) {
         return tiles[gc.x][gc.y].getType();
     }
@@ -394,8 +399,8 @@ public class Map implements MapView {
         setArrowDirection(direction, toGridCoordinates(x, y));
     }
 
-    void setExplosion(int duration, ExplosionType type, Direction direction, GridCoordinates gc) {
-        ((ExplodableTile)tiles[gc.x][gc.y]).explode(duration, type, direction);
+    void setExplosion(int duration, ExplosionType type, Direction direction, Character owner, GridCoordinates gc) {
+        ((ExplodableTile)tiles[gc.x][gc.y]).explode(duration, type, direction, owner);
     }
 
     void setExplosionEnd(GridCoordinates gc) {

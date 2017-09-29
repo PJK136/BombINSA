@@ -328,6 +328,12 @@ public class Client extends World implements Listener {
                 for (Entity entity : (List<Entity>) object) {
                     addEntity(entity, entity.getID());
                 }
+            } else if (((List<?>) object).get(0) instanceof Player) {
+                for (Player player : (List<Player>) object) {
+                    Player target = players.get(player.id);
+                    if (target != null)
+                        target.score = player.score;
+                }
             } else {
                 System.err.println("Unexpected message list : " + object.getClass() + " / " + ((List<?>) object).get(0).getClass());
             }

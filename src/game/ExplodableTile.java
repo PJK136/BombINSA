@@ -8,11 +8,11 @@ import java.util.LinkedList;
  */
 public abstract class ExplodableTile extends Tile {
      ExplosionState externalState;
-     
+
      LinkedList<ExplosionState> explosionStates;
 
     public ExplodableTile() {
-        externalState = new ExplosionState(0, null, null);
+        externalState = new ExplosionState(0, null, null, null);
         explosionStates = new LinkedList<ExplosionState>();
     }
 
@@ -35,9 +35,13 @@ public abstract class ExplodableTile extends Tile {
     public Direction getExplosionDirection() {
         return externalState.direction;
     }
-    
+
     public int getExplosionTimeRemaining() {
         return externalState.timeRemaining;
+    }
+
+    public Character getExplosionOwner() {
+        return externalState.owner;
     }
 
     /**
@@ -48,7 +52,7 @@ public abstract class ExplodableTile extends Tile {
     @Override
     Tile update() {
         Iterator<ExplosionState> iterator = explosionStates.iterator();
-        
+
         boolean needUpdate = false;
         while (iterator.hasNext()) {
             ExplosionState state = iterator.next();
@@ -58,9 +62,9 @@ public abstract class ExplodableTile extends Tile {
                 needUpdate = true;
             }
         }
-        
+
         externalState.timeRemaining--;
-        
+
         if (needUpdate) {
             updateExternalState();
             if (explosionStates.isEmpty()) {
@@ -76,14 +80,14 @@ public abstract class ExplodableTile extends Tile {
      * @param type Type d'explosion
      * @param direction Direction de l'explosion
      */
-    void explode(int duration, ExplosionType type, Direction direction) {
-        ExplosionState state = new ExplosionState(duration, type, direction);
+    void explode(int duration, ExplosionType type, Direction direction, Character owner) {
+        ExplosionState state = new ExplosionState(duration, type, direction, owner);
         explosionStates.add(state);
         updateExternalState();
     }
 
     /**
-     * Met à jour la liste des explosions présentes sur la tuile 
+     * Met à jour la liste des explosions présentes sur la tuile
      * puis en déduit le type d'explosion que la tuile affiche et sa direction
      */
     private void updateExternalState() {
@@ -91,12 +95,13 @@ public abstract class ExplodableTile extends Tile {
             externalState.type = null;
             externalState.direction = null;
             externalState.timeRemaining = 0;
+            externalState.owner = null;
             return;
         }
-        
+
         externalState.type = ExplosionType.End;
         externalState.direction = explosionStates.get(0).direction;
-        
+
         for (ExplosionState state : explosionStates) {
             if (externalState.type != ExplosionType.Center) {
                 if (state.type == ExplosionType.Center || !Direction.doHaveSameAxis(externalState.direction, state.direction)) {
@@ -106,9 +111,11 @@ public abstract class ExplodableTile extends Tile {
                     externalState.type = ExplosionType.Branch;
                 } //Si state.type == End, alors soit explosionType l'est déjà, soit il n'est pas pris en compte
             }
-            
+
             externalState.timeRemaining = Math.max(externalState.timeRemaining, state.timeRemaining);
         }
+
+        externalState.owner = explosionStates.getLast().owner;
     }
 
     /**
@@ -128,10 +135,13 @@ public abstract class ExplodableTile extends Tile {
 
          Direction direction;
 
-        ExplosionState(int duration, ExplosionType type, Direction direction) {
+         Character owner;
+
+        ExplosionState(int duration, ExplosionType type, Direction direction, Character owner) {
             this.timeRemaining = duration;
             this.type = type;
             this.direction = direction;
+            this.owner = owner;
         }
 
     }

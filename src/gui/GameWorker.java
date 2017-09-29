@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import game.GameEvent;
 import game.GameListener;
 import game.GameState;
 import game.Local;
+import game.Player;
 import game.Server;
 import game.World;
 
@@ -159,8 +161,44 @@ public class GameWorker implements Runnable, GameListener {
                 }*/
             }
 
-            if (!stop && settings.gameType == GameType.Client && !((Client)world).isConnected())
-                showMessage("Déconnecté.", Color.darkGray, 5000);
+            if (!stop) {
+                if (settings.gameType == GameType.Client && !((Client)world).isConnected())
+                    showMessage("Déconnecté.", Color.darkGray, 5000);
+                else {
+                    List<Player> players = world.getPlayers();
+
+                    int max = 1;
+                    List<Player> winners = new ArrayList<>();
+
+                    for (Player player : players) {
+                        if (player.getScore() > max) {
+                            winners.clear();
+                            max = player.getScore();
+                        }
+
+                        if (player.getScore() == max) {
+                            winners.add(player);
+                        }
+                    }
+
+                    if (winners.isEmpty())
+                        showMessage("Fin de la partie !", Color.black, 5000);
+                    else if (winners.size() == 1) {
+                        PlayerColor[] colors = PlayerColor.values();
+                        Color color = colors[winners.get(0).getID() % colors.length].toColor();
+                        showMessage("Fin de la partie !\nLe gagnant est " + winners.get(0).getController().getName(), color, 5000);
+                    } else {
+                        StringBuilder builder = new StringBuilder("Fin de la partie !\n");
+                        builder.append("Les gagnants sont :\n");
+                        for (Player player : winners) {
+                            builder.append("- ");
+                            builder.append(player.getController().getName());
+                            builder.append("\n");
+                        }
+                        showMessage(builder.toString(), Color.black, 5000);
+                    }
+                }
+            }
 
             Audio.getInstance().stop();
         } catch (InterruptedException e) {

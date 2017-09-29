@@ -198,7 +198,7 @@ public class Local extends World {
             GridCoordinates explosionGC = new GridCoordinates(bombGC);
 
             if (map.isExplodable(explosionGC)) {
-                map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Center, null, explosionGC);
+                map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Center, null, bomb.getOwner(), explosionGC);
 
                 for (Direction direction : Direction.values()) {
                     explosionGC = bombGC;
@@ -207,7 +207,7 @@ public class Local extends World {
                     while (GridCoordinates.distance(bombGC, nextGC) <= bomb.getRange() &&
                             map.isInsideMap(nextGC) && !hasCollided && map.isExplodable(nextGC)) {
                         explosionGC = nextGC;
-                        map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, direction, explosionGC);
+                        map.setExplosion((int)(EXPLOSION_DURATION*fps), ExplosionType.Branch, direction, bomb.getOwner(), explosionGC);
                         hasCollided = map.isCollidable(explosionGC) || map.hasBomb(explosionGC);
                         nextGC = explosionGC.neighbor(direction);
                     }

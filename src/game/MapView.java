@@ -113,6 +113,8 @@ public interface MapView {
 
     int getExplosionTimeRemaining(GridCoordinates gc);
 
+    Character getExplosionOwner(GridCoordinates gc);
+
     TileType getTileType(GridCoordinates gc);
 
     TileType getTileType(double x, double y);

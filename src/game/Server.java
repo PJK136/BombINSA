@@ -97,6 +97,7 @@ public class Server extends Local implements Listener {
 
         if (!hasEnded && isRoundEnded()) {
             sendEntityUpdates();
+            sendScoreUpdates();
             sendMapUpdates();
             network.sendToAllTCP(new RoundEnded(getWinnerName(), getWinnerID()));
         }
@@ -117,6 +118,7 @@ public class Server extends Local implements Listener {
 
         if (timeRemaining % (fps/UPDATE_RATE) == 0) {
             sendEntityUpdates();
+            sendScoreUpdates();
             sendMapUpdates();
         }
 
@@ -131,6 +133,11 @@ public class Server extends Local implements Listener {
         List<Entity> updates = getEntities();
         for (int start = 0; start < updates.size(); start += 5)
             network.sendToAllUDP(new EntityUpdateList(timestamp, updates.subList(start, Math.min(start+5, updates.size()))));
+    }
+
+    private void sendScoreUpdates() {
+        List<Player> updates = getPlayers();
+        network.sendToAllUDP(updates);
     }
 
     private void sendMapUpdates() {
