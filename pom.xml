@@ -71,7 +71,7 @@
       <version>2.8.1</version>
     </dependency>
 	<dependency>
-	    <groupId>com.github.Pyeroh</groupId>
+	    <groupId>com.github.PJK136</groupId>
 	    <artifactId>kryonet</artifactId>
 	    <version>887a5966ac</version>
     </dependency>
